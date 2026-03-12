@@ -1,4 +1,3 @@
-import imageCompression from "browser-image-compression";
 import type { ToolPlugin, ToolResult } from "../types";
 
 const compressImage: ToolPlugin = {
@@ -22,6 +21,7 @@ const compressImage: ToolPlugin = {
 
   async process(files): Promise<ToolResult> {
     const file = files[0];
+    const { default: imageCompression } = await import("browser-image-compression");
     const compressed = await imageCompression(file, {
       maxSizeMB: 1,
       maxWidthOrHeight: 4096,

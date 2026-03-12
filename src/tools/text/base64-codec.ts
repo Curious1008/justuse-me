@@ -1,4 +1,5 @@
-import type { ToolPlugin, ToolResult } from "../types";
+import type { ToolPlugin, ToolResult, ToolOptions } from "../types";
+import Base64Options from "@/components/tool/options/Base64Options";
 
 const base64Codec: ToolPlugin = {
   id: "base64-codec",
@@ -19,13 +20,13 @@ const base64Codec: ToolPlugin = {
 
   runtime: "browser",
 
-  async process(files): Promise<ToolResult> {
+  optionsUI: Base64Options,
+
+  async process(files, options?: ToolOptions): Promise<ToolResult> {
     const file = files[0];
+    const mode = (options?.mode as string) || "encode";
 
-    // If file extension is .base64 or .b64, decode it
-    const isDecodeByName = /\.(base64|b64)$/i.test(file.name);
-
-    if (isDecodeByName) {
+    if (mode === "decode") {
       const text = await file.text();
       try {
         const binary = atob(text.trim());
@@ -35,15 +36,15 @@ const base64Codec: ToolPlugin = {
         }
         return {
           blob: new Blob([bytes]),
-          filename: file.name.replace(/\.(base64|b64)$/i, ""),
+          filename: file.name.replace(/\.(base64|b64|txt)$/i, "") || "decoded",
           mimeType: "application/octet-stream",
         };
       } catch {
-        throw new Error("Invalid Base64 content.");
+        throw new Error("Invalid Base64 content. Make sure the file contains valid Base64 text.");
       }
     }
 
-    // Otherwise, encode to Base64
+    // Encode to Base64
     const buffer = await file.arrayBuffer();
     const bytes = new Uint8Array(buffer);
     let binary = "";
