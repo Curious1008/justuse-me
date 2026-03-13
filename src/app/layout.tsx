@@ -20,10 +20,6 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://justuse.me"),
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: "/apple-touch-icon.svg",
-  },
 };
 
 export default function RootLayout({
