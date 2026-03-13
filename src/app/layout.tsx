@@ -3,6 +3,7 @@ import { Sora, DM_Sans } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const sora = Sora({
@@ -19,16 +20,19 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "JustUse.me — Free Online Tools",
+    default: "JustUse.me — Free Online PDF, Image & Text Tools",
     template: "%s | JustUse.me",
   },
   description:
-    "Clean, ad-free online tools. Merge PDFs, compress images, format JSON, and more. Your files never leave your device.",
+    "Free online tools to merge PDFs, compress images, format JSON, and 25+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
   metadataBase: new URL("https://justuse.me"),
+  alternates: {
+    canonical: "https://justuse.me",
+  },
   openGraph: {
     title: "JustUse.me — Free Online Tools",
     description:
-      "Clean, ad-free online tools. Merge PDFs, compress images, format JSON, and more. Privacy-first — files never leave your device.",
+      "30+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
     url: "https://justuse.me",
     siteName: "JustUse.me",
     type: "website",
@@ -37,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "JustUse.me — Free Online Tools",
     description:
-      "Clean, ad-free online tools. Privacy-first — files never leave your device.",
+      "30+ free tools. No ads, no sign-up. Files stay in your browser.",
   },
   icons: {
     icon: [
@@ -54,6 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body
         className={`${sora.variable} ${dmSans.variable} font-[family-name:var(--font-dm-sans)] min-h-screen flex flex-col`}
       >

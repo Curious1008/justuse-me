@@ -1,9 +1,19 @@
 import CategoryBubbles from "@/components/home/CategoryBubbles";
 import HeroGlow from "@/components/home/HeroGlow";
+import { generateSiteJsonLd } from "@/config/seo";
 
 export default function HomePage() {
+  const jsonLd = generateSiteJsonLd();
+
   return (
     <div className="max-w-xl mx-auto px-6 pt-16 pb-24 flex flex-col items-center gap-10 relative">
+      {jsonLd.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <HeroGlow />
 
       <div className="text-center space-y-2 relative z-10">

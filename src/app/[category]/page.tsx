@@ -30,9 +30,21 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
+  const label = categoryLabels[category] || "Tools";
+  const desc = categoryDescriptions[category] || "Free online tools.";
   return {
-    title: `${categoryLabels[category] || "Tools"} — JustUse.me`,
-    description: categoryDescriptions[category] || "Free online tools.",
+    title: `Free ${label} Online — No Ads, No Sign-up | JustUse.me`,
+    description: `${desc} Free, private, and works in your browser. No watermarks, no file uploads.`,
+    alternates: {
+      canonical: `https://justuse.me/${category}`,
+    },
+    openGraph: {
+      title: `${label} — JustUse.me`,
+      description: desc,
+      url: `https://justuse.me/${category}`,
+      type: "website",
+      siteName: "JustUse.me",
+    },
   };
 }
 
