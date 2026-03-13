@@ -2,8 +2,22 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 
+// Permanent Pro accounts — skip downgrade from Stripe webhooks
+const PERMANENT_PRO_EMAILS = new Set([
+  "nev901008@gmail.com",
+]);
+
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, { timeout: 10000 });
+}
+
+async function isPermanentPro(supabase: Awaited<ReturnType<typeof createServiceClient>>, stripeSubId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("profiles")
+    .select("email")
+    .eq("stripe_subscription_id", stripeSubId)
+    .single();
+  return !!data?.email && PERMANENT_PRO_EMAILS.has(data.email);
 }
 
 export async function POST(request: Request) {
@@ -51,8 +65,10 @@ export async function POST(request: Request) {
       const sub = event.data.object as Stripe.Subscription;
       const status = sub.status;
 
-      // Keep pro during past_due (Stripe retries payment). Only downgrade on canceled/unpaid.
       const plan = status === "active" || status === "past_due" ? "pro" : "free";
+
+      // Skip downgrade for permanent Pro accounts
+      if (plan === "free" && await isPermanentPro(supabase, sub.id)) break;
 
       await supabase
         .from("profiles")
@@ -67,6 +83,9 @@ export async function POST(request: Request) {
 
     case "customer.subscription.deleted": {
       const sub = event.data.object as Stripe.Subscription;
+
+      // Skip downgrade for permanent Pro accounts
+      if (await isPermanentPro(supabase, sub.id)) break;
 
       await supabase
         .from("profiles")
