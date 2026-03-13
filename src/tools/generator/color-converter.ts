@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import ColorPreview from "@/components/tool/previews/ColorPreview";
 
 const colorConverter: ToolPlugin = {
   id: "color-converter",
@@ -21,6 +22,8 @@ const colorConverter: ToolPlugin = {
   maxFileSize: 1 * 1024 * 1024,
 
   runtime: "browser",
+
+  previewUI: ColorPreview,
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();

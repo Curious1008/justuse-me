@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const pdfToText: ToolPlugin = {
   id: "pdf-to-text",
@@ -18,6 +19,8 @@ const pdfToText: ToolPlugin = {
   maxFileSize: 50 * 1024 * 1024,
 
   runtime: "browser",
+
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     // Dynamic import to avoid server-side DOMMatrix error

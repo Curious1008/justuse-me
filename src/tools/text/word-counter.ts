@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const wordCounter: ToolPlugin = {
   id: "word-counter",
@@ -20,6 +21,8 @@ const wordCounter: ToolPlugin = {
 
   runtime: "browser",
 
+  previewUI: TextPreview,
+
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();
 
@@ -29,19 +32,18 @@ const wordCounter: ToolPlugin = {
     const sentences = text.split(/[.!?]+/).filter((s) => s.trim()).length;
     const paragraphs = text.split(/\n\n+/).filter((p) => p.trim()).length;
     const lines = text.split("\n").length;
+    const readingTimeMin = Math.max(1, Math.ceil(words / 238));
+    const speakingTimeMin = Math.max(1, Math.ceil(words / 150));
 
     const report = [
-      `Word Count Report`,
-      `=================`,
-      ``,
       `Words:                 ${words.toLocaleString()}`,
       `Characters:            ${characters.toLocaleString()}`,
       `Characters (no space): ${charactersNoSpaces.toLocaleString()}`,
       `Sentences:             ${sentences.toLocaleString()}`,
       `Paragraphs:            ${paragraphs.toLocaleString()}`,
       `Lines:                 ${lines.toLocaleString()}`,
-      ``,
-      `File: ${files[0].name}`,
+      `Reading time:          ~${readingTimeMin} min`,
+      `Speaking time:         ~${speakingTimeMin} min`,
     ].join("\n");
 
     return {

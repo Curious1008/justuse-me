@@ -18,9 +18,33 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "JustUse.me — Free Online Tools",
+  title: {
+    default: "JustUse.me — Free Online Tools",
+    template: "%s | JustUse.me",
+  },
   description:
     "Clean, ad-free online tools. Merge PDFs, compress images, format JSON, and more. Your files never leave your device.",
+  metadataBase: new URL("https://justuse.me"),
+  openGraph: {
+    title: "JustUse.me — Free Online Tools",
+    description:
+      "Clean, ad-free online tools. Merge PDFs, compress images, format JSON, and more. Privacy-first — files never leave your device.",
+    url: "https://justuse.me",
+    siteName: "JustUse.me",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "JustUse.me — Free Online Tools",
+    description:
+      "Clean, ad-free online tools. Privacy-first — files never leave your device.",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.svg",
+  },
 };
 
 export default function RootLayout({

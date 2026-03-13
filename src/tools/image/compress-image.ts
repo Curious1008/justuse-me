@@ -1,4 +1,5 @@
-import type { ToolPlugin, ToolResult } from "../types";
+import type { ToolPlugin, ToolResult, ToolOptions } from "../types";
+import CompressOptions from "@/components/tool/options/CompressOptions";
 
 const compressImage: ToolPlugin = {
   id: "compress-image",
@@ -18,12 +19,16 @@ const compressImage: ToolPlugin = {
   maxFileSize: 50 * 1024 * 1024,
 
   runtime: "browser",
+  optionsUI: CompressOptions,
 
-  async process(files): Promise<ToolResult> {
+  async process(files, options?: ToolOptions): Promise<ToolResult> {
     const file = files[0];
+    const quality = ((options?.quality as number) ?? 80) / 100;
+
     const { default: imageCompression } = await import("browser-image-compression");
     const compressed = await imageCompression(file, {
-      maxSizeMB: 1,
+      maxSizeMB: quality >= 0.95 ? 50 : Math.max(0.05, quality * 2),
+      initialQuality: quality,
       maxWidthOrHeight: 4096,
       useWebWorker: true,
     });

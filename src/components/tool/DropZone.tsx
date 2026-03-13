@@ -25,6 +25,7 @@ export default function DropZone({
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [staged, setStaged] = useState<File[]>([]);
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
 
   const isMultiFile = maxFiles > 1;
 
@@ -80,6 +81,16 @@ export default function DropZone({
 
   const removeFile = useCallback((index: number) => {
     setStaged((prev) => prev.filter((_, i) => i !== index));
+  }, []);
+
+  const handleReorder = useCallback((fromIdx: number, toIdx: number) => {
+    if (fromIdx === toIdx) return;
+    setStaged((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(fromIdx, 1);
+      next.splice(toIdx, 0, moved);
+      return next;
+    });
   }, []);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -196,8 +207,43 @@ export default function DropZone({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 12 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border border-[var(--color-border)]"
+                draggable
+                onDragStart={(e) => {
+                  setDragIdx(i);
+                  const evt = e as unknown as React.DragEvent;
+                  evt.dataTransfer.effectAllowed = "move";
+                  evt.dataTransfer.setData("text/plain", String(i));
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  (e as unknown as React.DragEvent).dataTransfer.dropEffect = "move";
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (dragIdx !== null) {
+                    handleReorder(dragIdx, i);
+                  }
+                  setDragIdx(null);
+                }}
+                onDragEnd={() => setDragIdx(null)}
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border transition-all ${
+                  dragIdx === i
+                    ? "border-[var(--color-accent)] opacity-50"
+                    : "border-[var(--color-border)]"
+                }`}
               >
+                {/* Drag handle */}
+                <div className="cursor-grab active:cursor-grabbing shrink-0 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="9" cy="6" r="1.5" />
+                    <circle cx="15" cy="6" r="1.5" />
+                    <circle cx="9" cy="12" r="1.5" />
+                    <circle cx="15" cy="12" r="1.5" />
+                    <circle cx="9" cy="18" r="1.5" />
+                    <circle cx="15" cy="18" r="1.5" />
+                  </svg>
+                </div>
                 <div className="w-8 h-8 rounded-lg bg-[var(--color-surface-elevated)] flex items-center justify-center shrink-0">
                   <svg className="w-4 h-4 text-[var(--color-text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />

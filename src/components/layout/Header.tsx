@@ -30,14 +30,8 @@ export default function Header() {
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
             className="flex items-center gap-2.5"
           >
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)] flex items-center justify-center shadow-sm">
-              <span className="text-white text-xs font-bold font-[family-name:var(--font-sora)]">
-                J
-              </span>
-            </div>
-            <span className="text-lg font-semibold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)]">
-              JustUse
-              <span className="text-[var(--color-text-muted)]">.me</span>
+            <span className="text-lg font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)]">
+              justuse<span className="text-[var(--color-accent)]">.me</span>
             </span>
           </motion.div>
         </Link>

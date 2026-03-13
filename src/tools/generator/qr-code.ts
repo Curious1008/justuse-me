@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import QRPreview from "@/components/tool/previews/QRPreview";
 
 const qrCode: ToolPlugin = {
   id: "qr-code",
@@ -21,6 +22,8 @@ const qrCode: ToolPlugin = {
   maxFileSize: 1 * 1024 * 1024,
 
   runtime: "browser",
+
+  previewUI: QRPreview,
 
   async process(files): Promise<ToolResult> {
     const text = (await files[0].text()).trim();
