@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 32, height: 32 };
+export const size = { width: 48, height: 48 };
 export const contentType = "image/png";
 
 export default function Icon() {
@@ -8,9 +8,9 @@ export default function Icon() {
     (
       <div
         style={{
-          width: 32,
-          height: 32,
-          borderRadius: 8,
+          width: 48,
+          height: 48,
+          borderRadius: 12,
           background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
           display: "flex",
           alignItems: "center",
@@ -22,23 +22,23 @@ export default function Icon() {
         <div
           style={{
             position: "absolute",
-            bottom: 6,
-            right: 7,
-            width: 6,
-            height: 6,
-            borderRadius: 3,
+            bottom: 9,
+            right: 10,
+            width: 9,
+            height: 9,
+            borderRadius: 5,
             background: "linear-gradient(135deg, #2DD4BF 0%, #0D9488 100%)",
           }}
         />
         {/* J letterform */}
         <span
           style={{
-            fontSize: 19,
+            fontSize: 28,
             fontWeight: 700,
             color: "#F1F5F9",
             lineHeight: 1,
             letterSpacing: -1,
-            marginTop: -2,
+            marginTop: -3,
             marginRight: 1,
           }}
         >
