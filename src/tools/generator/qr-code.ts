@@ -12,9 +12,11 @@ const qrCode: ToolPlugin = {
     "qr code maker",
     "barcode",
   ],
-  icon: "📱",
+  icon: "\u{1F4F1}",
 
-  acceptedTypes: ["text/plain", ".txt"],
+  inputMode: "text",
+  textPlaceholder: "Enter text or URL to generate QR code...",
+  acceptedTypes: ["text/plain"],
   maxFiles: 1,
   maxFileSize: 1 * 1024 * 1024,
 
@@ -24,7 +26,7 @@ const qrCode: ToolPlugin = {
     const text = (await files[0].text()).trim();
 
     if (!text) {
-      throw new Error("File is empty. Please provide text or a URL to encode.");
+      throw new Error("Please provide text or a URL to encode.");
     }
 
     const QRCode = (await import("qrcode")).default;
@@ -33,7 +35,6 @@ const qrCode: ToolPlugin = {
       margin: 2,
     });
 
-    // Convert data URL to Blob
     const response = await fetch(dataUrl);
     const blob = await response.blob();
 

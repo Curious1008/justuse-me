@@ -12,9 +12,11 @@ const colorConverter: ToolPlugin = {
     "color picker",
     "hsl converter",
   ],
-  icon: "🎨",
+  icon: "\u{1F3A8}",
 
-  acceptedTypes: ["text/plain", ".txt"],
+  inputMode: "text",
+  textPlaceholder: "Enter a color (e.g. #ff6600, rgb(255,102,0), teal)...",
+  acceptedTypes: ["text/plain"],
   maxFiles: 1,
   maxFileSize: 1 * 1024 * 1024,
 
@@ -28,7 +30,7 @@ const colorConverter: ToolPlugin = {
       .filter((l) => l.length > 0);
 
     if (lines.length === 0) {
-      throw new Error("File is empty. Please provide one color per line.");
+      throw new Error("Please enter a color value.");
     }
 
     const results: string[] = [];

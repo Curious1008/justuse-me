@@ -20,6 +20,8 @@ export interface ToolPlugin {
   icon: string;
 
   // Input config
+  inputMode?: "file" | "text"; // default: "file"
+  textPlaceholder?: string; // placeholder for text input mode
   acceptedTypes: string[];
   maxFiles: number;
   maxFileSize?: number; // bytes

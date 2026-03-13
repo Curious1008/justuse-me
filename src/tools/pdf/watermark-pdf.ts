@@ -1,5 +1,6 @@
 import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
+import WatermarkOptions from "@/components/tool/options/WatermarkOptions";
 
 const watermarkPdf: ToolPlugin = {
   id: "watermark-pdf",
@@ -14,6 +15,7 @@ const watermarkPdf: ToolPlugin = {
   maxFileSize: 50 * 1024 * 1024,
 
   runtime: "browser",
+  optionsUI: WatermarkOptions,
 
   async process(files, options): Promise<ToolResult> {
     const text = (options?.text as string) || "CONFIDENTIAL";

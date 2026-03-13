@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { getToolById, getAllTools } from "@/tools/registry";
 import { generateToolMetadata } from "@/config/seo";
 import ToolPageClient from "./client";
-import ToolPageIcon from "./icon";
 
 interface Props {
   params: Promise<{ toolId: string }>;
@@ -29,16 +28,13 @@ export default async function ToolPage({ params }: Props) {
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
       <div className="text-center mb-12">
-        <div className="mb-4 flex justify-center">
-          <ToolPageIcon toolId={toolId} fallbackEmoji={tool.icon} />
-        </div>
         <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-2">
           {tool.name}
         </h1>
         <p className="text-[var(--color-text-secondary)] text-sm">
           {tool.description}
         </p>
-        {tool.runtime === "browser" && (
+        {tool.runtime === "browser" && !tool.inputMode && (
           <div className="flex items-center justify-center gap-1.5 mt-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
             <p className="text-xs text-[var(--color-accent)]">

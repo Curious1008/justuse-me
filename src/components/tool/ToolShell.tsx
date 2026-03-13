@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { checkUsage, logUsage } from "@/lib/usage";
 import { getAnonId } from "@/lib/anon-id";
 import DropZone from "./DropZone";
+import TextInput from "./TextInput";
 import ProcessingAnimation from "./ProcessingAnimation";
 import DownloadButton from "./DownloadButton";
 import UsageLimitModal from "./UsageLimitModal";
@@ -128,12 +129,19 @@ export default function ToolShell({ tool }: ToolShellProps) {
       <AnimatePresence mode="wait">
         {state === "idle" && (
           <motion.div key="dropzone" {...transition}>
-            <DropZone
-              acceptedTypes={tool.acceptedTypes}
-              maxFiles={tool.maxFiles}
-              maxFileSize={tool.maxFileSize}
-              onFiles={handleFiles}
-            />
+            {tool.inputMode === "text" ? (
+              <TextInput
+                placeholder={tool.textPlaceholder}
+                onSubmit={handleFiles}
+              />
+            ) : (
+              <DropZone
+                acceptedTypes={tool.acceptedTypes}
+                maxFiles={tool.maxFiles}
+                maxFileSize={tool.maxFileSize}
+                onFiles={handleFiles}
+              />
+            )}
           </motion.div>
         )}
 

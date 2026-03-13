@@ -1,5 +1,6 @@
 import { PDFDocument, degrees } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
+import RotateOptions from "@/components/tool/options/RotateOptions";
 
 const rotatePdf: ToolPlugin = {
   id: "rotate-pdf",
@@ -14,6 +15,7 @@ const rotatePdf: ToolPlugin = {
   maxFileSize: 50 * 1024 * 1024,
 
   runtime: "browser",
+  optionsUI: RotateOptions,
 
   async process(files, options): Promise<ToolResult> {
     const angle = (options?.degrees as number) || 90;
