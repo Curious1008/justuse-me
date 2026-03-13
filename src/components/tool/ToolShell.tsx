@@ -109,6 +109,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
     setState("idle");
     setResult(null);
     setError(null);
+    setOptions({});
   };
 
   const transition = {
@@ -132,6 +133,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
             {tool.inputMode === "text" ? (
               <TextInput
                 placeholder={tool.textPlaceholder}
+                buttonLabel={tool.textButtonLabel}
                 onSubmit={handleFiles}
               />
             ) : (
@@ -192,7 +194,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
               whileTap={{ scale: 0.98 }}
               className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors underline underline-offset-4 decoration-[var(--color-border)]"
             >
-              Process another file
+              {tool.inputMode === "text" ? "Try again" : "Process another file"}
             </motion.button>
           </motion.div>
         )}

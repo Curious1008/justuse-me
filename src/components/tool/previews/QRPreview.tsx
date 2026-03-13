@@ -1,19 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import type { ToolResult } from "@/tools/types";
 
 export default function QRPreview({ result }: { result: ToolResult }) {
-  const [src, setSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    const url = URL.createObjectURL(result.blob);
-    setSrc(url);
-    return () => URL.revokeObjectURL(url);
-  }, [result.blob]);
-
-  if (!src) return null;
+  const src = useMemo(() => URL.createObjectURL(result.blob), [result.blob]);
 
   return (
     <motion.div

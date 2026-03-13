@@ -17,6 +17,7 @@ const colorConverter: ToolPlugin = {
 
   inputMode: "text",
   textPlaceholder: "Enter a color (e.g. #ff6600, rgb(255,102,0), teal)...",
+  textButtonLabel: "Convert",
   acceptedTypes: ["text/plain"],
   maxFiles: 1,
   maxFileSize: 1 * 1024 * 1024,

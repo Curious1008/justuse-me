@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 
 interface TextInputProps {
   placeholder?: string;
+  buttonLabel?: string;
   onSubmit: (files: File[]) => void;
 }
 
-export default function TextInput({ placeholder, onSubmit }: TextInputProps) {
+export default function TextInput({ placeholder, buttonLabel, onSubmit }: TextInputProps) {
   const [value, setValue] = useState("");
 
   const handleSubmit = useCallback(() => {
@@ -30,16 +31,15 @@ export default function TextInput({ placeholder, onSubmit }: TextInputProps) {
 
   return (
     <div className="w-full">
-      <div className="relative">
-        <textarea
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder || "Enter text..."}
-          rows={3}
-          className="w-full px-5 py-4 rounded-2xl border-2 border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors resize-none"
-        />
-      </div>
+      <textarea
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder || "Enter text..."}
+        rows={3}
+        aria-label={placeholder || "Enter text"}
+        className="w-full px-5 py-4 rounded-2xl border-2 border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors resize-none"
+      />
       <motion.button
         onClick={handleSubmit}
         disabled={!value.trim()}
@@ -48,7 +48,7 @@ export default function TextInput({ placeholder, onSubmit }: TextInputProps) {
         transition={{ type: "spring", stiffness: 400, damping: 22 }}
         className="w-full mt-3 py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)] disabled:opacity-40 disabled:cursor-not-allowed"
       >
-        Generate
+        {buttonLabel || "Generate"}
       </motion.button>
     </div>
   );
