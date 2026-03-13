@@ -12,7 +12,7 @@ function PricingContent() {
   const success = searchParams.get("success");
   const canceled = searchParams.get("canceled");
 
-  const isPro = profile?.plan === "pro";
+  const isPro = profile?.plan === "pro" || !!success;
 
   const handleUpgrade = async () => {
     if (!user) {
