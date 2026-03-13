@@ -1,20 +1,24 @@
 import CategoryBubbles from "@/components/home/CategoryBubbles";
-import PopularTools from "@/components/home/PopularTools";
+import HeroGlow from "@/components/home/HeroGlow";
 
 export default function HomePage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-20 flex flex-col items-center gap-16">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
-          What do you need to do?
+    <div className="max-w-xl mx-auto px-6 pt-16 pb-24 flex flex-col items-center gap-10 relative">
+      <HeroGlow />
+
+      <div className="text-center space-y-2 relative z-10">
+        <h1 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] tracking-tight leading-[1.15] text-[var(--color-text)]">
+          Get things done,{" "}
+          <span className="bg-gradient-to-r from-[var(--color-accent)] to-teal-400 bg-clip-text text-transparent">
+            effortlessly.
+          </span>
         </h1>
-        <p className="text-gray-500">
-          Free online tools. No ads. No sign-up. Just use it.
+        <p className="text-sm text-[var(--color-text-muted)]">
+          Everyday file tools, ready when you are.
         </p>
       </div>
 
       <CategoryBubbles />
-      <PopularTools />
     </div>
   );
 }

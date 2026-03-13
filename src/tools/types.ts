@@ -1,4 +1,4 @@
-export type Category = "pdf" | "image" | "video" | "text";
+export type Category = "pdf" | "image" | "text" | "convert" | "generator";
 
 export interface ToolOptions {
   [key: string]: unknown;

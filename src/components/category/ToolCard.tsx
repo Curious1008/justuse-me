@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import ToolIcon from "@/components/tool/ToolIcon";
 
 interface ToolCardProps {
   id: string;
@@ -10,18 +11,27 @@ interface ToolCardProps {
   icon: string;
 }
 
-export default function ToolCard({ id, name, description, icon }: ToolCardProps) {
+export default function ToolCard({
+  id,
+  name,
+  description,
+  icon,
+}: ToolCardProps) {
   return (
     <Link href={`/tools/${id}`}>
       <motion.div
-        whileHover={{ scale: 1.03, y: -3 }}
+        whileHover={{ scale: 1.03, y: -4 }}
         whileTap={{ scale: 0.97 }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-md cursor-pointer text-center"
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        className="group relative flex flex-col items-center gap-3 p-6 rounded-2xl border border-[var(--color-border)] bg-white hover:border-[var(--color-accent)] cursor-pointer text-center transition-all duration-300 overflow-hidden hover:shadow-md hover:shadow-black/[0.03]"
       >
-        <span className="text-4xl">{icon}</span>
-        <h3 className="font-semibold text-gray-800">{name}</h3>
-        <p className="text-sm text-gray-500">{description}</p>
+        <div className="relative z-10"><ToolIcon toolId={id} fallbackEmoji={icon} /></div>
+        <h3 className="font-semibold text-sm font-[family-name:var(--font-sora)] text-[var(--color-text)] relative z-10">
+          {name}
+        </h3>
+        <p className="text-xs text-[var(--color-text-muted)] leading-relaxed relative z-10">
+          {description}
+        </p>
       </motion.div>
     </Link>
   );

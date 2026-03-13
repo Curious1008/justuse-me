@@ -1,0 +1,39 @@
+import type { ToolPlugin, ToolResult } from "../types";
+
+const pngToJpg: ToolPlugin = {
+  id: "png-to-jpg",
+  category: "image",
+  name: "PNG to JPG",
+  description: "Convert PNG images to JPG format.",
+  keywords: ["png to jpg", "png to jpeg", "convert png", "image converter"],
+  icon: "\u{1F5BC}\uFE0F",
+
+  acceptedTypes: ["image/png"],
+  maxFiles: 1,
+  maxFileSize: 50 * 1024 * 1024,
+
+  runtime: "browser",
+
+  async process(files): Promise<ToolResult> {
+    const file = files[0];
+    const bitmap = await createImageBitmap(file);
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(bitmap, 0, 0);
+
+    const blob = await new Promise<Blob>((resolve) =>
+      canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.92)
+    );
+
+    const baseName = file.name.replace(/\.png$/i, "");
+    return {
+      blob,
+      filename: `${baseName}.jpg`,
+      mimeType: "image/jpeg",
+    };
+  },
+};
+
+export default pngToJpg;

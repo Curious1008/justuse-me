@@ -8,12 +8,16 @@ const categoryLabels: Record<string, string> = {
   pdf: "PDF Tools",
   image: "Image Tools",
   text: "Text & Code Tools",
+  convert: "Converter Tools",
+  generator: "Generator Tools",
 };
 
 const categoryDescriptions: Record<string, string> = {
   pdf: "Merge, split, compress, and convert PDFs online for free.",
   image: "Compress, resize, and convert images instantly.",
   text: "Format JSON, count words, encode/decode Base64, and more.",
+  convert: "Convert between CSV, JSON, YAML, XML, and other formats.",
+  generator: "Generate QR codes, color palettes, and more.",
 };
 
 interface Props {
@@ -40,13 +44,17 @@ export default async function CategoryPage({ params }: Props) {
   const tools = getToolsByCategory(category as Category);
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold tracking-tight mb-2">
-        {categoryLabels[category]}
-      </h1>
-      <p className="text-gray-500 mb-10">{categoryDescriptions[category]}</p>
+    <div className="max-w-3xl mx-auto px-6 py-20">
+      <div className="mb-12">
+        <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">
+          {categoryLabels[category]}
+        </h1>
+        <p className="text-[var(--color-text-secondary)]">
+          {categoryDescriptions[category]}
+        </p>
+      </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {tools.map((tool) => (
           <ToolCard
             key={tool.id}
