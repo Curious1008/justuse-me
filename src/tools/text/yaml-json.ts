@@ -23,7 +23,7 @@ const yamlJson: ToolPlugin = {
     "text/plain",
   ],
   maxFiles: 1,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
 

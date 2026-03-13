@@ -16,15 +16,15 @@ const resizeImage: ToolPlugin = {
 
   acceptedTypes: ["image/jpeg", "image/png", "image/webp"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
   optionsUI: ResizeOptions,
 
   async process(files, options?: ToolOptions): Promise<ToolResult> {
     const file = files[0];
-    const width = Number(options?.width) || 800;
-    const height = Number(options?.height) || 600;
+    const width = Math.min(Math.max(Number(options?.width) || 800, 1), 8000);
+    const height = Math.min(Math.max(Number(options?.height) || 600, 1), 8000);
 
     const bitmap = await createImageBitmap(file);
     const canvas = document.createElement("canvas");

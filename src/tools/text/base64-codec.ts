@@ -20,6 +20,7 @@ const base64Codec: ToolPlugin = {
 
   runtime: "browser",
 
+  optionsBefore: true,
   optionsUI: Base64Options,
 
   async process(files, options?: ToolOptions): Promise<ToolResult> {

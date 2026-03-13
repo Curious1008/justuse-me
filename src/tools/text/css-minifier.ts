@@ -30,7 +30,7 @@ const cssMinifier: ToolPlugin = {
 
   acceptedTypes: ["text/css", ".css"],
   maxFiles: 1,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
 

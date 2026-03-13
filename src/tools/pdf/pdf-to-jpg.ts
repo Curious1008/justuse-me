@@ -15,7 +15,7 @@ const pdfToJpg: ToolPlugin = {
 
   acceptedTypes: ["application/pdf"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
 
@@ -30,6 +30,9 @@ const pdfToJpg: ToolPlugin = {
     const bytes = await files[0].arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
     const pageCount = pdf.numPages;
+    if (pageCount > 100) {
+      throw new Error("PDF has too many pages (max 100). Please split the file first.");
+    }
 
     const renderPage = async (pageNum: number): Promise<Blob> => {
       const page = await pdf.getPage(pageNum);

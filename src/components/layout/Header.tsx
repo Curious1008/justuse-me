@@ -45,6 +45,14 @@ export default function Header() {
               Pricing
             </motion.span>
           </Link>
+          <Link href="/contact">
+            <motion.span
+              whileHover={{ color: "var(--color-accent)" }}
+              className="text-sm text-[var(--color-text-secondary)] transition-colors"
+            >
+              Contact
+            </motion.span>
+          </Link>
 
           {loading ? (
             <div className="w-8 h-8 rounded-full bg-[var(--color-surface-elevated)] animate-pulse" />

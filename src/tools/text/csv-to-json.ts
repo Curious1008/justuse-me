@@ -16,7 +16,7 @@ const csvToJson: ToolPlugin = {
 
   acceptedTypes: ["text/csv", ".csv", "application/vnd.ms-excel"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 10 * 1024 * 1024,
 
   runtime: "browser",
 

@@ -23,9 +23,17 @@ function PricingContent() {
     setCheckoutLoading(true);
     try {
       const res = await fetch("/api/stripe/checkout", { method: "POST" });
-      const { url } = await res.json();
-      if (url) window.location.href = url;
-    } catch {
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("Checkout error:", data);
+        alert(data.error || "Failed to start checkout");
+        setCheckoutLoading(false);
+      }
+    } catch (err) {
+      console.error("Checkout fetch error:", err);
+      alert("Network error. Please try again.");
       setCheckoutLoading(false);
     }
   };
@@ -148,7 +156,7 @@ function PricingContent() {
           </h2>
           <div className="flex items-baseline gap-1 mb-8">
             <span className="text-3xl font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)]">
-              $9.9
+              $4.99
             </span>
             <span className="text-sm text-[var(--color-text-muted)]">/month</span>
           </div>

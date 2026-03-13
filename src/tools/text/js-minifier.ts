@@ -30,7 +30,7 @@ const jsMinifier: ToolPlugin = {
 
   acceptedTypes: ["text/javascript", "application/javascript", ".js", ".mjs"],
   maxFiles: 1,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
 

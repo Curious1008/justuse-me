@@ -16,13 +16,16 @@ const markdownToHtml: ToolPlugin = {
 
   acceptedTypes: ["text/markdown", ".md", "text/plain"],
   maxFiles: 1,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();
     const body = await marked.parse(text);
+    const sanitized = body.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/on\w+\s*=\s*["'][^"']*["']/gi, '')
+      .replace(/javascript:/gi, '');
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -32,7 +35,7 @@ const markdownToHtml: ToolPlugin = {
 <style>body{font-family:sans-serif;max-width:800px;margin:0 auto;padding:2rem;}</style>
 </head>
 <body>
-${body}
+${sanitized}
 </body>
 </html>`;
 

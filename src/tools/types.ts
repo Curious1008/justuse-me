@@ -33,10 +33,14 @@ export interface ToolPlugin {
   // Processing
   process: (files: File[], options?: ToolOptions) => Promise<ToolResult>;
 
+  // When true, optionsUI is shown before file upload (e.g. Base64 encode/decode toggle)
+  optionsBefore?: boolean;
+
   // Optional custom UI components (lazy-loaded)
   optionsUI?: React.ComponentType<{
     options: ToolOptions;
     onChange: (opts: ToolOptions) => void;
+    fileInfo?: Record<string, unknown>;
   }>;
   previewUI?: React.ComponentType<{ result: ToolResult }>;
 }

@@ -29,7 +29,7 @@ const diffChecker: ToolPlugin = {
     "text/csv",
   ],
   maxFiles: 2,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 2 * 1024 * 1024,
 
   runtime: "browser",
 
@@ -56,12 +56,17 @@ const diffChecker: ToolPlugin = {
     const linesA = textA.split("\n");
     const linesB = textB.split("\n");
 
+    const maxLines = 5000;
+    if (linesA.length > maxLines || linesB.length > maxLines) {
+      throw new Error(`Files too large for diff (max ${maxLines} lines each).`);
+    }
+
     const escapeHtml = (s: string) =>
       s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    const maxLines = Math.max(linesA.length, linesB.length);
+    const totalLines = Math.max(linesA.length, linesB.length);
     let rows = "";
-    for (let i = 0; i < maxLines; i++) {
+    for (let i = 0; i < totalLines; i++) {
       const lineA = i < linesA.length ? linesA[i] : "";
       const lineB = i < linesB.length ? linesB[i] : "";
       const isDiff = lineA !== lineB;

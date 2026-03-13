@@ -16,7 +16,7 @@ const pdfToText: ToolPlugin = {
 
   acceptedTypes: ["application/pdf"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
 
@@ -30,6 +30,9 @@ const pdfToText: ToolPlugin = {
     const bytes = await files[0].arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
     const pageCount = pdf.numPages;
+    if (pageCount > 200) {
+      throw new Error("PDF has too many pages (max 200). Please split the file first.");
+    }
     const textParts: string[] = [];
 
     for (let i = 1; i <= pageCount; i++) {

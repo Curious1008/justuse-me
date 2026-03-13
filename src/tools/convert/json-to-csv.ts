@@ -16,7 +16,7 @@ const jsonToCsv: ToolPlugin = {
 
   acceptedTypes: ["application/json", ".json"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 10 * 1024 * 1024,
 
   runtime: "browser",
 

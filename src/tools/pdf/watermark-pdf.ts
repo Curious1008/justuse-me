@@ -12,13 +12,13 @@ const watermarkPdf: ToolPlugin = {
 
   acceptedTypes: ["application/pdf"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
   optionsUI: WatermarkOptions,
 
   async process(files, options): Promise<ToolResult> {
-    const text = (options?.text as string) || "CONFIDENTIAL";
+    const text = ((options?.text as string) || "CONFIDENTIAL").slice(0, 100);
 
     const bytes = await files[0].arrayBuffer();
     const pdf = await PDFDocument.load(bytes);

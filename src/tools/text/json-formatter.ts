@@ -16,7 +16,7 @@ const jsonFormatter: ToolPlugin = {
 
   acceptedTypes: ["application/json", ".json", ".txt"],
   maxFiles: 1,
-  maxFileSize: 10 * 1024 * 1024,
+  maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
 

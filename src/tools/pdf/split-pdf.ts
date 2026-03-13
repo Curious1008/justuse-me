@@ -61,7 +61,7 @@ const splitPdf: ToolPlugin = {
 
   acceptedTypes: ["application/pdf"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
   optionsUI: SplitOptions,

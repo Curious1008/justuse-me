@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { ToolPlugin, ToolResult, ToolOptions } from "@/tools/types";
 import { useAuth } from "@/hooks/useAuth";
@@ -12,14 +12,150 @@ import ProcessingAnimation from "./ProcessingAnimation";
 import DownloadButton from "./DownloadButton";
 import UsageLimitModal from "./UsageLimitModal";
 
-type ToolState = "idle" | "processing" | "done" | "error";
+type ToolState = "idle" | "configuring" | "processing" | "done" | "error";
 
 interface ToolShellProps {
   tool: ToolPlugin;
 }
 
+async function extractFileInfo(
+  toolId: string,
+  files: File[]
+): Promise<Record<string, unknown>> {
+  const file = files[0];
+  if (!file) return {};
+
+  // Image tools: read dimensions
+  if (file.type.startsWith("image/")) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.naturalWidth, height: img.naturalHeight, fileName: file.name, fileSize: file.size });
+        URL.revokeObjectURL(img.src);
+      };
+      img.onerror = () => resolve({ fileName: file.name, fileSize: file.size });
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  // PDF tools: read page count
+  if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
+    try {
+      const { PDFDocument } = await import("pdf-lib");
+      const buf = await file.arrayBuffer();
+      const pdf = await PDFDocument.load(buf);
+      return { pageCount: pdf.getPageCount(), fileName: file.name, fileSize: file.size };
+    } catch {
+      return { fileName: file.name, fileSize: file.size };
+    }
+  }
+
+  return { fileName: file.name, fileSize: file.size };
+}
+
+function ConfiguringView({
+  tool,
+  stagedFiles,
+  fileInfo,
+  options,
+  onOptionsChange,
+  onProcess,
+  onBack,
+  formatSize,
+  transition,
+}: {
+  tool: ToolPlugin;
+  stagedFiles: File[];
+  fileInfo: Record<string, unknown>;
+  options: ToolOptions;
+  onOptionsChange: (opts: ToolOptions) => void;
+  onProcess: () => void;
+  onBack: () => void;
+  formatSize: (bytes: number) => string;
+  transition: Record<string, unknown>;
+}) {
+  const isImage = stagedFiles[0]?.type.startsWith("image/");
+  const previewUrl = useMemo(
+    () => (isImage && stagedFiles[0] ? URL.createObjectURL(stagedFiles[0]) : null),
+    [isImage, stagedFiles]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
+  return (
+    <motion.div
+      key="configuring"
+      {...transition}
+      className="flex flex-col items-center gap-5"
+    >
+      {/* Image preview */}
+      {previewUrl && (
+        <div className="w-full rounded-xl border border-[var(--color-border)] bg-white overflow-hidden">
+          <img
+            src={previewUrl}
+            alt="Preview"
+            className="w-full max-h-64 object-contain"
+          />
+        </div>
+      )}
+
+      {/* File info bar */}
+      <div className="w-full flex items-center justify-between px-1">
+        <p className="text-xs text-[var(--color-text-muted)] truncate max-w-[60%]">
+          {stagedFiles.length === 1
+            ? (fileInfo.fileName as string) || stagedFiles[0].name
+            : `${stagedFiles.length} files`}
+        </p>
+        <p className="text-xs text-[var(--color-text-muted)]">
+          {typeof fileInfo.width === "number" && typeof fileInfo.height === "number" && (
+            <span>{fileInfo.width} × {fileInfo.height} px · </span>
+          )}
+          {typeof fileInfo.pageCount === "number" && (
+            <span>{fileInfo.pageCount} pages · </span>
+          )}
+          {formatSize(stagedFiles.reduce((s, f) => s + f.size, 0))}
+        </p>
+      </div>
+
+      {/* Options UI */}
+      <div className="w-full">
+        {tool.optionsUI && (
+          <tool.optionsUI options={options} onChange={onOptionsChange} fileInfo={fileInfo} />
+        )}
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex gap-3 w-full">
+        <motion.button
+          onClick={onBack}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="px-5 py-3 rounded-xl border border-[var(--color-border)] text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)] transition-all cursor-pointer"
+        >
+          Back
+        </motion.button>
+        <motion.button
+          onClick={onProcess}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ type: "spring", stiffness: 400, damping: 22 }}
+          className="flex-1 py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)]"
+        >
+          Process
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ToolShell({ tool }: ToolShellProps) {
   const [state, setState] = useState<ToolState>("idle");
+  const [stagedFiles, setStagedFiles] = useState<File[]>([]);
+  const [fileInfo, setFileInfo] = useState<Record<string, unknown>>({});
   const [result, setResult] = useState<ToolResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [options, setOptions] = useState<ToolOptions>({});
@@ -30,20 +166,13 @@ export default function ToolShell({ tool }: ToolShellProps) {
 
   const { user, profile } = useAuth();
 
-  const handleFiles = useCallback(
-    async (files: File[]) => {
-      // Check usage before processing
-      const usage = await checkUsage(
-        tool.id,
-        user?.id ?? null,
-        profile?.plan ?? null
-      );
+  // Whether this tool shows options before upload
+  const showOptionsBefore = tool.optionsBefore && tool.optionsUI;
+  // Whether this tool needs a configuring step after upload
+  const needsConfiguring = tool.optionsUI && !tool.optionsBefore;
 
-      if (!usage.allowed) {
-        setUsageModal({ used: usage.used, limit: usage.limit });
-        return;
-      }
-
+  const processFiles = useCallback(
+    async (files: File[], opts: ToolOptions) => {
       setState("processing");
       setError(null);
       setResult(null);
@@ -52,11 +181,10 @@ export default function ToolShell({ tool }: ToolShellProps) {
         let output: ToolResult;
 
         if (tool.runtime === "server") {
-          // Server-side tool: POST to API
           const formData = new FormData();
           files.forEach((f) => formData.append("files", f));
-          if (Object.keys(options).length > 0) {
-            formData.append("options", JSON.stringify(options));
+          if (Object.keys(opts).length > 0) {
+            formData.append("options", JSON.stringify(opts));
           }
 
           const headers: Record<string, string> = {};
@@ -84,14 +212,12 @@ export default function ToolShell({ tool }: ToolShellProps) {
 
           output = { blob, filename, mimeType };
         } else {
-          // Browser-side tool: process locally
-          output = await tool.process(files, options);
+          output = await tool.process(files, opts);
         }
 
         setResult(output);
         setState("done");
 
-        // Log usage after successful processing
         await logUsage(tool.id, user?.id ?? null);
       } catch (err) {
         setError(
@@ -102,11 +228,44 @@ export default function ToolShell({ tool }: ToolShellProps) {
         setState("error");
       }
     },
-    [tool, options, user, profile]
+    [tool, user]
   );
+
+  const handleFiles = useCallback(
+    async (files: File[]) => {
+      const usage = await checkUsage(
+        tool.id,
+        user?.id ?? null,
+        profile?.plan ?? null
+      );
+
+      if (!usage.allowed) {
+        setUsageModal({ used: usage.used, limit: usage.limit });
+        return;
+      }
+
+      if (needsConfiguring) {
+        // Stage files and extract info, then show options
+        setStagedFiles(files);
+        const info = await extractFileInfo(tool.id, files);
+        setFileInfo(info);
+        setState("configuring");
+      } else {
+        // No config needed, process immediately
+        await processFiles(files, options);
+      }
+    },
+    [tool, options, user, profile, needsConfiguring, processFiles]
+  );
+
+  const handleProcess = useCallback(async () => {
+    await processFiles(stagedFiles, options);
+  }, [stagedFiles, options, processFiles]);
 
   const handleReset = () => {
     setState("idle");
+    setStagedFiles([]);
+    setFileInfo({});
     setResult(null);
     setError(null);
     setOptions({});
@@ -119,9 +278,15 @@ export default function ToolShell({ tool }: ToolShellProps) {
     transition: { type: "spring" as const, stiffness: 300, damping: 28 },
   };
 
+  const formatSize = useCallback((bytes: number) =>
+    bytes < 1024 * 1024
+      ? `${(bytes / 1024).toFixed(0)} KB`
+      : `${(bytes / 1024 / 1024).toFixed(1)} MB`, []);
+
   return (
     <div className="w-full max-w-lg mx-auto">
-      {tool.optionsUI && state === "idle" && (
+      {/* Options shown BEFORE upload (e.g. Base64 encode/decode) */}
+      {showOptionsBefore && state === "idle" && tool.optionsUI && (
         <div className="mb-6">
           <tool.optionsUI options={options} onChange={setOptions} />
         </div>
@@ -145,6 +310,20 @@ export default function ToolShell({ tool }: ToolShellProps) {
               />
             )}
           </motion.div>
+        )}
+
+        {state === "configuring" && tool.optionsUI && (
+          <ConfiguringView
+            tool={tool}
+            stagedFiles={stagedFiles}
+            fileInfo={fileInfo}
+            options={options}
+            onOptionsChange={setOptions}
+            onProcess={handleProcess}
+            onBack={handleReset}
+            formatSize={formatSize}
+            transition={transition}
+          />
         )}
 
         {state === "processing" && (

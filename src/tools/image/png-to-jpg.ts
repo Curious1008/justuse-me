@@ -10,7 +10,7 @@ const pngToJpg: ToolPlugin = {
 
   acceptedTypes: ["image/png"],
   maxFiles: 1,
-  maxFileSize: 50 * 1024 * 1024,
+  maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
 

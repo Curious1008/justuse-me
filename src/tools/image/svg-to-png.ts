@@ -28,13 +28,20 @@ const svgToPng: ToolPlugin = {
     img.src = url;
     await loaded;
 
+    const maxDim = 4096;
     const scale = 2;
+    let w = img.naturalWidth * scale;
+    let h = img.naturalHeight * scale;
+    if (w > maxDim || h > maxDim) {
+      const ratio = Math.min(maxDim / w, maxDim / h);
+      w = Math.round(w * ratio);
+      h = Math.round(h * ratio);
+    }
     const canvas = document.createElement("canvas");
-    canvas.width = img.naturalWidth * scale;
-    canvas.height = img.naturalHeight * scale;
+    canvas.width = w;
+    canvas.height = h;
     const ctx = canvas.getContext("2d")!;
-    ctx.scale(scale, scale);
-    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(img, 0, 0, w, h);
     URL.revokeObjectURL(url);
 
     const blob = await new Promise<Blob>((resolve) =>
