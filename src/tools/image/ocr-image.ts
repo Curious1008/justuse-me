@@ -21,7 +21,7 @@ const ocrImage: ToolPlugin = {
     const file = files[0];
 
     const Tesseract = await import("tesseract.js");
-    const { data } = await Tesseract.recognize(file, "eng+chi_sim", {
+    const { data } = await Tesseract.recognize(file, "eng+chi_sim+chi_tra", {
       logger: () => {},
     });
 
