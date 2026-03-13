@@ -1,0 +1,54 @@
+# JustUse.me
+
+> Free online file tools. No ads, no sign-up, no watermarks. Files never leave your browser.
+
+JustUse.me is a collection of 30 free browser-based tools for working with PDFs, images, text, and code. Most tools run entirely client-side — files are processed in the user's browser and never uploaded to a server.
+
+## Tools
+
+### PDF
+- [Merge PDF](https://justuse.me/tools/merge-pdf): Combine multiple PDF files into one
+- [Split PDF](https://justuse.me/tools/split-pdf): Extract specific pages from a PDF
+- [PDF to JPG](https://justuse.me/tools/pdf-to-jpg): Convert PDF pages to JPG images
+- [JPG to PDF](https://justuse.me/tools/jpg-to-pdf): Convert JPG images to a PDF document
+- [Rotate PDF](https://justuse.me/tools/rotate-pdf): Rotate PDF pages by 90, 180, or 270 degrees
+- [PDF to Text](https://justuse.me/tools/pdf-to-text): Extract text content from PDF files
+- [Watermark PDF](https://justuse.me/tools/watermark-pdf): Add text watermarks to PDF pages
+- [Compress PDF](https://justuse.me/tools/compress-pdf): Reduce PDF file size
+- [Page Numbers PDF](https://justuse.me/tools/page-numbers-pdf): Add page numbers to PDF documents
+
+### Image
+- [Compress Image](https://justuse.me/tools/compress-image): Reduce image file size while maintaining quality
+- [Resize Image](https://justuse.me/tools/resize-image): Resize images to any dimension
+- [PNG to JPG](https://justuse.me/tools/png-to-jpg): Convert PNG images to JPG format
+- [JPG to PNG](https://justuse.me/tools/jpg-to-png): Convert JPG images to PNG format
+- [HEIC to JPG](https://justuse.me/tools/heic-to-jpg): Convert Apple HEIC photos to JPG
+- [SVG to PNG](https://justuse.me/tools/svg-to-png): Convert SVG vector files to PNG
+- [Crop Image](https://justuse.me/tools/crop-image): Crop images with a visual editor
+- [OCR Image](https://justuse.me/tools/ocr-image): Extract text from images using OCR
+
+### Text & Code
+- [JSON Formatter](https://justuse.me/tools/json-formatter): Format and validate JSON data
+- [Word Counter](https://justuse.me/tools/word-counter): Count words, characters, and sentences
+- [Base64 Codec](https://justuse.me/tools/base64-codec): Encode and decode Base64 strings
+- [Markdown to HTML](https://justuse.me/tools/markdown-to-html): Convert Markdown to HTML
+- [Diff Checker](https://justuse.me/tools/diff-checker): Compare two texts side by side
+- [JS Minifier](https://justuse.me/tools/js-minifier): Minify JavaScript code
+- [CSS Minifier](https://justuse.me/tools/css-minifier): Minify CSS stylesheets
+
+### Convert
+- [CSV to JSON](https://justuse.me/tools/csv-to-json): Convert CSV data to JSON format
+- [YAML/JSON](https://justuse.me/tools/yaml-json): Convert between YAML and JSON
+- [JSON to CSV](https://justuse.me/tools/json-to-csv): Convert JSON data to CSV format
+- [XML Formatter](https://justuse.me/tools/xml-formatter): Format and prettify XML
+
+### Generator
+- [QR Code](https://justuse.me/tools/qr-code): Generate QR codes from any text or URL
+- [Color Converter](https://justuse.me/tools/color-converter): Convert between HEX, RGB, and HSL
+
+## Key Facts
+- Website: https://justuse.me
+- Privacy: Most tools process files client-side; files are not uploaded to any server
+- Languages: English, Simplified Chinese, Traditional Chinese
+- Pricing: Free tier (5 uses/day per tool), Pro tier (unlimited)
+- No account required for basic usage
