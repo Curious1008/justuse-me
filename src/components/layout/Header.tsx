@@ -4,26 +4,62 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { type Locale, localeNames, locales, localePath } from "@/lib/i18n";
+import { usePathname } from "next/navigation";
 
-export default function Header() {
+const dictionaries: Record<Locale, typeof import("@/locales/en").default.nav> = {
+  en: { pricing: "Pricing", contact: "Contact", signIn: "Sign In", signOut: "Sign Out", freePlan: "Free Plan", proPlan: "Pro Plan", upgradeToPro: "Upgrade to Pro", manageSubscription: "Manage Subscription" },
+  "zh-CN": { pricing: "定价", contact: "联系", signIn: "登录", signOut: "退出", freePlan: "免费版", proPlan: "专业版", upgradeToPro: "升级到专业版", manageSubscription: "管理订阅" },
+  "zh-TW": { pricing: "定價", contact: "聯絡", signIn: "登入", signOut: "登出", freePlan: "免費版", proPlan: "專業版", upgradeToPro: "升級至專業版", manageSubscription: "管理訂閱" },
+};
+
+export default function Header({ lang = "en" }: { lang?: Locale }) {
+  const t = dictionaries[lang] || dictionaries.en;
   const { user, profile, loading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMenuOpen(false);
       }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+      if (mobileRef.current && !mobileRef.current.contains(e.target as Node)) {
+        setMobileOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  // Build path for switching locale
+  function switchLocalePath(targetLocale: Locale): string {
+    // Strip current locale prefix from pathname
+    let cleanPath = pathname;
+    for (const l of locales) {
+      if (cleanPath.startsWith(`/${l}/`)) {
+        cleanPath = cleanPath.slice(l.length + 1);
+        break;
+      } else if (cleanPath === `/${l}`) {
+        cleanPath = "/";
+        break;
+      }
+    }
+    return localePath(targetLocale, cleanPath);
+  }
+
   return (
     <header className="w-full">
       <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link href="/">
+        <Link href={localePath(lang, "/")}>
           <motion.div
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
@@ -36,23 +72,63 @@ export default function Header() {
           </motion.div>
         </Link>
 
-        <div className="flex items-center gap-6">
-          <Link href="/pricing">
+        {/* Desktop nav */}
+        <div className="hidden sm:flex items-center gap-6">
+          <Link href={localePath(lang, "/pricing")}>
             <motion.span
               whileHover={{ color: "var(--color-accent)" }}
               className="text-sm text-[var(--color-text-secondary)] transition-colors"
             >
-              Pricing
+              {t.pricing}
             </motion.span>
           </Link>
-          <Link href="/contact">
+          <Link href={localePath(lang, "/contact")}>
             <motion.span
               whileHover={{ color: "var(--color-accent)" }}
               className="text-sm text-[var(--color-text-secondary)] transition-colors"
             >
-              Contact
+              {t.contact}
             </motion.span>
           </Link>
+
+          {/* Language switcher */}
+          <div ref={langRef} className="relative">
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors cursor-pointer flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A8.966 8.966 0 0 1 3 12c0-1.264.26-2.467.732-3.559" />
+              </svg>
+              <span>{localeNames[lang]}</span>
+            </button>
+            <AnimatePresence>
+              {langOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className="absolute right-0 top-full mt-2 w-36 py-1 rounded-xl bg-white border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50"
+                >
+                  {locales.map((l) => (
+                    <a
+                      key={l}
+                      href={switchLocalePath(l)}
+                      onClick={() => setLangOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${
+                        l === lang
+                          ? "text-[var(--color-accent)] font-medium"
+                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)]"
+                      }`}
+                    >
+                      {localeNames[l]}
+                    </a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {loading ? (
             <div className="w-8 h-8 rounded-full bg-[var(--color-surface-elevated)] animate-pulse" />
@@ -91,17 +167,17 @@ export default function Header() {
                         {profile?.display_name || user.email}
                       </p>
                       <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                        {profile?.plan === "pro" ? "Pro Plan" : "Free Plan"}
+                        {profile?.plan === "pro" ? t.proPlan : t.freePlan}
                       </p>
                     </div>
 
                     {profile?.plan !== "pro" && (
                       <Link
-                        href="/pricing"
+                        href={localePath(lang, "/pricing")}
                         onClick={() => setMenuOpen(false)}
                         className="block px-4 py-2.5 text-sm text-[var(--color-accent)] font-medium hover:bg-[var(--color-surface-elevated)] transition-colors"
                       >
-                        Upgrade to Pro
+                        {t.upgradeToPro}
                       </Link>
                     )}
 
@@ -115,7 +191,7 @@ export default function Header() {
                         }}
                         className="w-full text-left px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors cursor-pointer"
                       >
-                        Manage Subscription
+                        {t.manageSubscription}
                       </button>
                     )}
 
@@ -126,7 +202,7 @@ export default function Header() {
                       }}
                       className="w-full text-left px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors cursor-pointer"
                     >
-                      Sign Out
+                      {t.signOut}
                     </button>
                   </motion.div>
                 )}
@@ -139,13 +215,115 @@ export default function Header() {
               transition={{ type: "spring", stiffness: 500, damping: 25 }}
             >
               <Link
-                href="/auth/login"
+                href={localePath(lang, "/auth/login")}
                 className="text-sm px-5 py-2 rounded-full bg-[var(--color-text)] text-white hover:bg-[var(--color-text-secondary)] transition-colors font-medium"
               >
-                Sign In
+                {t.signIn}
               </Link>
             </motion.div>
           )}
+        </div>
+
+        {/* Mobile hamburger */}
+        <div ref={mobileRef} className="sm:hidden relative">
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
+            aria-label="Menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              {mobileOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              )}
+            </svg>
+          </button>
+          <AnimatePresence>
+            {mobileOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="absolute right-0 top-full mt-2 w-48 py-2 rounded-xl bg-white border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50"
+              >
+                <Link
+                  href={localePath(lang, "/pricing")}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors"
+                >
+                  {t.pricing}
+                </Link>
+                <Link
+                  href={localePath(lang, "/contact")}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors"
+                >
+                  {t.contact}
+                </Link>
+
+                <div className="border-t border-[var(--color-border)] my-1" />
+
+                {/* Language options inline */}
+                {locales.map((l) => (
+                  <a
+                    key={l}
+                    href={switchLocalePath(l)}
+                    onClick={() => setMobileOpen(false)}
+                    className={`block px-4 py-2.5 text-sm transition-colors ${
+                      l === lang
+                        ? "text-[var(--color-accent)] font-medium"
+                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)]"
+                    }`}
+                  >
+                    {localeNames[l]}
+                  </a>
+                ))}
+
+                <div className="border-t border-[var(--color-border)] my-1" />
+
+                {loading ? null : user ? (
+                  <>
+                    <div className="px-4 py-2">
+                      <p className="text-sm font-medium text-[var(--color-text)] truncate">
+                        {profile?.display_name || user.email}
+                      </p>
+                      <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                        {profile?.plan === "pro" ? t.proPlan : t.freePlan}
+                      </p>
+                    </div>
+                    {profile?.plan !== "pro" && (
+                      <Link
+                        href={localePath(lang, "/pricing")}
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-4 py-2.5 text-sm text-[var(--color-accent)] font-medium hover:bg-[var(--color-surface-elevated)] transition-colors"
+                      >
+                        {t.upgradeToPro}
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        signOut();
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors cursor-pointer"
+                    >
+                      {t.signOut}
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href={localePath(lang, "/auth/login")}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] hover:bg-[var(--color-surface-elevated)] transition-colors"
+                  >
+                    {t.signIn}
+                  </Link>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </header>
