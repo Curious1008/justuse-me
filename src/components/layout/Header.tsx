@@ -61,7 +61,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Build path for switching locale
+  // Build path for switching locale and save preference
   function switchLocalePath(targetLocale: Locale): string {
     let cleanPath = pathname;
     for (const l of locales) {
@@ -74,6 +74,10 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
       }
     }
     return localePath(targetLocale, cleanPath);
+  }
+
+  function handleLangSwitch(targetLocale: Locale) {
+    document.cookie = `locale=${targetLocale};path=/;max-age=31536000;samesite=lax`;
   }
 
   const dropdownCls = "absolute right-0 top-full mt-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50";
@@ -137,7 +141,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                     <a
                       key={l}
                       href={switchLocalePath(l)}
-                      onClick={() => setLangOpen(false)}
+                      onClick={() => { handleLangSwitch(l); setLangOpen(false); }}
                       className={`block px-4 py-2 text-sm transition-colors ${
                         l === lang
                           ? "text-[var(--color-accent)] font-medium"
@@ -301,7 +305,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                   <a
                     key={l}
                     href={switchLocalePath(l)}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={() => { handleLangSwitch(l); setMobileOpen(false); }}
                     className={`block px-4 py-2.5 text-sm transition-colors ${
                       l === lang
                         ? "text-[var(--color-accent)] font-medium"

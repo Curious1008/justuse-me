@@ -13,6 +13,37 @@ function getPathnameLocale(pathname: string): string | null {
   return null;
 }
 
+function detectLocale(request: NextRequest): string {
+  // Check cookie first (user's explicit choice via language switcher)
+  const cookieLocale = request.cookies.get("locale")?.value;
+  if (cookieLocale && locales.includes(cookieLocale)) return cookieLocale;
+
+  // Parse Accept-Language header
+  const acceptLang = request.headers.get("accept-language") || "";
+  // e.g. "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+  const langs = acceptLang
+    .split(",")
+    .map((part) => {
+      const [lang, q] = part.trim().split(";q=");
+      return { lang: lang.trim(), q: q ? parseFloat(q) : 1 };
+    })
+    .sort((a, b) => b.q - a.q);
+
+  for (const { lang } of langs) {
+    // Exact match: zh-CN, zh-TW, en
+    if (locales.includes(lang)) return lang;
+    // zh-Hans → zh-CN, zh-Hant → zh-TW
+    if (lang === "zh-Hans" || lang === "zh-Hans-CN") return "zh-CN";
+    if (lang === "zh-Hant" || lang === "zh-Hant-TW" || lang === "zh-Hant-HK") return "zh-TW";
+    // Bare "zh" → zh-CN (mainland default)
+    if (lang === "zh") return "zh-CN";
+    // en-US, en-GB, etc.
+    if (lang.startsWith("en")) return "en";
+  }
+
+  return defaultLocale;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -35,14 +66,23 @@ export async function middleware(request: NextRequest) {
     return await updateSession(request);
   }
 
-  // No locale prefix → rewrite to /en/... internally (URL stays clean)
+  // Detect best locale from cookie or Accept-Language
+  const locale = detectLocale(request);
+
+  // Non-default locale → redirect to prefixed URL (e.g. /zh-CN/tools/merge-pdf)
+  if (locale !== defaultLocale) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
+  // English → rewrite to /en/... internally (URL stays clean at root)
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;
   const response = NextResponse.rewrite(url);
 
   // Still run Supabase session update
   const sessionResponse = await updateSession(request);
-  // Copy session cookies to our rewrite response
   sessionResponse.cookies.getAll().forEach((cookie) => {
     response.cookies.set(cookie.name, cookie.value, {
       ...cookie,
