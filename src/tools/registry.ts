@@ -8,6 +8,9 @@ import jpgToPdf from "./pdf/jpg-to-pdf";
 import rotatePdf from "./pdf/rotate-pdf";
 import pdfToText from "./pdf/pdf-to-text";
 import watermarkPdf from "./pdf/watermark-pdf";
+import compressPdf from "./pdf/compress-pdf";
+import pageNumbersPdf from "./pdf/page-numbers-pdf";
+// protect-pdf removed: pdf-lib doesn't support encryption; needs a backend solution
 
 // Image tools
 import compressImage from "./image/compress-image";
@@ -16,6 +19,8 @@ import pngToJpg from "./image/png-to-jpg";
 import jpgToPng from "./image/jpg-to-png";
 import heicToJpg from "./image/heic-to-jpg";
 import svgToPng from "./image/svg-to-png";
+import cropImage from "./image/crop-image";
+import ocrImage from "./image/ocr-image";
 
 // Text tools
 import jsonFormatter from "./text/json-formatter";
@@ -45,6 +50,8 @@ const tools: ToolPlugin[] = [
   rotatePdf,
   pdfToText,
   watermarkPdf,
+  compressPdf,
+  pageNumbersPdf,
   // Image
   compressImage,
   resizeImage,
@@ -52,6 +59,8 @@ const tools: ToolPlugin[] = [
   jpgToPng,
   heicToJpg,
   svgToPng,
+  cropImage,
+  ocrImage,
   // Text
   jsonFormatter,
   wordCounter,

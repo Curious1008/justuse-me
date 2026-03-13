@@ -96,6 +96,8 @@ export default function CategoryBubbles() {
           </svg>
           <input
             ref={inputRef}
+            id="tool-search"
+            name="tool-search"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}

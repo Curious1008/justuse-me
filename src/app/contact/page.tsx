@@ -103,6 +103,8 @@ export default function ContactPage() {
           >
             <div>
               <input
+                id="contact-name"
+                name="name"
                 type="text"
                 placeholder="Your name"
                 value={form.name}
@@ -113,6 +115,8 @@ export default function ContactPage() {
             </div>
             <div>
               <input
+                id="contact-email"
+                name="email"
                 type="email"
                 placeholder="Your email"
                 value={form.email}
@@ -123,6 +127,8 @@ export default function ContactPage() {
             </div>
             <div>
               <textarea
+                id="contact-message"
+                name="message"
                 placeholder="Your message"
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}

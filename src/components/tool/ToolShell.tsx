@@ -25,15 +25,15 @@ async function extractFileInfo(
   const file = files[0];
   if (!file) return {};
 
-  // Image tools: read dimensions
+  // Image tools: read dimensions + pass file for visual options (e.g. crop)
   if (file.type.startsWith("image/")) {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
-        resolve({ width: img.naturalWidth, height: img.naturalHeight, fileName: file.name, fileSize: file.size });
+        resolve({ width: img.naturalWidth, height: img.naturalHeight, fileName: file.name, fileSize: file.size, file });
         URL.revokeObjectURL(img.src);
       };
-      img.onerror = () => resolve({ fileName: file.name, fileSize: file.size });
+      img.onerror = () => resolve({ fileName: file.name, fileSize: file.size, file });
       img.src = URL.createObjectURL(file);
     });
   }
@@ -92,8 +92,8 @@ function ConfiguringView({
       {...transition}
       className="flex flex-col items-center gap-5"
     >
-      {/* Image preview */}
-      {previewUrl && (
+      {/* Image preview — skip for crop (CropOptions renders its own interactive preview) */}
+      {previewUrl && tool.id !== "crop-image" && (
         <div className="w-full rounded-xl border border-[var(--color-border)] bg-white overflow-hidden">
           <img
             src={previewUrl}
