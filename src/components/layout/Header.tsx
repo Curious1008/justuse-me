@@ -251,7 +251,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
             >
               <Link
                 href={localePath(lang, "/auth/login")}
-                className="text-sm px-5 py-2 rounded-full bg-[var(--color-text)] text-white hover:bg-[var(--color-text-secondary)] transition-colors font-medium"
+                className="text-sm px-5 py-2 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dim)] transition-colors font-medium"
               >
                 {t.signIn}
               </Link>
