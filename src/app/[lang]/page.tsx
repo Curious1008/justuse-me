@@ -14,7 +14,7 @@ export default async function HomePage({ params }: Props) {
   const jsonLd = generateSiteJsonLd();
 
   return (
-    <div className="max-w-xl mx-auto px-6 pt-16 pb-24 flex flex-col items-center gap-10 relative">
+    <div className="max-w-xl mx-auto px-6 pt-8 sm:pt-16 pb-16 sm:pb-24 flex flex-col items-center gap-6 sm:gap-10 relative">
       {jsonLd.map((schema, i) => (
         <script
           key={i}

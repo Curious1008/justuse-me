@@ -12,7 +12,7 @@ export default function Footer({ lang = "en" }: { lang?: Locale }) {
 
   return (
     <footer className="w-full mt-auto">
-      <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col gap-6">
+      <div className="max-w-5xl mx-auto px-6 py-6 sm:py-10 flex flex-col gap-4 sm:gap-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--color-text-muted)]">
             &copy; {new Date().getFullYear()} {t.copyright}

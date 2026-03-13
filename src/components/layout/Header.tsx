@@ -80,7 +80,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
 
   return (
     <header className="w-full">
-      <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-6 py-3 sm:py-5 flex items-center justify-between">
         <Link href={localePath(lang, "/")}>
           <motion.div
             whileHover={{ scale: 1.04 }}
