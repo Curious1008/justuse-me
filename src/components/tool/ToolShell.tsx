@@ -94,7 +94,7 @@ function ConfiguringView({
     >
       {/* Image preview — skip for crop (CropOptions renders its own interactive preview) */}
       {previewUrl && tool.id !== "crop-image" && (
-        <div className="w-full rounded-xl border border-[var(--color-border)] bg-white overflow-hidden">
+        <div className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden">
           <img
             src={previewUrl}
             alt="Preview"

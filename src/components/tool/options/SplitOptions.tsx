@@ -23,7 +23,7 @@ export default function SplitOptions({ options, onChange, fileInfo }: Props) {
             ? `All ${pageCount} pages (e.g. 1-3, 5, 8-${pageCount})`
             : "All pages (e.g. 1-3, 5, 8-10)"
         }
-        className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+        className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
       />
       {pageCount > 0 && (
         <p className="text-xs text-[var(--color-text-muted)] text-center">

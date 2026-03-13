@@ -16,7 +16,7 @@ export default function ImagePreview({ result }: { result: ToolResult }) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="w-full rounded-xl overflow-hidden border border-[var(--color-border)] bg-white"
+      className="w-full rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]"
     >
       <img
         src={src}

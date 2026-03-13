@@ -53,7 +53,7 @@ function ToolRow({ category }: { category: string }) {
                 whileHover={{ y: -4, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                className="group relative flex items-center gap-3 px-5 py-3.5 rounded-xl bg-white border border-[var(--color-border)] hover:border-[var(--color-accent)] cursor-pointer transition-all duration-200 hover:shadow-md hover:shadow-black/[0.03]"
+                className="group relative flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)] cursor-pointer transition-all duration-200 hover:shadow-md hover:shadow-black/[0.03]"
               >
                 <span className="text-lg">{tool.icon}</span>
                 <div>

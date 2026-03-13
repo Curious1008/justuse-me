@@ -16,7 +16,7 @@ export default function WatermarkOptions({ options, onChange }: Props) {
       value={text}
       onChange={(e) => onChange({ ...options, text: e.target.value })}
       placeholder="Watermark text (e.g. CONFIDENTIAL)"
-      className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+      className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
     />
   );
 }

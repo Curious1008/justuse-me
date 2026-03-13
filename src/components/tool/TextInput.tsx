@@ -38,7 +38,7 @@ export default function TextInput({ placeholder, buttonLabel, onSubmit }: TextIn
         placeholder={placeholder || "Enter text..."}
         rows={3}
         aria-label={placeholder || "Enter text"}
-        className="w-full px-5 py-4 rounded-2xl border-2 border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors resize-none"
+        className="w-full px-5 py-4 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors resize-none"
       />
       <motion.button
         onClick={handleSubmit}

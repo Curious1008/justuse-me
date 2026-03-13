@@ -103,7 +103,7 @@ export default function ResizeOptions({ options, onChange, fileInfo }: Props) {
             placeholder={String(origW || 800)}
             min={MIN_DIM}
             max={MAX_DIM}
-            className="w-24 px-3 py-2.5 rounded-xl border border-[var(--color-border)] bg-white text-sm text-center text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+            className="w-24 px-3 py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-center text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
           />
         </div>
         <button
@@ -133,7 +133,7 @@ export default function ResizeOptions({ options, onChange, fileInfo }: Props) {
             placeholder={String(origH || 600)}
             min={MIN_DIM}
             max={MAX_DIM}
-            className="w-24 px-3 py-2.5 rounded-xl border border-[var(--color-border)] bg-white text-sm text-center text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+            className="w-24 px-3 py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-center text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
           />
         </div>
         <span className="text-xs text-[var(--color-text-muted)] mt-4">px</span>

@@ -28,7 +28,7 @@ export default function Base64Options({ options, onChange }: Props) {
             {active && (
               <motion.div
                 layoutId="base64-mode"
-                className="absolute inset-0 bg-white rounded-lg shadow-sm border border-[var(--color-border)]"
+                className="absolute inset-0 bg-[var(--color-surface)] rounded-lg shadow-sm border border-[var(--color-border)]"
                 transition={{ type: "spring", stiffness: 400, damping: 28 }}
               />
             )}

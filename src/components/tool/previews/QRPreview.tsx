@@ -12,7 +12,7 @@ export default function QRPreview({ result }: { result: ToolResult }) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="flex items-center justify-center rounded-xl overflow-hidden border border-[var(--color-border)] bg-white p-4"
+      className="flex items-center justify-center rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] p-4"
     >
       <img
         src={src}

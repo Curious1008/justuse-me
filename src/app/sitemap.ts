@@ -1,55 +1,71 @@
 import type { MetadataRoute } from "next";
 import { getAllTools, getCategories } from "@/tools/registry";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://justuse.me";
+const baseUrl = "https://justuse.me";
+const locales = ["en", "zh-CN", "zh-TW"] as const;
 
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
+function localeUrl(locale: string, path: string): string {
+  return locale === "en" ? `${baseUrl}${path}` : `${baseUrl}/${locale}${path}`;
+}
+
+function alternates(path: string) {
+  const languages: Record<string, string> = {};
+  for (const l of locales) {
+    languages[l] = localeUrl(l, path);
+  }
+  languages["x-default"] = localeUrl("en", path);
+  return { languages };
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticPaths = [
+    { path: "", freq: "weekly" as const, priority: 1 },
+    { path: "/pricing", freq: "monthly" as const, priority: 0.5 },
+    { path: "/contact", freq: "monthly" as const, priority: 0.3 },
+    { path: "/privacy", freq: "yearly" as const, priority: 0.2 },
+    { path: "/terms", freq: "yearly" as const, priority: 0.2 },
   ];
 
-  const categoryPages = getCategories().map((cat) => ({
-    url: `${baseUrl}/${cat}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const entries: MetadataRoute.Sitemap = [];
 
-  const toolPages = getAllTools().map((tool) => ({
-    url: `${baseUrl}/tools/${tool.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
+  // Static pages for each locale
+  for (const locale of locales) {
+    for (const page of staticPaths) {
+      entries.push({
+        url: localeUrl(locale, page.path || "/"),
+        lastModified: new Date(),
+        changeFrequency: page.freq,
+        priority: locale === "en" ? page.priority : page.priority * 0.9,
+        alternates: alternates(page.path || "/"),
+      });
+    }
+  }
 
-  return [...staticPages, ...categoryPages, ...toolPages];
+  // Category pages
+  for (const locale of locales) {
+    for (const cat of getCategories()) {
+      entries.push({
+        url: localeUrl(locale, `/${cat}`),
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: locale === "en" ? 0.8 : 0.7,
+        alternates: alternates(`/${cat}`),
+      });
+    }
+  }
+
+  // Tool pages
+  for (const locale of locales) {
+    for (const tool of getAllTools()) {
+      entries.push({
+        url: localeUrl(locale, `/tools/${tool.id}`),
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: locale === "en" ? 0.9 : 0.8,
+        alternates: alternates(`/tools/${tool.id}`),
+      });
+    }
+  }
+
+  return entries;
 }

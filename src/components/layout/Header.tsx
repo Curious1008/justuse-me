@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/context/ThemeContext";
 import { type Locale, localeNames, locales, localePath } from "@/lib/i18n";
 import { usePathname } from "next/navigation";
 
@@ -13,9 +14,29 @@ const dictionaries: Record<Locale, typeof import("@/locales/en").default.nav> = 
   "zh-TW": { pricing: "定價", contact: "聯絡", signIn: "登入", signOut: "登出", freePlan: "免費版", proPlan: "專業版", upgradeToPro: "升級至專業版", manageSubscription: "管理訂閱" },
 };
 
+const themeLabels: Record<Locale, { light: string; dark: string; system: string }> = {
+  en: { light: "Light", dark: "Dark", system: "System" },
+  "zh-CN": { light: "浅色", dark: "深色", system: "跟随系统" },
+  "zh-TW": { light: "淺色", dark: "深色", system: "跟隨系統" },
+};
+
+function ThemeIcon({ resolved }: { resolved: "light" | "dark" }) {
+  return resolved === "dark" ? (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+    </svg>
+  ) : (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+    </svg>
+  );
+}
+
 export default function Header({ lang = "en" }: { lang?: Locale }) {
   const t = dictionaries[lang] || dictionaries.en;
+  const tTheme = themeLabels[lang] || themeLabels.en;
   const { user, profile, loading, signOut } = useAuth();
+  const { theme, resolved, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -42,7 +63,6 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
 
   // Build path for switching locale
   function switchLocalePath(targetLocale: Locale): string {
-    // Strip current locale prefix from pathname
     let cleanPath = pathname;
     for (const l of locales) {
       if (cleanPath.startsWith(`/${l}/`)) {
@@ -55,6 +75,8 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
     }
     return localePath(targetLocale, cleanPath);
   }
+
+  const dropdownCls = "absolute right-0 top-full mt-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50";
 
   return (
     <header className="w-full">
@@ -109,7 +131,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="absolute right-0 top-full mt-2 w-36 py-1 rounded-xl bg-white border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50"
+                  className={`${dropdownCls} w-36 py-1`}
                 >
                   {locales.map((l) => (
                     <a
@@ -129,6 +151,15 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Theme toggle */}
+          <button
+            onClick={() => setTheme(resolved === "light" ? "dark" : "light")}
+            className="text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            <ThemeIcon resolved={resolved} />
+          </button>
 
           {loading ? (
             <div className="w-8 h-8 rounded-full bg-[var(--color-surface-elevated)] animate-pulse" />
@@ -160,7 +191,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="absolute right-0 top-full mt-2 w-52 py-2 rounded-xl bg-white border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50"
+                    className={`${dropdownCls} w-52 py-2`}
                   >
                     <div className="px-4 py-2 border-b border-[var(--color-border)]">
                       <p className="text-sm font-medium text-[var(--color-text)] truncate">
@@ -246,7 +277,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="absolute right-0 top-full mt-2 w-48 py-2 rounded-xl bg-white border border-[var(--color-border)] shadow-lg shadow-black/[0.08] z-50"
+                className={`${dropdownCls} w-48 py-2`}
               >
                 <Link
                   href={localePath(lang, "/pricing")}
@@ -265,7 +296,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
 
                 <div className="border-t border-[var(--color-border)] my-1" />
 
-                {/* Language options inline */}
+                {/* Language options */}
                 {locales.map((l) => (
                   <a
                     key={l}
@@ -280,6 +311,25 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                     {localeNames[l]}
                   </a>
                 ))}
+
+                <div className="border-t border-[var(--color-border)] my-1" />
+
+                {/* Theme options */}
+                <div className="px-4 py-2 flex items-center gap-1.5">
+                  {(["light", "dark", "system"] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => { setTheme(opt); setMobileOpen(false); }}
+                      className={`flex-1 py-1.5 text-xs rounded-lg transition-colors cursor-pointer ${
+                        theme === opt
+                          ? "bg-[var(--color-accent-glow)] text-[var(--color-accent)] font-medium"
+                          : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
+                      }`}
+                    >
+                      {tTheme[opt]}
+                    </button>
+                  ))}
+                </div>
 
                 <div className="border-t border-[var(--color-border)] my-1" />
 

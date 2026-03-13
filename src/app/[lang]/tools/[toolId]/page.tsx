@@ -2,38 +2,80 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getToolById, getAllTools } from "@/tools/registry";
-import { generateToolMetadata, generateToolJsonLd } from "@/config/seo";
+import { generateToolJsonLd } from "@/config/seo";
 import { getToolSEOContent } from "@/config/tool-seo-content";
 import ToolIcon from "@/components/tool/ToolIcon";
 import ToolPageClient from "./client";
+import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 
 interface Props {
-  params: Promise<{ toolId: string }>;
+  params: Promise<{ lang: string; toolId: string }>;
 }
 
 export async function generateStaticParams() {
-  return getAllTools().map((t) => ({ toolId: t.id }));
+  const tools = getAllTools();
+  return locales.flatMap((lang) => tools.map((t) => ({ lang, toolId: t.id })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { toolId } = await params;
+  const { lang, toolId } = await params;
+  const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
   const tool = getToolById(toolId);
   if (!tool) return {};
-  return generateToolMetadata(tool);
+
+  const t = await getDictionary(locale);
+  const toolT = t.tools[toolId];
+  const seo = t.toolSeo[toolId];
+  const name = toolT?.name || tool.name;
+  const description = seo
+    ? `${toolT?.description || tool.description} ${seo.longDescription.split(". ").slice(0, 2).join(". ")}.`
+    : `${toolT?.description || tool.description} ${t.meta.toolMetaSuffix}`;
+
+  const canonical = locale === defaultLocale
+    ? `https://justuse.me/tools/${toolId}`
+    : `https://justuse.me/${locale}/tools/${toolId}`;
+
+  return {
+    title: t.meta.toolMetaTitle.replace("{name}", name),
+    description,
+    keywords: tool.keywords,
+    alternates: { canonical },
+    openGraph: {
+      title: t.meta.toolOgTitle.replace("{name}", name),
+      description,
+      url: canonical,
+      type: "website",
+      siteName: "JustUse.me",
+    },
+    twitter: {
+      card: "summary",
+      title: `${name} — JustUse.me`,
+      description: toolT?.description || tool.description,
+    },
+  };
 }
 
 export default async function ToolPage({ params }: Props) {
-  const { toolId } = await params;
+  const { lang, toolId } = await params;
+  const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
   const tool = getToolById(toolId);
 
   if (!tool) notFound();
 
-  const seo = getToolSEOContent(toolId);
+  const t = await getDictionary(locale);
+  const toolT = t.tools[toolId];
+  const seo = t.toolSeo[toolId];
   const jsonLd = generateToolJsonLd(tool);
   const allTools = getAllTools();
-  const relatedTools = seo?.related
-    ?.map((id) => allTools.find((t) => t.id === id))
+
+  // Use English SEO content for related tools list (IDs are the same)
+  const enSeo = getToolSEOContent(toolId);
+  const relatedTools = enSeo?.related
+    ?.map((id) => allTools.find((tt) => tt.id === id))
     .filter(Boolean) ?? [];
+
+  const toolName = toolT?.name || tool.name;
+  const toolDesc = toolT?.description || tool.description;
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
@@ -49,25 +91,25 @@ export default async function ToolPage({ params }: Props) {
       {/* Hero */}
       <div className="text-center mb-12">
         <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-2">
-          {tool.name}
+          {toolName}
         </h1>
         <p className="text-[var(--color-text-secondary)] text-sm">
-          {tool.description}
+          {toolDesc}
         </p>
         {tool.runtime === "browser" && !tool.inputMode && (
           <div className="flex items-center justify-center gap-1.5 mt-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
             <p className="text-xs text-[var(--color-accent)]">
-              Processed locally — files never leave your device
+              {t.tool.processedLocally}
             </p>
           </div>
         )}
         <p className="text-xs text-[var(--color-text-muted)] mt-2">
-          {tool.inputMode === "text" ? "Text input" : (
+          {tool.inputMode === "text" ? t.tool.textInput : (
             <>
-              {tool.acceptedTypes.map(t => t.split('/')[1]?.toUpperCase()).filter(Boolean).join(', ')}
-              {tool.maxFileSize && ` · Max ${tool.maxFileSize >= 1024*1024 ? `${Math.round(tool.maxFileSize/1024/1024)}MB` : `${Math.round(tool.maxFileSize/1024)}KB`}`}
-              {tool.maxFiles > 1 && ` · Up to ${tool.maxFiles} files`}
+              {tool.acceptedTypes.map(tp => tp.split('/')[1]?.toUpperCase()).filter(Boolean).join(', ')}
+              {tool.maxFileSize && ` · ${t.tool.max.replace("{size}", tool.maxFileSize >= 1024*1024 ? `${Math.round(tool.maxFileSize/1024/1024)}MB` : `${Math.round(tool.maxFileSize/1024)}KB`)}`}
+              {tool.maxFiles > 1 && ` · ${t.tool.upTo.replace("{n}", String(tool.maxFiles))}`}
             </>
           )}
         </p>
@@ -83,7 +125,7 @@ export default async function ToolPage({ params }: Props) {
         {seo?.steps && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              How it works
+              {t.tool.howItWorks}
             </h2>
             <div className="grid grid-cols-3 gap-4">
               {seo.steps.map((step, i) => (
@@ -101,14 +143,12 @@ export default async function ToolPage({ params }: Props) {
         {/* About */}
         <section className="pt-8 border-t border-[var(--color-border)]">
           <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-3">
-            About {tool.name}
+            {t.tool.about.replace("{name}", toolName)}
           </h2>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-            {seo?.longDescription ?? tool.description}{" "}
-            Powered by JustUse.me — free, ad-free, and private.
-            {tool.runtime === "browser"
-              ? " This tool runs entirely in your browser. Your files are never uploaded to any server."
-              : ""}
+            {seo?.longDescription ?? toolDesc}{" "}
+            {t.tool.aboutSuffix}
+            {tool.runtime === "browser" ? ` ${t.tool.aboutBrowser}` : ""}
           </p>
         </section>
 
@@ -116,11 +156,11 @@ export default async function ToolPage({ params }: Props) {
         {seo?.faq && seo.faq.length > 0 && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              Frequently asked questions
+              {t.tool.faq}
             </h2>
             <div className="space-y-3">
               {seo.faq.map((item, i) => (
-                <details key={i} className="group rounded-xl border border-[var(--color-border)] bg-white">
+                <details key={i} className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
                   <summary className="flex items-center justify-between px-4 py-3 cursor-pointer text-sm font-medium text-[var(--color-text)] select-none">
                     {item.q}
                     <svg className="w-4 h-4 text-[var(--color-text-muted)] transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -140,17 +180,17 @@ export default async function ToolPage({ params }: Props) {
         {relatedTools.length > 0 && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              Related tools
+              {t.tool.relatedTools}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {relatedTools.map((t) => t && (
+              {relatedTools.map((rt) => rt && (
                 <Link
-                  key={t.id}
-                  href={`/tools/${t.id}`}
-                  className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--color-border)] bg-white hover:border-[var(--color-accent)] transition-colors text-center"
+                  key={rt.id}
+                  href={localePath(locale, `/tools/${rt.id}`)}
+                  className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors text-center"
                 >
-                  <ToolIcon toolId={t.id} fallbackEmoji={t.icon} size="sm" />
-                  <span className="text-xs font-medium text-[var(--color-text)]">{t.name}</span>
+                  <ToolIcon toolId={rt.id} fallbackEmoji={rt.icon} size="sm" />
+                  <span className="text-xs font-medium text-[var(--color-text)]">{t.tools[rt.id]?.name || rt.name}</span>
                 </Link>
               ))}
             </div>

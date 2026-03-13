@@ -22,7 +22,7 @@ export default function ProtectPdfOptions({ options, onChange }: Props) {
           value={password}
           onChange={(e) => onChange({ ...options, password: e.target.value })}
           placeholder="Enter password (min 4 characters)"
-          className="w-full px-4 py-3 pr-12 rounded-xl border border-[var(--color-border)] bg-white text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+          className="w-full px-4 py-3 pr-12 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
         />
         <button
           type="button"

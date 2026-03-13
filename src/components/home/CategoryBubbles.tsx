@@ -6,21 +6,128 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getToolsByCategory, searchTools } from "@/tools/registry";
 import type { Category, ToolPlugin } from "@/tools/types";
 import ToolIcon from "@/components/tool/ToolIcon";
+import { type Locale, localePath } from "@/lib/i18n";
 
-const categories = [
-  { id: "pdf" as Category, label: "PDF" },
-  { id: "image" as Category, label: "Image" },
-  { id: "text" as Category, label: "Text & Code" },
-  { id: "convert" as Category, label: "Convert" },
-  { id: "generator" as Category, label: "Generator" },
-];
+const categoryLabels: Record<Locale, { id: Category; label: string }[]> = {
+  en: [
+    { id: "pdf", label: "PDF" },
+    { id: "image", label: "Image" },
+    { id: "text", label: "Text & Code" },
+    { id: "convert", label: "Convert" },
+    { id: "generator", label: "Generator" },
+  ],
+  "zh-CN": [
+    { id: "pdf", label: "PDF" },
+    { id: "image", label: "图片" },
+    { id: "text", label: "文本与代码" },
+    { id: "convert", label: "格式转换" },
+    { id: "generator", label: "生成器" },
+  ],
+  "zh-TW": [
+    { id: "pdf", label: "PDF" },
+    { id: "image", label: "圖片" },
+    { id: "text", label: "文字與程式碼" },
+    { id: "convert", label: "格式轉換" },
+    { id: "generator", label: "產生器" },
+  ],
+};
+
+const searchPlaceholders: Record<Locale, string> = {
+  en: 'Try "merge PDF" or "compress image"',
+  "zh-CN": '试试"合并PDF"或"压缩图片"',
+  "zh-TW": '試試「合併PDF」或「壓縮圖片」',
+};
+
+const viewAllLabels: Record<Locale, string> = {
+  en: "View all {category} tools",
+  "zh-CN": "查看全部{category}工具",
+  "zh-TW": "查看全部{category}工具",
+};
+
+const noResultsLabels: Record<Locale, string> = {
+  en: "No tools found for",
+  "zh-CN": "未找到相关工具",
+  "zh-TW": "找不到相關工具",
+};
+
+// Tool name translations for display
+const toolNameMap: Record<Locale, Record<string, { name: string; description: string }>> = {
+  en: {},
+  "zh-CN": {
+    "merge-pdf": { name: "合并PDF", description: "将多个PDF文件合并为一个文档。" },
+    "split-pdf": { name: "拆分PDF", description: "从PDF中提取页面或拆分为多个文件。" },
+    "compress-pdf": { name: "压缩PDF", description: "减小PDF文件大小，保持可读性。" },
+    "pdf-to-jpg": { name: "PDF转JPG", description: "将PDF页面转换为高质量JPG图片。" },
+    "jpg-to-pdf": { name: "图片转PDF", description: "将图片合并为一个PDF文档。" },
+    "rotate-pdf": { name: "旋转PDF", description: "将PDF所有页面旋转90、180或270度。" },
+    "pdf-to-text": { name: "PDF转文本", description: "从PDF文件中提取文本内容。" },
+    "watermark-pdf": { name: "PDF加水印", description: "在PDF每页添加文字水印。" },
+    "page-numbers-pdf": { name: "添加页码", description: "为PDF每页添加页码。" },
+    "compress-image": { name: "压缩图片", description: "在不明显损失质量的情况下减小图片文件大小。" },
+    "resize-image": { name: "调整图片大小", description: "将图片尺寸调整为任意大小。" },
+    "crop-image": { name: "裁剪图片", description: "通过拖拽选区可视化裁剪图片。" },
+    "png-to-jpg": { name: "PNG转JPG", description: "将PNG图片转换为JPG格式。" },
+    "jpg-to-png": { name: "JPG转PNG", description: "将JPG图片转换为无损PNG格式。" },
+    "heic-to-jpg": { name: "HEIC转JPG", description: "将iPhone的HEIC照片转换为JPG。" },
+    "svg-to-png": { name: "SVG转PNG", description: "将SVG矢量图形转换为PNG图片。" },
+    "ocr-image": { name: "图片文字识别(OCR)", description: "使用OCR从图片中提取文字。" },
+    "json-formatter": { name: "JSON格式化", description: "格式化和美化JSON数据。" },
+    "word-counter": { name: "字数统计", description: "统计字数、字符数和句子数。" },
+    "base64-codec": { name: "Base64编解码", description: "编码或解码Base64字符串。" },
+    "markdown-to-html": { name: "Markdown转HTML", description: "将Markdown转换为简洁的HTML。" },
+    "diff-checker": { name: "差异对比", description: "对比两段文本并高亮显示差异。" },
+    "js-minifier": { name: "JS压缩", description: "压缩JavaScript代码以用于生产环境。" },
+    "css-minifier": { name: "CSS压缩", description: "压缩CSS样式表以加快加载速度。" },
+    "csv-to-json": { name: "CSV转JSON", description: "将CSV数据转换为JSON格式。" },
+    "json-to-csv": { name: "JSON转CSV", description: "将JSON数组转换为CSV表格格式。" },
+    "yaml-json": { name: "YAML / JSON转换", description: "在YAML和JSON格式之间互相转换。" },
+    "xml-formatter": { name: "XML格式化", description: "格式化和美化XML数据。" },
+    "qr-code": { name: "二维码生成器", description: "从文本或URL生成二维码。" },
+    "color-converter": { name: "颜色转换器", description: "在HEX、RGB和HSL之间转换颜色。" },
+  },
+  "zh-TW": {
+    "merge-pdf": { name: "合併PDF", description: "將多個PDF檔案合併為一個文件。" },
+    "split-pdf": { name: "拆分PDF", description: "從PDF中擷取頁面或拆分為多個檔案。" },
+    "compress-pdf": { name: "壓縮PDF", description: "減小PDF檔案大小，維持可讀性。" },
+    "pdf-to-jpg": { name: "PDF轉JPG", description: "將PDF頁面轉換為高品質JPG圖片。" },
+    "jpg-to-pdf": { name: "圖片轉PDF", description: "將圖片合併為一個PDF文件。" },
+    "rotate-pdf": { name: "旋轉PDF", description: "將PDF所有頁面旋轉90、180或270度。" },
+    "pdf-to-text": { name: "PDF轉文字", description: "從PDF檔案中擷取文字內容。" },
+    "watermark-pdf": { name: "PDF加浮水印", description: "在PDF每頁加上文字浮水印。" },
+    "page-numbers-pdf": { name: "加入頁碼", description: "為PDF每頁加入頁碼。" },
+    "compress-image": { name: "壓縮圖片", description: "在不明顯損失品質的情況下減小圖片檔案大小。" },
+    "resize-image": { name: "調整圖片大小", description: "將圖片尺寸調整為任意大小。" },
+    "crop-image": { name: "裁切圖片", description: "透過拖曳選取區域來裁切圖片。" },
+    "png-to-jpg": { name: "PNG轉JPG", description: "將PNG圖片轉換為JPG格式。" },
+    "jpg-to-png": { name: "JPG轉PNG", description: "將JPG圖片轉換為無損PNG格式。" },
+    "heic-to-jpg": { name: "HEIC轉JPG", description: "將iPhone的HEIC照片轉換為JPG。" },
+    "svg-to-png": { name: "SVG轉PNG", description: "將SVG向量圖形轉換為PNG圖片。" },
+    "ocr-image": { name: "圖片文字辨識(OCR)", description: "使用OCR從圖片中擷取文字。" },
+    "json-formatter": { name: "JSON格式化", description: "格式化和美化JSON資料。" },
+    "word-counter": { name: "字數統計", description: "統計字數、字元數和句子數。" },
+    "base64-codec": { name: "Base64編解碼", description: "編碼或解碼Base64字串。" },
+    "markdown-to-html": { name: "Markdown轉HTML", description: "將Markdown轉換為簡潔的HTML。" },
+    "diff-checker": { name: "差異比對", description: "比對兩段文字並標示差異。" },
+    "js-minifier": { name: "JS壓縮", description: "壓縮JavaScript程式碼以用於正式環境。" },
+    "css-minifier": { name: "CSS壓縮", description: "壓縮CSS樣式表以加快載入速度。" },
+    "csv-to-json": { name: "CSV轉JSON", description: "將CSV資料轉換為JSON格式。" },
+    "json-to-csv": { name: "JSON轉CSV", description: "將JSON陣列轉換為CSV表格格式。" },
+    "yaml-json": { name: "YAML / JSON轉換", description: "在YAML和JSON格式之間互相轉換。" },
+    "xml-formatter": { name: "XML格式化", description: "格式化和美化XML資料。" },
+    "qr-code": { name: "QR碼產生器", description: "從文字或URL產生QR碼。" },
+    "color-converter": { name: "顏色轉換器", description: "在HEX、RGB和HSL之間轉換顏色。" },
+  },
+};
+
+function getToolDisplay(tool: ToolPlugin, lang: Locale): { name: string; description: string } {
+  const override = toolNameMap[lang]?.[tool.id];
+  return override || { name: tool.name, description: tool.description };
+}
 
 const catVariant = {
   hidden: { opacity: 0, y: 24, scale: 0.9 },
   show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
+    opacity: 1, y: 0, scale: 1,
     transition: { type: "spring" as const, stiffness: 300, damping: 22 },
   },
 };
@@ -28,25 +135,24 @@ const catVariant = {
 const toolVariant = {
   hidden: { opacity: 0, y: 16, scale: 0.94 },
   show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
+    opacity: 1, y: 0, scale: 1,
     transition: { type: "spring" as const, stiffness: 320, damping: 22 },
   },
 };
 
-export default function CategoryBubbles() {
+export default function CategoryBubbles({ lang = "en" }: { lang?: Locale }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<Category | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const categories = categoryLabels[lang] || categoryLabels.en;
 
   const isSearching = query.trim().length > 0;
   const searchResults = isSearching ? searchTools(query) : [];
   const activeCategory = categories.find((c) => c.id === active);
   const categoryTools = active ? getToolsByCategory(active) : [];
 
-  // Clear category selection when searching
   useEffect(() => {
     if (isSearching) setActive(null);
   }, [isSearching]);
@@ -71,7 +177,6 @@ export default function CategoryBubbles() {
     if (!isClosing) scrollToPanel();
   }, [active, scrollToPanel]);
 
-  // Which tools to show in the results panel
   const visibleTools: ToolPlugin[] = isSearching ? searchResults : categoryTools;
   const showPanel = visibleTools.length > 0;
 
@@ -87,10 +192,7 @@ export default function CategoryBubbles() {
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[var(--color-text-muted)]"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
@@ -101,8 +203,8 @@ export default function CategoryBubbles() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder='Try "merge PDF" or "compress image"'
-            className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white border border-[var(--color-border)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_var(--color-accent-glow)] transition-all"
+            placeholder={searchPlaceholders[lang]}
+            className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_var(--color-accent-glow)] transition-all"
           />
           {query && (
             <button
@@ -117,7 +219,7 @@ export default function CategoryBubbles() {
         </div>
       </motion.div>
 
-      {/* Category buttons — hidden when searching */}
+      {/* Category buttons */}
       <AnimatePresence>
         {!isSearching && (
           <motion.div
@@ -142,7 +244,7 @@ export default function CategoryBubbles() {
                   className={`relative px-4 py-2 rounded-full text-[13px] font-medium font-[family-name:var(--font-sora)] cursor-pointer transition-all duration-200 ${
                     isActive
                       ? `bg-[var(--color-text)] text-white`
-                      : "bg-white border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
+                      : "bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
                   }`}
                 >
                   {cat.label}
@@ -153,7 +255,7 @@ export default function CategoryBubbles() {
         )}
       </AnimatePresence>
 
-      {/* Results panel — search results or category tools */}
+      {/* Results panel */}
       <div ref={panelRef} className="w-full">
         <AnimatePresence mode="wait">
           {showPanel && (
@@ -171,31 +273,34 @@ export default function CategoryBubbles() {
                 transition={{ staggerChildren: 0.04, delayChildren: 0.05 }}
                 className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 pb-1 auto-rows-fr"
               >
-                {visibleTools.map((tool) => (
-                  <motion.div key={tool.id} variants={toolVariant} className="h-full">
-                    <Link href={`/tools/${tool.id}`} className="block h-full">
-                      <motion.div
-                        whileHover={{ y: -4, scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                        className="group relative flex flex-col items-center justify-center gap-2.5 p-5 rounded-xl bg-white border border-[var(--color-border)] hover:border-transparent cursor-pointer text-center transition-all duration-200 hover:shadow-lg hover:shadow-black/[0.05] h-full"
-                      >
-                        <ToolIcon toolId={tool.id} fallbackEmoji={tool.icon} />
-                        <span className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                          {tool.name}
-                        </span>
-                        <span className="text-[11px] text-[var(--color-text-muted)] leading-snug line-clamp-2">
-                          {tool.description}
-                        </span>
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                ))}
+                {visibleTools.map((tool) => {
+                  const display = getToolDisplay(tool, lang);
+                  return (
+                    <motion.div key={tool.id} variants={toolVariant} className="h-full">
+                      <Link href={localePath(lang, `/tools/${tool.id}`)} className="block h-full">
+                        <motion.div
+                          whileHover={{ y: -4, scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                          className="group relative flex flex-col items-center justify-center gap-2.5 p-5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-transparent cursor-pointer text-center transition-all duration-200 hover:shadow-lg hover:shadow-black/[0.05] h-full"
+                        >
+                          <ToolIcon toolId={tool.id} fallbackEmoji={tool.icon} />
+                          <span className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+                            {display.name}
+                          </span>
+                          <span className="text-[11px] text-[var(--color-text-muted)] leading-snug line-clamp-2">
+                            {display.description}
+                          </span>
+                        </motion.div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
 
-                {/* "View all" link — only for category browsing */}
+                {/* "View all" link */}
                 {!isSearching && active && activeCategory && (
                   <motion.div variants={toolVariant} className="h-full">
-                    <Link href={`/${active}`} className="block h-full">
+                    <Link href={localePath(lang, `/${active}`)} className="block h-full">
                       <motion.div
                         whileHover={{ y: -4, scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
@@ -206,7 +311,7 @@ export default function CategoryBubbles() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                         <span className="text-xs text-[var(--color-text-muted)] font-medium">
-                          View all {activeCategory.label} tools
+                          {viewAllLabels[lang].replace("{category}", activeCategory.label)}
                         </span>
                       </motion.div>
                     </Link>
@@ -217,7 +322,7 @@ export default function CategoryBubbles() {
               {/* No results */}
               {isSearching && searchResults.length === 0 && (
                 <p className="text-sm text-[var(--color-text-muted)] text-center py-8">
-                  No tools found for &ldquo;{query}&rdquo;
+                  {noResultsLabels[lang]} &ldquo;{query}&rdquo;
                 </p>
               )}
             </motion.div>

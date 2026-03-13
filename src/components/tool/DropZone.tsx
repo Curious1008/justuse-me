@@ -134,7 +134,7 @@ export default function DropZone({
         className={`relative w-full ${staged.length > 0 ? "h-32" : "h-56"} rounded-2xl cursor-pointer border-2 border-dashed transition-all duration-300 flex flex-col items-center justify-center gap-4 ${
           isDragging
             ? "border-[var(--color-accent)] bg-[var(--color-accent-glow)]"
-            : "border-[var(--color-border)] bg-white hover:border-[var(--color-text-muted)] hover:bg-[var(--color-surface-elevated)]"
+            : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text-muted)] hover:bg-[var(--color-surface-elevated)]"
         }`}
       >
         <motion.div
@@ -230,7 +230,7 @@ export default function DropZone({
                   setDragIdx(null);
                 }}
                 onDragEnd={() => setDragIdx(null)}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border transition-all ${
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-surface)] border transition-all ${
                   dragIdx === i
                     ? "border-[var(--color-accent)] opacity-50"
                     : "border-[var(--color-border)]"

@@ -30,7 +30,7 @@ export default function UsageLimitModal({
         exit={{ opacity: 0, scale: 0.92, y: 20 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl border border-[var(--color-border)] shadow-xl p-8 max-w-sm mx-4 text-center"
+        className="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] shadow-xl p-8 max-w-sm mx-4 text-center"
       >
         <div className="w-12 h-12 rounded-full bg-[var(--color-accent-glow)] flex items-center justify-center mx-auto mb-4">
           <svg

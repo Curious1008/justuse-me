@@ -1,8 +1,16 @@
 import CategoryBubbles from "@/components/home/CategoryBubbles";
 import HeroGlow from "@/components/home/HeroGlow";
 import { generateSiteJsonLd } from "@/config/seo";
+import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
 
-export default function HomePage() {
+interface Props {
+  params: Promise<{ lang: string }>;
+}
+
+export default async function HomePage({ params }: Props) {
+  const { lang } = await params;
+  const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
+  const t = await getDictionary(locale);
   const jsonLd = generateSiteJsonLd();
 
   return (
@@ -18,17 +26,17 @@ export default function HomePage() {
 
       <div className="text-center space-y-2 relative z-10">
         <h1 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] tracking-tight leading-[1.15] text-[var(--color-text)]">
-          Get things done,{" "}
+          {t.hero.title}{" "}
           <span className="bg-gradient-to-r from-[var(--color-accent)] to-teal-400 bg-clip-text text-transparent">
-            effortlessly.
+            {t.hero.titleAccent}
           </span>
         </h1>
         <p className="text-sm text-[var(--color-text-muted)]">
-          Everyday file tools, ready when you are.
+          {t.hero.subtitle}
         </p>
       </div>
 
-      <CategoryBubbles />
+      <CategoryBubbles lang={locale} />
     </div>
   );
 }

@@ -50,7 +50,7 @@ export default function PageNumberOptions({ options, onChange, fileInfo }: Props
           value={startFrom}
           onChange={(e) => onChange({ ...options, startFrom: Math.max(1, Number(e.target.value) || 1) })}
           min={1}
-          className="w-16 px-3 py-2 rounded-xl border border-[var(--color-border)] bg-white text-sm text-center text-[var(--color-text)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
+          className="w-16 px-3 py-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-center text-[var(--color-text)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
         />
         {pageCount > 0 && (
           <span className="text-xs text-[var(--color-text-muted)]">
