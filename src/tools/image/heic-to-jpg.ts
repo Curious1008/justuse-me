@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import ImagePreview from "@/components/tool/previews/ImagePreview";
 
 const heicToJpg: ToolPlugin = {
   id: "heic-to-jpg",
@@ -18,6 +19,7 @@ const heicToJpg: ToolPlugin = {
   maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: ImagePreview,
 
   async process(files): Promise<ToolResult> {
     const file = files[0];

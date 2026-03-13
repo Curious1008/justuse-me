@@ -1,5 +1,6 @@
 import { XMLParser, XMLBuilder } from "fast-xml-parser";
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const xmlFormatter: ToolPlugin = {
   id: "xml-formatter",
@@ -20,6 +21,7 @@ const xmlFormatter: ToolPlugin = {
   maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();

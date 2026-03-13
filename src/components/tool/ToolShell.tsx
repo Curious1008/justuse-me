@@ -136,7 +136,7 @@ function ConfiguringView({
           whileTap={{ scale: 0.97 }}
           className="px-5 py-3 rounded-xl border border-[var(--color-border)] text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)] transition-all cursor-pointer"
         >
-          Back
+          Choose different file
         </motion.button>
         <motion.button
           onClick={onProcess}
@@ -145,7 +145,7 @@ function ConfiguringView({
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
           className="flex-1 py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)]"
         >
-          Process
+          {tool.processButtonLabel || "Process"}
         </motion.button>
       </div>
     </motion.div>
@@ -269,6 +269,15 @@ export default function ToolShell({ tool }: ToolShellProps) {
     setResult(null);
     setError(null);
     setOptions({});
+  };
+
+  const handleRetry = () => {
+    if (stagedFiles.length > 0 && needsConfiguring) {
+      setState("configuring");
+      setError(null);
+    } else {
+      handleReset();
+    }
   };
 
   const transition = {
@@ -401,7 +410,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
             </div>
             <p className="text-sm text-[var(--color-error)]">{error}</p>
             <motion.button
-              onClick={handleReset}
+              onClick={handleRetry}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 500, damping: 25 }}

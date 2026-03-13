@@ -23,6 +23,7 @@ export interface ToolPlugin {
   inputMode?: "file" | "text"; // default: "file"
   textPlaceholder?: string; // placeholder for text input mode
   textButtonLabel?: string; // button label for text input (default: "Generate")
+  processButtonLabel?: string; // button label for process (default: "Process")
   acceptedTypes: string[];
   maxFiles: number;
   maxFileSize?: number; // bytes

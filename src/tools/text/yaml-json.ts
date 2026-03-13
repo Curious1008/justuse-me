@@ -1,5 +1,6 @@
 import * as yaml from "js-yaml";
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const yamlJson: ToolPlugin = {
   id: "yaml-json",
@@ -26,6 +27,7 @@ const yamlJson: ToolPlugin = {
   maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     const file = files[0];

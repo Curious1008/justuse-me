@@ -1,5 +1,6 @@
 import type { ToolPlugin, ToolResult, ToolOptions } from "../types";
 import CompressOptions from "@/components/tool/options/CompressOptions";
+import ImagePreview from "@/components/tool/previews/ImagePreview";
 
 const compressImage: ToolPlugin = {
   id: "compress-image",
@@ -19,7 +20,9 @@ const compressImage: ToolPlugin = {
   maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
+  processButtonLabel: "Compress",
   optionsUI: CompressOptions,
+  previewUI: ImagePreview,
 
   async process(files, options?: ToolOptions): Promise<ToolResult> {
     const file = files[0];

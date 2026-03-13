@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import ImagePreview from "@/components/tool/previews/ImagePreview";
 
 const pdfToJpg: ToolPlugin = {
   id: "pdf-to-jpg",
@@ -18,6 +19,7 @@ const pdfToJpg: ToolPlugin = {
   maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: ImagePreview,
 
   async process(files): Promise<ToolResult> {
     // Dynamic import to avoid server-side DOMMatrix error

@@ -1,5 +1,6 @@
 import type { ToolPlugin, ToolResult, ToolOptions } from "../types";
 import ResizeOptions from "@/components/tool/options/ResizeOptions";
+import ImagePreview from "@/components/tool/previews/ImagePreview";
 
 const resizeImage: ToolPlugin = {
   id: "resize-image",
@@ -19,7 +20,9 @@ const resizeImage: ToolPlugin = {
   maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
+  processButtonLabel: "Resize",
   optionsUI: ResizeOptions,
+  previewUI: ImagePreview,
 
   async process(files, options?: ToolOptions): Promise<ToolResult> {
     const file = files[0];

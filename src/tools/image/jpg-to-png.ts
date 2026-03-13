@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import ImagePreview from "@/components/tool/previews/ImagePreview";
 
 const jpgToPng: ToolPlugin = {
   id: "jpg-to-png",
@@ -13,6 +14,7 @@ const jpgToPng: ToolPlugin = {
   maxFileSize: 20 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: ImagePreview,
 
   async process(files): Promise<ToolResult> {
     const file = files[0];

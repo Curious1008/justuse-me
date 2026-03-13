@@ -42,6 +42,15 @@ export default async function ToolPage({ params }: Props) {
             </p>
           </div>
         )}
+        <p className="text-xs text-[var(--color-text-muted)] mt-2">
+          {tool.inputMode === "text" ? "Text input" : (
+            <>
+              {tool.acceptedTypes.map(t => t.split('/')[1]?.toUpperCase()).filter(Boolean).join(', ')}
+              {tool.maxFileSize && ` · Max ${tool.maxFileSize >= 1024*1024 ? `${Math.round(tool.maxFileSize/1024/1024)}MB` : `${Math.round(tool.maxFileSize/1024)}KB`}`}
+              {tool.maxFiles > 1 && ` · Up to ${tool.maxFiles} files`}
+            </>
+          )}
+        </p>
       </div>
 
       <ToolPageClient toolId={toolId} />

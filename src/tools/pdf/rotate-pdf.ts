@@ -15,6 +15,7 @@ const rotatePdf: ToolPlugin = {
   maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
+  processButtonLabel: "Rotate",
   optionsUI: RotateOptions,
 
   async process(files, options): Promise<ToolResult> {

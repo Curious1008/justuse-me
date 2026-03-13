@@ -1,5 +1,6 @@
 import { createTwoFilesPatch } from "diff";
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const diffChecker: ToolPlugin = {
   id: "diff-checker",
@@ -32,6 +33,7 @@ const diffChecker: ToolPlugin = {
   maxFileSize: 2 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     if (files.length < 2) {

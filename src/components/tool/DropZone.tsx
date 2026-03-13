@@ -200,6 +200,9 @@ export default function DropZone({
             exit={{ opacity: 0, height: 0 }}
             className="mt-3 space-y-1.5"
           >
+            {staged.length > 1 && (
+              <p className="text-[10px] text-[var(--color-text-muted)] text-center mb-1">Drag to reorder</p>
+            )}
             {staged.map((file, i) => (
               <motion.div
                 key={`${file.name}-${file.size}-${i}`}
@@ -233,6 +236,8 @@ export default function DropZone({
                     : "border-[var(--color-border)]"
                 }`}
               >
+                {/* Number badge */}
+                <span className="text-xs font-medium text-[var(--color-text-muted)] w-5">{i+1}.</span>
                 {/* Drag handle */}
                 <div className="cursor-grab active:cursor-grabbing shrink-0 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">

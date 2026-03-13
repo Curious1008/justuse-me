@@ -1,4 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 function minifyCss(css: string): string {
   return css
@@ -33,6 +34,7 @@ const cssMinifier: ToolPlugin = {
   maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();

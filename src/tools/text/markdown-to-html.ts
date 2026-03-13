@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import type { ToolPlugin, ToolResult } from "../types";
+import TextPreview from "@/components/tool/previews/TextPreview";
 
 const markdownToHtml: ToolPlugin = {
   id: "markdown-to-html",
@@ -19,6 +20,7 @@ const markdownToHtml: ToolPlugin = {
   maxFileSize: 5 * 1024 * 1024,
 
   runtime: "browser",
+  previewUI: TextPreview,
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();

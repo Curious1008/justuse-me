@@ -64,6 +64,7 @@ const splitPdf: ToolPlugin = {
   maxFileSize: 30 * 1024 * 1024,
 
   runtime: "browser",
+  processButtonLabel: "Extract",
   optionsUI: SplitOptions,
 
   async process(files, options): Promise<ToolResult> {
