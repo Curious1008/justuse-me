@@ -1,4 +1,3 @@
-import { XMLParser, XMLBuilder } from "fast-xml-parser";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -26,6 +25,7 @@ const xmlFormatter: ToolPlugin = {
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();
 
+    const { XMLParser, XMLBuilder } = await import("fast-xml-parser");
     const parser = new XMLParser({
       ignoreAttributes: false,
       preserveOrder: true,

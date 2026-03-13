@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { ToolPlugin, ToolResult, ToolOptions } from "@/tools/types";
+import type { ToolPlugin, ToolResult, ToolOptions, ToolLabels } from "@/tools/types";
 import { useAuth } from "@/hooks/useAuth";
 import { checkUsage, logUsage } from "@/lib/usage";
 import { getAnonId } from "@/lib/anon-id";
@@ -16,6 +16,7 @@ type ToolState = "idle" | "configuring" | "processing" | "done" | "error";
 
 interface ToolShellProps {
   tool: ToolPlugin;
+  labels: ToolLabels;
 }
 
 async function extractFileInfo(
@@ -61,8 +62,10 @@ function ConfiguringView({
   onOptionsChange,
   onProcess,
   onBack,
+  isProcessing,
   formatSize,
   transition,
+  labels,
 }: {
   tool: ToolPlugin;
   stagedFiles: File[];
@@ -70,9 +73,11 @@ function ConfiguringView({
   options: ToolOptions;
   onOptionsChange: (opts: ToolOptions) => void;
   onProcess: () => void;
+  isProcessing: boolean;
   onBack: () => void;
   formatSize: (bytes: number) => string;
   transition: Record<string, unknown>;
+  labels: ToolLabels;
 }) {
   const isImage = stagedFiles[0]?.type.startsWith("image/");
   const previewUrl = useMemo(
@@ -108,7 +113,7 @@ function ConfiguringView({
         <p className="text-xs text-[var(--color-text-muted)] truncate max-w-[60%]">
           {stagedFiles.length === 1
             ? (fileInfo.fileName as string) || stagedFiles[0].name
-            : `${stagedFiles.length} files`}
+            : labels.nFiles.replace("{n}", String(stagedFiles.length))}
         </p>
         <p className="text-xs text-[var(--color-text-muted)]">
           {typeof fileInfo.width === "number" && typeof fileInfo.height === "number" && (
@@ -136,29 +141,31 @@ function ConfiguringView({
           whileTap={{ scale: 0.97 }}
           className="px-5 py-3 rounded-xl border border-[var(--color-border)] text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)] transition-all cursor-pointer"
         >
-          Choose different file
+          {labels.chooseDifferentFile}
         </motion.button>
         <motion.button
           onClick={onProcess}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
+          disabled={isProcessing}
+          whileHover={isProcessing ? {} : { scale: 1.02 }}
+          whileTap={isProcessing ? {} : { scale: 0.97 }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
-          className="flex-1 py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)]"
+          className="flex-1 py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)] disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {tool.processButtonLabel || "Process"}
+          {tool.processButtonLabel || labels.processFallback}
         </motion.button>
       </div>
     </motion.div>
   );
 }
 
-export default function ToolShell({ tool }: ToolShellProps) {
+export default function ToolShell({ tool, labels }: ToolShellProps) {
   const [state, setState] = useState<ToolState>("idle");
   const [stagedFiles, setStagedFiles] = useState<File[]>([]);
   const [fileInfo, setFileInfo] = useState<Record<string, unknown>>({});
   const [result, setResult] = useState<ToolResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [options, setOptions] = useState<ToolOptions>({});
+  const [isProcessing, setIsProcessing] = useState(false);
   const [usageModal, setUsageModal] = useState<{
     used: number;
     limit: number;
@@ -173,6 +180,8 @@ export default function ToolShell({ tool }: ToolShellProps) {
 
   const processFiles = useCallback(
     async (files: File[], opts: ToolOptions) => {
+      if (isProcessing) return;
+      setIsProcessing(true);
       setState("processing");
       setError(null);
       setResult(null);
@@ -226,9 +235,11 @@ export default function ToolShell({ tool }: ToolShellProps) {
             : "Something went wrong. Please try again."
         );
         setState("error");
+      } finally {
+        setIsProcessing(false);
       }
     },
-    [tool, user]
+    [tool, user, isProcessing]
   );
 
   const handleFiles = useCallback(
@@ -316,6 +327,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
                 maxFiles={tool.maxFiles}
                 maxFileSize={tool.maxFileSize}
                 onFiles={handleFiles}
+                labels={labels}
               />
             )}
           </motion.div>
@@ -330,14 +342,16 @@ export default function ToolShell({ tool }: ToolShellProps) {
             onOptionsChange={setOptions}
             onProcess={handleProcess}
             onBack={handleReset}
+            isProcessing={isProcessing}
             formatSize={formatSize}
             transition={transition}
+            labels={labels}
           />
         )}
 
         {state === "processing" && (
           <motion.div key="processing" {...transition}>
-            <ProcessingAnimation />
+            <ProcessingAnimation label={labels.processing} />
           </motion.div>
         )}
 
@@ -374,7 +388,11 @@ export default function ToolShell({ tool }: ToolShellProps) {
             </motion.div>
 
             {tool.previewUI && <tool.previewUI result={result} />}
-            <DownloadButton result={result} />
+            <DownloadButton
+              result={result}
+              downloadedLabel={labels.downloaded}
+              downloadLabel={labels.download}
+            />
 
             <motion.button
               onClick={handleReset}
@@ -382,7 +400,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
               whileTap={{ scale: 0.98 }}
               className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors underline underline-offset-4 decoration-[var(--color-border)]"
             >
-              {tool.inputMode === "text" ? "Try again" : "Process another file"}
+              {tool.inputMode === "text" ? labels.tryAgain : labels.processAnother}
             </motion.button>
           </motion.div>
         )}
@@ -416,7 +434,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
               transition={{ type: "spring", stiffness: 500, damping: 25 }}
               className="px-5 py-2 rounded-lg border border-[var(--color-border)] text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)] transition-all"
             >
-              Try again
+              {labels.tryAgain}
             </motion.button>
           </motion.div>
         )}
@@ -429,6 +447,7 @@ export default function ToolShell({ tool }: ToolShellProps) {
             limit={usageModal.limit}
             isLoggedIn={!!user}
             onClose={() => setUsageModal(null)}
+            labels={labels}
           />
         )}
       </AnimatePresence>

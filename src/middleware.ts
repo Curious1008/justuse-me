@@ -44,6 +44,14 @@ function detectLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
+function addSecurityHeaders(response: NextResponse): NextResponse {
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("X-XSS-Protection", "0");
+  return response;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -57,13 +65,13 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/favicon") ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|html|xml|txt|json|ico)$/.test(pathname)
   ) {
-    return await updateSession(request);
+    return addSecurityHeaders(await updateSession(request));
   }
 
   // Already has a locale prefix → pass through
   const pathnameLocale = getPathnameLocale(pathname);
   if (pathnameLocale) {
-    return await updateSession(request);
+    return addSecurityHeaders(await updateSession(request));
   }
 
   // Detect best locale from cookie or Accept-Language
@@ -73,7 +81,7 @@ export async function middleware(request: NextRequest) {
   if (locale !== defaultLocale) {
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}${pathname}`;
-    return NextResponse.redirect(url);
+    return addSecurityHeaders(NextResponse.redirect(url));
   }
 
   // English → rewrite to /en/... internally (URL stays clean at root)
@@ -89,7 +97,7 @@ export async function middleware(request: NextRequest) {
     });
   });
 
-  return response;
+  return addSecurityHeaders(response);
 }
 
 export const config = {

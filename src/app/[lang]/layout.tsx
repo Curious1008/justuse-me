@@ -60,6 +60,7 @@ export default async function LangLayout({
 
   return (
     <AuthProvider>
+      <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
       <Header lang={locale} />
       <main className="flex-1">{children}</main>
       <Footer lang={locale} />

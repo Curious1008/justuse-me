@@ -1,4 +1,3 @@
-import { createTwoFilesPatch } from "diff";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -45,6 +44,7 @@ const diffChecker: ToolPlugin = {
       files[1].text(),
     ]);
 
+    const { createTwoFilesPatch } = await import("diff");
     const patch = createTwoFilesPatch(
       files[0].name,
       files[1].name,

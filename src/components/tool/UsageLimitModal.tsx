@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import type { ToolLabels } from "@/tools/types";
 
 interface Props {
   used: number;
   limit: number;
   isLoggedIn: boolean;
   onClose: () => void;
+  labels: ToolLabels;
 }
 
 export default function UsageLimitModal({
@@ -15,7 +17,12 @@ export default function UsageLimitModal({
   limit,
   isLoggedIn,
   onClose,
+  labels,
 }: Props) {
+  const descText = labels.dailyLimitDesc
+    .replace("{used}", String(used))
+    .replace("{limit}", String(limit));
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -49,11 +56,10 @@ export default function UsageLimitModal({
         </div>
 
         <h2 className="text-lg font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-2">
-          Daily limit reached
+          {labels.dailyLimitTitle}
         </h2>
         <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-          You&apos;ve used {used}/{limit} free uses today. Come back tomorrow, or
-          upgrade for unlimited access.
+          {descText}
         </p>
 
         <div className="flex flex-col gap-3">
@@ -63,13 +69,13 @@ export default function UsageLimitModal({
                 href="/auth/login"
                 className="w-full py-3 rounded-xl bg-[var(--color-text)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] text-center hover:opacity-90 transition-opacity"
               >
-                Create a free account
+                {labels.createFreeAccount}
               </Link>
               <Link
                 href="/pricing"
                 className="w-full py-3 rounded-xl border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-secondary)] text-center hover:border-[var(--color-text-muted)] transition-colors"
               >
-                See Pro plans
+                {labels.seeProPlans}
               </Link>
             </>
           ) : (
@@ -77,7 +83,7 @@ export default function UsageLimitModal({
               href="/pricing"
               className="w-full py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] text-center hover:opacity-90 transition-opacity"
             >
-              Upgrade to Pro
+              {labels.upgradeToPro}
             </Link>
           )}
         </div>
@@ -86,7 +92,7 @@ export default function UsageLimitModal({
           onClick={onClose}
           className="mt-4 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors cursor-pointer"
         >
-          Maybe later
+          {labels.maybeLater}
         </button>
       </motion.div>
     </motion.div>

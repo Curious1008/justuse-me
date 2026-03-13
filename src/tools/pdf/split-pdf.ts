@@ -1,4 +1,3 @@
-import { PDFDocument } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
 import SplitOptions from "@/components/tool/options/SplitOptions";
 
@@ -68,9 +67,14 @@ const splitPdf: ToolPlugin = {
   optionsUI: SplitOptions,
 
   async process(files, options): Promise<ToolResult> {
+    const { PDFDocument } = await import("pdf-lib");
     const bytes = await files[0].arrayBuffer();
     const pdf = await PDFDocument.load(bytes);
     const pageCount = pdf.getPageCount();
+
+    if (pageCount > 500) {
+      throw new Error("PDF has too many pages (max 500). Please use a smaller file.");
+    }
 
     const pagesInput = ((options?.pages as string) || "").trim();
 

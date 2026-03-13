@@ -34,6 +34,10 @@ const svgToPng: ToolPlugin = {
     const scale = 2;
     let w = img.naturalWidth * scale;
     let h = img.naturalHeight * scale;
+    if (w === 0 || h === 0) {
+      URL.revokeObjectURL(url);
+      throw new Error("SVG has no dimensions. Add width/height or viewBox to your SVG.");
+    }
     if (w > maxDim || h > maxDim) {
       const ratio = Math.min(maxDim / w, maxDim / h);
       w = Math.round(w * ratio);
@@ -46,9 +50,11 @@ const svgToPng: ToolPlugin = {
     ctx.drawImage(img, 0, 0, w, h);
     URL.revokeObjectURL(url);
 
-    const blob = await new Promise<Blob>((resolve) =>
-      canvas.toBlob((b) => resolve(b!), "image/png")
+    const blob = await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((b) => b ? resolve(b) : reject(new Error("Failed to convert SVG")), "image/png")
     );
+    canvas.width = 0;
+    canvas.height = 0;
 
     const baseName = file.name.replace(/\.svg$/i, "");
     return {

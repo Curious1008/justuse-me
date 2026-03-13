@@ -134,7 +134,7 @@ export default function CropOptions({ options, onChange, fileInfo }: Props) {
 
       {/* Visual cropper */}
       {previewUrl && (
-        <div className="w-full rounded-xl border border-[var(--color-border)] overflow-hidden bg-[#f5f5f5] flex justify-center">
+        <div className="w-full rounded-xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-surface-elevated)] flex justify-center">
           <ReactCrop
             crop={crop}
             onChange={(c) => setCrop(c)}

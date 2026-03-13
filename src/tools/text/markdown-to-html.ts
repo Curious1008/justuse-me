@@ -1,4 +1,3 @@
-import { marked } from "marked";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -24,6 +23,7 @@ const markdownToHtml: ToolPlugin = {
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();
+    const { marked } = await import("marked");
     const body = await marked.parse(text);
     const sanitized = body.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
       .replace(/on\w+\s*=\s*["'][^"']*["']/gi, '')

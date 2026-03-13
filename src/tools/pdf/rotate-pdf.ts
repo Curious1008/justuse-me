@@ -1,4 +1,3 @@
-import { PDFDocument, degrees } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
 import RotateOptions from "@/components/tool/options/RotateOptions";
 
@@ -25,9 +24,14 @@ const rotatePdf: ToolPlugin = {
       throw new Error("Rotation must be 90, 180, or 270 degrees.");
     }
 
+    const { PDFDocument, degrees } = await import("pdf-lib");
     const bytes = await files[0].arrayBuffer();
     const pdf = await PDFDocument.load(bytes);
     const pages = pdf.getPages();
+
+    if (pages.length > 500) {
+      throw new Error("PDF has too many pages (max 500).");
+    }
 
     for (const page of pages) {
       const currentRotation = page.getRotation().angle;

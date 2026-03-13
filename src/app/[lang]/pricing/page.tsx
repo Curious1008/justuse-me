@@ -47,6 +47,7 @@ function PricingContent() {
   const t = dict[lang] || dict.en;
   const { user, profile, loading } = useAuth();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const success = searchParams.get("success");
   const canceled = searchParams.get("canceled");
@@ -65,11 +66,11 @@ function PricingContent() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "Failed to start checkout");
+        setCheckoutError(data.error || "Failed to start checkout");
         setCheckoutLoading(false);
       }
     } catch {
-      alert("Network error. Please try again.");
+      setCheckoutError("Network error. Please try again.");
       setCheckoutLoading(false);
     }
   };
@@ -101,13 +102,18 @@ function PricingContent() {
 
       <AnimatePresence>
         {success && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8 p-4 rounded-xl bg-green-50 border border-green-200 text-center text-sm text-green-800">
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8 p-4 rounded-xl bg-[var(--color-accent-glow)] border border-[var(--color-accent)] text-center text-sm text-[var(--color-accent)]">
             {t.success}
           </motion.div>
         )}
         {canceled && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8 p-4 rounded-xl bg-amber-50 border border-amber-200 text-center text-sm text-amber-800">
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8 p-4 rounded-xl bg-[var(--color-error-dim)] border border-[var(--color-error)] text-center text-sm text-[var(--color-error)]">
             {t.canceled}
+          </motion.div>
+        )}
+        {checkoutError && (
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8 p-4 rounded-xl bg-[var(--color-error-dim)] border border-[var(--color-error)] text-center text-sm text-[var(--color-error)]">
+            {checkoutError}
           </motion.div>
         )}
       </AnimatePresence>

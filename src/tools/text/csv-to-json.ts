@@ -1,4 +1,3 @@
-import Papa from "papaparse";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -24,6 +23,7 @@ const csvToJson: ToolPlugin = {
 
   async process(files): Promise<ToolResult> {
     const text = await files[0].text();
+    const Papa = (await import("papaparse")).default;
     const result = Papa.parse(text, { header: true });
 
     if (result.errors.length > 0) {

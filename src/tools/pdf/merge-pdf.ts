@@ -1,4 +1,3 @@
-import { PDFDocument } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
 
 const mergePdf: ToolPlugin = {
@@ -20,11 +19,17 @@ const mergePdf: ToolPlugin = {
       throw new Error("Please select at least 2 PDF files to merge.");
     }
 
+    const { PDFDocument } = await import("pdf-lib");
     const merged = await PDFDocument.create();
 
+    let totalPages = 0;
     for (const file of files) {
       const bytes = await file.arrayBuffer();
       const pdf = await PDFDocument.load(bytes);
+      totalPages += pdf.getPageCount();
+      if (totalPages > 500) {
+        throw new Error("Too many pages in total (max 500). Please reduce the number of files.");
+      }
       const pages = await merged.copyPages(pdf, pdf.getPageIndices());
       pages.forEach((page) => merged.addPage(page));
     }

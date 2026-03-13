@@ -79,16 +79,19 @@ const tools: ToolPlugin[] = [
   colorConverter,
 ];
 
-export function getAllTools(): ToolPlugin[] {
-  return tools;
+export function getAllTools(locale?: string): ToolPlugin[] {
+  if (!locale) return tools;
+  return tools.filter((t) => !t.hiddenLocales?.includes(locale));
 }
 
 export function getToolById(id: string): ToolPlugin | undefined {
   return tools.find((t) => t.id === id);
 }
 
-export function getToolsByCategory(category: Category): ToolPlugin[] {
-  return tools.filter((t) => t.category === category);
+export function getToolsByCategory(category: Category, locale?: string): ToolPlugin[] {
+  return tools.filter(
+    (t) => t.category === category && (!locale || !t.hiddenLocales?.includes(locale))
+  );
 }
 
 export function getCategories(): Category[] {

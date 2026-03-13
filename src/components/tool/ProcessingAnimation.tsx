@@ -2,7 +2,11 @@
 
 import { motion } from "framer-motion";
 
-export default function ProcessingAnimation() {
+interface ProcessingAnimationProps {
+  label: string;
+}
+
+export default function ProcessingAnimation({ label }: ProcessingAnimationProps) {
   return (
     <div className="flex flex-col items-center justify-center h-56 gap-8">
       {/* Orbital dots */}
@@ -54,7 +58,7 @@ export default function ProcessingAnimation() {
         transition={{ delay: 0.3 }}
         className="text-sm text-[var(--color-text-secondary)] font-[family-name:var(--font-sora)]"
       >
-        Processing...
+        {label}
       </motion.p>
     </div>
   );

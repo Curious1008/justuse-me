@@ -1,4 +1,3 @@
-import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
 import WatermarkOptions from "@/components/tool/options/WatermarkOptions";
 
@@ -21,10 +20,20 @@ const watermarkPdf: ToolPlugin = {
   async process(files, options): Promise<ToolResult> {
     const text = ((options?.text as string) || "CONFIDENTIAL").slice(0, 100);
 
+    // Check for non-Latin characters (CJK, etc.) that Helvetica can't render
+    if (/[^\u0000-\u00FF]/.test(text)) {
+      throw new Error("Watermark text only supports Latin characters (A-Z, numbers, symbols). CJK and other scripts are not supported yet.");
+    }
+
+    const { PDFDocument, StandardFonts, rgb, degrees } = await import("pdf-lib");
     const bytes = await files[0].arrayBuffer();
     const pdf = await PDFDocument.load(bytes);
     const font = await pdf.embedFont(StandardFonts.Helvetica);
     const pages = pdf.getPages();
+
+    if (pages.length > 500) {
+      throw new Error("PDF has too many pages (max 500).");
+    }
 
     for (const page of pages) {
       const { width, height } = page.getSize();

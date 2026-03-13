@@ -24,10 +24,13 @@ const jpgToPng: ToolPlugin = {
     canvas.height = bitmap.height;
     const ctx = canvas.getContext("2d")!;
     ctx.drawImage(bitmap, 0, 0);
+    bitmap.close();
 
-    const blob = await new Promise<Blob>((resolve) =>
-      canvas.toBlob((b) => resolve(b!), "image/png")
+    const blob = await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((b) => b ? resolve(b) : reject(new Error("Failed to convert image")), "image/png")
     );
+    canvas.width = 0;
+    canvas.height = 0;
 
     const baseName = file.name.replace(/\.jpe?g$/i, "");
     return {

@@ -45,14 +45,20 @@ const base64Codec: ToolPlugin = {
       }
     }
 
-    // Encode to Base64
+    // Encode to Base64 using chunked approach to avoid O(n^2) string concat
     const buffer = await file.arrayBuffer();
     const bytes = new Uint8Array(buffer);
-    let binary = "";
-    for (let i = 0; i < bytes.length; i++) {
-      binary += String.fromCharCode(bytes[i]);
+    const chunkSize = 8192;
+    const parts: string[] = [];
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      const chunk = bytes.subarray(i, i + chunkSize);
+      let binary = "";
+      for (let j = 0; j < chunk.length; j++) {
+        binary += String.fromCharCode(chunk[j]);
+      }
+      parts.push(btoa(binary));
     }
-    const base64 = btoa(binary);
+    const base64 = parts.join("");
 
     return {
       blob: new Blob([base64], { type: "text/plain" }),

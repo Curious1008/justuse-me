@@ -47,7 +47,7 @@ export default async function CategoryPage({ params }: Props) {
 
   if (!cat) notFound();
 
-  const tools = getToolsByCategory(category as Category);
+  const tools = getToolsByCategory(category as Category, locale);
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">

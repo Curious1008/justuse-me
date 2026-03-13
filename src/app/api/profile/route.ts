@@ -26,6 +26,14 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
   }
 
+  // Input length validation
+  if (typeof safeUpdate.display_name === "string" && safeUpdate.display_name.length > 100) {
+    return NextResponse.json({ error: "Display name must be 100 characters or less" }, { status: 400 });
+  }
+  if (typeof safeUpdate.avatar_url === "string" && safeUpdate.avatar_url.length > 500) {
+    return NextResponse.json({ error: "Avatar URL must be 500 characters or less" }, { status: 400 });
+  }
+
   safeUpdate.updated_at = new Date().toISOString();
 
   const serviceClient = await createServiceClient();

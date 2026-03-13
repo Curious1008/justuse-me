@@ -1,4 +1,3 @@
-import Papa from "papaparse";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -44,6 +43,7 @@ const jsonToCsv: ToolPlugin = {
       throw new Error("JSON array is empty. Nothing to convert.");
     }
 
+    const Papa = (await import("papaparse")).default;
     const csv = Papa.unparse(parsed);
 
     return {

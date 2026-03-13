@@ -14,7 +14,11 @@ interface Props {
 
 export async function generateStaticParams() {
   const tools = getAllTools();
-  return locales.flatMap((lang) => tools.map((t) => ({ lang, toolId: t.id })));
+  return locales.flatMap((lang) =>
+    tools
+      .filter((t) => !t.hiddenLocales?.includes(lang))
+      .map((t) => ({ lang, toolId: t.id }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -62,13 +66,13 @@ export default async function ToolPage({ params }: Props) {
   const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
   const tool = getToolById(toolId);
 
-  if (!tool) notFound();
+  if (!tool || tool.hiddenLocales?.includes(locale)) notFound();
 
   const t = await getDictionary(locale);
   const toolT = t.tools[toolId];
   const seo = t.toolSeo[toolId];
   const jsonLd = generateToolJsonLd(tool);
-  const allTools = getAllTools();
+  const allTools = getAllTools(locale);
 
   // Use English SEO content for related tools list (IDs are the same)
   const enSeo = getToolSEOContent(toolId);
@@ -118,7 +122,29 @@ export default async function ToolPage({ params }: Props) {
       </div>
 
       {/* Tool UI */}
-      <ToolPageClient toolId={toolId} />
+      <ToolPageClient toolId={toolId} labels={{
+        chooseDifferentFile: t.tool.chooseDifferentFile,
+        processFallback: t.tool.processFallback,
+        processAnother: t.tool.processAnother,
+        tryAgain: t.tool.tryAgain,
+        addMoreFiles: t.tool.addMoreFiles,
+        dropFileHere: t.tool.dropFileHere,
+        dropFilesHere: t.tool.dropFilesHere,
+        browse: t.tool.browse,
+        anyFile: t.tool.anyFile,
+        dragToReorder: t.tool.dragToReorder,
+        processNFiles: t.tool.processNFiles,
+        downloaded: t.tool.downloaded,
+        download: t.tool.download,
+        processing: t.tool.processing,
+        dailyLimitTitle: t.tool.dailyLimitTitle,
+        dailyLimitDesc: t.tool.dailyLimitDesc,
+        createFreeAccount: t.tool.createFreeAccount,
+        seeProPlans: t.tool.seeProPlans,
+        upgradeToPro: t.tool.upgradeToPro,
+        maybeLater: t.tool.maybeLater,
+        nFiles: t.tool.nFiles,
+      }} />
 
       {/* ─── SEO Content (below the fold) ─── */}
       <div className="mt-24 space-y-12">
@@ -129,7 +155,7 @@ export default async function ToolPage({ params }: Props) {
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
               {t.tool.howItWorks}
             </h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {seo.steps.map((step, i) => (
                 <div key={i} className="flex flex-col items-center text-center gap-2 p-4 rounded-xl bg-[var(--color-surface-elevated)] border border-[var(--color-border)]">
                   <span className="w-7 h-7 rounded-full bg-[var(--color-accent-glow)] text-[var(--color-accent)] text-xs font-bold flex items-center justify-center">

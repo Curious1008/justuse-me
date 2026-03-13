@@ -56,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Tool pages
   for (const locale of locales) {
-    for (const tool of getAllTools()) {
+    for (const tool of getAllTools(locale)) {
       entries.push({
         url: localeUrl(locale, `/tools/${tool.id}`),
         lastModified: new Date(),

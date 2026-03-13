@@ -60,6 +60,11 @@ body::before {
   opacity: 0.03;
 }
 
+/* ToolIcon backgrounds in dark mode */
+[data-theme="dark"] .tool-icon-bg {
+  background-color: var(--color-surface-elevated) !important;
+}
+
 /* Animated gradient border utility */
 @keyframes gradient-rotate {
   0% { --gradient-angle: 0deg; }

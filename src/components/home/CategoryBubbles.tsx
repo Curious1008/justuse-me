@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { getToolsByCategory, searchTools } from "@/tools/registry";
+import { getToolsByCategory, getAllTools } from "@/tools/registry";
 import type { Category, ToolPlugin } from "@/tools/types";
 import ToolIcon from "@/components/tool/ToolIcon";
 import { type Locale, localePath } from "@/lib/i18n";
@@ -124,6 +124,28 @@ function getToolDisplay(tool: ToolPlugin, lang: Locale): { name: string; descrip
   return override || { name: tool.name, description: tool.description };
 }
 
+/** Locale-aware search: matches against both English and translated names/descriptions/keywords, respects hiddenLocales */
+function searchToolsI18n(query: string, lang: Locale): ToolPlugin[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+  const all = getAllTools(lang);
+  return all.filter((t) => {
+    // English fields
+    if (
+      t.name.toLowerCase().includes(q) ||
+      t.description.toLowerCase().includes(q) ||
+      t.keywords.some((k) => k.toLowerCase().includes(q)) ||
+      t.category.toLowerCase().includes(q)
+    ) return true;
+    // Translated fields
+    const tr = toolNameMap[lang]?.[t.id];
+    if (tr) {
+      if (tr.name.toLowerCase().includes(q) || tr.description.toLowerCase().includes(q)) return true;
+    }
+    return false;
+  });
+}
+
 const catVariant = {
   hidden: { opacity: 0, y: 24, scale: 0.9 },
   show: {
@@ -149,9 +171,9 @@ export default function CategoryBubbles({ lang = "en" }: { lang?: Locale }) {
   const categories = categoryLabels[lang] || categoryLabels.en;
 
   const isSearching = query.trim().length > 0;
-  const searchResults = isSearching ? searchTools(query) : [];
+  const searchResults = isSearching ? searchToolsI18n(query, lang) : [];
   const activeCategory = categories.find((c) => c.id === active);
-  const categoryTools = active ? getToolsByCategory(active) : [];
+  const categoryTools = active ? getToolsByCategory(active, lang) : [];
 
   useEffect(() => {
     if (isSearching) setActive(null);

@@ -1,4 +1,3 @@
-import { PDFDocument } from "pdf-lib";
 import type { ToolPlugin, ToolResult } from "../types";
 
 const jpgToPdf: ToolPlugin = {
@@ -21,6 +20,7 @@ const jpgToPdf: ToolPlugin = {
   runtime: "browser",
 
   async process(files): Promise<ToolResult> {
+    const { PDFDocument } = await import("pdf-lib");
     const pdf = await PDFDocument.create();
 
     for (const file of files) {
@@ -36,9 +36,12 @@ const jpgToPdf: ToolPlugin = {
         canvas.height = bitmap.height;
         const ctx = canvas.getContext("2d")!;
         ctx.drawImage(bitmap, 0, 0);
-        const jpegBlob = await new Promise<Blob>((resolve) =>
-          canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.92)
+        bitmap.close();
+        const jpegBlob = await new Promise<Blob>((resolve, reject) =>
+          canvas.toBlob((b) => b ? resolve(b) : reject(new Error("Failed to convert image")), "image/jpeg", 0.92)
         );
+        canvas.width = 0;
+        canvas.height = 0;
         const jpegBytes = await jpegBlob.arrayBuffer();
         image = await pdf.embedJpg(jpegBytes);
       } else {

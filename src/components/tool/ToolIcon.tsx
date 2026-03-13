@@ -60,7 +60,7 @@ export default function ToolIcon({ toolId, fallbackEmoji, size = "md" }: ToolIco
   const sizeClass = size === "md" ? "w-11 h-11" : "w-8 h-8";
 
   return (
-    <div className={`${sizeClass} rounded-xl ${icon.bg} ${icon.color} flex items-center justify-center`}>
+    <div className={`${sizeClass} rounded-xl ${icon.bg} ${icon.color} flex items-center justify-center tool-icon-bg`}>
       {icon.svg}
     </div>
   );

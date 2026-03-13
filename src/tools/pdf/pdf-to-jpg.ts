@@ -45,9 +45,12 @@ const pdfToJpg: ToolPlugin = {
       const ctx = canvas.getContext("2d")!;
       await page.render({ canvasContext: ctx, viewport, canvas } as never)
         .promise;
-      return new Promise<Blob>((resolve) =>
-        canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.92)
+      const blob = await new Promise<Blob>((resolve, reject) =>
+        canvas.toBlob((b) => b ? resolve(b) : reject(new Error("Failed to render page")), "image/jpeg", 0.92)
       );
+      canvas.width = 0;
+      canvas.height = 0;
+      return blob;
     };
 
     if (pageCount === 1) {

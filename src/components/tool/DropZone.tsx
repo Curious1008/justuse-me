@@ -2,12 +2,14 @@
 
 import { useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { ToolLabels } from "@/tools/types";
 
 interface DropZoneProps {
   acceptedTypes: string[];
   maxFiles: number;
   maxFileSize?: number;
   onFiles: (files: File[]) => void;
+  labels: ToolLabels;
 }
 
 function formatSize(bytes: number): string {
@@ -21,6 +23,7 @@ export default function DropZone({
   maxFiles,
   maxFileSize,
   onFiles,
+  labels,
 }: DropZoneProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,6 +49,12 @@ export default function DropZone({
           setError(`"${invalid.name}" is not a supported file type.`);
           return null;
         }
+      }
+
+      const empty = files.find((f) => f.size === 0);
+      if (empty) {
+        setError(`"${empty.name}" is empty (0 bytes).`);
+        return null;
       }
 
       if (maxFileSize) {
@@ -121,6 +130,9 @@ export default function DropZone({
     input.click();
   }, [acceptedTypes, maxFiles, handleIncoming]);
 
+  const processButtonText = labels.processNFiles
+    .replace("{n}", String(staged.length));
+
   return (
     <div className="w-full">
       <motion.div
@@ -173,10 +185,10 @@ export default function DropZone({
           <div className="text-center">
             <p className="text-sm text-[var(--color-text-secondary)]">
               {staged.length > 0
-                ? "Add more files, or "
-                : `Drop ${maxFiles > 1 ? "files" : "a file"} here, or `}
+                ? labels.addMoreFiles + " "
+                : (maxFiles > 1 ? labels.dropFilesHere : labels.dropFileHere) + " "}
               <span className="text-[var(--color-accent)] font-medium">
-                browse
+                {labels.browse}
               </span>
             </p>
             {staged.length === 0 && (
@@ -184,7 +196,7 @@ export default function DropZone({
                 {acceptedTypes
                   .map((t) => t.split("/")[1]?.toUpperCase())
                   .filter(Boolean)
-                  .join(", ") || "Any file"}
+                  .join(", ") || labels.anyFile}
               </p>
             )}
           </div>
@@ -201,7 +213,7 @@ export default function DropZone({
             className="mt-3 space-y-1.5"
           >
             {staged.length > 1 && (
-              <p className="text-[10px] text-[var(--color-text-muted)] text-center mb-1">Drag to reorder</p>
+              <p className="text-[10px] text-[var(--color-text-muted)] text-center mb-1">{labels.dragToReorder}</p>
             )}
             {staged.map((file, i) => (
               <motion.div
@@ -276,7 +288,7 @@ export default function DropZone({
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
               className="w-full mt-3 py-3 rounded-xl bg-[var(--color-text)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-colors hover:opacity-90"
             >
-              Process {staged.length} file{staged.length !== 1 ? "s" : ""}
+              {processButtonText}
             </motion.button>
           </motion.div>
         )}

@@ -1,5 +1,30 @@
 export type Category = "pdf" | "image" | "text" | "convert" | "generator";
 
+/** Labels passed from the server dictionary to client interaction components. */
+export interface ToolLabels {
+  chooseDifferentFile: string;
+  processFallback: string;
+  processAnother: string;
+  tryAgain: string;
+  addMoreFiles: string;
+  dropFileHere: string;
+  dropFilesHere: string;
+  browse: string;
+  anyFile: string;
+  dragToReorder: string;
+  processNFiles: string;
+  downloaded: string;
+  download: string;
+  processing: string;
+  dailyLimitTitle: string;
+  dailyLimitDesc: string;
+  createFreeAccount: string;
+  seeProPlans: string;
+  upgradeToPro: string;
+  maybeLater: string;
+  nFiles: string;
+}
+
 export interface ToolOptions {
   [key: string]: unknown;
 }
@@ -30,6 +55,9 @@ export interface ToolPlugin {
 
   // Runtime
   runtime: "browser" | "server";
+
+  // Locales where this tool should be hidden (e.g. OCR hidden for Chinese)
+  hiddenLocales?: string[];
 
   // Processing
   process: (files: File[], options?: ToolOptions) => Promise<ToolResult>;

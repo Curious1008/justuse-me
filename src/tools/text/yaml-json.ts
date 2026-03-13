@@ -1,4 +1,3 @@
-import * as yaml from "js-yaml";
 import type { ToolPlugin, ToolResult } from "../types";
 import TextPreview from "@/components/tool/previews/TextPreview";
 
@@ -38,6 +37,8 @@ const yamlJson: ToolPlugin = {
       file.name.endsWith(".json") ||
       trimmed.startsWith("{") ||
       trimmed.startsWith("[");
+
+    const yaml = await import("js-yaml");
 
     if (isJson) {
       let parsed;

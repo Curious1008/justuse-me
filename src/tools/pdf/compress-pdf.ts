@@ -61,9 +61,11 @@ const compressPdf: ToolPlugin = {
       await page.render({ canvasContext: ctx, viewport, canvas } as never)
         .promise;
 
-      const jpegBlob = await new Promise<Blob>((resolve) =>
-        canvas.toBlob((b) => resolve(b!), "image/jpeg", quality)
+      const jpegBlob = await new Promise<Blob>((resolve, reject) =>
+        canvas.toBlob((b) => b ? resolve(b) : reject(new Error("Failed to render page")), "image/jpeg", quality)
       );
+      canvas.width = 0;
+      canvas.height = 0;
 
       const jpegBytes = new Uint8Array(await jpegBlob.arrayBuffer());
       const jpegImage = await newPdf.embedJpg(jpegBytes);
