@@ -118,6 +118,7 @@ const en = {
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
     toolMetaTitle: "{name} Online Free",
     toolMetaSuffix: "Free, no ads, no sign-up. Your files stay on your device.",
+    toolMetaDescSuffix: "Runs in your browser — files are never uploaded. Free, no sign-up required.",
     toolOgTitle: "{name} — Free Online Tool | JustUse.me",
   },
 

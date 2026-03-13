@@ -27,9 +27,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const toolT = t.tools[toolId];
   const seo = t.toolSeo[toolId];
   const name = toolT?.name || tool.name;
-  const description = seo
-    ? `${toolT?.description || tool.description} ${seo.longDescription.split(". ").slice(0, 2).join(". ")}.`
-    : `${toolT?.description || tool.description} ${t.meta.toolMetaSuffix}`;
+  const toolDesc = toolT?.description || tool.description;
+  const maxSize = tool.maxFileSize ? (tool.maxFileSize >= 1024 * 1024 ? `${Math.round(tool.maxFileSize / 1024 / 1024)}MB` : `${Math.round(tool.maxFileSize / 1024)}KB`) : null;
+  const filesNote = tool.maxFiles > 1 ? `up to ${tool.maxFiles} files` : null;
+  const specs = [filesNote, maxSize ? `${maxSize} max` : null].filter(Boolean).join(", ");
+  const description = `${toolDesc}${specs ? ` (${specs})` : ""}. ${t.meta.toolMetaDescSuffix}`;
 
   const canonical = locale === defaultLocale
     ? `https://justuse.me/tools/${toolId}`

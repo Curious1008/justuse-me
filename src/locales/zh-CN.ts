@@ -118,6 +118,7 @@ const zhCN = {
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
     toolMetaTitle: "免费在线{name}",
     toolMetaSuffix: "免费、无广告、无需注册。文件始终留在你的设备上。",
+    toolMetaDescSuffix: "在浏览器中运行，文件不会上传到任何服务器。免费使用，无需注册。",
     toolOgTitle: "{name} — 免费在线工具 | JustUse.me",
   },
 

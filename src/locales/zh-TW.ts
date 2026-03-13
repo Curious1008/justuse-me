@@ -118,6 +118,7 @@ const zhTW = {
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
     toolMetaTitle: "免費線上{name}",
     toolMetaSuffix: "免費、無廣告、免註冊。你的檔案留在你的裝置上。",
+    toolMetaDescSuffix: "在瀏覽器中運行，檔案不會上傳到任何伺服器。免費使用，無需註冊。",
     toolOgTitle: "{name} — 免費線上工具 | JustUse.me",
   },
 
