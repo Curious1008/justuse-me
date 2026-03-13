@@ -98,7 +98,7 @@ function ConfiguringView({
           <img
             src={previewUrl}
             alt="Preview"
-            className="w-full max-h-64 object-contain"
+            className="w-full max-h-48 object-contain"
           />
         </div>
       )}
@@ -281,9 +281,9 @@ export default function ToolShell({ tool }: ToolShellProps) {
   };
 
   const transition = {
-    initial: { opacity: 0, y: 16, filter: "blur(4px)" },
-    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-    exit: { opacity: 0, y: -12, filter: "blur(4px)" },
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -12 },
     transition: { type: "spring" as const, stiffness: 300, damping: 28 },
   };
 
