@@ -21,6 +21,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/api/") ||
     pathname.startsWith("/auth/callback") ||
     pathname.startsWith("/_next/") ||
+    pathname.startsWith("/icon") ||
+    pathname.startsWith("/apple-icon") ||
     pathname.startsWith("/favicon") ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|html|xml|txt|json|ico)$/.test(pathname)
   ) {
