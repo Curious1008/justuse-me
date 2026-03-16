@@ -39,10 +39,12 @@ const loremIpsum: ToolPlugin = {
       wordsPerSentence: { max: 16, min: 4 },
     });
 
-    const result = lorem.generateParagraphs(count);
+    const paragraphs = Array.from({ length: count }, () =>
+      lorem.generateParagraphs(1)
+    ).join("\n\n");
 
     return {
-      blob: new Blob([result], { type: "text/plain" }),
+      blob: new Blob([paragraphs], { type: "text/plain" }),
       filename: "lorem-ipsum.txt",
       mimeType: "text/plain",
     };
