@@ -132,10 +132,10 @@ const en = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — Free Online PDF, Image & Text Tools",
-    siteDescription: "Free online tools to merge PDFs, compress images, format JSON, and 25+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
+    siteDescription: "Free online tools to merge PDFs, compress images, format JSON, and 40+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
     ogTitle: "JustUse.me — Free Online Tools",
-    ogDescription: "30+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
-    twitterDescription: "30+ free tools. No ads, no sign-up. Files stay in your browser.",
+    ogDescription: "45+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
+    twitterDescription: "45+ free tools. No ads, no sign-up. Files stay in your browser.",
     categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up | JustUse.me",
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
     toolMetaTitle: "{name} Online Free",
@@ -176,6 +176,22 @@ const en = {
     "xml-formatter": { name: "XML Formatter", description: "Format and beautify XML data." },
     "qr-code": { name: "QR Code Generator", description: "Generate QR codes from text or URLs." },
     "color-converter": { name: "Color Converter", description: "Convert colors between HEX, RGB, and HSL." },
+    "sql-formatter": { name: "SQL Formatter", description: "Format and beautify SQL queries with proper indentation." },
+    "html-beautifier": { name: "HTML Beautifier", description: "Format and indent messy HTML code." },
+    "jwt-decoder": { name: "JWT Decoder", description: "Decode and inspect JSON Web Token payloads." },
+    "cron-explainer": { name: "Cron Explainer", description: "Translate cron expressions into plain English." },
+    "slug-generator": { name: "Slug Generator", description: "Convert text into URL-friendly slugs." },
+    "handlebars-preview": { name: "Handlebars Preview", description: "Render Handlebars templates with live data." },
+    "html-to-markdown": { name: "HTML to Markdown", description: "Convert HTML content to Markdown format." },
+    "json5-to-json": { name: "JSON5 to JSON", description: "Convert JSON5 (with comments/trailing commas) to strict JSON." },
+    "toml-to-json": { name: "TOML to JSON", description: "Convert TOML configuration to JSON format." },
+    "json-to-markdown-table": { name: "JSON to Markdown Table", description: "Convert JSON arrays into readable Markdown tables." },
+    "typescript-to-js": { name: "TypeScript to JS", description: "Strip types from TypeScript to produce plain JavaScript." },
+    "uuid-generator": { name: "UUID Generator", description: "Generate random UUIDs (v4) instantly." },
+    "lorem-ipsum": { name: "Lorem Ipsum Generator", description: "Generate placeholder text for designs and mockups." },
+    "hash-generator": { name: "Hash Generator", description: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from files." },
+    "barcode-generator": { name: "Barcode Generator", description: "Generate barcodes from text in various formats." },
+    "exif-viewer": { name: "EXIF Viewer", description: "View EXIF metadata from photos (camera, GPS, date)." },
   } as Record<string, { name: string; description: string }>,
 
   // ─── Tool SEO content (keyed by tool ID) ───
@@ -419,6 +435,134 @@ const en = {
       faq: [
         { q: "What color formats are supported?", a: "HEX (e.g. #FF5733), RGB (e.g. rgb(255,87,51)), and HSL (e.g. hsl(11,100%,60%))." },
         { q: "Can I pick a color visually?", a: "Enter any supported format and the tool shows a live preview swatch of the color." },
+      ],
+    },
+    "sql-formatter": {
+      longDescription: "Format messy SQL queries with proper indentation and keyword capitalization. Supports standard SQL, PostgreSQL, MySQL, and more. Makes complex queries readable and easier to debug.",
+      steps: ["Paste your SQL query", "The query is formatted instantly with proper indentation", "Copy or download the formatted SQL"],
+      faq: [
+        { q: "Which SQL dialects are supported?", a: "Standard SQL, PostgreSQL, MySQL, MariaDB, SQLite, BigQuery, and more." },
+        { q: "Does it change the query logic?", a: "No. Formatting only affects whitespace and keyword casing. The query logic stays identical." },
+      ],
+    },
+    "html-beautifier": {
+      longDescription: "Format and indent messy or minified HTML code. Makes HTML readable with proper indentation and line breaks. Great for debugging templates, inspecting page source, or cleaning up generated HTML.",
+      steps: ["Paste your HTML code", "The HTML is beautified with proper indentation", "Copy or download the formatted HTML"],
+      faq: [
+        { q: "Does it fix broken HTML?", a: "No. The beautifier formats valid HTML. It won't repair missing tags or fix structural issues." },
+        { q: "Are inline styles and scripts formatted too?", a: "Yes. Embedded CSS and JavaScript within the HTML are also indented properly." },
+      ],
+    },
+    "jwt-decoder": {
+      longDescription: "Decode JSON Web Tokens (JWT) to inspect their header and payload. See claims like issuer, expiration, and custom data without needing a secret key. Essential for debugging authentication flows.",
+      steps: ["Paste your JWT string", "The header and payload are decoded instantly", "Review the claims and expiration data"],
+      faq: [
+        { q: "Is it safe to paste my JWT here?", a: "Yes. Decoding happens entirely in your browser. Your token is never sent to any server." },
+        { q: "Can this verify the JWT signature?", a: "This tool decodes and displays the token contents. Signature verification requires the secret key, which is not needed for inspection." },
+      ],
+    },
+    "cron-explainer": {
+      longDescription: "Translate cron expressions into human-readable descriptions. Understand complex cron schedules instantly. Supports standard 5-field cron syntax used in Unix, Linux, and most job schedulers.",
+      steps: ["Enter a cron expression (e.g. */5 * * * *)", "See the plain English explanation instantly", "Copy the description for documentation"],
+      faq: [
+        { q: "What cron format is supported?", a: "Standard 5-field cron expressions: minute, hour, day of month, month, day of week." },
+        { q: "Can I use special characters?", a: "Yes. Supports *, /, -, and comma notation (e.g. 1,15 or */5)." },
+      ],
+    },
+    "slug-generator": {
+      longDescription: "Convert any text into a URL-friendly slug. Removes special characters, replaces spaces with hyphens, and lowercases everything. Perfect for blog post URLs, file names, and SEO-friendly paths.",
+      steps: ["Enter or paste your text", "A clean URL slug is generated instantly", "Copy the slug for your project"],
+      faq: [
+        { q: "How are special characters handled?", a: "Accented characters are transliterated (e.g. e becomes e), and other special characters are removed." },
+        { q: "Can I use this for filenames?", a: "Yes. Slugs make great filenames since they only contain lowercase letters, numbers, and hyphens." },
+      ],
+    },
+    "handlebars-preview": {
+      longDescription: "Render Handlebars templates with live JSON data. Write your template, provide sample data, and see the rendered output instantly. Great for testing email templates, dynamic content, and template logic.",
+      steps: ["Write your Handlebars template at the top", "Add a ---DATA--- separator, then paste your JSON data below", "See the rendered output instantly"],
+      faq: [
+        { q: "What Handlebars features are supported?", a: "All standard Handlebars features: variables, conditionals (if/else), loops (each), partials, and helpers." },
+        { q: "How do I provide the data?", a: "Paste your template, add ---DATA--- on a new line, then paste your JSON data below." },
+      ],
+    },
+    "html-to-markdown": {
+      longDescription: "Convert HTML content to clean Markdown format. Perfect for migrating blog posts, converting documentation, or extracting content from web pages into Markdown for static site generators.",
+      steps: ["Upload an HTML file", "The HTML is converted to Markdown instantly", "Preview and download the Markdown output"],
+      faq: [
+        { q: "Which HTML elements are supported?", a: "Headings, paragraphs, links, images, lists, tables, code blocks, bold, italic, and more." },
+        { q: "Is the output clean?", a: "Yes. The converter produces clean Markdown without unnecessary escaping or extra whitespace." },
+      ],
+    },
+    "json5-to-json": {
+      longDescription: "Convert JSON5 to strict JSON format. JSON5 allows comments, trailing commas, unquoted keys, and single-quoted strings. This tool strips all JSON5 extensions to produce valid JSON.",
+      steps: ["Upload a JSON5 file", "The file is parsed and converted to strict JSON", "Download the valid JSON output"],
+      faq: [
+        { q: "What is JSON5?", a: "JSON5 is a superset of JSON that allows comments, trailing commas, unquoted keys, and other relaxed syntax. It's commonly used in configuration files." },
+        { q: "Are comments preserved?", a: "No. Comments are stripped since standard JSON doesn't support them." },
+      ],
+    },
+    "toml-to-json": {
+      longDescription: "Convert TOML configuration files to JSON format. TOML is widely used in Rust (Cargo.toml), Python (pyproject.toml), and other tools. Convert to JSON for use in JavaScript projects or APIs.",
+      steps: ["Upload your TOML file", "The file is parsed and converted to JSON", "Download the JSON output"],
+      faq: [
+        { q: "What is TOML?", a: "TOML (Tom's Obvious Minimal Language) is a configuration file format designed to be easy to read. Used by Cargo, Hugo, and many other tools." },
+        { q: "Are nested tables supported?", a: "Yes. All TOML features including nested tables, arrays of tables, and inline tables are supported." },
+      ],
+    },
+    "json-to-markdown-table": {
+      longDescription: "Convert JSON arrays into readable Markdown tables. Perfect for creating documentation, README files, or reports from structured data. Each object becomes a row, and keys become column headers.",
+      steps: ["Upload a JSON file containing an array of objects", "The data is converted to a Markdown table", "Copy or download the Markdown table"],
+      faq: [
+        { q: "What JSON structure is required?", a: "An array of objects with consistent keys. Each object becomes a table row." },
+        { q: "How are nested values handled?", a: "Nested objects and arrays are serialized as JSON strings within table cells." },
+      ],
+    },
+    "typescript-to-js": {
+      longDescription: "Strip TypeScript type annotations to produce plain JavaScript. Removes interfaces, type aliases, generics, and other TypeScript-specific syntax while preserving the runtime logic.",
+      steps: ["Upload your TypeScript file", "Types are stripped and JavaScript is generated", "Download the plain JavaScript output"],
+      faq: [
+        { q: "Does this compile TypeScript features?", a: "It strips types only. Modern JS features like optional chaining and nullish coalescing are preserved as-is." },
+        { q: "Are enums converted?", a: "TypeScript enums are transpiled to their JavaScript equivalent." },
+      ],
+    },
+    "uuid-generator": {
+      longDescription: "Generate random UUIDs (Universally Unique Identifiers) version 4. UUIDs are used as database primary keys, API request IDs, session tokens, and anywhere you need a globally unique identifier.",
+      steps: ["Enter how many UUIDs to generate (1-100)", "UUIDs are generated instantly", "Copy the UUIDs for your project"],
+      faq: [
+        { q: "Are these UUIDs truly unique?", a: "UUID v4 uses cryptographically random values. The probability of collision is astronomically low — about 1 in 2^122." },
+        { q: "What format is used?", a: "Standard UUID v4 format: 8-4-4-4-12 hexadecimal characters (e.g. 550e8400-e29b-41d4-a716-446655440000)." },
+      ],
+    },
+    "lorem-ipsum": {
+      longDescription: "Generate Lorem Ipsum placeholder text for designs, mockups, and prototypes. Choose the number of paragraphs you need. The classic dummy text used by designers and typesetters since the 1500s.",
+      steps: ["Enter the number of paragraphs to generate", "Lorem Ipsum text is generated instantly", "Copy the text for your design"],
+      faq: [
+        { q: "What is Lorem Ipsum?", a: "Lorem Ipsum is placeholder text derived from a work by Cicero (45 BC). It's been the printing industry's standard dummy text for centuries." },
+        { q: "Can I customize the output?", a: "You can specify the number of paragraphs to generate." },
+      ],
+    },
+    "hash-generator": {
+      longDescription: "Generate cryptographic hashes from any file. Supports MD5, SHA-1, SHA-256, and SHA-512. Use hashes to verify file integrity, detect duplicates, or create checksums for distribution.",
+      steps: ["Upload any file", "All hash values are computed instantly", "Copy the hash you need"],
+      faq: [
+        { q: "Which hash algorithms are available?", a: "MD5, SHA-1, SHA-256, and SHA-512. All are computed simultaneously." },
+        { q: "Is hashing done locally?", a: "Yes. All hashing runs in your browser using WebAssembly. Your files are never uploaded." },
+      ],
+    },
+    "barcode-generator": {
+      longDescription: "Generate barcodes from text in multiple formats. Supports CODE128, EAN-13, UPC-A, CODE39, ITF-14, and more. Download as a high-quality PNG image for printing or digital use.",
+      steps: ["Enter the text or number to encode", "Choose the barcode format", "Download the barcode as a PNG image"],
+      faq: [
+        { q: "Which barcode formats are supported?", a: "CODE128, EAN-13, EAN-8, UPC-A, CODE39, ITF-14, MSI, Pharmacode, and Codabar." },
+        { q: "Can I scan the generated barcodes?", a: "Yes. All generated barcodes are standards-compliant and scannable by any barcode reader." },
+      ],
+    },
+    "exif-viewer": {
+      longDescription: "View EXIF metadata embedded in photos. See camera model, lens, ISO, shutter speed, aperture, GPS coordinates, date taken, and more. Supports JPG and TIFF images.",
+      steps: ["Upload a photo (JPG or TIFF)", "All EXIF metadata is displayed instantly", "Review camera settings, GPS data, and more"],
+      faq: [
+        { q: "What information can I see?", a: "Camera make/model, lens, ISO, shutter speed, aperture, focal length, GPS coordinates, date/time, and more." },
+        { q: "Is my photo uploaded?", a: "No. EXIF data is read entirely in your browser. Your photo never leaves your device." },
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,

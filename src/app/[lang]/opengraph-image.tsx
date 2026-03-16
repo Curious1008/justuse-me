@@ -44,7 +44,7 @@ export default function OGImage() {
           effortlessly.
         </div>
         <div style={{ fontSize: 28, color: "#666", marginTop: "8px" }}>
-          30+ free tools for PDFs, images, and text. No ads, no sign-up.
+          45+ free tools for PDFs, images, and text. No ads, no sign-up.
         </div>
       </div>
       <div

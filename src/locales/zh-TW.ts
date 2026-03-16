@@ -132,10 +132,10 @@ const zhTW = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — 免費線上 PDF、圖片與文字工具",
-    siteDescription: "免費線上工具：合併 PDF、壓縮圖片、格式化 JSON 等超過 25 種工具。無廣告、免註冊、無浮水印，檔案絕不離開你的瀏覽器。",
+    siteDescription: "免費線上工具：合併 PDF、壓縮圖片、格式化 JSON 等超過 45 種工具。無廣告、免註冊、無浮水印，檔案絕不離開你的瀏覽器。",
     ogTitle: "JustUse.me — 免費線上工具",
-    ogDescription: "超過 30 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
-    twitterDescription: "超過 30 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
+    ogDescription: "超過 45 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
+    twitterDescription: "超過 45 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
     categoryMetaTitle: "免費線上{label} — 無廣告、免註冊 | JustUse.me",
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
     toolMetaTitle: "免費線上{name}",
@@ -176,6 +176,22 @@ const zhTW = {
     "xml-formatter": { name: "XML 格式化", description: "格式化並美化 XML 資料。" },
     "qr-code": { name: "QR Code 產生器", description: "從文字或網址產生 QR Code。" },
     "color-converter": { name: "色彩轉換器", description: "在 HEX、RGB 和 HSL 之間轉換色彩。" },
+    "sql-formatter": { name: "SQL 格式化", description: "格式化並美化 SQL 查詢語句。" },
+    "html-beautifier": { name: "HTML 美化", description: "格式化並縮排雜亂的 HTML 程式碼。" },
+    "jwt-decoder": { name: "JWT 解碼器", description: "解碼並檢視 JWT 權杖的載荷資料。" },
+    "cron-explainer": { name: "Cron 表達式解釋器", description: "將 Cron 表達式翻譯為易懂的說明。" },
+    "slug-generator": { name: "Slug 產生器", description: "將文字轉換為 URL 友善的 slug。" },
+    "handlebars-preview": { name: "Handlebars 預覽", description: "使用即時資料渲染 Handlebars 範本。" },
+    "html-to-markdown": { name: "HTML 轉 Markdown", description: "將 HTML 內容轉換為 Markdown 格式。" },
+    "json5-to-json": { name: "JSON5 轉 JSON", description: "將 JSON5（支援註解/結尾逗號）轉換為標準 JSON。" },
+    "toml-to-json": { name: "TOML 轉 JSON", description: "將 TOML 設定檔轉換為 JSON 格式。" },
+    "json-to-markdown-table": { name: "JSON 轉 Markdown 表格", description: "將 JSON 陣列轉換為 Markdown 表格。" },
+    "typescript-to-js": { name: "TypeScript 轉 JS", description: "去除 TypeScript 型別註解，產生純 JavaScript。" },
+    "uuid-generator": { name: "UUID 產生器", description: "即時產生隨機 UUID（v4）。" },
+    "lorem-ipsum": { name: "Lorem Ipsum 產生器", description: "產生設計和原型所需的佔位文字。" },
+    "hash-generator": { name: "雜湊產生器", description: "從檔案產生 MD5、SHA-1、SHA-256 和 SHA-512 雜湊值。" },
+    "barcode-generator": { name: "條碼產生器", description: "從文字產生多種格式的條碼。" },
+    "exif-viewer": { name: "EXIF 檢視器", description: "檢視照片的 EXIF 中繼資料（相機、GPS、日期）。" },
   } as Record<string, { name: string; description: string }>,
 
   // ─── Tool SEO content (keyed by tool ID) ───
@@ -419,6 +435,134 @@ const zhTW = {
       faq: [
         { q: "支援哪些色彩格式？", a: "HEX（例如 #FF5733）、RGB（例如 rgb(255,87,51)）和 HSL（例如 hsl(11,100%,60%)）。" },
         { q: "可以用視覺方式選色嗎？", a: "輸入任何支援的格式，工具會即時顯示該色彩的預覽色塊。" },
+      ],
+    },
+    "sql-formatter": {
+      longDescription: "格式化雜亂的 SQL 查詢語句，自動加上正確的縮排和關鍵字大寫。支援標準 SQL、PostgreSQL、MySQL 等多種方言。讓複雜查詢變得易讀且方便除錯。",
+      steps: ["貼上你的 SQL 查詢", "查詢會即時格式化並加上正確縮排", "複製或下載格式化後的 SQL"],
+      faq: [
+        { q: "支援哪些 SQL 方言？", a: "標準 SQL、PostgreSQL、MySQL、MariaDB、SQLite、BigQuery 等。" },
+        { q: "會改變查詢邏輯嗎？", a: "不會。格式化只影響空白和關鍵字大小寫，查詢邏輯完全不變。" },
+      ],
+    },
+    "html-beautifier": {
+      longDescription: "格式化並縮排雜亂或壓縮過的 HTML 程式碼。讓 HTML 變得易讀，加上正確的縮排和換行。適合除錯範本、檢查頁面原始碼或清理產生的 HTML。",
+      steps: ["貼上你的 HTML 程式碼", "HTML 會即時美化並加上正確縮排", "複製或下載格式化後的 HTML"],
+      faq: [
+        { q: "會修復錯誤的 HTML 嗎？", a: "不會。美化器只格式化有效的 HTML，不會修復遺失的標籤或結構問題。" },
+        { q: "行內樣式和腳本也會格式化嗎？", a: "會。HTML 中嵌入的 CSS 和 JavaScript 也會被正確縮排。" },
+      ],
+    },
+    "jwt-decoder": {
+      longDescription: "解碼 JSON Web Token（JWT）以檢視其標頭和載荷資訊。無需密鑰即可查看發行者、到期時間和自訂資料等聲明。除錯認證流程的必備工具。",
+      steps: ["貼上你的 JWT 字串", "標頭和載荷會即時解碼", "檢視聲明和到期資料"],
+      faq: [
+        { q: "在這裡貼上 JWT 安全嗎？", a: "安全。解碼完全在你的瀏覽器中進行，你的權杖不會傳送到任何伺服器。" },
+        { q: "可以驗證 JWT 簽章嗎？", a: "本工具用於解碼和顯示權杖內容。簽章驗證需要密鑰，不在此工具範圍內。" },
+      ],
+    },
+    "cron-explainer": {
+      longDescription: "將 Cron 表達式翻譯為易於理解的說明。即時理解複雜的排程任務計畫。支援 Unix、Linux 和大多數排程器使用的標準 5 欄位 Cron 語法。",
+      steps: ["輸入 Cron 表達式（例如 */5 * * * *）", "即時查看易懂的文字說明", "複製說明用於文件"],
+      faq: [
+        { q: "支援什麼 Cron 格式？", a: "標準 5 欄位 Cron 表達式：分鐘、小時、日期、月份、星期。" },
+        { q: "可以使用特殊字元嗎？", a: "可以。支援 *、/、- 和逗號表示法（如 1,15 或 */5）。" },
+      ],
+    },
+    "slug-generator": {
+      longDescription: "將任意文字轉換為 URL 友善的 slug。去除特殊字元，以連字號取代空格，全部轉為小寫。適合部落格文章 URL、檔案名稱和 SEO 友善路徑。",
+      steps: ["輸入或貼上你的文字", "即時產生乾淨的 URL slug", "複製 slug 用於你的專案"],
+      faq: [
+        { q: "特殊字元如何處理？", a: "帶重音的字元會被轉寫，其他特殊字元會被移除。" },
+        { q: "可以用作檔案名稱嗎？", a: "可以。Slug 只包含小寫字母、數字和連字號，非常適合作為檔案名稱。" },
+      ],
+    },
+    "handlebars-preview": {
+      longDescription: "使用即時 JSON 資料渲染 Handlebars 範本。撰寫範本、提供範例資料，即可立即查看渲染輸出。適合測試電子郵件範本、動態內容和範本邏輯。",
+      steps: ["在頂部撰寫 Handlebars 範本", "加上 ---DATA--- 分隔線，在下方貼上 JSON 資料", "即時查看渲染結果"],
+      faq: [
+        { q: "支援哪些 Handlebars 功能？", a: "所有標準 Handlebars 功能：變數、條件判斷（if/else）、迴圈（each）、局部範本和輔助函式。" },
+        { q: "如何提供資料？", a: "貼上範本後，另起一行加上 ---DATA---，然後在下方貼上 JSON 資料。" },
+      ],
+    },
+    "html-to-markdown": {
+      longDescription: "將 HTML 內容轉換為乾淨的 Markdown 格式。適合遷移部落格文章、轉換文件或從網頁中擷取內容用於靜態網站產生器。",
+      steps: ["上傳 HTML 檔案", "HTML 即時轉換為 Markdown", "預覽並下載 Markdown 輸出"],
+      faq: [
+        { q: "支援哪些 HTML 元素？", a: "標題、段落、連結、圖片、清單、表格、程式碼區塊、粗體、斜體等。" },
+        { q: "輸出乾淨嗎？", a: "是的。轉換器產生乾淨的 Markdown，沒有不必要的跳脫或多餘的空白。" },
+      ],
+    },
+    "json5-to-json": {
+      longDescription: "將 JSON5 轉換為標準 JSON 格式。JSON5 允許註解、結尾逗號、未加引號的鍵和單引號字串。本工具去除所有 JSON5 擴充語法，輸出有效的 JSON。",
+      steps: ["上傳 JSON5 檔案", "檔案被解析並轉換為標準 JSON", "下載有效的 JSON 輸出"],
+      faq: [
+        { q: "什麼是 JSON5？", a: "JSON5 是 JSON 的超集，允許註解、結尾逗號、未加引號的鍵和其他寬鬆語法。常用於設定檔。" },
+        { q: "註解會保留嗎？", a: "不會。由於標準 JSON 不支援註解，轉換時註解會被去除。" },
+      ],
+    },
+    "toml-to-json": {
+      longDescription: "將 TOML 設定檔轉換為 JSON 格式。TOML 廣泛用於 Rust（Cargo.toml）、Python（pyproject.toml）等工具。轉換為 JSON 後可用於 JavaScript 專案或 API。",
+      steps: ["上傳 TOML 檔案", "檔案被解析並轉換為 JSON", "下載 JSON 輸出"],
+      faq: [
+        { q: "什麼是 TOML？", a: "TOML 是一種設計為易於閱讀的設定檔格式。被 Cargo、Hugo 等許多工具使用。" },
+        { q: "支援巢狀表嗎？", a: "支援。所有 TOML 特性，包括巢狀表、表陣列和行內表都支援。" },
+      ],
+    },
+    "json-to-markdown-table": {
+      longDescription: "將 JSON 陣列轉換為易讀的 Markdown 表格。適合從結構化資料建立文件、README 檔案或報告。每個物件變為一列，鍵變為欄位標題。",
+      steps: ["上傳包含物件陣列的 JSON 檔案", "資料轉換為 Markdown 表格", "複製或下載 Markdown 表格"],
+      faq: [
+        { q: "需要什麼 JSON 結構？", a: "包含一致鍵值的物件陣列。每個物件變為表格的一列。" },
+        { q: "巢狀值如何處理？", a: "巢狀物件和陣列會在表格儲存格中序列化為 JSON 字串。" },
+      ],
+    },
+    "typescript-to-js": {
+      longDescription: "去除 TypeScript 型別註解，產生純 JavaScript。移除介面、型別別名、泛型和其他 TypeScript 特有語法，同時保留執行時邏輯。",
+      steps: ["上傳 TypeScript 檔案", "型別被去除並產生 JavaScript", "下載純 JavaScript 輸出"],
+      faq: [
+        { q: "會編譯 TypeScript 功能嗎？", a: "只去除型別。現代 JS 特性如可選鏈結和空值合併運算子會原樣保留。" },
+        { q: "列舉會被轉換嗎？", a: "TypeScript 列舉會被轉譯為對應的 JavaScript 形式。" },
+      ],
+    },
+    "uuid-generator": {
+      longDescription: "即時產生隨機 UUID（通用唯一識別碼）v4 版本。UUID 用作資料庫主鍵、API 請求 ID、工作階段權杖以及任何需要全域唯一識別碼的場景。",
+      steps: ["輸入要產生的 UUID 數量（1-100）", "UUID 即時產生", "複製 UUID 用於你的專案"],
+      faq: [
+        { q: "產生的 UUID 真的唯一嗎？", a: "UUID v4 使用加密隨機值。碰撞機率極低，約為 2^122 分之一。" },
+        { q: "使用什麼格式？", a: "標準 UUID v4 格式：8-4-4-4-12 十六進位字元（如 550e8400-e29b-41d4-a716-446655440000）。" },
+      ],
+    },
+    "lorem-ipsum": {
+      longDescription: "為設計、原型和模型產生 Lorem Ipsum 佔位文字。選擇需要的段落數。這是自 16 世紀以來設計師和排版人員使用的經典虛擬文字。",
+      steps: ["輸入要產生的段落數", "Lorem Ipsum 文字即時產生", "複製文字用於你的設計"],
+      faq: [
+        { q: "什麼是 Lorem Ipsum？", a: "Lorem Ipsum 是源自西塞羅（公元前 45 年）著作的佔位文字。幾個世紀以來一直是印刷業的標準虛擬文字。" },
+        { q: "可以自訂輸出嗎？", a: "可以指定要產生的段落數。" },
+      ],
+    },
+    "hash-generator": {
+      longDescription: "從任意檔案產生加密雜湊值。支援 MD5、SHA-1、SHA-256 和 SHA-512。用於驗證檔案完整性、偵測重複檔案或建立分發校驗碼。",
+      steps: ["上傳任意檔案", "所有雜湊值即時計算", "複製你需要的雜湊值"],
+      faq: [
+        { q: "提供哪些雜湊演算法？", a: "MD5、SHA-1、SHA-256 和 SHA-512，所有演算法同時計算。" },
+        { q: "雜湊計算在本機進行嗎？", a: "是的。所有雜湊計算使用 WebAssembly 在瀏覽器中執行，檔案不會上傳。" },
+      ],
+    },
+    "barcode-generator": {
+      longDescription: "從文字產生多種格式的條碼。支援 CODE128、EAN-13、UPC-A、CODE39、ITF-14 等格式。下載為高品質 PNG 圖片，可用於列印或數位用途。",
+      steps: ["輸入要編碼的文字或數字", "選擇條碼格式", "下載條碼 PNG 圖片"],
+      faq: [
+        { q: "支援哪些條碼格式？", a: "CODE128、EAN-13、EAN-8、UPC-A、CODE39、ITF-14、MSI、Pharmacode 和 Codabar。" },
+        { q: "產生的條碼可以掃描嗎？", a: "可以。所有產生的條碼符合標準規範，任何條碼讀取器都可以掃描。" },
+      ],
+    },
+    "exif-viewer": {
+      longDescription: "檢視照片中嵌入的 EXIF 中繼資料。查看相機型號、鏡頭、ISO、快門速度、光圈、GPS 座標、拍攝日期等資訊。支援 JPG 和 TIFF 圖片。",
+      steps: ["上傳照片（JPG 或 TIFF）", "所有 EXIF 中繼資料即時顯示", "檢視相機參數、GPS 資料等"],
+      faq: [
+        { q: "可以看到哪些資訊？", a: "相機品牌/型號、鏡頭、ISO、快門速度、光圈、焦距、GPS 座標、拍攝日期等。" },
+        { q: "照片會被上傳嗎？", a: "不會。EXIF 資料完全在你的瀏覽器中讀取，照片不會離開你的裝置。" },
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,

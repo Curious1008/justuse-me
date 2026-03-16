@@ -10,7 +10,6 @@ import pdfToText from "./pdf/pdf-to-text";
 import watermarkPdf from "./pdf/watermark-pdf";
 import compressPdf from "./pdf/compress-pdf";
 import pageNumbersPdf from "./pdf/page-numbers-pdf";
-// protect-pdf removed: pdf-lib doesn't support encryption; needs a backend solution
 
 // Image tools
 import compressImage from "./image/compress-image";
@@ -21,6 +20,7 @@ import heicToJpg from "./image/heic-to-jpg";
 import svgToPng from "./image/svg-to-png";
 import cropImage from "./image/crop-image";
 import ocrImage from "./image/ocr-image";
+import exifViewer from "./image/exif-viewer";
 
 // Text tools
 import jsonFormatter from "./text/json-formatter";
@@ -30,16 +30,31 @@ import markdownToHtml from "./text/markdown-to-html";
 import diffChecker from "./text/diff-checker";
 import jsMinifier from "./text/js-minifier";
 import cssMinifier from "./text/css-minifier";
+import sqlFormatter from "./text/sql-formatter";
+import htmlBeautifier from "./text/html-beautifier";
+import jwtDecoder from "./text/jwt-decoder";
+import cronExplainer from "./text/cron-explainer";
+import slugGenerator from "./text/slug-generator";
+import handlebarsPreview from "./text/handlebars-preview";
 
 // Convert tools
 import csvToJson from "./text/csv-to-json";
 import yamlJson from "./text/yaml-json";
 import jsonToCsv from "./convert/json-to-csv";
 import xmlFormatter from "./convert/xml-formatter";
+import htmlToMarkdown from "./convert/html-to-markdown";
+import json5ToJson from "./convert/json5-to-json";
+import tomlToJson from "./convert/toml-to-json";
+import jsonToMarkdownTable from "./convert/json-to-markdown-table";
+import typescriptToJs from "./convert/typescript-to-js";
 
 // Generator tools
 import qrCode from "./generator/qr-code";
 import colorConverter from "./generator/color-converter";
+import uuidGenerator from "./generator/uuid-generator";
+import loremIpsum from "./generator/lorem-ipsum";
+import hashGenerator from "./generator/hash-generator";
+import barcodeGenerator from "./generator/barcode-generator";
 
 const tools: ToolPlugin[] = [
   // PDF
@@ -61,6 +76,7 @@ const tools: ToolPlugin[] = [
   svgToPng,
   cropImage,
   ocrImage,
+  exifViewer,
   // Text
   jsonFormatter,
   wordCounter,
@@ -69,14 +85,29 @@ const tools: ToolPlugin[] = [
   diffChecker,
   jsMinifier,
   cssMinifier,
+  sqlFormatter,
+  htmlBeautifier,
+  jwtDecoder,
+  cronExplainer,
+  slugGenerator,
+  handlebarsPreview,
   // Convert
   csvToJson,
   yamlJson,
   jsonToCsv,
   xmlFormatter,
+  htmlToMarkdown,
+  json5ToJson,
+  tomlToJson,
+  jsonToMarkdownTable,
+  typescriptToJs,
   // Generator
   qrCode,
   colorConverter,
+  uuidGenerator,
+  loremIpsum,
+  hashGenerator,
+  barcodeGenerator,
 ];
 
 export function getAllTools(locale?: string): ToolPlugin[] {

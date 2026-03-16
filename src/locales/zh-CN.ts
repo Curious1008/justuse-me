@@ -132,10 +132,10 @@ const zhCN = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — 免费在线PDF、图片和文本工具",
-    siteDescription: "免费在线工具：合并PDF、压缩图片、格式化JSON等30+工具。无广告、无需注册、无水印，文件不会离开你的浏览器。",
+    siteDescription: "免费在线工具：合并PDF、压缩图片、格式化JSON等45+工具。无广告、无需注册、无水印，文件不会离开你的浏览器。",
     ogTitle: "JustUse.me — 免费在线工具箱",
-    ogDescription: "30+免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
-    twitterDescription: "30+免费工具，无广告、无需注册，文件在浏览器中处理。",
+    ogDescription: "45+免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
+    twitterDescription: "45+免费工具，无广告、无需注册，文件在浏览器中处理。",
     categoryMetaTitle: "免费在线{label} — 无广告、无需注册 | JustUse.me",
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
     toolMetaTitle: "免费在线{name}",
@@ -176,6 +176,22 @@ const zhCN = {
     "xml-formatter": { name: "XML格式化", description: "格式化和美化XML数据。" },
     "qr-code": { name: "二维码生成器", description: "从文本或网址生成二维码。" },
     "color-converter": { name: "颜色转换器", description: "在HEX、RGB和HSL之间转换颜色值。" },
+    "sql-formatter": { name: "SQL格式化", description: "格式化和美化SQL查询语句。" },
+    "html-beautifier": { name: "HTML美化", description: "格式化和缩进杂乱的HTML代码。" },
+    "jwt-decoder": { name: "JWT解码器", description: "解码并查看JWT令牌的载荷数据。" },
+    "cron-explainer": { name: "Cron表达式解释器", description: "将Cron表达式翻译为易懂的中文说明。" },
+    "slug-generator": { name: "Slug生成器", description: "将文本转换为URL友好的slug。" },
+    "handlebars-preview": { name: "Handlebars预览", description: "使用实时数据渲染Handlebars模板。" },
+    "html-to-markdown": { name: "HTML转Markdown", description: "将HTML内容转换为Markdown格式。" },
+    "json5-to-json": { name: "JSON5转JSON", description: "将JSON5（支持注释/尾逗号）转换为标准JSON。" },
+    "toml-to-json": { name: "TOML转JSON", description: "将TOML配置文件转换为JSON格式。" },
+    "json-to-markdown-table": { name: "JSON转Markdown表格", description: "将JSON数组转换为Markdown表格。" },
+    "typescript-to-js": { name: "TypeScript转JS", description: "去除TypeScript类型注解，生成纯JavaScript。" },
+    "uuid-generator": { name: "UUID生成器", description: "即时生成随机UUID（v4）。" },
+    "lorem-ipsum": { name: "Lorem Ipsum生成器", description: "生成设计和原型所需的占位文本。" },
+    "hash-generator": { name: "哈希生成器", description: "从文件生成MD5、SHA-1、SHA-256和SHA-512哈希值。" },
+    "barcode-generator": { name: "条形码生成器", description: "从文本生成多种格式的条形码。" },
+    "exif-viewer": { name: "EXIF查看器", description: "查看照片的EXIF元数据（相机、GPS、日期）。" },
   } as Record<string, { name: string; description: string }>,
 
   // ─── Tool SEO content (keyed by tool ID) ───
@@ -419,6 +435,134 @@ const zhCN = {
       faq: [
         { q: "支持哪些颜色格式？", a: "HEX（如 #FF5733）、RGB（如 rgb(255,87,51)）和HSL（如 hsl(11,100%,60%)）。" },
         { q: "可以可视化选择颜色吗？", a: "输入任何支持的格式，工具会实时显示颜色预览色块。" },
+      ],
+    },
+    "sql-formatter": {
+      longDescription: "格式化杂乱的SQL查询语句，自动添加正确的缩进和关键词大写。支持标准SQL、PostgreSQL、MySQL等多种方言。让复杂查询变得可读且易于调试。",
+      steps: ["粘贴你的SQL查询", "查询即时格式化并添加正确缩进", "复制或下载格式化后的SQL"],
+      faq: [
+        { q: "支持哪些SQL方言？", a: "标准SQL、PostgreSQL、MySQL、MariaDB、SQLite、BigQuery等。" },
+        { q: "会改变查询逻辑吗？", a: "不会。格式化只影响空白和关键词大小写，查询逻辑完全不变。" },
+      ],
+    },
+    "html-beautifier": {
+      longDescription: "格式化和缩进杂乱或压缩过的HTML代码。让HTML变得可读，添加正确的缩进和换行。适合调试模板、检查页面源码或清理生成的HTML。",
+      steps: ["粘贴你的HTML代码", "HTML即时美化并添加正确缩进", "复制或下载格式化后的HTML"],
+      faq: [
+        { q: "会修复错误的HTML吗？", a: "不会。美化器只格式化有效的HTML，不会修复缺失的标签或结构问题。" },
+        { q: "内联样式和脚本也会格式化吗？", a: "会。HTML中嵌入的CSS和JavaScript也会被正确缩进。" },
+      ],
+    },
+    "jwt-decoder": {
+      longDescription: "解码JSON Web Token（JWT）以查看其头部和载荷信息。无需密钥即可查看发行者、过期时间和自定义数据等声明。调试认证流程的必备工具。",
+      steps: ["粘贴你的JWT字符串", "头部和载荷即时解码", "查看声明和过期数据"],
+      faq: [
+        { q: "在这里粘贴JWT安全吗？", a: "安全。解码完全在浏览器中进行，你的令牌不会发送到任何服务器。" },
+        { q: "可以验证JWT签名吗？", a: "本工具用于解码和显示令牌内容。签名验证需要密钥，不在此工具范围内。" },
+      ],
+    },
+    "cron-explainer": {
+      longDescription: "将Cron表达式翻译为易于理解的中文说明。即时理解复杂的定时任务计划。支持Unix、Linux和大多数任务调度器使用的标准5字段Cron语法。",
+      steps: ["输入Cron表达式（如 */5 * * * *）", "即时查看易懂的文字说明", "复制说明用于文档"],
+      faq: [
+        { q: "支持什么Cron格式？", a: "标准5字段Cron表达式：分钟、小时、日期、月份、星期。" },
+        { q: "可以使用特殊字符吗？", a: "可以。支持*、/、-和逗号表示法（如1,15或*/5）。" },
+      ],
+    },
+    "slug-generator": {
+      longDescription: "将任意文本转换为URL友好的slug。去除特殊字符，用连字符替换空格，全部转为小写。适合博客文章URL、文件名和SEO友好路径。",
+      steps: ["输入或粘贴你的文本", "即时生成干净的URL slug", "复制slug用于你的项目"],
+      faq: [
+        { q: "特殊字符如何处理？", a: "带重音的字符会被转写，其他特殊字符会被移除。" },
+        { q: "可以用作文件名吗？", a: "可以。Slug只包含小写字母、数字和连字符，非常适合作为文件名。" },
+      ],
+    },
+    "handlebars-preview": {
+      longDescription: "使用实时JSON数据渲染Handlebars模板。编写模板、提供示例数据，即可立即查看渲染输出。适合测试邮件模板、动态内容和模板逻辑。",
+      steps: ["在顶部编写Handlebars模板", "添加---DATA---分隔符，在下方粘贴JSON数据", "即时查看渲染结果"],
+      faq: [
+        { q: "支持哪些Handlebars功能？", a: "所有标准Handlebars功能：变量、条件判断（if/else）、循环（each）、局部模板和助手函数。" },
+        { q: "如何提供数据？", a: "粘贴模板后，另起一行添加---DATA---，然后在下方粘贴JSON数据。" },
+      ],
+    },
+    "html-to-markdown": {
+      longDescription: "将HTML内容转换为简洁的Markdown格式。适合迁移博客文章、转换文档或从网页中提取内容用于静态站点生成器。",
+      steps: ["上传HTML文件", "HTML即时转换为Markdown", "预览并下载Markdown输出"],
+      faq: [
+        { q: "支持哪些HTML元素？", a: "标题、段落、链接、图片、列表、表格、代码块、粗体、斜体等。" },
+        { q: "输出干净吗？", a: "是的。转换器生成干净的Markdown，没有不必要的转义或多余的空白。" },
+      ],
+    },
+    "json5-to-json": {
+      longDescription: "将JSON5转换为标准JSON格式。JSON5允许注释、尾逗号、不带引号的键和单引号字符串。本工具去除所有JSON5扩展语法，输出有效的JSON。",
+      steps: ["上传JSON5文件", "文件被解析并转换为标准JSON", "下载有效的JSON输出"],
+      faq: [
+        { q: "什么是JSON5？", a: "JSON5是JSON的超集，允许注释、尾逗号、不带引号的键和其他宽松语法。常用于配置文件。" },
+        { q: "注释会保留吗？", a: "不会。由于标准JSON不支持注释，转换时注释会被去除。" },
+      ],
+    },
+    "toml-to-json": {
+      longDescription: "将TOML配置文件转换为JSON格式。TOML广泛用于Rust（Cargo.toml）、Python（pyproject.toml）等工具。转换为JSON后可用于JavaScript项目或API。",
+      steps: ["上传TOML文件", "文件被解析并转换为JSON", "下载JSON输出"],
+      faq: [
+        { q: "什么是TOML？", a: "TOML是一种设计为易于阅读的配置文件格式。被Cargo、Hugo等许多工具使用。" },
+        { q: "支持嵌套表吗？", a: "支持。所有TOML特性，包括嵌套表、表数组和内联表都支持。" },
+      ],
+    },
+    "json-to-markdown-table": {
+      longDescription: "将JSON数组转换为可读的Markdown表格。适合从结构化数据创建文档、README文件或报告。每个对象变为一行，键变为列标题。",
+      steps: ["上传包含对象数组的JSON文件", "数据转换为Markdown表格", "复制或下载Markdown表格"],
+      faq: [
+        { q: "需要什么JSON结构？", a: "包含统一键名的对象数组。每个对象变为表格的一行。" },
+        { q: "嵌套值如何处理？", a: "嵌套对象和数组会在表格单元格中序列化为JSON字符串。" },
+      ],
+    },
+    "typescript-to-js": {
+      longDescription: "去除TypeScript类型注解，生成纯JavaScript。移除接口、类型别名、泛型和其他TypeScript特有语法，同时保留运行时逻辑。",
+      steps: ["上传TypeScript文件", "类型被去除并生成JavaScript", "下载纯JavaScript输出"],
+      faq: [
+        { q: "会编译TypeScript功能吗？", a: "只去除类型。现代JS特性如可选链和空值合并运算符会原样保留。" },
+        { q: "枚举会被转换吗？", a: "TypeScript枚举会被转译为对应的JavaScript形式。" },
+      ],
+    },
+    "uuid-generator": {
+      longDescription: "即时生成随机UUID（通用唯一标识符）v4版本。UUID用作数据库主键、API请求ID、会话令牌以及任何需要全局唯一标识符的场景。",
+      steps: ["输入要生成的UUID数量（1-100）", "UUID即时生成", "复制UUID用于你的项目"],
+      faq: [
+        { q: "生成的UUID真的唯一吗？", a: "UUID v4使用加密随机值。碰撞概率极低，约为2^122分之一。" },
+        { q: "使用什么格式？", a: "标准UUID v4格式：8-4-4-4-12十六进制字符（如 550e8400-e29b-41d4-a716-446655440000）。" },
+      ],
+    },
+    "lorem-ipsum": {
+      longDescription: "为设计、原型和模型生成Lorem Ipsum占位文本。选择需要的段落数。这是自16世纪以来设计师和排版人员使用的经典虚拟文本。",
+      steps: ["输入要生成的段落数", "Lorem Ipsum文本即时生成", "复制文本用于你的设计"],
+      faq: [
+        { q: "什么是Lorem Ipsum？", a: "Lorem Ipsum是源自西塞罗（公元前45年）著作的占位文本。几个世纪以来一直是印刷行业的标准虚拟文本。" },
+        { q: "可以自定义输出吗？", a: "可以指定要生成的段落数。" },
+      ],
+    },
+    "hash-generator": {
+      longDescription: "从任意文件生成加密哈希值。支持MD5、SHA-1、SHA-256和SHA-512。用于验证文件完整性、检测重复文件或创建分发校验和。",
+      steps: ["上传任意文件", "所有哈希值即时计算", "复制你需要的哈希值"],
+      faq: [
+        { q: "提供哪些哈希算法？", a: "MD5、SHA-1、SHA-256和SHA-512，所有算法同时计算。" },
+        { q: "哈希计算在本地进行吗？", a: "是的。所有哈希计算使用WebAssembly在浏览器中运行，文件不会上传。" },
+      ],
+    },
+    "barcode-generator": {
+      longDescription: "从文本生成多种格式的条形码。支持CODE128、EAN-13、UPC-A、CODE39、ITF-14等格式。下载为高质量PNG图片，可用于打印或数字用途。",
+      steps: ["输入要编码的文本或数字", "选择条形码格式", "下载条形码PNG图片"],
+      faq: [
+        { q: "支持哪些条形码格式？", a: "CODE128、EAN-13、EAN-8、UPC-A、CODE39、ITF-14、MSI、Pharmacode和Codabar。" },
+        { q: "生成的条形码可以扫描吗？", a: "可以。所有生成的条形码符合标准规范，任何条形码阅读器都可以扫描。" },
+      ],
+    },
+    "exif-viewer": {
+      longDescription: "查看照片中嵌入的EXIF元数据。查看相机型号、镜头、ISO、快门速度、光圈、GPS坐标、拍摄日期等信息。支持JPG和TIFF图片。",
+      steps: ["上传照片（JPG或TIFF）", "所有EXIF元数据即时显示", "查看相机参数、GPS数据等"],
+      faq: [
+        { q: "可以看到哪些信息？", a: "相机品牌/型号、镜头、ISO、快门速度、光圈、焦距、GPS坐标、拍摄日期等。" },
+        { q: "照片会上传吗？", a: "不会。EXIF数据完全在浏览器中读取，照片不会离开你的设备。" },
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,
