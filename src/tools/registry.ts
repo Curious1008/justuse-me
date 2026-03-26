@@ -74,6 +74,22 @@ import strongPasswordChecker from "./generator/strong-password-checker";
 import fakeDataGenerator from "./generator/fake-data-generator";
 import placeholderImageGenerator from "./generator/placeholder-image-generator";
 
+// Utility tools
+import temperatureConverter from "./utility/temperature-converter";
+import lengthConverter from "./utility/length-converter";
+import weightConverter from "./utility/weight-converter";
+import speedConverter from "./utility/speed-converter";
+import dataStorageConverter from "./utility/data-storage-converter";
+import cookingConverter from "./utility/cooking-converter";
+import numberBaseConverter from "./utility/number-base-converter";
+import shoeConverter from "./utility/shoe-size-converter";
+import stopwatch from "./utility/stopwatch";
+import countdownTimer from "./utility/countdown-timer";
+import pomodoroTimer from "./utility/pomodoro-timer";
+import worldClock from "./utility/world-clock";
+import textEncryptDecrypt from "./utility/text-encrypt-decrypt";
+import urlChecker from "./utility/url-checker";
+
 // Developer tools
 import regexTester from "./developer/regex-tester";
 import timestampConverter from "./developer/timestamp-converter";
@@ -154,6 +170,21 @@ const tools: ToolPlugin[] = [
   strongPasswordChecker,
   fakeDataGenerator,
   placeholderImageGenerator,
+  // Utility
+  temperatureConverter,
+  lengthConverter,
+  weightConverter,
+  speedConverter,
+  dataStorageConverter,
+  cookingConverter,
+  numberBaseConverter,
+  shoeConverter,
+  stopwatch,
+  countdownTimer,
+  pomodoroTimer,
+  worldClock,
+  textEncryptDecrypt,
+  urlChecker,
   // Developer
   regexTester,
   timestampConverter,
