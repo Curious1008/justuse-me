@@ -15,5 +15,498 @@
       {"q": "Will my professor's documents be uploaded to a server?", "a": "No. All processing happens in your browser. Your files never leave your device."},
       {"q": "Is there a page limit for merging?", "a": "You can merge up to 20 PDFs, each up to 30MB. That covers most academic documents."}
     ]
+  },
+  {
+    "toolId": "merge-pdf",
+    "slug": "for-lawyers",
+    "title": "Merge Legal PDF Documents — Secure, Browser-Based",
+    "description": "Combine contracts, exhibits, and case documents into a single PDF ready for filing or client delivery. Processing happens entirely in your browser — no files are sent to any server.",
+    "steps": [
+      "Open JustUse.me Merge PDF — no account required",
+      "Upload your contracts, exhibits, or court documents",
+      "Drag to reorder documents in the correct legal sequence",
+      "Click Merge and download the consolidated PDF"
+    ],
+    "faq": [
+      {"q": "Are my client documents secure when I use this tool?", "a": "Yes. All processing is done locally in your browser. No files are transmitted to or stored on any server."},
+      {"q": "Can I control the order of documents before merging?", "a": "Yes. After uploading, drag and drop to arrange documents in any order before merging."},
+      {"q": "Does the merged PDF preserve bookmarks and hyperlinks?", "a": "The merged PDF preserves the text and page structure from your source documents. Complex internal bookmarks may not carry over depending on the original files."}
+    ]
+  },
+  {
+    "toolId": "merge-pdf",
+    "slug": "for-email",
+    "title": "Merge PDF for Email Attachment — Combine Files Before Sending",
+    "description": "Turn multiple PDF attachments into one clean file before emailing clients or colleagues. Smaller, neater, and less likely to hit email attachment limits.",
+    "steps": [
+      "Open JustUse.me Merge PDF in your browser",
+      "Upload the PDFs you want to send as one attachment",
+      "Reorder documents if needed",
+      "Download the merged PDF and attach it to your email"
+    ],
+    "faq": [
+      {"q": "Will merging multiple PDFs reduce the file size?", "a": "Merging combines files but does not compress them. If you need a smaller file, use the Compress PDF tool after merging."},
+      {"q": "Can I merge PDFs on my phone before emailing?", "a": "Yes. JustUse.me works in mobile browsers on iPhone and Android — no app download needed."},
+      {"q": "Is there a file size limit for email-ready PDFs?", "a": "You can merge PDFs up to 30MB each. Most email providers accept attachments up to 25MB, so compress after merging if needed."}
+    ]
+  },
+  {
+    "toolId": "merge-pdf",
+    "slug": "without-watermark",
+    "title": "Merge PDF Free — No Watermark, No Sign-Up",
+    "description": "Combine PDF files for free without any watermark added to your document. No account, no trial, no catch — just a clean merged PDF every time.",
+    "steps": [
+      "Go to JustUse.me Merge PDF",
+      "Drop your PDF files into the upload area",
+      "Arrange pages in the order you need",
+      "Click Merge — download a clean PDF with no watermarks"
+    ],
+    "faq": [
+      {"q": "Why do other free tools add watermarks?", "a": "Most tools add watermarks to push you toward paid plans. JustUse.me is free and adds no watermarks."},
+      {"q": "Do I need to create an account to get a watermark-free PDF?", "a": "No account needed. You get a clean merged PDF every time, completely free."},
+      {"q": "How many PDFs can I merge for free?", "a": "You can merge up to 20 PDFs per session, each up to 30MB, at no cost."}
+    ]
+  },
+  {
+    "toolId": "merge-pdf",
+    "slug": "on-iphone",
+    "title": "Merge PDF on iPhone — No App Required",
+    "description": "Combine PDF files directly from your iPhone using Safari or Chrome — no app download needed. Works with files from Files, Google Drive, or your camera roll.",
+    "steps": [
+      "Open Safari or Chrome on your iPhone and go to JustUse.me",
+      "Tap the upload area and select your PDFs from Files or iCloud",
+      "Reorder documents by dragging if needed",
+      "Tap Merge and save the combined PDF to your Files app"
+    ],
+    "faq": [
+      {"q": "Can I merge PDFs on iPhone without downloading an app?", "a": "Yes. JustUse.me is a web-based tool that works in your iPhone's browser with no app required."},
+      {"q": "How do I select PDF files from iCloud on my iPhone?", "a": "Tap the upload area, then choose Files. Navigate to iCloud Drive and select your PDFs."},
+      {"q": "Where does the merged PDF save on my iPhone?", "a": "After downloading, the PDF goes to your Downloads folder in the Files app, or you can share it directly to another app."}
+    ]
+  },
+  {
+    "toolId": "compress-pdf",
+    "slug": "under-1mb",
+    "title": "Compress PDF Under 1MB — Fast, Free, Online",
+    "description": "Reduce your PDF file size to under 1MB for portals, forms, and systems with strict upload limits. No software installation required — works in any browser.",
+    "steps": [
+      "Open JustUse.me Compress PDF",
+      "Upload your PDF file",
+      "Choose a compression level — Higher Compression for the smallest file size",
+      "Download your compressed PDF and check the file size"
+    ],
+    "faq": [
+      {"q": "Can I guarantee my PDF will be under 1MB after compression?", "a": "Compression results depend on the content of your PDF. Image-heavy PDFs compress significantly; text-only PDFs are already small. Try High Compression mode first."},
+      {"q": "Will compressing under 1MB make my PDF unreadable?", "a": "Text remains sharp. Images may show slight quality reduction at high compression, but documents remain fully legible."},
+      {"q": "What if the PDF is still over 1MB after compression?", "a": "Try splitting the PDF into smaller sections using a PDF split tool, then compress each part separately."}
+    ]
+  },
+  {
+    "toolId": "compress-pdf",
+    "slug": "for-email",
+    "title": "Compress PDF for Email — Reduce File Size Before Sending",
+    "description": "Shrink large PDFs so they fit within email attachment limits without bouncing back. Compresses in your browser in seconds — no software needed.",
+    "steps": [
+      "Open JustUse.me Compress PDF in your browser",
+      "Upload the PDF you want to email",
+      "Select a compression level based on how much you need to reduce",
+      "Download the smaller PDF and attach it to your email"
+    ],
+    "faq": [
+      {"q": "What is the typical email attachment size limit?", "a": "Gmail and Outlook both cap attachments at 25MB. Aim for under 20MB to be safe with most providers."},
+      {"q": "Will the compressed PDF look different to the recipient?", "a": "Text quality is preserved. If your PDF contains photos, very high compression may slightly reduce image sharpness."},
+      {"q": "Can I compress a PDF on my phone before emailing it?", "a": "Yes. JustUse.me works in mobile browsers — open it on your iPhone or Android, upload, compress, and share directly."}
+    ]
+  },
+  {
+    "toolId": "compress-pdf",
+    "slug": "without-losing-quality",
+    "title": "Compress PDF Without Losing Quality — Smart Optimization",
+    "description": "Reduce PDF file size while keeping text sharp and images clear. Uses lossless optimization to strip hidden data rather than degrading your content.",
+    "steps": [
+      "Open JustUse.me Compress PDF",
+      "Upload your PDF",
+      "Select Low Compression to prioritize quality over file size",
+      "Download and compare — text and images should look identical"
+    ],
+    "faq": [
+      {"q": "What does low compression do differently?", "a": "Low compression removes redundant metadata, embedded fonts, and unused resources without altering images. Quality stays the same."},
+      {"q": "Is there any compression that is truly lossless for PDFs?", "a": "Yes. Removing metadata and optimizing internal structure does not affect visual quality. Only image downsampling causes visible quality loss."},
+      {"q": "My PDF has charts and diagrams — will they stay sharp?", "a": "Vector graphics like charts stay pixel-perfect at any compression level. Raster images may soften only under high compression settings."}
+    ]
+  },
+  {
+    "toolId": "compress-pdf",
+    "slug": "free-no-limit",
+    "title": "Compress PDF Free — No File Limit, No Watermark",
+    "description": "Compress as many PDFs as you need, completely free, with no daily caps or watermarks added. No account needed — just upload and download.",
+    "steps": [
+      "Go to JustUse.me Compress PDF",
+      "Upload your PDF — no account or sign-up required",
+      "Pick your compression level",
+      "Download your smaller PDF — repeat as many times as needed"
+    ],
+    "faq": [
+      {"q": "Is there a daily limit on how many PDFs I can compress?", "a": "No. JustUse.me does not cap the number of files you can process per day."},
+      {"q": "Will a watermark appear on my compressed PDF?", "a": "No watermarks are added. You get a clean, unmodified compressed PDF."},
+      {"q": "Do I need to pay or subscribe to use this?", "a": "No payment or subscription is required. The tool is free for everyone."}
+    ]
+  },
+  {
+    "toolId": "compress-pdf",
+    "slug": "scanned-documents",
+    "title": "Compress Scanned PDF — Reduce Large Scan File Sizes",
+    "description": "Scanned PDFs are often 5–10x larger than they need to be. This tool compresses scanned document files while keeping text legible and signatures readable.",
+    "steps": [
+      "Open JustUse.me Compress PDF",
+      "Upload your scanned PDF",
+      "Choose Medium or High Compression — scanned files benefit most from higher settings",
+      "Download the compressed file and verify readability"
+    ],
+    "faq": [
+      {"q": "Why are scanned PDFs so much larger than regular PDFs?", "a": "Scanned PDFs store pages as images, not text. Each page is a high-resolution photo, making the file large even for simple text documents."},
+      {"q": "Will the text in my scanned document stay readable after compression?", "a": "Yes. Even at high compression, standard document text and signatures remain legible. Very fine print may soften slightly."},
+      {"q": "Can I compress a scanned PDF that has multiple pages?", "a": "Yes. There is no page count restriction. Upload your multi-page scanned document and compress the whole file at once."}
+    ]
+  },
+  {
+    "toolId": "pdf-to-jpg",
+    "slug": "high-quality",
+    "title": "PDF to JPG High Quality — Convert Without Losing Detail",
+    "description": "Convert PDF pages to high-resolution JPG images suitable for printing, editing, or sharing. Output at 300 DPI to preserve every detail from the original.",
+    "steps": [
+      "Open JustUse.me PDF to JPG",
+      "Upload your PDF file",
+      "Select High Quality output resolution",
+      "Download your JPG images — one per page"
+    ],
+    "faq": [
+      {"q": "What resolution are the exported JPG images?", "a": "High quality exports use 300 DPI, which is suitable for print and detailed viewing."},
+      {"q": "Will the text in my PDF be sharp in the JPG output?", "a": "Yes. At high quality settings, text renders clearly and vector graphics stay crisp."},
+      {"q": "Can I convert a PDF with multiple pages to separate JPG files?", "a": "Yes. Each page is saved as its own JPG file, and you can download all of them as a ZIP archive."}
+    ]
+  },
+  {
+    "toolId": "pdf-to-jpg",
+    "slug": "all-pages",
+    "title": "Convert All PDF Pages to JPG — Batch Export Every Page",
+    "description": "Extract every page from a PDF as a separate JPG file in one go. Download all pages as a ZIP file — no page selection needed.",
+    "steps": [
+      "Go to JustUse.me PDF to JPG",
+      "Upload your multi-page PDF",
+      "The tool automatically converts every page",
+      "Download the ZIP file containing all JPG images"
+    ],
+    "faq": [
+      {"q": "Is there a page limit for batch PDF to JPG conversion?", "a": "You can convert PDFs with up to 50 pages in a single upload."},
+      {"q": "Are all pages exported as separate JPG files?", "a": "Yes. Each PDF page becomes its own numbered JPG file inside the downloaded ZIP."},
+      {"q": "Can I select only specific pages instead of converting all?", "a": "The tool converts all pages by default. To convert specific pages, split the PDF first to isolate the pages you need."}
+    ]
+  },
+  {
+    "toolId": "pdf-to-jpg",
+    "slug": "for-presentation",
+    "title": "PDF to Image for Presentation — Import Slides into PowerPoint or Keynote",
+    "description": "Convert PDF slides to JPG images so you can import them into PowerPoint, Keynote, or Google Slides. Each slide becomes a clean, editable image.",
+    "steps": [
+      "Open JustUse.me PDF to JPG",
+      "Upload your PDF presentation",
+      "Convert — each slide becomes a separate JPG",
+      "Import the JPG files into PowerPoint, Keynote, or Google Slides as image slides"
+    ],
+    "faq": [
+      {"q": "Can I insert a PDF slide directly into PowerPoint?", "a": "PowerPoint does not natively import PDFs as editable slides. Converting to JPG first lets you insert each slide as an image."},
+      {"q": "Will the slide layout and fonts look correct after conversion?", "a": "Yes. The JPG captures the PDF exactly as it appears — fonts, images, and layout are all preserved as a flat image."},
+      {"q": "What resolution should I use for presentation slides?", "a": "Use high quality (300 DPI) for screen presentations and printing. Standard quality (150 DPI) is fine for screen-only viewing."}
+    ]
+  },
+  {
+    "toolId": "pdf-to-jpg",
+    "slug": "without-software",
+    "title": "PDF to JPG Without Installing Software — Convert Online, Free",
+    "description": "Convert PDF pages to JPG directly in your browser — no Adobe Acrobat, no desktop app, no installation. Works on Windows, Mac, and mobile.",
+    "steps": [
+      "Open JustUse.me PDF to JPG in any browser",
+      "Upload your PDF from your computer or phone",
+      "Click Convert — the tool processes it in your browser",
+      "Download your JPG files immediately"
+    ],
+    "faq": [
+      {"q": "Do I need to install any software or browser extension?", "a": "No. JustUse.me runs entirely in your browser. Nothing to install, update, or uninstall."},
+      {"q": "Does this work on Windows without Adobe Acrobat?", "a": "Yes. The tool works in Chrome, Edge, Firefox, or Safari on any Windows version — Adobe Acrobat not required."},
+      {"q": "Can I convert a PDF to JPG on a Chromebook?", "a": "Yes. Chromebooks support modern browsers, so JustUse.me works without any additional software."}
+    ]
+  },
+  {
+    "toolId": "pdf-to-jpg",
+    "slug": "batch-convert",
+    "title": "Batch Convert PDF to JPG — Multiple PDFs at Once",
+    "description": "Convert multiple PDF files to JPG images in a single session without uploading one at a time. Saves time when processing large document sets.",
+    "steps": [
+      "Open JustUse.me PDF to JPG",
+      "Upload multiple PDF files at once using the file picker",
+      "The tool converts each PDF and extracts all pages as JPG images",
+      "Download all converted images as a single ZIP archive"
+    ],
+    "faq": [
+      {"q": "How many PDFs can I convert in one batch?", "a": "You can upload multiple PDFs in a single session. Each PDF is processed and all pages are exported as JPGs."},
+      {"q": "Will I get one ZIP for all files or a separate ZIP per PDF?", "a": "All converted images are packaged into one ZIP file for easy download."},
+      {"q": "Is batch PDF to JPG conversion free?", "a": "Yes. Batch conversion is included at no cost — no account or payment needed."}
+    ]
+  },
+  {
+    "toolId": "compress-image",
+    "slug": "for-website",
+    "title": "Compress Image for Website — Faster Load Times, Smaller Files",
+    "description": "Reduce image file sizes before uploading to your website or CMS. Smaller images mean faster page loads and better Core Web Vitals scores.",
+    "steps": [
+      "Open JustUse.me Compress Image",
+      "Upload your JPG or PNG files",
+      "Adjust the quality slider to balance size and sharpness",
+      "Download compressed images and upload to your website"
+    ],
+    "faq": [
+      {"q": "What image format should I use for websites — JPG or PNG?", "a": "Use JPG for photos and PNG for graphics with transparent backgrounds. JPG files compress much smaller for photographic content."},
+      {"q": "How small should website images be?", "a": "Aim for under 200KB per image for standard web use. Hero images can go up to 400KB if needed for quality."},
+      {"q": "Will compressing images affect my Google rankings?", "a": "Yes, positively. Faster page load times improve Core Web Vitals, which Google uses as a ranking factor. Smaller images directly help."}
+    ]
+  },
+  {
+    "toolId": "compress-image",
+    "slug": "without-losing-quality",
+    "title": "Compress Image Without Losing Quality — Lossless Optimization",
+    "description": "Reduce image file size while keeping the image looking identical to the original. Uses smart compression to strip metadata and optimize encoding without degrading pixels.",
+    "steps": [
+      "Go to JustUse.me Compress Image",
+      "Upload your JPG or PNG image",
+      "Set quality to 85–90% for near-lossless results",
+      "Download and compare — the images should look identical at normal viewing sizes"
+    ],
+    "faq": [
+      {"q": "What quality percentage gives the best balance of size and sharpness?", "a": "85% quality typically reduces file size by 40–60% with no visible quality difference to the human eye."},
+      {"q": "Is PNG compression always lossless?", "a": "Yes. PNG compression is lossless by design — file size reduces but image data is preserved exactly."},
+      {"q": "Will color accuracy be affected by compression?", "a": "At 80% quality and above, color accuracy is preserved for standard viewing. Only very aggressive compression (below 60%) causes visible color shifts."}
+    ]
+  },
+  {
+    "toolId": "compress-image",
+    "slug": "for-email",
+    "title": "Compress Image for Email Attachment — Shrink Photos Before Sending",
+    "description": "Reduce photo file sizes so they send quickly and do not hit email attachment limits. Keeps images looking sharp for the recipient.",
+    "steps": [
+      "Open JustUse.me Compress Image",
+      "Upload the photos you want to email",
+      "Choose a quality level — 80% is good for email photos",
+      "Download the smaller images and attach them to your email"
+    ],
+    "faq": [
+      {"q": "How small should images be for email?", "a": "Keep each image under 1MB for email. Most recipients will view photos on screen, where high-resolution files add no benefit."},
+      {"q": "Can I compress multiple images at once for an email?", "a": "Yes. Upload multiple images in one session and download them all as a ZIP file."},
+      {"q": "Will the recipient notice the image is compressed?", "a": "At 80% quality, the difference is imperceptible on screen. Only side-by-side pixel-level comparison would reveal it."}
+    ]
+  },
+  {
+    "toolId": "compress-image",
+    "slug": "bulk",
+    "title": "Bulk Compress Images Online — Process Multiple Files at Once",
+    "description": "Compress dozens of images in a single upload instead of processing them one by one. Useful for product photo batches, blog images, or any large collection.",
+    "steps": [
+      "Open JustUse.me Compress Image",
+      "Select multiple images using the file picker or drag them all in at once",
+      "Set your quality preference — it applies to all images",
+      "Download all compressed images as a ZIP file"
+    ],
+    "faq": [
+      {"q": "How many images can I compress in one batch?", "a": "You can upload and compress multiple images in a single session without reloading the page."},
+      {"q": "Can I set different quality levels for different images in a batch?", "a": "The quality setting applies uniformly to the whole batch. For individual control, process images separately."},
+      {"q": "What formats are supported for bulk compression?", "a": "JPG and PNG are fully supported. Upload mixed batches and each file is handled appropriately."}
+    ]
+  },
+  {
+    "toolId": "compress-image",
+    "slug": "under-100kb",
+    "title": "Compress Image Under 100KB — Hit Strict Size Requirements",
+    "description": "Reduce image files to under 100KB for job applications, forms, and portals with strict size limits. Control the output size with the quality slider.",
+    "steps": [
+      "Open JustUse.me Compress Image",
+      "Upload your image",
+      "Lower the quality slider until the estimated file size falls below 100KB",
+      "Download and verify the file size before uploading to the portal"
+    ],
+    "faq": [
+      {"q": "Why do applications require images under 100KB?", "a": "Government portals, job boards, and visa applications enforce size limits to reduce storage costs and processing time."},
+      {"q": "Will my photo still look acceptable on a form or application?", "a": "For profile photos and ID-style images, 100KB is more than enough for clear results at standard display sizes."},
+      {"q": "What if my photo is too large even at maximum compression?", "a": "Resize the image to smaller pixel dimensions first, then compress. A passport-size photo at 400x500px compresses well under 100KB."}
+    ]
+  },
+  {
+    "toolId": "heic-to-jpg",
+    "slug": "iphone-photos",
+    "title": "Convert iPhone HEIC Photos to JPG — Free, No App Needed",
+    "description": "Turn iPhone HEIC photos into universally compatible JPG files. Works in your browser — no app download, no iCloud account required.",
+    "steps": [
+      "Open JustUse.me HEIC to JPG on your computer or phone",
+      "Upload your HEIC photos from your iPhone, iCloud, or computer",
+      "The tool converts them to JPG automatically",
+      "Download the JPG files — ready to share or upload anywhere"
+    ],
+    "faq": [
+      {"q": "Why does my iPhone save photos as HEIC instead of JPG?", "a": "HEIC is Apple's default format because it stores the same quality as JPG at half the file size, saving space on your device."},
+      {"q": "Can I share HEIC photos with someone who has an Android phone?", "a": "Most Android phones cannot open HEIC files. Convert to JPG first for universal compatibility."},
+      {"q": "Will the converted JPG look the same as the original HEIC photo?", "a": "Yes. The conversion preserves image quality, colors, and details from the original HEIC file."}
+    ]
+  },
+  {
+    "toolId": "heic-to-jpg",
+    "slug": "batch-convert",
+    "title": "Batch Convert HEIC to JPG — Convert Multiple Photos at Once",
+    "description": "Convert an entire folder of HEIC photos to JPG in one go instead of converting one at a time. Download all converted files as a single ZIP.",
+    "steps": [
+      "Open JustUse.me HEIC to JPG",
+      "Select all your HEIC files at once using the file picker",
+      "The tool converts every file simultaneously",
+      "Download all JPG files in a single ZIP archive"
+    ],
+    "faq": [
+      {"q": "How many HEIC files can I convert in one batch?", "a": "You can upload and convert multiple HEIC files at once. Large batches may take a moment to process."},
+      {"q": "Are all converted JPGs included in a single download?", "a": "Yes. All converted JPG files are packaged into one ZIP file for easy download."},
+      {"q": "Do the JPG filenames match the original HEIC filenames?", "a": "Yes. Converted files keep the same name as the source file, just with a .jpg extension."}
+    ]
+  },
+  {
+    "toolId": "heic-to-jpg",
+    "slug": "without-app",
+    "title": "HEIC to JPG Without an App — Convert Directly in Your Browser",
+    "description": "Convert HEIC files to JPG without downloading any software or app. Works on Mac, Windows, and iPhone through a standard web browser.",
+    "steps": [
+      "Open JustUse.me HEIC to JPG in Chrome, Safari, or Firefox",
+      "Upload your HEIC files from your computer or phone",
+      "Conversion happens automatically in the browser",
+      "Download the JPG files — no app installation was needed at any step"
+    ],
+    "faq": [
+      {"q": "Can I convert HEIC to JPG on Windows without any software?", "a": "Yes. Windows does not natively support HEIC, but JustUse.me handles it in your browser without any installation."},
+      {"q": "Do I need to install a codec or extension to view HEIC files on Windows?", "a": "Not for this tool. You can upload HEIC files directly even if your PC cannot preview them natively."},
+      {"q": "Is there a Mac app that converts HEIC to JPG?", "a": "Mac Preview can export HEIC to JPG, but for batch conversion without software, JustUse.me handles multiple files faster."}
+    ]
+  },
+  {
+    "toolId": "heic-to-jpg",
+    "slug": "keep-quality",
+    "title": "HEIC to JPG Without Losing Quality — Full-Resolution Conversion",
+    "description": "Convert HEIC photos to JPG at maximum quality so you keep every detail from the original iPhone photo. No compression applied unless you choose it.",
+    "steps": [
+      "Open JustUse.me HEIC to JPG",
+      "Upload your HEIC photo",
+      "Select maximum quality output (100%)",
+      "Download the full-resolution JPG"
+    ],
+    "faq": [
+      {"q": "Does converting HEIC to JPG always reduce quality?", "a": "At 100% JPG quality, the visible difference from the original HEIC is negligible. Some metadata like depth maps may not transfer."},
+      {"q": "Is HEIC actually better quality than JPG?", "a": "HEIC and JPG can store the same visual quality, but HEIC uses more efficient compression. At equivalent quality settings, they look identical."},
+      {"q": "Will the megapixel count change after conversion?", "a": "No. The converted JPG has the same pixel dimensions as the original HEIC file."}
+    ]
+  },
+  {
+    "toolId": "heic-to-jpg",
+    "slug": "on-windows",
+    "title": "Open HEIC on Windows — Convert to JPG for Full Compatibility",
+    "description": "Windows cannot open HEIC files by default. Convert your HEIC photos to JPG in your browser and open them in any Windows app — no codec purchase needed.",
+    "steps": [
+      "Open JustUse.me HEIC to JPG in your Windows browser",
+      "Upload the HEIC files you received or transferred from an iPhone",
+      "Download the converted JPG files",
+      "Open the JPGs in Windows Photos, Paint, or any other app"
+    ],
+    "faq": [
+      {"q": "Why can't Windows open HEIC files?", "a": "HEIC uses Apple's format. Windows requires a paid codec from the Microsoft Store to open HEIC natively. Converting to JPG is a free alternative."},
+      {"q": "My colleague sent me HEIC photos by email — how do I open them on Windows?", "a": "Save the attachments, then upload them to JustUse.me HEIC to JPG. Download the converted JPGs and open them normally."},
+      {"q": "Will the converted JPG open in older Windows versions like Windows 10?", "a": "Yes. JPG is universally supported on all Windows versions going back decades."}
+    ]
+  },
+  {
+    "toolId": "resize-image",
+    "slug": "for-instagram",
+    "title": "Resize Image for Instagram — Get the Right Dimensions",
+    "description": "Resize photos to Instagram's recommended dimensions for feed posts, stories, and reels. Avoid cropping surprises by preparing the exact pixel size before uploading.",
+    "steps": [
+      "Open JustUse.me Resize Image",
+      "Upload your photo",
+      "Enter the Instagram dimensions: 1080x1080 (square), 1080x1350 (portrait), or 1080x608 (landscape)",
+      "Download and upload to Instagram"
+    ],
+    "faq": [
+      {"q": "What is the best image size for an Instagram feed post?", "a": "1080x1080px for square, 1080x1350px for portrait, and 1080x608px for landscape. Instagram may compress larger images."},
+      {"q": "What size should Instagram Stories be?", "a": "Instagram Stories should be 1080x1920px (9:16 aspect ratio) for full-screen display."},
+      {"q": "Will resizing stretch or distort my photo?", "a": "The tool lets you maintain aspect ratio during resizing. If the target size has a different ratio, you can choose to crop or add padding."}
+    ]
+  },
+  {
+    "toolId": "resize-image",
+    "slug": "for-passport",
+    "title": "Resize Photo for Passport — Meet Official ID Photo Requirements",
+    "description": "Resize your photo to meet passport and visa application requirements. Supports standard sizes including 2x2 inch (US), 35x45mm (UK/EU), and others.",
+    "steps": [
+      "Open JustUse.me Resize Image",
+      "Upload a clear, front-facing photo",
+      "Enter the required dimensions for your country's passport (e.g., 600x600px for 2x2 inches at 300 DPI)",
+      "Download and use for your application"
+    ],
+    "faq": [
+      {"q": "What size is a US passport photo?", "a": "US passports require a 2x2 inch photo (51x51mm), which is 600x600 pixels at 300 DPI."},
+      {"q": "What size is a UK passport photo?", "a": "UK passport photos must be 35x45mm, which is approximately 413x531 pixels at 300 DPI."},
+      {"q": "Can I print the resized photo myself?", "a": "Yes. Download the resized image and print it at a pharmacy or at home on photo paper. Ensure your printer is set to 300 DPI."}
+    ]
+  },
+  {
+    "toolId": "resize-image",
+    "slug": "to-specific-size",
+    "title": "Resize Image to Exact Dimensions — Pixel-Perfect Custom Size",
+    "description": "Enter any custom width and height in pixels and the tool resizes your image precisely. Useful for design specs, upload requirements, and print templates.",
+    "steps": [
+      "Open JustUse.me Resize Image",
+      "Upload your image",
+      "Enter the exact width and height in pixels you need",
+      "Download the resized image at your specified dimensions"
+    ],
+    "faq": [
+      {"q": "Can I specify exact pixel dimensions for the output?", "a": "Yes. Enter any width and height in pixels. The tool outputs the image at exactly those dimensions."},
+      {"q": "What happens if my target dimensions have a different aspect ratio?", "a": "You can choose to stretch to fit, crop to fill, or add padding to preserve the original aspect ratio."},
+      {"q": "Can I resize an image to inches or centimeters instead of pixels?", "a": "Enter pixels and use the DPI to calculate: multiply inches by DPI (e.g., 4 inches at 300 DPI = 1200px)."}
+    ]
+  },
+  {
+    "toolId": "resize-image",
+    "slug": "for-linkedin",
+    "title": "Resize Image for LinkedIn — Profile Photo and Banner Dimensions",
+    "description": "Resize profile photos and cover banners to LinkedIn's recommended dimensions for a professional appearance. Avoids blurry or cropped profile pictures.",
+    "steps": [
+      "Open JustUse.me Resize Image",
+      "Upload your photo or banner image",
+      "Enter the correct LinkedIn dimensions: 400x400px for profile photo, 1584x396px for banner",
+      "Download and upload to your LinkedIn profile"
+    ],
+    "faq": [
+      {"q": "What is the ideal LinkedIn profile photo size?", "a": "LinkedIn recommends 400x400px. The photo displays as a circle, so keep your face centered and avoid tight crops."},
+      {"q": "What size should my LinkedIn background banner be?", "a": "LinkedIn banner dimensions are 1584x396px. Use a wide landscape image for best results."},
+      {"q": "Why does my LinkedIn profile photo look blurry after uploading?", "a": "Uploading an image smaller than 400x400px causes blurring when LinkedIn scales it up. Always start with at least 400x400px."}
+    ]
+  },
+  {
+    "toolId": "resize-image",
+    "slug": "in-bulk",
+    "title": "Bulk Resize Images Online — Resize Multiple Photos at Once",
+    "description": "Resize an entire batch of images to the same dimensions without processing them one by one. Saves time for product photos, thumbnails, and content batches.",
+    "steps": [
+      "Open JustUse.me Resize Image",
+      "Upload multiple images using the file picker or drag them in",
+      "Enter the target width and height to apply to all images",
+      "Download all resized images as a ZIP file"
+    ],
+    "faq": [
+      {"q": "Can I resize multiple images to the same size in one batch?", "a": "Yes. Set your target dimensions once and the tool applies them to every uploaded image."},
+      {"q": "What if my images have different aspect ratios?", "a": "You can choose how to handle mismatched ratios — stretch, crop, or pad each image to fit the target dimensions."},
+      {"q": "How many images can I resize in one session?", "a": "You can upload and resize multiple images at once. All resized files download together in a ZIP."}
+    ]
   }
 ]
