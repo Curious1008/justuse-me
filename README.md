@@ -1,93 +1,148 @@
-# justuse-me
+# JustUse.me
 
+**122 free browser-based tools. No uploads, no sign-up, no watermarks.**
 
+[www.justuse.me](https://www.justuse.me)
 
-## Getting started
+JustUse.me is a privacy-first online toolbox. Every tool processes files entirely in your browser using WebAssembly and Canvas APIs. Your files never leave your device.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Why JustUse.me?
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Most online file tools (Smallpdf, iLovePDF, TinyPNG) upload your files to their servers. JustUse.me doesn't. Everything runs client-side. No tracking, no server-side processing, no data collection.
 
-## Add your files
+- **True privacy** — files never touch a server
+- **Zero friction** — no account, no email, no captcha
+- **No watermarks** — even on the free tier
+- **Fast** — no upload/download wait, a 10MB PDF merges in seconds
+- **Multilingual** — English, Simplified Chinese, Traditional Chinese
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Tools (122)
+
+| Category | Count | Examples |
+|----------|-------|---------|
+| **PDF** | 10 | Merge, Split, Compress, Convert, Rotate, Watermark, Protect |
+| **Image** | 16 | Compress, Resize, Crop, HEIC/WebP/PNG/JPG Convert, OCR, Background Remove |
+| **Text & Code** | 23 | JSON Formatter, Diff Checker, Case Converter, Readability Checker |
+| **Convert** | 7 | CSV/JSON/YAML/XML/TOML/Markdown |
+| **Generator** | 14 | QR Code, Password, UUID, Color Palette, Invoice, Fake Data |
+| **Calculator** | 16 | BMI, Mortgage, Tip, Percentage, Compound Interest, GPA, Calorie |
+| **Developer** | 15 | Regex Tester, Timestamp Converter, CSS Generators, Meta Tag, JSON Validator |
+| **Utility** | 14 | Unit Converters, Pomodoro Timer, Stopwatch, World Clock, Encryption |
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, SSG/ISR)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + CSS Variables (light/dark mode)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **PDF**: [pdf-lib](https://pdf-lib.js.org/), [pdf.js](https://mozilla.github.io/pdf.js/)
+- **OCR**: [Tesseract.js](https://tesseract.projectnapoli.org/)
+- **Auth**: [Supabase](https://supabase.com/)
+- **Payments**: [Stripe](https://stripe.com/)
+- **Deploy**: [Vercel](https://vercel.com/)
+- **SEO**: Auto-generated articles via Cloudflare Workers + Claude API
+
+## Architecture
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/Curious1008/justuse-me.git
-git branch -M main
-git push -uf origin main
+src/
+├── app/[lang]/          # i18n routes (en, zh-CN, zh-TW)
+│   ├── tools/[toolId]/  # Tool pages (SSG)
+│   ├── news/            # Auto-generated SEO articles (ISR)
+│   └── [category]/      # Category listing pages
+├── tools/               # Tool plugins (one file per tool)
+│   ├── pdf/             # 10 PDF tools
+│   ├── image/           # 16 image tools
+│   ├── text/            # 23 text tools
+│   ├── convert/         # 7 converter tools
+│   ├── generator/       # 14 generator tools
+│   ├── calculator/      # 16 calculator tools
+│   ├── developer/       # 15 developer tools
+│   ├── utility/         # 14 utility tools
+│   ├── types.ts         # ToolPlugin interface
+│   └── registry.ts      # Tool registry
+├── components/          # Shared UI components
+│   ├── tool/            # ToolShell, DropZone, TextInput, etc.
+│   └── news/            # ArticleCard, ArticleContent
+├── config/
+│   ├── seo.ts           # JSON-LD generators
+│   └── tool-seo-content.ts  # Per-tool SEO content
+└── lib/                 # Supabase, i18n, usage tracking
 ```
 
-## Integrate with your tools
+### Plugin System
 
-* [Set up project integrations](https://gitlab.com/Curious1008/justuse-me/-/settings/integrations)
+Every tool is a self-contained module implementing the `ToolPlugin` interface:
 
-## Collaborate with your team
+```typescript
+const myTool: ToolPlugin = {
+  id: "my-tool",
+  category: "text",
+  name: "My Tool",
+  description: "Does something useful.",
+  keywords: ["keyword1", "keyword2"],
+  icon: "🔧",
+  inputMode: "text",          // "file" | "text" | "form"
+  runtime: "browser",         // everything runs client-side
+  async process(files) {
+    const input = await files[0].text();
+    const output = doSomething(input);
+    return {
+      blob: new Blob([output], { type: "text/plain" }),
+      filename: "result.txt",
+      mimeType: "text/plain",
+    };
+  },
+};
+```
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+Adding a new tool = create a file, export the plugin, register in `registry.ts`. No changes to the shell app.
 
-## Test and Deploy
+## Getting Started
 
-Use the built-in continuous integration in GitLab.
+```bash
+git clone https://github.com/Curious1008/justuse-me.git
+cd justuse-me
+npm install
+npm run dev
+```
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+Open [http://localhost:3000](http://localhost:3000).
 
-***
+### Environment Variables
 
-# Editing this README
+Copy `.env.local.example` to `.env.local` and fill in:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_PRICE_ID=
+REVALIDATE_SECRET=
+```
 
-## Suggestions for a good README
+Auth and payments are optional — all tools work without them.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Content Automation
 
-## Name
-Choose a self-explaining name for your project.
+A [Cloudflare Worker](https://workers.cloudflare.com/) runs daily to generate SEO articles:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+1. Picks keywords from a KV queue (auto-replenished via Claude API)
+2. Generates article via Claude Sonnet
+3. Commits markdown to `content/news/` via GitHub API
+4. Vercel auto-deploys, articles go live
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+PRs welcome. To add a new tool:
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+1. Create `src/tools/{category}/my-tool.ts` implementing `ToolPlugin`
+2. Add to `src/tools/registry.ts`
+3. Add SEO content to `src/config/tool-seo-content.ts`
+4. Add i18n strings to `src/locales/en.ts` (and optionally zh-CN, zh-TW)
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+MIT
