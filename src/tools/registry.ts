@@ -21,6 +21,13 @@ import svgToPng from "./image/svg-to-png";
 import cropImage from "./image/crop-image";
 import ocrImage from "./image/ocr-image";
 import exifViewer from "./image/exif-viewer";
+import imageMetadataRemover from "./image/image-metadata-remover";
+import imageColorPicker from "./image/image-color-picker";
+import imageToBase64 from "./image/image-to-base64";
+import imageFlipRotate from "./image/image-flip-rotate";
+import webpToPng from "./image/webp-to-png";
+import webpToJpg from "./image/webp-to-jpg";
+import gifToPng from "./image/gif-to-png";
 
 // Text tools
 import jsonFormatter from "./text/json-formatter";
@@ -90,6 +97,24 @@ import worldClock from "./utility/world-clock";
 import textEncryptDecrypt from "./utility/text-encrypt-decrypt";
 import urlChecker from "./utility/url-checker";
 
+// Calculator tools
+import percentageCalculator from "./calculator/percentage-calculator";
+import bmiCalculator from "./calculator/bmi-calculator";
+import ageCalculator from "./calculator/age-calculator";
+import tipCalculator from "./calculator/tip-calculator";
+import compoundInterestCalculator from "./calculator/compound-interest-calculator";
+import mortgageCalculator from "./calculator/mortgage-calculator";
+import loanCalculator from "./calculator/loan-calculator";
+import gradeCalculator from "./calculator/grade-calculator";
+import gpaCalculator from "./calculator/gpa-calculator";
+import calorieCalculator from "./calculator/calorie-calculator";
+import pregnancyDueDate from "./calculator/pregnancy-due-date";
+import dateDifferenceCalculator from "./calculator/date-difference-calculator";
+import timeZoneConverter from "./calculator/time-zone-converter";
+import discountCalculator from "./calculator/discount-calculator";
+import scientificCalculator from "./calculator/scientific-calculator";
+import debtPayoffCalculator from "./calculator/debt-payoff-calculator";
+
 // Developer tools
 import regexTester from "./developer/regex-tester";
 import timestampConverter from "./developer/timestamp-converter";
@@ -99,6 +124,13 @@ import chmodCalculator from "./developer/chmod-calculator";
 import metaTagGenerator from "./developer/meta-tag-generator";
 import cssGradientGenerator from "./developer/css-gradient-generator";
 import httpStatusCodes from "./developer/http-status-codes";
+import cssBoxShadowGenerator from "./developer/css-box-shadow-generator";
+import cssFlexboxGenerator from "./developer/css-flexbox-generator";
+import faviconGenerator from "./developer/favicon-generator";
+import jsonValidator from "./developer/json-validator";
+import cssUnitConverter from "./developer/css-unit-converter";
+import colorContrastChecker from "./developer/color-contrast-checker";
+import svgOptimizer from "./developer/svg-optimizer";
 
 const tools: ToolPlugin[] = [
   // PDF
@@ -121,6 +153,13 @@ const tools: ToolPlugin[] = [
   cropImage,
   ocrImage,
   exifViewer,
+  imageMetadataRemover,
+  imageColorPicker,
+  imageToBase64,
+  imageFlipRotate,
+  webpToPng,
+  webpToJpg,
+  gifToPng,
   // Text
   jsonFormatter,
   wordCounter,
@@ -185,6 +224,23 @@ const tools: ToolPlugin[] = [
   worldClock,
   textEncryptDecrypt,
   urlChecker,
+  // Calculator
+  percentageCalculator,
+  bmiCalculator,
+  ageCalculator,
+  tipCalculator,
+  compoundInterestCalculator,
+  mortgageCalculator,
+  loanCalculator,
+  gradeCalculator,
+  gpaCalculator,
+  calorieCalculator,
+  pregnancyDueDate,
+  dateDifferenceCalculator,
+  timeZoneConverter,
+  discountCalculator,
+  scientificCalculator,
+  debtPayoffCalculator,
   // Developer
   regexTester,
   timestampConverter,
@@ -194,6 +250,13 @@ const tools: ToolPlugin[] = [
   metaTagGenerator,
   cssGradientGenerator,
   httpStatusCodes,
+  cssBoxShadowGenerator,
+  cssFlexboxGenerator,
+  faviconGenerator,
+  jsonValidator,
+  cssUnitConverter,
+  colorContrastChecker,
+  svgOptimizer,
 ];
 
 export function getAllTools(locale?: string): ToolPlugin[] {
