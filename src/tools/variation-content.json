@@ -1,0 +1,19 @@
+[
+  {
+    "toolId": "merge-pdf",
+    "slug": "for-students",
+    "title": "Merge PDF Files for Students — Free, No Watermark",
+    "description": "Combine assignment PDFs, lecture notes, and research papers into one document. Runs in your browser — your academic files stay private.",
+    "steps": [
+      "Open JustUse.me Merge PDF — no signup needed",
+      "Drag your assignment PDFs, notes, or papers into the drop zone",
+      "Reorder pages to match your submission requirements",
+      "Click Merge and download your combined PDF"
+    ],
+    "faq": [
+      {"q": "Can I merge my assignment PDFs without creating an account?", "a": "Yes. JustUse.me requires no account for free usage. Just drop your files and merge."},
+      {"q": "Will my professor's documents be uploaded to a server?", "a": "No. All processing happens in your browser. Your files never leave your device."},
+      {"q": "Is there a page limit for merging?", "a": "You can merge up to 20 PDFs, each up to 30MB. That covers most academic documents."}
+    ]
+  }
+]

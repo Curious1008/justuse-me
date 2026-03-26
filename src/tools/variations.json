@@ -1,0 +1,37 @@
+[
+  {"toolId": "merge-pdf", "slug": "for-students", "keyword": "merge pdf for students"},
+  {"toolId": "merge-pdf", "slug": "for-lawyers", "keyword": "merge legal pdf documents"},
+  {"toolId": "merge-pdf", "slug": "for-email", "keyword": "merge pdf for email attachment"},
+  {"toolId": "merge-pdf", "slug": "without-watermark", "keyword": "merge pdf free no watermark"},
+  {"toolId": "merge-pdf", "slug": "on-iphone", "keyword": "merge pdf on iphone"},
+
+  {"toolId": "compress-pdf", "slug": "under-1mb", "keyword": "compress pdf under 1mb"},
+  {"toolId": "compress-pdf", "slug": "for-email", "keyword": "compress pdf for email"},
+  {"toolId": "compress-pdf", "slug": "without-losing-quality", "keyword": "compress pdf without losing quality"},
+  {"toolId": "compress-pdf", "slug": "free-no-limit", "keyword": "compress pdf free no limit"},
+  {"toolId": "compress-pdf", "slug": "scanned-documents", "keyword": "compress scanned pdf"},
+
+  {"toolId": "pdf-to-jpg", "slug": "high-quality", "keyword": "pdf to jpg high quality"},
+  {"toolId": "pdf-to-jpg", "slug": "all-pages", "keyword": "convert all pdf pages to jpg"},
+  {"toolId": "pdf-to-jpg", "slug": "for-presentation", "keyword": "pdf to image for presentation"},
+  {"toolId": "pdf-to-jpg", "slug": "without-software", "keyword": "pdf to jpg without installing software"},
+  {"toolId": "pdf-to-jpg", "slug": "batch-convert", "keyword": "batch convert pdf to jpg"},
+
+  {"toolId": "compress-image", "slug": "for-website", "keyword": "compress image for website"},
+  {"toolId": "compress-image", "slug": "without-losing-quality", "keyword": "compress image without losing quality"},
+  {"toolId": "compress-image", "slug": "for-email", "keyword": "compress image for email attachment"},
+  {"toolId": "compress-image", "slug": "bulk", "keyword": "bulk compress images online"},
+  {"toolId": "compress-image", "slug": "under-100kb", "keyword": "compress image under 100kb"},
+
+  {"toolId": "heic-to-jpg", "slug": "iphone-photos", "keyword": "convert iphone heic to jpg"},
+  {"toolId": "heic-to-jpg", "slug": "batch-convert", "keyword": "batch convert heic to jpg"},
+  {"toolId": "heic-to-jpg", "slug": "without-app", "keyword": "heic to jpg without app"},
+  {"toolId": "heic-to-jpg", "slug": "keep-quality", "keyword": "heic to jpg without losing quality"},
+  {"toolId": "heic-to-jpg", "slug": "on-windows", "keyword": "open heic on windows"},
+
+  {"toolId": "resize-image", "slug": "for-instagram", "keyword": "resize image for instagram"},
+  {"toolId": "resize-image", "slug": "for-passport", "keyword": "resize photo for passport"},
+  {"toolId": "resize-image", "slug": "to-specific-size", "keyword": "resize image to exact dimensions"},
+  {"toolId": "resize-image", "slug": "for-linkedin", "keyword": "resize image for linkedin"},
+  {"toolId": "resize-image", "slug": "in-bulk", "keyword": "bulk resize images online"}
+]
