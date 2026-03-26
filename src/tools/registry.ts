@@ -74,6 +74,16 @@ import strongPasswordChecker from "./generator/strong-password-checker";
 import fakeDataGenerator from "./generator/fake-data-generator";
 import placeholderImageGenerator from "./generator/placeholder-image-generator";
 
+// Developer tools
+import regexTester from "./developer/regex-tester";
+import timestampConverter from "./developer/timestamp-converter";
+import jsonToTypescript from "./developer/json-to-typescript";
+import htmlToJsx from "./developer/html-to-jsx";
+import chmodCalculator from "./developer/chmod-calculator";
+import metaTagGenerator from "./developer/meta-tag-generator";
+import cssGradientGenerator from "./developer/css-gradient-generator";
+import httpStatusCodes from "./developer/http-status-codes";
+
 const tools: ToolPlugin[] = [
   // PDF
   mergePdf,
@@ -144,6 +154,15 @@ const tools: ToolPlugin[] = [
   strongPasswordChecker,
   fakeDataGenerator,
   placeholderImageGenerator,
+  // Developer
+  regexTester,
+  timestampConverter,
+  jsonToTypescript,
+  htmlToJsx,
+  chmodCalculator,
+  metaTagGenerator,
+  cssGradientGenerator,
+  httpStatusCodes,
 ];
 
 export function getAllTools(locale?: string): ToolPlugin[] {
