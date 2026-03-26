@@ -15,6 +15,9 @@ const categoryLabels: Record<Locale, { id: Category; label: string }[]> = {
     { id: "text", label: "Text & Code" },
     { id: "convert", label: "Convert" },
     { id: "generator", label: "Generator" },
+    { id: "calculator", label: "Calculator" },
+    { id: "developer", label: "Developer" },
+    { id: "utility", label: "Utility" },
   ],
   "zh-CN": [
     { id: "pdf", label: "PDF" },
@@ -22,6 +25,9 @@ const categoryLabels: Record<Locale, { id: Category; label: string }[]> = {
     { id: "text", label: "文本与代码" },
     { id: "convert", label: "格式转换" },
     { id: "generator", label: "生成器" },
+    { id: "calculator", label: "计算器" },
+    { id: "developer", label: "开发者" },
+    { id: "utility", label: "实用工具" },
   ],
   "zh-TW": [
     { id: "pdf", label: "PDF" },
@@ -29,6 +35,9 @@ const categoryLabels: Record<Locale, { id: Category; label: string }[]> = {
     { id: "text", label: "文字與程式碼" },
     { id: "convert", label: "格式轉換" },
     { id: "generator", label: "產生器" },
+    { id: "calculator", label: "計算機" },
+    { id: "developer", label: "開發者" },
+    { id: "utility", label: "實用工具" },
   ],
 };
 
