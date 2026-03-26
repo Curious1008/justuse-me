@@ -36,6 +36,16 @@ import jwtDecoder from "./text/jwt-decoder";
 import cronExplainer from "./text/cron-explainer";
 import slugGenerator from "./text/slug-generator";
 import handlebarsPreview from "./text/handlebars-preview";
+import caseConverter from "./text/case-converter";
+import removeDuplicateLines from "./text/remove-duplicate-lines";
+import sortLines from "./text/sort-lines";
+import stringReverse from "./text/string-reverse";
+import readabilityChecker from "./text/readability-checker";
+import removeWhitespace from "./text/remove-whitespace";
+import findAndReplace from "./text/find-and-replace";
+import urlEncoderDecoder from "./text/url-encoder-decoder";
+import htmlEntityEncoder from "./text/html-entity-encoder";
+import numberToWords from "./text/number-to-words";
 
 // Convert tools
 import csvToJson from "./text/csv-to-json";
@@ -91,6 +101,16 @@ const tools: ToolPlugin[] = [
   cronExplainer,
   slugGenerator,
   handlebarsPreview,
+  caseConverter,
+  removeDuplicateLines,
+  sortLines,
+  stringReverse,
+  readabilityChecker,
+  removeWhitespace,
+  findAndReplace,
+  urlEncoderDecoder,
+  htmlEntityEncoder,
+  numberToWords,
   // Convert
   csvToJson,
   yamlJson,
