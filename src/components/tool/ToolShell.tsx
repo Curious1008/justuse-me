@@ -315,7 +315,29 @@ export default function ToolShell({ tool, labels }: ToolShellProps) {
       <AnimatePresence mode="wait">
         {state === "idle" && (
           <motion.div key="dropzone" {...transition}>
-            {tool.inputMode === "text" ? (
+            {tool.inputMode === "form" && tool.optionsUI ? (
+              <div className="w-full flex flex-col gap-4">
+                <tool.optionsUI options={options} onChange={setOptions} />
+                <motion.button
+                  onClick={async () => {
+                    // Create a dummy file with serialized options for the process function
+                    const file = new File(
+                      [JSON.stringify(options)],
+                      "form-input.json",
+                      { type: "application/json" }
+                    );
+                    await handleFiles([file]);
+                  }}
+                  disabled={isProcessing}
+                  whileHover={isProcessing ? {} : { scale: 1.02 }}
+                  whileTap={isProcessing ? {} : { scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                  className="w-full py-3 rounded-xl bg-[var(--color-accent)] text-white text-sm font-semibold font-[family-name:var(--font-sora)] cursor-pointer transition-all hover:bg-[var(--color-accent-dim)] disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {tool.processButtonLabel || tool.textButtonLabel || labels.processFallback}
+                </motion.button>
+              </div>
+            ) : tool.inputMode === "text" ? (
               <TextInput
                 placeholder={tool.textPlaceholder}
                 buttonLabel={tool.textButtonLabel}

@@ -33,6 +33,9 @@ const en = {
     text: "Text & Code",
     convert: "Convert",
     generator: "Generator",
+    calculator: "Calculator",
+    developer: "Developer",
+    utility: "Utility",
   },
 
   // ─── Category pages ───
@@ -42,6 +45,9 @@ const en = {
     text: { title: "Text & Code Tools", description: "Format JSON, count words, encode/decode Base64, and more." },
     convert: { title: "Converter Tools", description: "Convert between CSV, JSON, YAML, XML, and other formats." },
     generator: { title: "Generator Tools", description: "Generate QR codes, color palettes, and more." },
+    calculator: { title: "Calculator Tools", description: "Percentage, BMI, mortgage, loan, and other calculators." },
+    developer: { title: "Developer Tools", description: "Regex tester, URL encoder, CSS generators, and more." },
+    utility: { title: "Utility Tools", description: "Stopwatch, timer, unit converters, and everyday tools." },
   },
 
   // ─── Tool page ───

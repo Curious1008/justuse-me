@@ -1,4 +1,4 @@
-export type Category = "pdf" | "image" | "text" | "convert" | "generator";
+export type Category = "pdf" | "image" | "text" | "convert" | "generator" | "calculator" | "developer" | "utility";
 
 /** Labels passed from the server dictionary to client interaction components. */
 export interface ToolLabels {
@@ -45,7 +45,7 @@ export interface ToolPlugin {
   icon: string;
 
   // Input config
-  inputMode?: "file" | "text"; // default: "file"
+  inputMode?: "file" | "text" | "form"; // default: "file", "form" = optionsUI is the entire interface
   textPlaceholder?: string; // placeholder for text input mode
   textButtonLabel?: string; // button label for text input (default: "Generate")
   processButtonLabel?: string; // button label for process (default: "Process")

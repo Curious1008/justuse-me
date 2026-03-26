@@ -33,6 +33,9 @@ const zhTW = {
     text: "文字與程式碼",
     convert: "格式轉換",
     generator: "產生器",
+    calculator: "計算機",
+    developer: "開發者",
+    utility: "實用工具",
   },
 
   // ─── Category pages ───
@@ -42,6 +45,9 @@ const zhTW = {
     text: { title: "文字與程式碼工具", description: "格式化 JSON、字數統計、Base64 編解碼等。" },
     convert: { title: "格式轉換工具", description: "在 CSV、JSON、YAML、XML 等格式之間互相轉換。" },
     generator: { title: "產生器工具", description: "產生 QR Code、色彩調色盤等。" },
+    calculator: { title: "計算機工具", description: "百分比、BMI、房貸、貸款等各類計算機。" },
+    developer: { title: "開發者工具", description: "正規表達式測試、URL 編碼、CSS 產生器等。" },
+    utility: { title: "實用工具", description: "碼表、計時器、單位轉換等日常工具。" },
   },
 
   // ─── Tool page ───

@@ -33,6 +33,9 @@ const zhCN = {
     text: "文本与代码",
     convert: "格式转换",
     generator: "生成器",
+    calculator: "计算器",
+    developer: "开发者",
+    utility: "实用工具",
   },
 
   // ─── Category pages ───
@@ -42,6 +45,9 @@ const zhCN = {
     text: { title: "文本与代码工具", description: "格式化JSON、统计字数、Base64编解码等实用工具。" },
     convert: { title: "格式转换工具", description: "在CSV、JSON、YAML、XML等格式之间自由转换。" },
     generator: { title: "生成器工具", description: "生成二维码、颜色转换等实用工具。" },
+    calculator: { title: "计算器工具", description: "百分比、BMI、房贷、贷款等各类计算器。" },
+    developer: { title: "开发者工具", description: "正则测试、URL编码、CSS生成器等。" },
+    utility: { title: "实用工具", description: "秒表、计时器、单位转换等日常工具。" },
   },
 
   // ─── Tool page ───
