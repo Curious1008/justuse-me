@@ -65,6 +65,14 @@ import uuidGenerator from "./generator/uuid-generator";
 import loremIpsum from "./generator/lorem-ipsum";
 import hashGenerator from "./generator/hash-generator";
 import barcodeGenerator from "./generator/barcode-generator";
+import passwordGenerator from "./generator/password-generator";
+import randomNumberGenerator from "./generator/random-number-generator";
+import colorPaletteGenerator from "./generator/color-palette-generator";
+import randomNamePicker from "./generator/random-name-picker";
+import invoiceGenerator from "./generator/invoice-generator";
+import strongPasswordChecker from "./generator/strong-password-checker";
+import fakeDataGenerator from "./generator/fake-data-generator";
+import placeholderImageGenerator from "./generator/placeholder-image-generator";
 
 const tools: ToolPlugin[] = [
   // PDF
@@ -128,6 +136,14 @@ const tools: ToolPlugin[] = [
   loremIpsum,
   hashGenerator,
   barcodeGenerator,
+  passwordGenerator,
+  randomNumberGenerator,
+  colorPaletteGenerator,
+  randomNamePicker,
+  invoiceGenerator,
+  strongPasswordChecker,
+  fakeDataGenerator,
+  placeholderImageGenerator,
 ];
 
 export function getAllTools(locale?: string): ToolPlugin[] {
