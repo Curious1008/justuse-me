@@ -9,6 +9,9 @@ interface Props {
   params: Promise<{ lang: string; category: string }>;
 }
 
+// Only allow known categories — prevents [category] from matching /news, /pricing, etc.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const cats = getCategories();
   return locales.flatMap((lang) => cats.map((c) => ({ lang, category: c })));
