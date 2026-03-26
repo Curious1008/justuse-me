@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllTools, getCategories } from "@/tools/registry";
+import { getAllArticleSlugs } from "@/lib/articles";
 
 const baseUrl = "https://justuse.me";
 const locales = ["en", "zh-CN", "zh-TW"] as const;
@@ -65,6 +66,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: alternates(`/tools/${tool.id}`),
       });
     }
+  }
+
+  // News list page
+  for (const locale of locales) {
+    entries.push({
+      url: localeUrl(locale, "/news"),
+      lastModified: new Date(),
+      changeFrequency: "daily" as const,
+      priority: locale === "en" ? 0.8 : 0.7,
+    });
+  }
+
+  // Individual article pages (English-only content but accessible from all locales)
+  const articleSlugs = getAllArticleSlugs();
+  for (const slug of articleSlugs) {
+    entries.push({
+      url: `${baseUrl}/news/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    });
   }
 
   return entries;

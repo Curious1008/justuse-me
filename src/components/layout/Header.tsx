@@ -9,9 +9,9 @@ import { type Locale, localeNames, locales, localePath } from "@/lib/i18n";
 import { usePathname } from "next/navigation";
 
 const dictionaries: Record<Locale, typeof import("@/locales/en").default.nav> = {
-  en: { pricing: "Pricing", contact: "Contact", signIn: "Sign In", signOut: "Sign Out", freePlan: "Free Plan", proPlan: "Pro Plan", upgradeToPro: "Upgrade to Pro", manageSubscription: "Manage Subscription" },
-  "zh-CN": { pricing: "定价", contact: "联系", signIn: "登录", signOut: "退出", freePlan: "免费版", proPlan: "专业版", upgradeToPro: "升级到专业版", manageSubscription: "管理订阅" },
-  "zh-TW": { pricing: "定價", contact: "聯絡", signIn: "登入", signOut: "登出", freePlan: "免費版", proPlan: "專業版", upgradeToPro: "升級至專業版", manageSubscription: "管理訂閱" },
+  en: { news: "News", pricing: "Pricing", contact: "Contact", signIn: "Sign In", signOut: "Sign Out", freePlan: "Free Plan", proPlan: "Pro Plan", upgradeToPro: "Upgrade to Pro", manageSubscription: "Manage Subscription" },
+  "zh-CN": { news: "资讯", pricing: "定价", contact: "联系", signIn: "登录", signOut: "退出", freePlan: "免费版", proPlan: "专业版", upgradeToPro: "升级到专业版", manageSubscription: "管理订阅" },
+  "zh-TW": { news: "資訊", pricing: "定價", contact: "聯絡", signIn: "登入", signOut: "登出", freePlan: "免費版", proPlan: "專業版", upgradeToPro: "升級至專業版", manageSubscription: "管理訂閱" },
 };
 
 const themeLabels: Record<Locale, { light: string; dark: string; system: string }> = {
@@ -100,6 +100,14 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
 
         {/* Desktop nav */}
         <div className="hidden sm:flex items-center gap-6">
+          <Link href={localePath(lang, "/news")}>
+            <motion.span
+              whileHover={{ color: "var(--color-accent)" }}
+              className="text-sm text-[var(--color-text-secondary)] transition-colors"
+            >
+              {t.news}
+            </motion.span>
+          </Link>
           <Link href={localePath(lang, "/pricing")}>
             <motion.span
               whileHover={{ color: "var(--color-accent)" }}
@@ -283,6 +291,13 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className={`${dropdownCls} w-48 py-2`}
               >
+                <Link
+                  href={localePath(lang, "/news")}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors"
+                >
+                  {t.news}
+                </Link>
                 <Link
                   href={localePath(lang, "/pricing")}
                   onClick={() => setMobileOpen(false)}
