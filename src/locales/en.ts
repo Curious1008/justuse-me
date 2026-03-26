@@ -2,6 +2,7 @@ const en = {
   // ─── Navigation ───
   nav: {
     pricing: "Pricing",
+    news: "News",
     contact: "Contact",
     signIn: "Sign In",
     signOut: "Sign Out",
@@ -584,6 +585,22 @@ const en = {
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[]; whyUs?: string }>,
+
+  // ─── News & Guides ───
+  news: {
+    title: "News & Guides",
+    description: "Tips, tutorials, and insights about file tools and productivity.",
+    readMore: "Read more",
+    publishedOn: "Published on",
+    relatedTools: "Related Tools",
+    relatedArticles: "Related Articles",
+    allCategories: "All",
+    tutorial: "Tutorial",
+    comparison: "Comparison",
+    "use-case": "Use Case",
+    trend: "Trend",
+    noArticles: "No articles yet. Check back soon!",
+  },
 };
 
 export default en;

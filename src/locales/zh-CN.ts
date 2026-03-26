@@ -2,6 +2,7 @@ const zhCN = {
   // ─── Navigation ───
   nav: {
     pricing: "价格",
+    news: "资讯",
     contact: "联系我们",
     signIn: "登录",
     signOut: "退出登录",
@@ -566,6 +567,22 @@ const zhCN = {
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,
+
+  // ─── 资讯与教程 ───
+  news: {
+    title: "资讯与教程",
+    description: "文件工具使用技巧、教程和生产力建议。",
+    readMore: "阅读更多",
+    publishedOn: "发布于",
+    relatedTools: "相关工具",
+    relatedArticles: "相关文章",
+    allCategories: "全部",
+    tutorial: "教程",
+    comparison: "对比",
+    "use-case": "使用场景",
+    trend: "趋势",
+    noArticles: "暂无文章，敬请期待！",
+  },
 };
 
 export default zhCN;

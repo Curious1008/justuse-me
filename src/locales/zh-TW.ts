@@ -2,6 +2,7 @@ const zhTW = {
   // ─── Navigation ───
   nav: {
     pricing: "方案價格",
+    news: "資訊",
     contact: "聯絡我們",
     signIn: "登入",
     signOut: "登出",
@@ -566,6 +567,22 @@ const zhTW = {
       ],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,
+
+  // ─── 資訊與教學 ───
+  news: {
+    title: "資訊與教學",
+    description: "檔案工具使用技巧、教學和生產力建議。",
+    readMore: "閱讀更多",
+    publishedOn: "發佈於",
+    relatedTools: "相關工具",
+    relatedArticles: "相關文章",
+    allCategories: "全部",
+    tutorial: "教學",
+    comparison: "比較",
+    "use-case": "使用場景",
+    trend: "趨勢",
+    noArticles: "暫無文章，敬請期待！",
+  },
 };
 
 export default zhTW;
