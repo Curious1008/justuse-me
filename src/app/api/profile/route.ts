@@ -34,6 +34,17 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Avatar URL must be 500 characters or less" }, { status: 400 });
   }
 
+  if (safeUpdate.avatar_url) {
+    try {
+      const url = new URL(safeUpdate.avatar_url as string);
+      if (url.protocol !== "https:") {
+        return NextResponse.json({ error: "Avatar URL must use HTTPS" }, { status: 400 });
+      }
+    } catch {
+      return NextResponse.json({ error: "Invalid avatar URL" }, { status: 400 });
+    }
+  }
+
   safeUpdate.updated_at = new Date().toISOString();
 
   const serviceClient = await createServiceClient();

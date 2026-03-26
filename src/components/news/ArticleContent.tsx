@@ -5,10 +5,19 @@ interface ArticleContentProps {
 }
 
 function sanitizeHtml(html: string): string {
-  return html
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-    .replace(/\bon\w+\s*=\s*"[^"]*"/gi, "")
-    .replace(/\bon\w+\s*=\s*'[^']*'/gi, "");
+  // Remove script tags
+  let clean = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+  // Remove all event handlers (quoted, unquoted, with spaces)
+  clean = clean.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  // Remove javascript: protocol in any attribute
+  clean = clean.replace(/\b(href|src|action|formaction|data)\s*=\s*(?:"[^"]*javascript:[^"]*"|'[^']*javascript:[^']*')/gi, "");
+  // Remove data: protocol in src attributes (except images)
+  clean = clean.replace(/\bsrc\s*=\s*(?:"data:(?!image\/)[^"]*"|'data:(?!image\/)[^']*')/gi, "");
+  // Remove iframe, object, embed, form tags
+  clean = clean.replace(/<\s*\/?\s*(iframe|object|embed|form|base|meta)\b[^>]*>/gi, "");
+  // Remove style attributes (can contain expression())
+  clean = clean.replace(/\s+style\s*=\s*(?:"[^"]*"|'[^']*')/gi, "");
+  return clean;
 }
 
 export default function ArticleContent({ content }: ArticleContentProps) {
