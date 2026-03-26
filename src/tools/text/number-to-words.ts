@@ -19,24 +19,24 @@ function sayBelow1000(n: number): string {
   return ones[Math.floor(n / 100)] + " hundred" + (rem ? " " + sayBelow1000(rem) : "");
 }
 
-function integerToWords(n: bigint): string {
-  if (n === 0n) return "zero";
+function integerToWords(num: number): string {
+  if (num === 0) return "zero";
 
-  const negative = n < 0n;
-  if (negative) n = -n;
+  const negative = num < 0;
+  let n = Math.abs(Math.floor(num));
 
   const scales = ["", " thousand", " million", " billion", " trillion", " quadrillion"];
   const parts: string[] = [];
   let i = 0;
 
-  while (n > 0n) {
-    const chunk = Number(n % 1000n);
+  while (n > 0) {
+    const chunk = n % 1000;
     if (chunk !== 0) {
       parts.unshift(sayBelow1000(chunk) + scales[i]);
     }
-    n /= 1000n;
+    n = Math.floor(n / 1000);
     i++;
-    if (i >= scales.length && n > 0n) {
+    if (i >= scales.length && n > 0) {
       throw new Error("Number is too large to convert.");
     }
   }
@@ -53,13 +53,13 @@ function numberToWords(input: string): string {
 
   const dotIdx = input.indexOf(".");
   if (dotIdx === -1) {
-    return integerToWords(BigInt(input));
+    return integerToWords(parseInt(input, 10));
   }
 
   const intPart = input.slice(0, dotIdx);
   const fracPart = input.slice(dotIdx + 1);
 
-  const intWords = integerToWords(BigInt(intPart));
+  const intWords = integerToWords(parseInt(intPart, 10));
   // Read decimal digits individually
   const fracWords = [...fracPart].map((d) => ones[parseInt(d)] || "zero").join(" ");
   return intWords + " point " + fracWords;
