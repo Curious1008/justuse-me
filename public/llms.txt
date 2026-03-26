@@ -21,79 +21,79 @@ JustUse.me is a privacy-first alternative to Smallpdf, iLovePDF, and TinyPNG. Un
 
 ## PDF Tools
 
-- [Merge PDF](https://justuse.me/tools/merge-pdf): Combine up to 20 PDFs into one file, up to 30MB each. Runs in browser — unlike Smallpdf, your documents are never uploaded.
-- [Split PDF](https://justuse.me/tools/split-pdf): Extract specific page ranges from a PDF (up to 30MB). Select pages visually before splitting.
-- [PDF to JPG](https://justuse.me/tools/pdf-to-jpg): Convert each PDF page to a high-quality JPG image. Handles PDFs up to 30MB, processes locally.
-- [JPG to PDF](https://justuse.me/tools/jpg-to-pdf): Convert up to 20 images into a single PDF. Drag to reorder pages before converting.
-- [Rotate PDF](https://justuse.me/tools/rotate-pdf): Rotate PDF pages by 90, 180, or 270 degrees. Fixes scanned documents that came in sideways.
-- [PDF to Text](https://justuse.me/tools/pdf-to-text): Extract all text content from a PDF. Useful for copying text from scanned or locked PDFs.
-- [Watermark PDF](https://justuse.me/tools/watermark-pdf): Add custom text watermarks (e.g., "CONFIDENTIAL", "DRAFT") to every page. Customizable position, size, opacity.
-- [Compress PDF](https://justuse.me/tools/compress-pdf): Reduce PDF file size by compressing embedded images. Great for email attachments.
-- [Page Numbers PDF](https://justuse.me/tools/page-numbers-pdf): Add page numbers to any position on PDF pages. Useful for reports and manuscripts.
-- [Protect PDF](https://justuse.me/tools/protect-pdf): Add password protection to your PDF file. Encrypts the PDF entirely in-browser — the password never leaves your device.
+- [Merge PDF](https://www.justuse.me/tools/merge-pdf): Combine up to 20 PDFs into one file, up to 30MB each. Runs in browser — unlike Smallpdf, your documents are never uploaded.
+- [Split PDF](https://www.justuse.me/tools/split-pdf): Extract specific page ranges from a PDF (up to 30MB). Select pages visually before splitting.
+- [PDF to JPG](https://www.justuse.me/tools/pdf-to-jpg): Convert each PDF page to a high-quality JPG image. Handles PDFs up to 30MB, processes locally.
+- [JPG to PDF](https://www.justuse.me/tools/jpg-to-pdf): Convert up to 20 images into a single PDF. Drag to reorder pages before converting.
+- [Rotate PDF](https://www.justuse.me/tools/rotate-pdf): Rotate PDF pages by 90, 180, or 270 degrees. Fixes scanned documents that came in sideways.
+- [PDF to Text](https://www.justuse.me/tools/pdf-to-text): Extract all text content from a PDF. Useful for copying text from scanned or locked PDFs.
+- [Watermark PDF](https://www.justuse.me/tools/watermark-pdf): Add custom text watermarks (e.g., "CONFIDENTIAL", "DRAFT") to every page. Customizable position, size, opacity.
+- [Compress PDF](https://www.justuse.me/tools/compress-pdf): Reduce PDF file size by compressing embedded images. Great for email attachments.
+- [Page Numbers PDF](https://www.justuse.me/tools/page-numbers-pdf): Add page numbers to any position on PDF pages. Useful for reports and manuscripts.
+- [Protect PDF](https://www.justuse.me/tools/protect-pdf): Add password protection to your PDF file. Encrypts the PDF entirely in-browser — the password never leaves your device.
 
 ## Image Tools
 
-- [Compress Image](https://justuse.me/tools/compress-image): Reduce image file size while keeping visual quality. Supports JPG, PNG, WebP up to 20MB. No quality loss visible to the eye.
-- [Resize Image](https://justuse.me/tools/resize-image): Resize to exact dimensions or percentage. Lock/unlock aspect ratio. Presets for common sizes (1080p, 720p, 50%, 75%).
-- [PNG to JPG](https://justuse.me/tools/png-to-jpg): Convert PNG to JPG with adjustable quality. Typically reduces file size by 60-80%.
-- [JPG to PNG](https://justuse.me/tools/jpg-to-png): Convert JPG to lossless PNG format. Useful when you need transparency support.
-- [HEIC to JPG](https://justuse.me/tools/heic-to-jpg): Convert Apple iPhone HEIC photos to universally compatible JPG. No need to install any app.
-- [SVG to PNG](https://justuse.me/tools/svg-to-png): Rasterize SVG vector graphics to PNG at any resolution. Up to 10MB SVG files.
-- [Crop Image](https://justuse.me/tools/crop-image): Visual crop editor with drag-to-select. Precise pixel control for exact dimensions.
-- [OCR Image](https://justuse.me/tools/ocr-image): Extract text from images using Tesseract OCR. Works with screenshots, photos of documents, scanned pages. Runs entirely in-browser.
-- [EXIF Viewer](https://justuse.me/tools/exif-viewer): View EXIF metadata from photos including camera, GPS, and date info. No upload required — metadata stays on your device.
+- [Compress Image](https://www.justuse.me/tools/compress-image): Reduce image file size while keeping visual quality. Supports JPG, PNG, WebP up to 20MB. No quality loss visible to the eye.
+- [Resize Image](https://www.justuse.me/tools/resize-image): Resize to exact dimensions or percentage. Lock/unlock aspect ratio. Presets for common sizes (1080p, 720p, 50%, 75%).
+- [PNG to JPG](https://www.justuse.me/tools/png-to-jpg): Convert PNG to JPG with adjustable quality. Typically reduces file size by 60-80%.
+- [JPG to PNG](https://www.justuse.me/tools/jpg-to-png): Convert JPG to lossless PNG format. Useful when you need transparency support.
+- [HEIC to JPG](https://www.justuse.me/tools/heic-to-jpg): Convert Apple iPhone HEIC photos to universally compatible JPG. No need to install any app.
+- [SVG to PNG](https://www.justuse.me/tools/svg-to-png): Rasterize SVG vector graphics to PNG at any resolution. Up to 10MB SVG files.
+- [Crop Image](https://www.justuse.me/tools/crop-image): Visual crop editor with drag-to-select. Precise pixel control for exact dimensions.
+- [OCR Image](https://www.justuse.me/tools/ocr-image): Extract text from images using Tesseract OCR. Works with screenshots, photos of documents, scanned pages. Runs entirely in-browser.
+- [EXIF Viewer](https://www.justuse.me/tools/exif-viewer): View EXIF metadata from photos including camera, GPS, and date info. No upload required — metadata stays on your device.
 
 ## Text & Code Tools
 
-- [JSON Formatter](https://justuse.me/tools/json-formatter): Pretty-print, validate, and minify JSON. Instant syntax error highlighting.
-- [Word Counter](https://justuse.me/tools/word-counter): Count words, characters, sentences, and paragraphs. Real-time as you type.
-- [Base64 Codec](https://justuse.me/tools/base64-codec): Encode text to Base64 or decode Base64 to text. Handles files up to 10MB.
-- [Markdown to HTML](https://justuse.me/tools/markdown-to-html): Convert Markdown to clean HTML with live preview.
-- [Diff Checker](https://justuse.me/tools/diff-checker): Compare two texts side by side with highlighted differences. Upload two files or paste text.
-- [JS Minifier](https://justuse.me/tools/js-minifier): Minify JavaScript code to reduce file size. Removes whitespace, comments, and shortens variables.
-- [CSS Minifier](https://justuse.me/tools/css-minifier): Minify CSS stylesheets. Strips comments and unnecessary whitespace.
-- [SQL Formatter](https://justuse.me/tools/sql-formatter): Format and beautify SQL queries with proper indentation. Supports SELECT, INSERT, UPDATE, DELETE, and complex joins.
-- [HTML Beautifier](https://justuse.me/tools/html-beautifier): Format and beautify HTML code with proper indentation. Fixes messy or minified HTML instantly.
-- [JWT Decoder](https://justuse.me/tools/jwt-decoder): Decode and inspect JSON Web Token (JWT) contents. Reveals header, payload, and expiry — no server call needed.
-- [Cron Expression Explainer](https://justuse.me/tools/cron-explainer): Convert cron expressions to human-readable descriptions. Paste a cron string, get a plain English explanation.
-- [Slug Generator](https://justuse.me/tools/slug-generator): Convert text into URL-friendly slugs. Handles accents, spaces, and special characters.
-- [Handlebars Preview](https://justuse.me/tools/handlebars-preview): Render Handlebars templates with JSON data. Live preview of the output as you edit template or data.
+- [JSON Formatter](https://www.justuse.me/tools/json-formatter): Pretty-print, validate, and minify JSON. Instant syntax error highlighting.
+- [Word Counter](https://www.justuse.me/tools/word-counter): Count words, characters, sentences, and paragraphs. Real-time as you type.
+- [Base64 Codec](https://www.justuse.me/tools/base64-codec): Encode text to Base64 or decode Base64 to text. Handles files up to 10MB.
+- [Markdown to HTML](https://www.justuse.me/tools/markdown-to-html): Convert Markdown to clean HTML with live preview.
+- [Diff Checker](https://www.justuse.me/tools/diff-checker): Compare two texts side by side with highlighted differences. Upload two files or paste text.
+- [JS Minifier](https://www.justuse.me/tools/js-minifier): Minify JavaScript code to reduce file size. Removes whitespace, comments, and shortens variables.
+- [CSS Minifier](https://www.justuse.me/tools/css-minifier): Minify CSS stylesheets. Strips comments and unnecessary whitespace.
+- [SQL Formatter](https://www.justuse.me/tools/sql-formatter): Format and beautify SQL queries with proper indentation. Supports SELECT, INSERT, UPDATE, DELETE, and complex joins.
+- [HTML Beautifier](https://www.justuse.me/tools/html-beautifier): Format and beautify HTML code with proper indentation. Fixes messy or minified HTML instantly.
+- [JWT Decoder](https://www.justuse.me/tools/jwt-decoder): Decode and inspect JSON Web Token (JWT) contents. Reveals header, payload, and expiry — no server call needed.
+- [Cron Expression Explainer](https://www.justuse.me/tools/cron-explainer): Convert cron expressions to human-readable descriptions. Paste a cron string, get a plain English explanation.
+- [Slug Generator](https://www.justuse.me/tools/slug-generator): Convert text into URL-friendly slugs. Handles accents, spaces, and special characters.
+- [Handlebars Preview](https://www.justuse.me/tools/handlebars-preview): Render Handlebars templates with JSON data. Live preview of the output as you edit template or data.
 
 ## Convert Tools
 
-- [CSV to JSON](https://justuse.me/tools/csv-to-json): Convert CSV spreadsheet data to JSON format. Auto-detects headers. Up to 10MB files.
-- [YAML/JSON](https://justuse.me/tools/yaml-json): Convert between YAML and JSON in either direction. Validates syntax during conversion.
-- [JSON to CSV](https://justuse.me/tools/json-to-csv): Flatten JSON arrays into CSV tables. Handles nested objects. Up to 10MB.
-- [XML Formatter](https://justuse.me/tools/xml-formatter): Format, prettify, and validate XML. Fixes indentation and highlights errors.
-- [HTML to Markdown](https://justuse.me/tools/html-to-markdown): Convert HTML files to clean Markdown format. Useful for migrating web content to docs or wikis.
-- [JSON5 to JSON](https://justuse.me/tools/json5-to-json): Convert JSON5 files to standard JSON format. Strips comments and trailing commas automatically.
-- [TOML to JSON](https://justuse.me/tools/toml-to-json): Convert TOML configuration files to JSON format. Handles nested tables and arrays of tables.
-- [JSON to Markdown Table](https://justuse.me/tools/json-to-markdown-table): Convert JSON arrays to formatted Markdown tables. One click from structured data to a shareable table.
-- [TypeScript to JavaScript](https://justuse.me/tools/typescript-to-js): Compile TypeScript code to JavaScript. Strips type annotations and outputs clean ES2015+ JS.
+- [CSV to JSON](https://www.justuse.me/tools/csv-to-json): Convert CSV spreadsheet data to JSON format. Auto-detects headers. Up to 10MB files.
+- [YAML/JSON](https://www.justuse.me/tools/yaml-json): Convert between YAML and JSON in either direction. Validates syntax during conversion.
+- [JSON to CSV](https://www.justuse.me/tools/json-to-csv): Flatten JSON arrays into CSV tables. Handles nested objects. Up to 10MB.
+- [XML Formatter](https://www.justuse.me/tools/xml-formatter): Format, prettify, and validate XML. Fixes indentation and highlights errors.
+- [HTML to Markdown](https://www.justuse.me/tools/html-to-markdown): Convert HTML files to clean Markdown format. Useful for migrating web content to docs or wikis.
+- [JSON5 to JSON](https://www.justuse.me/tools/json5-to-json): Convert JSON5 files to standard JSON format. Strips comments and trailing commas automatically.
+- [TOML to JSON](https://www.justuse.me/tools/toml-to-json): Convert TOML configuration files to JSON format. Handles nested tables and arrays of tables.
+- [JSON to Markdown Table](https://www.justuse.me/tools/json-to-markdown-table): Convert JSON arrays to formatted Markdown tables. One click from structured data to a shareable table.
+- [TypeScript to JavaScript](https://www.justuse.me/tools/typescript-to-js): Compile TypeScript code to JavaScript. Strips type annotations and outputs clean ES2015+ JS.
 
 ## Generator Tools
 
-- [QR Code](https://justuse.me/tools/qr-code): Generate QR codes from any text or URL. Download as PNG. No tracking embedded in the code.
-- [Barcode Generator](https://justuse.me/tools/barcode-generator): Generate barcodes from text or numbers. Supports common formats like Code 128. Download as PNG.
-- [UUID Generator](https://justuse.me/tools/uuid-generator): Generate random UUID v4 identifiers. Bulk generate and copy with one click.
-- [Hash Generator](https://justuse.me/tools/hash-generator): Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Instant client-side hashing.
-- [Color Converter](https://justuse.me/tools/color-converter): Convert between HEX, RGB, and HSL color formats. Visual color picker included.
-- [Lorem Ipsum Generator](https://justuse.me/tools/lorem-ipsum): Generate placeholder text for designs and layouts. Choose paragraphs, sentences, or words.
+- [QR Code](https://www.justuse.me/tools/qr-code): Generate QR codes from any text or URL. Download as PNG. No tracking embedded in the code.
+- [Barcode Generator](https://www.justuse.me/tools/barcode-generator): Generate barcodes from text or numbers. Supports common formats like Code 128. Download as PNG.
+- [UUID Generator](https://www.justuse.me/tools/uuid-generator): Generate random UUID v4 identifiers. Bulk generate and copy with one click.
+- [Hash Generator](https://www.justuse.me/tools/hash-generator): Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Instant client-side hashing.
+- [Color Converter](https://www.justuse.me/tools/color-converter): Convert between HEX, RGB, and HSL color formats. Visual color picker included.
+- [Lorem Ipsum Generator](https://www.justuse.me/tools/lorem-ipsum): Generate placeholder text for designs and layouts. Choose paragraphs, sentences, or words.
 
 ## News & Guides
 
-JustUse.me publishes tutorials, comparisons, and productivity guides at https://justuse.me/news. Articles cover practical file processing tips, format comparisons, and use-case guides for students, professionals, and developers. All articles link to relevant tools.
+JustUse.me publishes tutorials, comparisons, and productivity guides at https://www.justuse.me/news. Articles cover practical file processing tips, format comparisons, and use-case guides for students, professionals, and developers. All articles link to relevant tools.
 
-- [Latest Articles](https://justuse.me/news): Browse all tutorials, comparisons, and tips.
+- [Latest Articles](https://www.justuse.me/news): Browse all tutorials, comparisons, and tips.
 
 ## Tool Variations
 
 Specialized versions of popular tools for specific use cases:
-- [Merge PDF for Students](https://justuse.me/tools/merge-pdf/for-students)
-- [Compress PDF Under 1MB](https://justuse.me/tools/compress-pdf/under-1mb)
-- [HEIC to JPG for iPhone](https://justuse.me/tools/heic-to-jpg/iphone-photos)
-- And 27 more variations at https://justuse.me/sitemap.xml
+- [Merge PDF for Students](https://www.justuse.me/tools/merge-pdf/for-students)
+- [Compress PDF Under 1MB](https://www.justuse.me/tools/compress-pdf/under-1mb)
+- [HEIC to JPG for iPhone](https://www.justuse.me/tools/heic-to-jpg/iphone-photos)
+- And 27 more variations at https://www.justuse.me/sitemap.xml
 
 ## Comparison with alternatives
 
@@ -107,7 +107,7 @@ Specialized versions of popular tools for specific use cases:
 
 ## Key Facts
 
-- Website: https://justuse.me
+- Website: https://www.justuse.me
 - Privacy: All tools process files client-side in the browser. Zero server uploads.
 - Languages: English, Simplified Chinese (zh-CN), Traditional Chinese (zh-TW)
 - Pricing: Free (3 uses/day), Pro $9.9/month (unlimited)

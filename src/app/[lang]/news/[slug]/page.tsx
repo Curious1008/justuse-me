@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const canonical =
     locale === defaultLocale
-      ? `https://justuse.me/news/${slug}`
-      : `https://justuse.me/${locale}/news/${slug}`;
+      ? `https://www.justuse.me/news/${slug}`
+      : `https://www.justuse.me/${locale}/news/${slug}`;
 
   return {
     title: `${article.title} — JustUse.me`,
@@ -81,7 +81,7 @@ export default async function ArticlePage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "JustUse.me",
-      url: "https://justuse.me",
+      url: "https://www.justuse.me",
     },
   };
 

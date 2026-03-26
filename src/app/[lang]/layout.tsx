@@ -19,9 +19,9 @@ export async function generateMetadata({
 
   const langAlternates: Record<string, string> = {};
   for (const l of locales) {
-    langAlternates[l] = l === defaultLocale ? "https://justuse.me" : `https://justuse.me/${l}`;
+    langAlternates[l] = l === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${l}`;
   }
-  langAlternates["x-default"] = "https://justuse.me";
+  langAlternates["x-default"] = "https://www.justuse.me";
 
   return {
     title: {
@@ -30,13 +30,13 @@ export async function generateMetadata({
     },
     description: t.meta.siteDescription,
     alternates: {
-      canonical: locale === defaultLocale ? "https://justuse.me" : `https://justuse.me/${locale}`,
+      canonical: locale === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${locale}`,
       languages: langAlternates,
     },
     openGraph: {
       title: t.meta.ogTitle,
       description: t.meta.ogDescription,
-      url: locale === defaultLocale ? "https://justuse.me" : `https://justuse.me/${locale}`,
+      url: locale === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${locale}`,
       siteName: "JustUse.me",
       type: "website",
     },

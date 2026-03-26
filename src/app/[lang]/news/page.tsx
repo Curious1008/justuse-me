@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const canonical =
     locale === defaultLocale
-      ? "https://justuse.me/news"
-      : `https://justuse.me/${locale}/news`;
+      ? "https://www.justuse.me/news"
+      : `https://www.justuse.me/${locale}/news`;
 
   return {
     title: t.news.title,

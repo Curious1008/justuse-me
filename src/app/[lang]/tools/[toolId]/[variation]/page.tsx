@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const canonical =
     locale === defaultLocale
-      ? `https://justuse.me/tools/${toolId}/${variation}`
-      : `https://justuse.me/${locale}/tools/${toolId}/${variation}`;
+      ? `https://www.justuse.me/tools/${toolId}/${variation}`
+      : `https://www.justuse.me/${locale}/tools/${toolId}/${variation}`;
 
   return {
     title: content.title,
@@ -82,7 +82,7 @@ export default async function VariationPage({ params }: Props) {
       "@type": "WebApplication",
       name: content.title,
       description: content.description,
-      url: `https://justuse.me/tools/${toolId}/${variation}`,
+      url: `https://www.justuse.me/tools/${toolId}/${variation}`,
       applicationCategory: "UtilitiesApplication",
       operatingSystem: "All",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllTools, getCategories } from "@/tools/registry";
 import { getAllArticleSlugs } from "@/lib/articles";
 
-const baseUrl = "https://justuse.me";
+const baseUrl = "https://www.justuse.me";
 const locales = ["en", "zh-CN", "zh-TW"] as const;
 
 function localeUrl(locale: string, path: string): string {

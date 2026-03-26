@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `${toolDesc}${specs ? ` (${specs})` : ""}. ${t.meta.toolMetaDescSuffix}`;
 
   const canonical = locale === defaultLocale
-    ? `https://justuse.me/tools/${toolId}`
-    : `https://justuse.me/${locale}/tools/${toolId}`;
+    ? `https://www.justuse.me/tools/${toolId}`
+    : `https://www.justuse.me/${locale}/tools/${toolId}`;
 
   return {
     title: t.meta.toolMetaTitle.replace("{name}", name),

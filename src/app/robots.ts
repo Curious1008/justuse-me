@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/auth/callback"],
       },
     ],
-    sitemap: "https://justuse.me/sitemap.xml",
+    sitemap: "https://www.justuse.me/sitemap.xml",
   };
 }

@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cat) return {};
 
   const canonical = locale === defaultLocale
-    ? `https://justuse.me/${category}`
-    : `https://justuse.me/${locale}/${category}`;
+    ? `https://www.justuse.me/${category}`
+    : `https://www.justuse.me/${locale}/${category}`;
 
   return {
     title: t.meta.categoryMetaTitle.replace("{label}", cat.title),

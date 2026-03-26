@@ -13,12 +13,12 @@ export function generateToolMetadata(tool: ToolPlugin): Metadata {
     description,
     keywords: tool.keywords,
     alternates: {
-      canonical: `https://justuse.me/tools/${tool.id}`,
+      canonical: `https://www.justuse.me/tools/${tool.id}`,
     },
     openGraph: {
       title: `${tool.name} — Free Online Tool | JustUse.me`,
       description,
-      url: `https://justuse.me/tools/${tool.id}`,
+      url: `https://www.justuse.me/tools/${tool.id}`,
       type: "website",
       siteName: "JustUse.me",
     },
@@ -38,7 +38,7 @@ export function generateToolJsonLd(tool: ToolPlugin) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: tool.name,
-    url: `https://justuse.me/tools/${tool.id}`,
+    url: `https://www.justuse.me/tools/${tool.id}`,
     description: seo?.longDescription ?? tool.description,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
@@ -90,12 +90,12 @@ export function generateSiteJsonLd() {
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: "JustUse.me",
-      url: "https://justuse.me",
+      url: "https://www.justuse.me",
       description:
         "Free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first.",
       potentialAction: {
         "@type": "SearchAction",
-        target: "https://justuse.me/?q={search_term_string}",
+        target: "https://www.justuse.me/?q={search_term_string}",
         "query-input": "required name=search_term_string",
       },
     },
@@ -103,7 +103,7 @@ export function generateSiteJsonLd() {
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "JustUse.me",
-      url: "https://justuse.me",
+      url: "https://www.justuse.me",
       description:
         "Clean, ad-free online tools. Your files never leave your device.",
     },
