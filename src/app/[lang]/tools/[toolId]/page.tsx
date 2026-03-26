@@ -204,6 +204,18 @@ export default async function ToolPage({ params }: Props) {
           </section>
         )}
 
+        {/* Why JustUse.me */}
+        {seo?.whyUs && (
+          <section className="pt-8 border-t border-[var(--color-border)]">
+            <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-3">
+              {`Why JustUse.me for ${toolName}?`}
+            </h2>
+            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+              {seo.whyUs}
+            </p>
+          </section>
+        )}
+
         {/* Related tools */}
         {relatedTools.length > 0 && (
           <section>
