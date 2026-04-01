@@ -57,6 +57,16 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
 }
 
 export async function middleware(request: NextRequest) {
+  const hostname = request.headers.get("host") || "";
+
+  // Force non-www → www (301 permanent redirect)
+  if (hostname === "justuse.me" || hostname === "justuse.me:443") {
+    const url = request.nextUrl.clone();
+    url.host = "www.justuse.me";
+    url.port = "";
+    return NextResponse.redirect(url, 301);
+  }
+
   const { pathname } = request.nextUrl;
 
   // Skip static files, API routes, and Next.js internals
