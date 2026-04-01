@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getToolById, getAllTools } from "@/tools/registry";
-import { generateToolJsonLd } from "@/config/seo";
+import { generateToolJsonLd, generateToolBreadcrumbJsonLd } from "@/config/seo";
 import { getToolSEOContent } from "@/config/tool-seo-content";
 import ToolIcon from "@/components/tool/ToolIcon";
 import ToolPageClient from "./client";
@@ -72,6 +72,8 @@ export default async function ToolPage({ params }: Props) {
   const toolT = t.tools[toolId];
   const seo = t.toolSeo[toolId];
   const jsonLd = generateToolJsonLd(tool);
+  const categoryLabel = t.categoryPage[tool.category as keyof typeof t.categoryPage]?.title || tool.category;
+  const breadcrumbJsonLd = generateToolBreadcrumbJsonLd(tool, categoryLabel);
   const allTools = getAllTools(locale);
 
   // Use English SEO content for related tools list (IDs are the same)
@@ -93,6 +95,10 @@ export default async function ToolPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
 
       {/* Hero */}
       <div className="text-center mb-12">

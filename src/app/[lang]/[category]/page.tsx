@@ -4,6 +4,7 @@ import { getToolsByCategory, getCategories } from "@/tools/registry";
 import type { Category } from "@/tools/types";
 import ToolCard from "@/components/category/ToolCard";
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { generateCategoryBreadcrumbJsonLd } from "@/config/seo";
 
 interface Props {
   params: Promise<{ lang: string; category: string }>;
@@ -52,8 +53,14 @@ export default async function CategoryPage({ params }: Props) {
 
   const tools = getToolsByCategory(category as Category, locale);
 
+  const breadcrumbJsonLd = generateCategoryBreadcrumbJsonLd(category, cat.title);
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="mb-12">
         <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">
           {cat.title}

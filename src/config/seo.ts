@@ -83,6 +83,59 @@ export function generateToolJsonLd(tool: ToolPlugin) {
   return schemas;
 }
 
+/** BreadcrumbList JSON-LD for category pages */
+export function generateCategoryBreadcrumbJsonLd(category: string, categoryLabel: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.justuse.me",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: categoryLabel,
+        item: `https://www.justuse.me/${category}`,
+      },
+    ],
+  };
+}
+
+/** BreadcrumbList JSON-LD for tool pages */
+export function generateToolBreadcrumbJsonLd(
+  tool: ToolPlugin,
+  categoryLabel: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.justuse.me",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: categoryLabel,
+        item: `https://www.justuse.me/${tool.category}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: tool.name,
+        item: `https://www.justuse.me/tools/${tool.id}`,
+      },
+    ],
+  };
+}
+
 /** JSON-LD for the homepage (WebSite + Organization) */
 export function generateSiteJsonLd() {
   return [
