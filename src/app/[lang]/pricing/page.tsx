@@ -142,7 +142,7 @@ function PricingContent() {
           <span className="absolute -top-3 left-6 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] font-[family-name:var(--font-sora)] bg-[var(--color-accent)] text-white rounded-full">{t.popular}</span>
           <h2 className="text-lg font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-1">{t.pro}</h2>
           <div className="flex items-baseline gap-1 mb-8">
-            <span className="text-3xl font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)]">$4.99</span>
+            <span className="text-3xl font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)]">$1.29</span>
             <span className="text-sm text-[var(--color-text-muted)]">{t.perMonth}</span>
           </div>
           <ul className="space-y-3 mb-8">
