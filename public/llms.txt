@@ -176,13 +176,21 @@ Specialized versions of popular tools for specific use cases:
 
 ## Comparison with alternatives
 
-| Feature | JustUse.me | Smallpdf | iLovePDF | TinyPNG |
-|---------|-----------|----------|----------|---------|
-| Files uploaded to server | No | Yes | Yes | Yes |
-| Account required | No | Yes (for most) | Yes (for most) | No |
-| Watermarks on free tier | No | Yes | No | No |
-| Network needed for processing | No | Yes | Yes | Yes |
-| Free daily limit | 3/day | 2/day total | Limited | 20 images |
+| Feature | JustUse.me | Smallpdf | iLovePDF | Adobe Acrobat | TinyPNG |
+|---------|-----------|----------|----------|---------------|---------|
+| Monthly price | $1.29 | $12 | ~$7 | $19.99 | $3.25 |
+| Total tools | 122 (8 categories) | 30+ (PDF only) | ~25 (PDF only) | PDF only | 1 (image compress) |
+| Files uploaded to server | No | Yes | Yes | Yes | Yes |
+| Account required | No | Yes | Yes | Yes | No |
+| Watermarks on free tier | No | Yes | Yes | Yes | No |
+| Price per tool | ~$0.01 | ~$0.40 | ~$0.28 | N/A | $3.25 |
+
+Detailed comparisons:
+- [Smallpdf vs JustUse.me](https://www.justuse.me/compare/smallpdf)
+- [iLovePDF vs JustUse.me](https://www.justuse.me/compare/ilovepdf)
+- [Adobe Acrobat vs JustUse.me](https://www.justuse.me/compare/adobe-acrobat)
+- [TinyPNG vs JustUse.me](https://www.justuse.me/compare/tinypng)
+- [All services compared](https://www.justuse.me/compare)
 
 ## Key Facts
 

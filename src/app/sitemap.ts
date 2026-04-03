@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllTools, getCategories } from "@/tools/registry";
 import { getAllArticleSlugs } from "@/lib/articles";
+import { competitorSlugs } from "@/app/[lang]/compare/compare-data";
 
 const baseUrl = "https://www.justuse.me";
 const locales = ["en", "zh-CN", "zh-TW"] as const;
@@ -64,6 +65,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly",
         priority: locale === "en" ? 0.9 : 0.8,
         alternates: alternates(`/tools/${tool.id}`),
+      });
+    }
+  }
+
+  // Compare overview page
+  for (const locale of locales) {
+    entries.push({
+      url: localeUrl(locale, "/compare"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: locale === "en" ? 0.8 : 0.7,
+      alternates: alternates("/compare"),
+    });
+  }
+
+  // Individual compare pages
+  for (const locale of locales) {
+    for (const slug of competitorSlugs) {
+      entries.push({
+        url: localeUrl(locale, `/compare/${slug}`),
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: locale === "en" ? 0.8 : 0.7,
+        alternates: alternates(`/compare/${slug}`),
       });
     }
   }
