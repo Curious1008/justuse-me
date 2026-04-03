@@ -163,29 +163,6 @@ function PricingContent() {
         </motion.div>
       </div>
 
-      {/* Compare section */}
-      <div className="mt-16 text-center">
-        <p className="text-sm text-[var(--color-text-muted)] mb-3">See how we stack up against the competition</p>
-        <div className="flex flex-wrap justify-center gap-3">
-          {[
-            { name: "Smallpdf", slug: "smallpdf", price: "$12/mo" },
-            { name: "iLovePDF", slug: "ilovepdf", price: "$7/mo" },
-            { name: "Adobe Acrobat", slug: "adobe-acrobat", price: "$19.99/mo" },
-            { name: "TinyPNG", slug: "tinypng", price: "$3.25/mo" },
-          ].map((c) => (
-            <a
-              key={c.slug}
-              href={`/compare/${c.slug}`}
-              className="px-4 py-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all"
-            >
-              vs {c.name} <span className="text-[var(--color-text-muted)]">{c.price}</span>
-            </a>
-          ))}
-        </div>
-        <a href="/compare" className="inline-block mt-4 text-xs text-[var(--color-accent)] hover:underline">
-          View full comparison
-        </a>
-      </div>
     </div>
   );
 }
