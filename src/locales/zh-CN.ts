@@ -3,6 +3,7 @@ const zhCN = {
   nav: {
     pricing: "价格",
     news: "资讯",
+    compare: "对比",
     contact: "联系我们",
     signIn: "登录",
     signOut: "退出登录",

@@ -3,6 +3,7 @@ const zhTW = {
   nav: {
     pricing: "方案價格",
     news: "資訊",
+    compare: "比較",
     contact: "聯絡我們",
     signIn: "登入",
     signOut: "登出",

@@ -3,6 +3,7 @@ const en = {
   nav: {
     pricing: "Pricing",
     news: "News",
+    compare: "Compare",
     contact: "Contact",
     signIn: "Sign In",
     signOut: "Sign Out",
