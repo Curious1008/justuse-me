@@ -37,6 +37,7 @@ const zhCN = {
     utilityDesc: "单位换算、计时器、URL 检测、文本加密、世界时钟对比等实用工具。",
     privacyPromise: "你的隐私，我们的承诺",
     privacyPromiseDesc: "JustUse.me 上的每款工具都在你的浏览器中完成文件处理。我们不使用服务器端文件处理、不使用跟踪 Cookie，也不使用基本页面浏览之外的第三方分析工具。你的文档、图片和数据自始至终留在你的设备上。",
+    learnMore: "了解更多关于 JustUse.me",
   },
 
   // ─── Search ───

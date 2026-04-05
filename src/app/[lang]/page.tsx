@@ -38,9 +38,15 @@ export default async function HomePage({ params }: Props) {
 
       <CategoryBubbles lang={locale} />
 
-      {/* SEO Content — visually de-emphasized, crawlable by Googlebot */}
-      <div className="w-full max-w-2xl mt-24 pt-10 border-t border-[var(--color-border)] relative z-10 opacity-60 hover:opacity-100 transition-opacity duration-300">
-        <div className="space-y-6">
+      {/* SEO Content — collapsed by default, fully crawlable by Googlebot */}
+      <details className="w-full max-w-2xl mt-20 relative z-10 group">
+        <summary className="flex items-center justify-center gap-2 cursor-pointer text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors py-4 border-t border-[var(--color-border)] select-none">
+          <span>{t.home.learnMore}</span>
+          <svg className="w-3 h-3 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </summary>
+        <div className="space-y-6 pt-4 pb-2">
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1.5">
               {t.home.whatIs}
@@ -91,7 +97,7 @@ export default async function HomePage({ params }: Props) {
             </p>
           </section>
         </div>
-      </div>
+      </details>
     </div>
   );
 }

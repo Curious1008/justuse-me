@@ -37,6 +37,7 @@ const zhTW = {
     utilityDesc: "單位換算、計時器、URL 檢測、文字加密、世界時鐘比較等實用工具。",
     privacyPromise: "你的隱私，我們的承諾",
     privacyPromiseDesc: "JustUse.me 上的每款工具都在你的瀏覽器中完成檔案處理。我們不使用伺服器端檔案處理、不使用追蹤 Cookie，也不使用基本頁面瀏覽以外的第三方分析工具。你的文件、圖片和資料自始至終留在你的裝置上。",
+    learnMore: "了解更多關於 JustUse.me",
   },
 
   // ─── Search ───

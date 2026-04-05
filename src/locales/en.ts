@@ -37,6 +37,7 @@ const en = {
     utilityDesc: "Convert units, run timers, check URLs, encrypt text, and compare world clocks.",
     privacyPromise: "Your Privacy, Our Promise",
     privacyPromiseDesc: "Every tool on JustUse.me processes files entirely in your browser. We use no server-side file processing, no tracking cookies, and no third-party analytics beyond basic page views. Your documents, images, and data stay on your device from start to finish.",
+    learnMore: "Learn more about JustUse.me",
   },
 
   // ─── Search ───
