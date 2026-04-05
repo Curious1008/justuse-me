@@ -21,8 +21,10 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.justuse.me"),
   icons: {
-    icon: "/icon",
-    apple: "/apple-icon",
+    icon: [
+      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
