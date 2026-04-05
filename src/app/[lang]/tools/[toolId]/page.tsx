@@ -159,7 +159,7 @@ export default async function ToolPage({ params }: Props) {
         {seo?.steps && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              {t.tool.howItWorks}
+              {t.tool.howItWorks.replace("{name}", toolName)}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {seo.steps.map((step, i) => (
@@ -190,7 +190,7 @@ export default async function ToolPage({ params }: Props) {
         {seo?.faq && seo.faq.length > 0 && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              {t.tool.faq}
+              {t.tool.faq.replace("{name}", toolName)}
             </h2>
             <div className="space-y-3">
               {seo.faq.map((item, i) => (
@@ -242,6 +242,10 @@ export default async function ToolPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        <p className="text-xs text-[var(--color-text-muted)] pt-8 border-t border-[var(--color-border)]">
+          {t.tool.lastUpdated}: April 2026
+        </p>
       </div>
     </div>
   );

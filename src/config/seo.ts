@@ -44,6 +44,7 @@ export function generateToolJsonLd(tool: ToolPlugin, locale = "en") {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: tool.name,
+    dateModified: "2026-04-05",
     url: localeUrl(locale, `/tools/${tool.id}`),
     description: seo?.longDescription ?? tool.description,
     applicationCategory: "UtilityApplication",
@@ -55,6 +56,17 @@ export function generateToolJsonLd(tool: ToolPlugin, locale = "en") {
       availability: "https://schema.org/OnlineOnly",
     },
     browserRequirements: "Requires a modern web browser",
+    featureList: [
+      "100% browser-based processing",
+      "No file uploads to servers",
+      "No account or sign-up required",
+      "No watermarks on output",
+      "Free to use",
+    ],
+    screenshot: {
+      "@type": "ImageObject",
+      url: localeUrl(locale, `/tools/${tool.id}/opengraph-image`),
+    },
   };
 
   const schemas: object[] = [webApp];

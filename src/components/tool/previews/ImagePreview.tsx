@@ -20,7 +20,7 @@ export default function ImagePreview({ result }: { result: ToolResult }) {
     >
       <img
         src={src}
-        alt="Result preview"
+        alt="Processed image result"
         className="w-full max-h-80 object-contain"
         onLoad={(e) => {
           const img = e.currentTarget;

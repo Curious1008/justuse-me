@@ -172,7 +172,7 @@ export default async function VariationPage({ params }: Props) {
         {/* How it works */}
         <section>
           <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-            {t.tool.howItWorks}
+            {t.tool.howItWorks.replace("{name}", content.title)}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {content.steps.map((step, i) => (
@@ -195,7 +195,7 @@ export default async function VariationPage({ params }: Props) {
         {content.faq.length > 0 && (
           <section>
             <h2 className="text-sm font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-4">
-              {t.tool.faq}
+              {t.tool.faq.replace("{name}", content.title)}
             </h2>
             <div className="space-y-3">
               {content.faq.map((item, i) => (

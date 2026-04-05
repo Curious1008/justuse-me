@@ -102,7 +102,7 @@ function ConfiguringView({
         <div className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden">
           <img
             src={previewUrl}
-            alt="Preview"
+            alt="File processing preview"
             className="w-full max-h-48 object-contain"
           />
         </div>

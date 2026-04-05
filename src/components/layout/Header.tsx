@@ -194,7 +194,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
                 {profile?.avatar_url ? (
                   <img
                     src={profile.avatar_url}
-                    alt=""
+                    alt="User avatar"
                     className="w-full h-full object-cover"
                   />
                 ) : (
