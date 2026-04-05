@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { type Locale, localePath } from "@/lib/i18n";
 
-const dictionaries: Record<Locale, { copyright: string; privacyNotice: string; privacyPolicy: string; terms: string }> = {
-  en: { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "Your privacy matters to us", privacyPolicy: "Privacy Policy", terms: "Terms of Service" },
-  "zh-CN": { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "我们重视您的隐私", privacyPolicy: "隐私政策", terms: "服务条款" },
-  "zh-TW": { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "我們重視您的隱私", privacyPolicy: "隱私政策", terms: "服務條款" },
+const dictionaries: Record<Locale, { copyright: string; privacyNotice: string; privacyPolicy: string; terms: string; about: string }> = {
+  en: { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "Your privacy matters to us", privacyPolicy: "Privacy Policy", terms: "Terms of Service", about: "About" },
+  "zh-CN": { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "我们重视您的隐私", privacyPolicy: "隐私政策", terms: "服务条款", about: "关于" },
+  "zh-TW": { copyright: "JustUse.me — Paymomentum LLC", privacyNotice: "我們重視您的隱私", privacyPolicy: "隱私政策", terms: "服務條款", about: "關於" },
 };
 
 export default function Footer({ lang = "en" }: { lang?: Locale }) {
@@ -28,6 +28,9 @@ export default function Footer({ lang = "en" }: { lang?: Locale }) {
           </Link>
           <Link href={localePath(lang, "/terms")} className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors">
             {t.terms}
+          </Link>
+          <Link href={localePath(lang, "/about")} className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors">
+            {t.about}
           </Link>
         </div>
       </div>

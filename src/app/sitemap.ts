@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contact", freq: "monthly" as const, priority: 0.3 },
     { path: "/privacy", freq: "yearly" as const, priority: 0.2 },
     { path: "/terms", freq: "yearly" as const, priority: 0.2 },
+    { path: "/about", freq: "monthly" as const, priority: 0.5 },
   ];
 
   const entries: MetadataRoute.Sitemap = [];

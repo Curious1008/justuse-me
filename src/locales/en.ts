@@ -20,6 +20,25 @@ const en = {
     subtitle: "Everyday file tools, ready when you are.",
   },
 
+  // ─── Homepage SEO ───
+  home: {
+    whatIs: "What is JustUse.me?",
+    whatIsDesc: "JustUse.me is a free, privacy-first online toolbox with 122 browser-based tools for everyday file tasks. Every tool runs entirely in your browser using WebAssembly and Canvas APIs — your files are never uploaded to any server. No account required, no watermarks, no hidden fees.",
+    whyChoose: "Why choose JustUse.me over other online tools?",
+    whyChooseDesc: "Most online file tools like Smallpdf, iLovePDF, and TinyPNG upload your files to their servers for processing. JustUse.me is different: all processing happens client-side in your browser. This means faster results (no upload/download wait), true privacy (files never leave your device), and zero risk of data leaks.",
+    toolCategories: "Tool Categories",
+    pdfDesc: "Merge, split, compress, rotate, watermark, and convert PDFs. Handle up to 20 files at once with no quality loss.",
+    imageDesc: "Compress, resize, crop, and convert images between PNG, JPG, WebP, HEIC, SVG, and GIF formats. Includes OCR text extraction.",
+    textDesc: "Format JSON, check diffs, minify JavaScript and CSS, decode JWTs, explain cron expressions, and 15+ more text utilities.",
+    convertDesc: "Convert between CSV, JSON, YAML, XML, TOML, Markdown, and TypeScript formats instantly.",
+    generatorDesc: "Generate QR codes, UUIDs, passwords, color palettes, barcodes, invoices, and placeholder data.",
+    calculatorDesc: "Calculate BMI, mortgage payments, compound interest, GPA, calories, and more with simple, focused calculators.",
+    developerDesc: "Test regex, convert timestamps, generate meta tags, CSS gradients, box shadows, and favicons.",
+    utilityDesc: "Convert units, run timers, check URLs, encrypt text, and compare world clocks.",
+    privacyPromise: "Your Privacy, Our Promise",
+    privacyPromiseDesc: "Every tool on JustUse.me processes files entirely in your browser. We use no server-side file processing, no tracking cookies, and no third-party analytics beyond basic page views. Your documents, images, and data stay on your device from start to finish.",
+  },
+
   // ─── Search ───
   search: {
     placeholder: 'Try "merge PDF" or "compress image"',
@@ -140,10 +159,10 @@ const en = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — Free Online PDF, Image & Text Tools",
-    siteDescription: "Free online tools to merge PDFs, compress images, format JSON, and 40+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
+    siteDescription: "Free online tools to merge PDFs, compress images, format JSON, and 100+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
     ogTitle: "JustUse.me — Free Online Tools",
-    ogDescription: "45+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
-    twitterDescription: "45+ free tools. No ads, no sign-up. Files stay in your browser.",
+    ogDescription: "122 free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
+    twitterDescription: "122 free tools. No ads, no sign-up. Files stay in your browser.",
     categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up | JustUse.me",
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
     toolMetaTitle: "{name} Online Free",
@@ -683,6 +702,21 @@ const en = {
     "use-case": "Use Case",
     trend: "Trend",
     noArticles: "No articles yet. Check back soon!",
+  },
+
+  // ─── About ───
+  about: {
+    title: "About JustUse.me",
+    description: "JustUse.me is built and maintained by Paymomentum LLC. We believe everyday file tools should be free, private, and fast.",
+    mission: "Our Mission",
+    missionDesc: "We built JustUse.me because we were frustrated with online tools that upload your files to unknown servers, plaster watermarks on your output, and force you to create accounts for simple tasks. Every tool on JustUse.me processes files entirely in your browser — your data never leaves your device.",
+    howItWorks: "How It Works",
+    howItWorksDesc: "JustUse.me uses modern browser technologies like WebAssembly, Canvas API, and Web Workers to process files locally. When you merge a PDF or compress an image, the computation happens on your machine. No server round-trips, no upload delays, no privacy risks.",
+    team: "Built By",
+    teamDesc: "JustUse.me is a product of Paymomentum LLC. We are a small team focused on building simple, privacy-respecting tools for everyday use.",
+    contact: "Get in Touch",
+    contactDesc: "Have a question, suggestion, or found a bug? We would love to hear from you.",
+    contactLink: "Contact Us",
   },
 };
 

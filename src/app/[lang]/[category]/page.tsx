@@ -53,13 +53,36 @@ export default async function CategoryPage({ params }: Props) {
 
   const tools = getToolsByCategory(category as Category, locale);
 
-  const breadcrumbJsonLd = generateCategoryBreadcrumbJsonLd(category, cat.title);
+  const breadcrumbJsonLd = generateCategoryBreadcrumbJsonLd(category, cat.title, locale);
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: cat.title,
+          url: locale === defaultLocale
+            ? `https://www.justuse.me/${category}`
+            : `https://www.justuse.me/${locale}/${category}`,
+          description: cat.description,
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: tools.map((tool, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: t.tools[tool.id]?.name || tool.name,
+              url: locale === defaultLocale
+                ? `https://www.justuse.me/tools/${tool.id}`
+                : `https://www.justuse.me/${locale}/tools/${tool.id}`,
+            })),
+          },
+        }) }}
       />
       <div className="mb-12">
         <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">

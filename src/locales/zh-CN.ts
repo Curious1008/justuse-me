@@ -20,6 +20,25 @@ const zhCN = {
     subtitle: "日常文件工具，随时为你准备。",
   },
 
+  // ─── Homepage SEO ───
+  home: {
+    whatIs: "JustUse.me 是什么？",
+    whatIsDesc: "JustUse.me 是一个免费、注重隐私的在线工具箱，提供 122 款基于浏览器的文件处理工具。所有工具均通过 WebAssembly 和 Canvas API 在浏览器中运行——你的文件绝不会上传到任何服务器。无需注册账号，没有水印，没有隐藏费用。",
+    whyChoose: "为什么选择 JustUse.me 而不是其他在线工具？",
+    whyChooseDesc: "大多数在线文件工具（如 Smallpdf、iLovePDF、TinyPNG）会将你的文件上传到服务器进行处理。JustUse.me 不同：所有处理都在浏览器本地完成。这意味着更快的速度（无需等待上传下载）、真正的隐私保护（文件不会离开你的设备），以及零数据泄露风险。",
+    toolCategories: "工具分类",
+    pdfDesc: "合并、拆分、压缩、旋转、添加水印和转换 PDF 文件。支持一次处理多达 20 个文件，画质无损。",
+    imageDesc: "压缩、调整大小、裁剪图片，支持 PNG、JPG、WebP、HEIC、SVG、GIF 格式互转。还支持 OCR 文字提取。",
+    textDesc: "格式化 JSON、对比差异、压缩 JavaScript 和 CSS、解码 JWT、解释 Cron 表达式等 15 余种文本工具。",
+    convertDesc: "在 CSV、JSON、YAML、XML、TOML、Markdown 和 TypeScript 格式之间即时转换。",
+    generatorDesc: "生成二维码、UUID、密码、调色板、条形码、发票和占位数据。",
+    calculatorDesc: "计算 BMI、房贷月供、复利、GPA、卡路里等，简洁好用的专项计算器。",
+    developerDesc: "测试正则表达式、转换时间戳、生成 Meta 标签、CSS 渐变、阴影和网站图标。",
+    utilityDesc: "单位换算、计时器、URL 检测、文本加密、世界时钟对比等实用工具。",
+    privacyPromise: "你的隐私，我们的承诺",
+    privacyPromiseDesc: "JustUse.me 上的每款工具都在你的浏览器中完成文件处理。我们不使用服务器端文件处理、不使用跟踪 Cookie，也不使用基本页面浏览之外的第三方分析工具。你的文档、图片和数据自始至终留在你的设备上。",
+  },
+
   // ─── Search ───
   search: {
     placeholder: '试试"合并PDF"或"压缩图片"',
@@ -140,10 +159,10 @@ const zhCN = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — 免费在线PDF、图片和文本工具",
-    siteDescription: "免费在线工具：合并PDF、压缩图片、格式化JSON等45+工具。无广告、无需注册、无水印，文件不会离开你的浏览器。",
+    siteDescription: "免费在线工具：合并PDF、压缩图片、格式化JSON等100+工具。无广告、无需注册、无水印，文件不会离开你的浏览器。",
     ogTitle: "JustUse.me — 免费在线工具箱",
-    ogDescription: "45+免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
-    twitterDescription: "45+免费工具，无广告、无需注册，文件在浏览器中处理。",
+    ogDescription: "122款免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
+    twitterDescription: "122款免费工具，无广告、无需注册，文件在浏览器中处理。",
     categoryMetaTitle: "免费在线{label} — 无广告、无需注册 | JustUse.me",
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
     toolMetaTitle: "免费在线{name}",
@@ -665,6 +684,21 @@ const zhCN = {
     "use-case": "使用场景",
     trend: "趋势",
     noArticles: "暂无文章，敬请期待！",
+  },
+
+  // ─── 关于 ───
+  about: {
+    title: "关于 JustUse.me",
+    description: "JustUse.me 由 Paymomentum LLC 构建和维护。我们相信日常文件工具应该免费、私密且快速。",
+    mission: "我们的使命",
+    missionDesc: "我们创建 JustUse.me 是因为我们厌倦了那些将文件上传到不明服务器、在输出上打水印、强迫用户注册账号才能完成简单任务的在线工具。JustUse.me 上的每一个工具都完全在您的浏览器中处理文件——您的数据永远不会离开您的设备。",
+    howItWorks: "工作原理",
+    howItWorksDesc: "JustUse.me 使用 WebAssembly、Canvas API 和 Web Workers 等现代浏览器技术在本地处理文件。当您合并 PDF 或压缩图片时，计算在您的设备上完成。无需服务器往返、无上传延迟、无隐私风险。",
+    team: "关于团队",
+    teamDesc: "JustUse.me 是 Paymomentum LLC 的产品。我们是一个专注于构建简单、尊重隐私的日常工具的小团队。",
+    contact: "联系我们",
+    contactDesc: "有问题、建议或发现了 bug？我们很乐意听到您的声音。",
+    contactLink: "联系我们",
   },
 };
 

@@ -65,6 +65,24 @@ export default async function NewsPage({ params, searchParams }: Props) {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: t.news.title,
+          url: locale === defaultLocale ? "https://www.justuse.me/news" : `https://www.justuse.me/${locale}/news`,
+          description: t.news.description,
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: articles.map((a, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: locale === defaultLocale ? `https://www.justuse.me/news/${a.slug}` : `https://www.justuse.me/${locale}/news/${a.slug}`,
+            })),
+          },
+        }) }}
+      />
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">

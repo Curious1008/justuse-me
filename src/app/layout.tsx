@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <link rel="author" type="text/plain" href="/llms.txt" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM context" />
       </head>
       <GoogleAnalytics />
       <body

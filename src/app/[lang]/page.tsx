@@ -37,6 +37,59 @@ export default async function HomePage({ params }: Props) {
       </div>
 
       <CategoryBubbles lang={locale} />
+
+      {/* SEO Content — below the fold */}
+      <div className="w-full max-w-2xl text-left space-y-8 mt-16 relative z-10">
+        <section>
+          <h2 className="text-lg font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-2">
+            {t.home.whatIs}
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            {t.home.whatIsDesc}
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-2">
+            {t.home.whyChoose}
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            {t.home.whyChooseDesc}
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-3">
+            {t.home.toolCategories}
+          </h2>
+          <div className="space-y-3">
+            {[
+              { label: "PDF Tools", desc: t.home.pdfDesc },
+              { label: "Image Tools", desc: t.home.imageDesc },
+              { label: "Text & Code Tools", desc: t.home.textDesc },
+              { label: "Converters", desc: t.home.convertDesc },
+              { label: "Generators", desc: t.home.generatorDesc },
+              { label: "Calculators", desc: t.home.calculatorDesc },
+              { label: "Developer Tools", desc: t.home.developerDesc },
+              { label: "Utilities", desc: t.home.utilityDesc },
+            ].map((cat) => (
+              <div key={cat.label}>
+                <h3 className="text-sm font-medium text-[var(--color-text)] mb-0.5">{cat.label}</h3>
+                <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{cat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold font-[family-name:var(--font-sora)] text-[var(--color-text)] mb-2">
+            {t.home.privacyPromise}
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            {t.home.privacyPromiseDesc}
+          </p>
+        </section>
+      </div>
     </div>
   );
 }

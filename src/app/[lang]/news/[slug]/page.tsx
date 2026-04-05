@@ -72,17 +72,55 @@ export default async function ArticlePage({ params }: Props) {
     { year: "numeric", month: "long", day: "numeric" }
   );
 
+  const canonical =
+    locale === defaultLocale
+      ? `https://www.justuse.me/news/${slug}`
+      : `https://www.justuse.me/${locale}/news/${slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.summary,
+    url: canonical,
     datePublished: article.published_at,
-    publisher: {
+    dateModified: article.published_at,
+    image: {
+      "@type": "ImageObject",
+      url: `https://www.justuse.me${locale === defaultLocale ? "" : `/${locale}`}/news/${slug}/opengraph-image`,
+      width: 1200,
+      height: 630,
+    },
+    author: {
       "@type": "Organization",
       name: "JustUse.me",
       url: "https://www.justuse.me",
     },
+    publisher: {
+      "@type": "Organization",
+      name: "JustUse.me",
+      url: "https://www.justuse.me",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.justuse.me/favicon.png",
+        width: 48,
+        height: 48,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonical,
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: locale === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${locale}` },
+      { "@type": "ListItem", position: 2, name: dict.news.title, item: locale === defaultLocale ? "https://www.justuse.me/news" : `https://www.justuse.me/${locale}/news` },
+      { "@type": "ListItem", position: 3, name: article.title, item: canonical },
+    ],
   };
 
   return (
@@ -91,6 +129,10 @@ export default async function ArticlePage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <div className="flex flex-col lg:flex-row gap-12">

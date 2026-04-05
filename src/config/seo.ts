@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import type { ToolPlugin } from "@/tools/types";
 import { getToolSEOContent } from "./tool-seo-content";
 
+function localeUrl(locale: string, path: string): string {
+  return locale === "en"
+    ? `https://www.justuse.me${path}`
+    : `https://www.justuse.me/${locale}${path}`;
+}
+
 export function generateToolMetadata(tool: ToolPlugin): Metadata {
   const seo = getToolSEOContent(tool.id);
   const description = seo
@@ -31,14 +37,14 @@ export function generateToolMetadata(tool: ToolPlugin): Metadata {
 }
 
 /** JSON-LD for a tool page (WebApplication + FAQPage) */
-export function generateToolJsonLd(tool: ToolPlugin) {
+export function generateToolJsonLd(tool: ToolPlugin, locale = "en") {
   const seo = getToolSEOContent(tool.id);
 
   const webApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: tool.name,
-    url: `https://www.justuse.me/tools/${tool.id}`,
+    url: localeUrl(locale, `/tools/${tool.id}`),
     description: seo?.longDescription ?? tool.description,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
@@ -46,6 +52,7 @@ export function generateToolJsonLd(tool: ToolPlugin) {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
+      availability: "https://schema.org/OnlineOnly",
     },
     browserRequirements: "Requires a modern web browser",
   };
@@ -67,24 +74,11 @@ export function generateToolJsonLd(tool: ToolPlugin) {
     });
   }
 
-  if (seo?.steps?.length) {
-    schemas.push({
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      name: `How to use ${tool.name}`,
-      step: seo.steps.map((text, i) => ({
-        "@type": "HowToStep",
-        position: i + 1,
-        text,
-      })),
-    });
-  }
-
   return schemas;
 }
 
 /** BreadcrumbList JSON-LD for category pages */
-export function generateCategoryBreadcrumbJsonLd(category: string, categoryLabel: string) {
+export function generateCategoryBreadcrumbJsonLd(category: string, categoryLabel: string, locale = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -93,13 +87,13 @@ export function generateCategoryBreadcrumbJsonLd(category: string, categoryLabel
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.justuse.me",
+        item: localeUrl(locale, "/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: categoryLabel,
-        item: `https://www.justuse.me/${category}`,
+        item: localeUrl(locale, `/${category}`),
       },
     ],
   };
@@ -108,7 +102,8 @@ export function generateCategoryBreadcrumbJsonLd(category: string, categoryLabel
 /** BreadcrumbList JSON-LD for tool pages */
 export function generateToolBreadcrumbJsonLd(
   tool: ToolPlugin,
-  categoryLabel: string
+  categoryLabel: string,
+  locale = "en"
 ) {
   return {
     "@context": "https://schema.org",
@@ -118,19 +113,19 @@ export function generateToolBreadcrumbJsonLd(
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.justuse.me",
+        item: localeUrl(locale, "/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: categoryLabel,
-        item: `https://www.justuse.me/${tool.category}`,
+        item: localeUrl(locale, `/${tool.category}`),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: tool.name,
-        item: `https://www.justuse.me/tools/${tool.id}`,
+        item: localeUrl(locale, `/tools/${tool.id}`),
       },
     ],
   };
@@ -156,9 +151,16 @@ export function generateSiteJsonLd() {
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "JustUse.me",
+      legalName: "Paymomentum LLC",
       url: "https://www.justuse.me",
       description:
         "Clean, ad-free online tools. Your files never leave your device.",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.justuse.me/favicon.png",
+        width: 48,
+        height: 48,
+      },
     },
   ];
 }

@@ -20,6 +20,25 @@ const zhTW = {
     subtitle: "日常檔案工具，隨時為你待命。",
   },
 
+  // ─── Homepage SEO ───
+  home: {
+    whatIs: "JustUse.me 是什麼？",
+    whatIsDesc: "JustUse.me 是一個免費、注重隱私的線上工具箱，提供 122 款瀏覽器端的檔案處理工具。所有工具皆透過 WebAssembly 與 Canvas API 在瀏覽器中執行——你的檔案絕不會上傳到任何伺服器。無需註冊帳號，沒有浮水印，沒有隱藏費用。",
+    whyChoose: "為什麼選擇 JustUse.me 而非其他線上工具？",
+    whyChooseDesc: "多數線上檔案工具（如 Smallpdf、iLovePDF、TinyPNG）會將你的檔案上傳至伺服器處理。JustUse.me 不同：所有處理都在瀏覽器本機完成。這代表更快的速度（不必等待上傳下載）、真正的隱私保障（檔案不會離開你的裝置），以及零資料外洩風險。",
+    toolCategories: "工具分類",
+    pdfDesc: "合併、分割、壓縮、旋轉、加浮水印及轉換 PDF 檔案。一次可處理多達 20 個檔案，品質無損。",
+    imageDesc: "壓縮、調整大小、裁切圖片，支援 PNG、JPG、WebP、HEIC、SVG、GIF 格式互轉。亦支援 OCR 文字辨識。",
+    textDesc: "格式化 JSON、比對差異、壓縮 JavaScript 與 CSS、解碼 JWT、解釋 Cron 運算式等 15 種以上文字工具。",
+    convertDesc: "在 CSV、JSON、YAML、XML、TOML、Markdown 和 TypeScript 格式之間即時轉換。",
+    generatorDesc: "產生 QR Code、UUID、密碼、調色盤、條碼、發票和佔位資料。",
+    calculatorDesc: "計算 BMI、房貸月付、複利、GPA、卡路里等，簡潔實用的專項計算機。",
+    developerDesc: "測試正規表達式、轉換時間戳記、產生 Meta 標籤、CSS 漸層、陰影與網站圖示。",
+    utilityDesc: "單位換算、計時器、URL 檢測、文字加密、世界時鐘比較等實用工具。",
+    privacyPromise: "你的隱私，我們的承諾",
+    privacyPromiseDesc: "JustUse.me 上的每款工具都在你的瀏覽器中完成檔案處理。我們不使用伺服器端檔案處理、不使用追蹤 Cookie，也不使用基本頁面瀏覽以外的第三方分析工具。你的文件、圖片和資料自始至終留在你的裝置上。",
+  },
+
   // ─── Search ───
   search: {
     placeholder: '試試「合併PDF」或「壓縮圖片」',
@@ -140,10 +159,10 @@ const zhTW = {
   // ─── Metadata / SEO ───
   meta: {
     siteTitle: "JustUse.me — 免費線上 PDF、圖片與文字工具",
-    siteDescription: "免費線上工具：合併 PDF、壓縮圖片、格式化 JSON 等超過 45 種工具。無廣告、免註冊、無浮水印，檔案絕不離開你的瀏覽器。",
+    siteDescription: "免費線上工具：合併 PDF、壓縮圖片、格式化 JSON 等超過 100 種工具。無廣告、免註冊、無浮水印，檔案絕不離開你的瀏覽器。",
     ogTitle: "JustUse.me — 免費線上工具",
-    ogDescription: "超過 45 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
-    twitterDescription: "超過 45 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
+    ogDescription: "122 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
+    twitterDescription: "122 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
     categoryMetaTitle: "免費線上{label} — 無廣告、免註冊 | JustUse.me",
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
     toolMetaTitle: "免費線上{name}",
@@ -665,6 +684,21 @@ const zhTW = {
     "use-case": "使用場景",
     trend: "趨勢",
     noArticles: "暫無文章，敬請期待！",
+  },
+
+  // ─── 關於 ───
+  about: {
+    title: "關於 JustUse.me",
+    description: "JustUse.me 由 Paymomentum LLC 建置及維護。我們相信日常檔案工具應該免費、私密且快速。",
+    mission: "我們的使命",
+    missionDesc: "我們打造 JustUse.me 是因為我們厭倦了那些將檔案上傳到不明伺服器、在輸出上加浮水印、強迫使用者註冊帳號才能完成簡單任務的線上工具。JustUse.me 上的每一個工具都完全在您的瀏覽器中處理檔案——您的資料永遠不會離開您的裝置。",
+    howItWorks: "運作原理",
+    howItWorksDesc: "JustUse.me 使用 WebAssembly、Canvas API 和 Web Workers 等現代瀏覽器技術在本機處理檔案。當您合併 PDF 或壓縮圖片時，運算在您的裝置上完成。無需伺服器往返、無上傳延遲、無隱私風險。",
+    team: "關於團隊",
+    teamDesc: "JustUse.me 是 Paymomentum LLC 的產品。我們是一個專注於打造簡單、尊重隱私的日常工具的小團隊。",
+    contact: "聯絡我們",
+    contactDesc: "有問題、建議或發現了 bug？我們很樂意聽到您的聲音。",
+    contactLink: "聯絡我們",
   },
 };
 

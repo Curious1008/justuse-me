@@ -71,9 +71,9 @@ export default async function ToolPage({ params }: Props) {
   const t = await getDictionary(locale);
   const toolT = t.tools[toolId];
   const seo = t.toolSeo[toolId];
-  const jsonLd = generateToolJsonLd(tool);
+  const jsonLd = generateToolJsonLd(tool, locale);
   const categoryLabel = t.categoryPage[tool.category as keyof typeof t.categoryPage]?.title || tool.category;
-  const breadcrumbJsonLd = generateToolBreadcrumbJsonLd(tool, categoryLabel);
+  const breadcrumbJsonLd = generateToolBreadcrumbJsonLd(tool, categoryLabel, locale);
   const allTools = getAllTools(locale);
 
   // Use English SEO content for related tools list (IDs are the same)
