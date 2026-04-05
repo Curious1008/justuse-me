@@ -202,6 +202,7 @@ const en = {
     "json-to-csv": { name: "JSON to CSV", description: "Convert JSON arrays to CSV spreadsheet format." },
     "yaml-json": { name: "YAML / JSON Converter", description: "Convert between YAML and JSON formats." },
     "xml-formatter": { name: "XML Formatter", description: "Format and beautify XML data." },
+    "xml-to-json": { name: "XML to JSON", description: "Convert XML files to JSON format." },
     "qr-code": { name: "QR Code Generator", description: "Generate QR codes from text or URLs." },
     "color-converter": { name: "Color Converter", description: "Convert colors between HEX, RGB, and HSL." },
     "sql-formatter": { name: "SQL Formatter", description: "Format and beautify SQL queries with proper indentation." },
@@ -214,6 +215,7 @@ const en = {
     "json5-to-json": { name: "JSON5 to JSON", description: "Convert JSON5 (with comments/trailing commas) to strict JSON." },
     "toml-to-json": { name: "TOML to JSON", description: "Convert TOML configuration to JSON format." },
     "json-to-markdown-table": { name: "JSON to Markdown Table", description: "Convert JSON arrays into readable Markdown tables." },
+    "json-to-yaml": { name: "JSON to YAML", description: "Convert JSON files to YAML format." },
     "typescript-to-js": { name: "TypeScript to JS", description: "Strip types from TypeScript to produce plain JavaScript." },
     "uuid-generator": { name: "UUID Generator", description: "Generate random UUIDs (v4) instantly." },
     "lorem-ipsum": { name: "Lorem Ipsum Generator", description: "Generate placeholder text for designs and mockups." },
@@ -228,6 +230,9 @@ const en = {
     "webp-to-png": { name: "WebP to PNG", description: "Convert WebP images to PNG format." },
     "webp-to-jpg": { name: "WebP to JPG", description: "Convert WebP images to JPG format." },
     "gif-to-png": { name: "GIF to PNG", description: "Extract the first frame of a GIF animation and save it as a PNG image." },
+    "ico-converter": { name: "PNG to ICO", description: "Convert images to ICO favicon format." },
+    "background-remover": { name: "Background Remover", description: "Remove image backgrounds to get a transparent PNG." },
+    "image-to-pdf": { name: "Image to PDF", description: "Convert images to a PDF document." },
     // Text (new)
     "case-converter": { name: "Case Converter", description: "Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, or kebab-case." },
     "remove-duplicate-lines": { name: "Remove Duplicate Lines", description: "Remove repeated lines from text, keeping only unique entries." },
@@ -455,6 +460,28 @@ const en = {
         { q: "Is the image uploaded to a server?", a: "No. OCR runs entirely in your browser using Tesseract.js. Your images stay on your device." },
       ],
     },
+    "background-remover": {
+      longDescription: "Remove the background from any image to get a clean transparent PNG. Works with photos, logos, and product images. The tool detects the background color from the image edges and removes it using flood-fill, all processed in your browser.",
+      steps: ["Upload your image (JPG, PNG, or WebP)", "The background is detected and removed automatically", "Download the transparent PNG result"],
+      faq: [
+        { q: "How does the background removal work?", a: "The tool samples the corner pixels to identify the background color, then uses flood-fill from the edges to remove all connected pixels of similar color. It works best with solid or near-solid backgrounds." },
+        { q: "Does it work with complex backgrounds?", a: "It works best with solid-color backgrounds (white, green screen, etc.). Complex or gradient backgrounds may leave some artifacts. For those cases, a dedicated AI-powered tool may give better results." },
+        { q: "Is my image uploaded anywhere?", a: "No. Everything runs in your browser. Your image never leaves your device." },
+      ],
+      related: ["compress-image", "crop-image", "png-to-jpg"],
+      whyUs: "Most background removal tools upload your image to their servers for AI processing. JustUse.me removes backgrounds entirely in your browser — your photos stay private, and it works instantly with no queue or processing delay.",
+    },
+    "image-to-pdf": {
+      longDescription: "Convert one or more images into a single PDF document. Supports JPG and PNG files, up to 20 images at once. Each image becomes a full page in the PDF, preserving the original dimensions and quality.",
+      steps: ["Upload your images (JPG or PNG, up to 20 files)", "Drag to reorder pages if needed", "Click Process and download your PDF"],
+      faq: [
+        { q: "Can I combine multiple images into one PDF?", a: "Yes. Upload up to 20 images and they will be combined into a single PDF, one image per page, in the order you arrange them." },
+        { q: "Does it reduce image quality?", a: "No. Images are embedded at their original resolution and quality. The PDF preserves exactly what you uploaded." },
+        { q: "What image formats are supported?", a: "JPG and PNG formats are supported. For other formats like HEIC or WebP, convert them first using our other tools." },
+      ],
+      related: ["jpg-to-pdf", "merge-pdf", "compress-image"],
+      whyUs: "Unlike online converters that upload your photos to remote servers, JustUse.me converts images to PDF entirely in your browser. Your photos never leave your device, making it safe for personal documents, IDs, and sensitive images.",
+    },
     "json-formatter": {
       longDescription: "Format and beautify messy JSON data with proper indentation. Paste minified or ugly JSON and get clean, readable output. Validates your JSON and highlights errors if the syntax is invalid.",
       steps: ["Paste or type your JSON data", "The JSON is formatted and validated instantly", "Copy or download the formatted result"],
@@ -542,6 +569,16 @@ const en = {
         { q: "Does it validate the XML?", a: "Basic structure validation is performed. Malformed XML will produce an error message." },
         { q: "Is CDATA preserved?", a: "Yes. CDATA sections, comments, and processing instructions are preserved in the output." },
       ],
+    },
+    "xml-to-json": {
+      longDescription: "Convert XML documents, API responses, or configuration files to clean JSON format. Preserves attributes, nested elements, and text content. Useful for working with SOAP APIs, RSS feeds, SVG data, or any XML-based format that needs to be consumed as JSON.",
+      steps: ["Upload your XML file", "The XML is parsed and converted to JSON instantly", "Download or copy the JSON output"],
+      faq: [
+        { q: "How are XML attributes handled?", a: "XML attributes are prefixed with @_ in the JSON output. For example, <div class=\"main\"> becomes {\"div\": {\"@_class\": \"main\"}}. This keeps attributes distinct from child elements." },
+        { q: "Does it handle nested XML?", a: "Yes. All nested elements, arrays of repeated elements, and mixed content are preserved in the JSON structure. The conversion handles arbitrarily deep nesting." },
+        { q: "Can it convert large XML files?", a: "Yes, up to 5MB. Processing happens entirely in your browser with no upload required." },
+      ],
+      related: ["xml-formatter", "json-formatter", "json-to-yaml"],
     },
     "qr-code": {
       longDescription: "Generate QR codes from any text or URL. Create scannable codes for links, Wi-Fi passwords, contact info, or any text content. Download as a high-quality PNG image.",
@@ -639,6 +676,16 @@ const en = {
         { q: "How are nested values handled?", a: "Nested objects and arrays are serialized as JSON strings within table cells." },
       ],
     },
+    "json-to-yaml": {
+      longDescription: "Convert JSON configuration files, API responses, or data files to clean YAML format. Produces human-readable YAML with proper indentation. Useful for Kubernetes configs, Docker Compose files, CI/CD pipelines, and anywhere YAML is preferred over JSON.",
+      steps: ["Upload or paste your JSON file", "The JSON is parsed and converted to YAML instantly", "Download or copy the YAML output"],
+      faq: [
+        { q: "Why convert JSON to YAML?", a: "YAML is more human-readable than JSON for configuration files. It supports comments, has less visual noise (no quotes or braces), and is the standard format for Kubernetes, Docker Compose, GitHub Actions, and many CI/CD tools." },
+        { q: "Does it preserve the data structure?", a: "Yes. All keys, values, arrays, and nested objects are preserved exactly. The conversion is lossless — you can convert back to JSON and get the same data." },
+        { q: "Can it handle large JSON files?", a: "Yes, up to 5MB. The conversion runs in your browser so there is no upload delay for large files." },
+      ],
+      related: ["yaml-json", "json-formatter", "json-validator"],
+    },
     "typescript-to-js": {
       longDescription: "Strip TypeScript type annotations to produce plain JavaScript. Removes interfaces, type aliases, generics, and other TypeScript-specific syntax while preserving the runtime logic.",
       steps: ["Upload your TypeScript file", "Types are stripped and JavaScript is generated", "Download the plain JavaScript output"],
@@ -686,6 +733,16 @@ const en = {
         { q: "What information can I see?", a: "Camera make/model, lens, ISO, shutter speed, aperture, focal length, GPS coordinates, date/time, and more." },
         { q: "Is my photo uploaded?", a: "No. EXIF data is read entirely in your browser. Your photo never leaves your device." },
       ],
+    },
+    "ico-converter": {
+      longDescription: "Convert any image to ICO format for use as a website favicon. Generates a multi-size ICO file containing 16x16, 32x32, and 48x48 pixel versions from your source image. Supports PNG, JPG, and WebP input.",
+      steps: ["Upload your image (PNG, JPG, or WebP)", "The image is resized to standard favicon sizes automatically", "Download the multi-size ICO file"],
+      faq: [
+        { q: "What sizes are included in the ICO file?", a: "The ICO file contains three sizes: 16x16, 32x32, and 48x48 pixels. These cover the most common favicon use cases across browsers and operating systems." },
+        { q: "Can I use any image as a favicon?", a: "Yes, but simple logos and icons work best. Complex photos will lose detail at small sizes. Use a square image for best results." },
+        { q: "How do I add the favicon to my website?", a: "Place the .ico file in your website's root directory as favicon.ico, or add a link tag in your HTML head: <link rel=\"icon\" href=\"/favicon.ico\">." },
+      ],
+      related: ["favicon-generator", "svg-to-png", "resize-image"],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[]; whyUs?: string }>,
 

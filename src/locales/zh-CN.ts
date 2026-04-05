@@ -202,6 +202,7 @@ const zhCN = {
     "json-to-csv": { name: "JSON转CSV", description: "将JSON数组转换为CSV表格格式。" },
     "yaml-json": { name: "YAML / JSON转换", description: "在YAML和JSON格式之间互相转换。" },
     "xml-formatter": { name: "XML格式化", description: "格式化和美化XML数据。" },
+    "xml-to-json": { name: "XML转JSON", description: "将XML文件转换为JSON格式。" },
     "qr-code": { name: "二维码生成器", description: "从文本或网址生成二维码。" },
     "color-converter": { name: "颜色转换器", description: "在HEX、RGB和HSL之间转换颜色值。" },
     "sql-formatter": { name: "SQL格式化", description: "格式化和美化SQL查询语句。" },
@@ -214,6 +215,7 @@ const zhCN = {
     "json5-to-json": { name: "JSON5转JSON", description: "将JSON5（支持注释/尾逗号）转换为标准JSON。" },
     "toml-to-json": { name: "TOML转JSON", description: "将TOML配置文件转换为JSON格式。" },
     "json-to-markdown-table": { name: "JSON转Markdown表格", description: "将JSON数组转换为Markdown表格。" },
+    "json-to-yaml": { name: "JSON转YAML", description: "将JSON文件转换为YAML格式。" },
     "typescript-to-js": { name: "TypeScript转JS", description: "去除TypeScript类型注解，生成纯JavaScript。" },
     "uuid-generator": { name: "UUID生成器", description: "即时生成随机UUID（v4）。" },
     "lorem-ipsum": { name: "Lorem Ipsum生成器", description: "生成设计和原型所需的占位文本。" },
@@ -228,6 +230,9 @@ const zhCN = {
     "webp-to-png": { name: "WebP转PNG", description: "将WebP图片转换为PNG格式。" },
     "webp-to-jpg": { name: "WebP转JPG", description: "将WebP图片转换为JPG格式。" },
     "gif-to-png": { name: "GIF转PNG", description: "提取GIF动画的第一帧并保存为PNG图片。" },
+    "ico-converter": { name: "PNG转ICO", description: "将图片转换为ICO网站图标格式。" },
+    "background-remover": { name: "背景移除", description: "移除图片背景，获得透明PNG。" },
+    "image-to-pdf": { name: "图片转PDF", description: "将图片转换为PDF文档。" },
     // 文本（新增）
     "case-converter": { name: "大小写转换器", description: "将文本转换为大写、小写、标题格式、驼峰命名、下划线或短横线格式。" },
     "remove-duplicate-lines": { name: "删除重复行", description: "删除文本中的重复行，只保留唯一条目。" },
@@ -437,6 +442,28 @@ const zhCN = {
         { q: "图片会上传到服务器吗？", a: "不会。OCR完全在浏览器中使用Tesseract.js运行，图片始终留在你的设备上。" },
       ],
     },
+    "background-remover": {
+      longDescription: "移除图片背景，获得干净的透明PNG。适用于照片、Logo和产品图片。工具从图片边缘检测背景颜色，使用泛洪填充算法移除背景，全部在浏览器中处理。",
+      steps: ["上传图片（JPG、PNG或WebP）", "自动检测并移除背景", "下载透明PNG结果"],
+      faq: [
+        { q: "背景移除是怎么工作的？", a: "工具采样四角像素来识别背景颜色，然后从边缘使用泛洪填充移除所有相似颜色的连续像素。纯色或近似纯色背景效果最佳。" },
+        { q: "复杂背景能处理吗？", a: "纯色背景（白色、绿幕等）效果最好。复杂或渐变背景可能会留下一些残留。这种情况建议使用专门的AI背景移除工具。" },
+        { q: "图片会被上传吗？", a: "不会。所有处理都在浏览器中完成，图片不会离开你的设备。" },
+      ],
+      related: ["compress-image", "crop-image", "png-to-jpg"],
+      whyUs: "大多数背景移除工具会将图片上传到服务器进行AI处理。JustUse.me完全在浏览器中移除背景——照片保持私密，即时处理，无需排队等待。",
+    },
+    "image-to-pdf": {
+      longDescription: "将一张或多张图片转换为单个PDF文档。支持JPG和PNG格式，一次最多20张图片。每张图片成为PDF中的一页，保留原始尺寸和质量。",
+      steps: ["上传图片（JPG或PNG，最多20个文件）", "拖动排列页面顺序", "点击处理并下载PDF"],
+      faq: [
+        { q: "可以将多张图片合并为一个PDF吗？", a: "可以。上传最多20张图片，它们会按你排列的顺序合并为一个PDF，每张图片一页。" },
+        { q: "会降低图片质量吗？", a: "不会。图片以原始分辨率和质量嵌入，PDF完整保留你上传的内容。" },
+        { q: "支持哪些图片格式？", a: "支持JPG和PNG格式。其他格式如HEIC或WebP，请先使用我们的其他工具转换。" },
+      ],
+      related: ["jpg-to-pdf", "merge-pdf", "compress-image"],
+      whyUs: "与将照片上传到远程服务器的在线转换器不同，JustUse.me完全在浏览器中将图片转换为PDF。你的照片不会离开设备，适合处理个人文件、证件和敏感图片。",
+    },
     "json-formatter": {
       longDescription: "格式化和美化杂乱的JSON数据，自动添加正确的缩进。粘贴压缩过的或格式混乱的JSON，即可获得整洁可读的输出。同时验证JSON语法，高亮显示错误。",
       steps: ["粘贴或输入你的JSON数据", "JSON即时格式化并验证", "复制或下载格式化后的结果"],
@@ -524,6 +551,16 @@ const zhCN = {
         { q: "会验证XML吗？", a: "会进行基本的结构验证。格式错误的XML会提示错误信息。" },
         { q: "CDATA会保留吗？", a: "会。CDATA段、注释和处理指令都会在输出中保留。" },
       ],
+    },
+    "xml-to-json": {
+      longDescription: "将XML文档、API响应或配置文件转换为整洁的JSON格式。保留属性、嵌套元素和文本内容。适合处理SOAP API、RSS订阅、SVG数据，或任何需要转为JSON使用的XML格式。",
+      steps: ["上传你的XML文件", "XML会被即时解析并转换为JSON", "下载或复制JSON输出"],
+      faq: [
+        { q: "XML属性如何处理？", a: "XML属性在JSON输出中以@_为前缀。例如，<div class=\"main\">会变成{\"div\": {\"@_class\": \"main\"}}。这样可以区分属性和子元素。" },
+        { q: "支持嵌套XML吗？", a: "支持。所有嵌套元素、重复元素数组和混合内容都会保留在JSON结构中。可处理任意深度的嵌套。" },
+        { q: "能转换大型XML文件吗？", a: "支持最大5MB的文件。处理完全在浏览器中进行，无需上传。" },
+      ],
+      related: ["xml-formatter", "json-formatter", "json-to-yaml"],
     },
     "qr-code": {
       longDescription: "从任意文本或网址生成二维码。可为链接、Wi-Fi密码、联系方式或任何文本内容创建可扫描的二维码，下载为高质量PNG图片。",
@@ -621,6 +658,16 @@ const zhCN = {
         { q: "嵌套值如何处理？", a: "嵌套对象和数组会在表格单元格中序列化为JSON字符串。" },
       ],
     },
+    "json-to-yaml": {
+      longDescription: "将JSON配置文件、API响应或数据文件转换为简洁的YAML格式。生成具有正确缩进的易读YAML。适用于Kubernetes配置、Docker Compose文件、CI/CD流水线以及任何偏好YAML而非JSON的场景。",
+      steps: ["上传或粘贴JSON文件", "JSON被解析并即时转换为YAML", "下载或复制YAML输出"],
+      faq: [
+        { q: "为什么要将JSON转为YAML？", a: "YAML比JSON更易于阅读配置文件。它支持注释，视觉噪音更少（无引号或大括号），是Kubernetes、Docker Compose、GitHub Actions和许多CI/CD工具的标准格式。" },
+        { q: "数据结构会保留吗？", a: "是的。所有键、值、数组和嵌套对象都会被精确保留。转换是无损的——可以转回JSON获得相同数据。" },
+        { q: "能处理大型JSON文件吗？", a: "可以，最大支持5MB。转换在浏览器中运行，大文件无需等待上传。" },
+      ],
+      related: ["yaml-json", "json-formatter", "json-validator"],
+    },
     "typescript-to-js": {
       longDescription: "去除TypeScript类型注解，生成纯JavaScript。移除接口、类型别名、泛型和其他TypeScript特有语法，同时保留运行时逻辑。",
       steps: ["上传TypeScript文件", "类型被去除并生成JavaScript", "下载纯JavaScript输出"],
@@ -668,6 +715,16 @@ const zhCN = {
         { q: "可以看到哪些信息？", a: "相机品牌/型号、镜头、ISO、快门速度、光圈、焦距、GPS坐标、拍摄日期等。" },
         { q: "照片会上传吗？", a: "不会。EXIF数据完全在浏览器中读取，照片不会离开你的设备。" },
       ],
+    },
+    "ico-converter": {
+      longDescription: "将任意图片转换为ICO格式，用作网站favicon图标。生成包含16x16、32x32和48x48像素的多尺寸ICO文件。支持PNG、JPG和WebP输入。",
+      steps: ["上传图片（PNG、JPG或WebP）", "图片自动缩放为标准favicon尺寸", "下载多尺寸ICO文件"],
+      faq: [
+        { q: "ICO文件包含哪些尺寸？", a: "ICO文件包含三种尺寸：16x16、32x32和48x48像素，覆盖了各浏览器和操作系统最常用的favicon场景。" },
+        { q: "任何图片都能做favicon吗？", a: "可以，但简单的logo和图标效果最好。复杂的照片在小尺寸下会丢失细节。建议使用正方形图片。" },
+        { q: "如何将favicon添加到网站？", a: "将.ico文件放在网站根目录命名为favicon.ico，或在HTML头部添加：<link rel=\"icon\" href=\"/favicon.ico\">。" },
+      ],
+      related: ["favicon-generator", "svg-to-png", "resize-image"],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,
 

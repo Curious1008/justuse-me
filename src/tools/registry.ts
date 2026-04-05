@@ -28,6 +28,9 @@ import imageFlipRotate from "./image/image-flip-rotate";
 import webpToPng from "./image/webp-to-png";
 import webpToJpg from "./image/webp-to-jpg";
 import gifToPng from "./image/gif-to-png";
+import icoConverter from "./image/ico-converter";
+import backgroundRemover from "./image/background-remover";
+import imageToPdf from "./image/image-to-pdf";
 
 // Text tools
 import jsonFormatter from "./text/json-formatter";
@@ -63,7 +66,9 @@ import htmlToMarkdown from "./convert/html-to-markdown";
 import json5ToJson from "./convert/json5-to-json";
 import tomlToJson from "./convert/toml-to-json";
 import jsonToMarkdownTable from "./convert/json-to-markdown-table";
+import jsonToYaml from "./convert/json-to-yaml";
 import typescriptToJs from "./convert/typescript-to-js";
+import xmlToJson from "./convert/xml-to-json";
 
 // Generator tools
 import qrCode from "./generator/qr-code";
@@ -160,6 +165,9 @@ const tools: ToolPlugin[] = [
   webpToPng,
   webpToJpg,
   gifToPng,
+  icoConverter,
+  backgroundRemover,
+  imageToPdf,
   // Text
   jsonFormatter,
   wordCounter,
@@ -193,7 +201,9 @@ const tools: ToolPlugin[] = [
   json5ToJson,
   tomlToJson,
   jsonToMarkdownTable,
+  jsonToYaml,
   typescriptToJs,
+  xmlToJson,
   // Generator
   qrCode,
   colorConverter,

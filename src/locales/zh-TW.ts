@@ -202,6 +202,7 @@ const zhTW = {
     "json-to-csv": { name: "JSON 轉 CSV", description: "將 JSON 陣列轉換為 CSV 試算表格式。" },
     "yaml-json": { name: "YAML / JSON 轉換器", description: "在 YAML 和 JSON 格式之間互相轉換。" },
     "xml-formatter": { name: "XML 格式化", description: "格式化並美化 XML 資料。" },
+    "xml-to-json": { name: "XML 轉 JSON", description: "將 XML 檔案轉換為 JSON 格式。" },
     "qr-code": { name: "QR Code 產生器", description: "從文字或網址產生 QR Code。" },
     "color-converter": { name: "色彩轉換器", description: "在 HEX、RGB 和 HSL 之間轉換色彩。" },
     "sql-formatter": { name: "SQL 格式化", description: "格式化並美化 SQL 查詢語句。" },
@@ -214,6 +215,7 @@ const zhTW = {
     "json5-to-json": { name: "JSON5 轉 JSON", description: "將 JSON5（支援註解/結尾逗號）轉換為標準 JSON。" },
     "toml-to-json": { name: "TOML 轉 JSON", description: "將 TOML 設定檔轉換為 JSON 格式。" },
     "json-to-markdown-table": { name: "JSON 轉 Markdown 表格", description: "將 JSON 陣列轉換為 Markdown 表格。" },
+    "json-to-yaml": { name: "JSON 轉 YAML", description: "將 JSON 檔案轉換為 YAML 格式。" },
     "typescript-to-js": { name: "TypeScript 轉 JS", description: "去除 TypeScript 型別註解，產生純 JavaScript。" },
     "uuid-generator": { name: "UUID 產生器", description: "即時產生隨機 UUID（v4）。" },
     "lorem-ipsum": { name: "Lorem Ipsum 產生器", description: "產生設計和原型所需的佔位文字。" },
@@ -228,6 +230,9 @@ const zhTW = {
     "webp-to-png": { name: "WebP 轉 PNG", description: "將 WebP 圖片轉換為 PNG 格式。" },
     "webp-to-jpg": { name: "WebP 轉 JPG", description: "將 WebP 圖片轉換為 JPG 格式。" },
     "gif-to-png": { name: "GIF 轉 PNG", description: "擷取 GIF 動畫的第一幀並儲存為 PNG 圖片。" },
+    "ico-converter": { name: "PNG 轉 ICO", description: "將圖片轉換為 ICO 網站圖示格式。" },
+    "background-remover": { name: "背景移除", description: "移除圖片背景，取得透明 PNG。" },
+    "image-to-pdf": { name: "圖片轉 PDF", description: "將圖片轉換為 PDF 文件。" },
     // 文字（新增）
     "case-converter": { name: "大小寫轉換器", description: "將文字轉換為大寫、小寫、標題格式、駝峰命名、底線或短橫線格式。" },
     "remove-duplicate-lines": { name: "移除重複行", description: "移除文字中的重複行，只保留唯一條目。" },
@@ -437,6 +442,28 @@ const zhTW = {
         { q: "圖片會被上傳到伺服器嗎？", a: "不會。OCR 完全在你的瀏覽器中使用 Tesseract.js 運行。你的圖片不會離開裝置。" },
       ],
     },
+    "background-remover": {
+      longDescription: "移除圖片背景，取得乾淨的透明 PNG。適用於照片、Logo 和產品圖片。工具從圖片邊緣偵測背景顏色，使用泛洪填充演算法移除背景，全部在瀏覽器中處理。",
+      steps: ["上傳圖片（JPG、PNG 或 WebP）", "自動偵測並移除背景", "下載透明 PNG 結果"],
+      faq: [
+        { q: "背景移除是怎麼運作的？", a: "工具取樣四角像素來辨識背景顏色，然後從邊緣使用泛洪填充移除所有相似顏色的連續像素。純色或近似純色背景效果最佳。" },
+        { q: "複雜背景能處理嗎？", a: "純色背景（白色、綠幕等）效果最好。複雜或漸層背景可能會留下一些殘留。這種情況建議使用專門的 AI 背景移除工具。" },
+        { q: "圖片會被上傳嗎？", a: "不會。所有處理都在瀏覽器中完成，圖片不會離開你的裝置。" },
+      ],
+      related: ["compress-image", "crop-image", "png-to-jpg"],
+      whyUs: "大多數背景移除工具會將圖片上傳到伺服器進行 AI 處理。JustUse.me 完全在瀏覽器中移除背景——照片保持私密，即時處理，無需排隊等待。",
+    },
+    "image-to-pdf": {
+      longDescription: "將一張或多張圖片轉換為單一 PDF 文件。支援 JPG 和 PNG 格式，一次最多 20 張圖片。每張圖片成為 PDF 中的一頁，保留原始尺寸和品質。",
+      steps: ["上傳圖片（JPG 或 PNG，最多 20 個檔案）", "拖曳排列頁面順序", "點選處理並下載 PDF"],
+      faq: [
+        { q: "可以將多張圖片合併為一個 PDF 嗎？", a: "可以。上傳最多 20 張圖片，它們會按你排列的順序合併為一個 PDF，每張圖片一頁。" },
+        { q: "會降低圖片品質嗎？", a: "不會。圖片以原始解析度和品質嵌入，PDF 完整保留你上傳的內容。" },
+        { q: "支援哪些圖片格式？", a: "支援 JPG 和 PNG 格式。其他格式如 HEIC 或 WebP，請先使用我們的其他工具轉換。" },
+      ],
+      related: ["jpg-to-pdf", "merge-pdf", "compress-image"],
+      whyUs: "與將照片上傳到遠端伺服器的線上轉換器不同，JustUse.me 完全在瀏覽器中將圖片轉換為 PDF。你的照片不會離開裝置，適合處理個人文件、證件和敏感圖片。",
+    },
     "json-formatter": {
       longDescription: "使用正確的縮排格式化並美化雜亂的 JSON 資料。貼上壓縮或雜亂的 JSON，即可獲得乾淨、易讀的輸出。會驗證你的 JSON 並在語法無效時標示錯誤。",
       steps: ["貼上或輸入你的 JSON 資料", "JSON 會即時格式化並驗證", "複製或下載格式化後的結果"],
@@ -524,6 +551,16 @@ const zhTW = {
         { q: "會驗證 XML 嗎？", a: "會執行基本的結構驗證。格式不正確的 XML 會產生錯誤訊息。" },
         { q: "CDATA 會被保留嗎？", a: "會。CDATA 區段、註解和處理指令都會保留在輸出中。" },
       ],
+    },
+    "xml-to-json": {
+      longDescription: "將 XML 文件、API 回應或設定檔轉換為乾淨的 JSON 格式。保留屬性、巢狀元素和文字內容。適合處理 SOAP API、RSS 訂閱、SVG 資料，或任何需要轉為 JSON 使用的 XML 格式。",
+      steps: ["上傳你的 XML 檔案", "XML 會被即時解析並轉換為 JSON", "下載或複製 JSON 輸出"],
+      faq: [
+        { q: "XML 屬性如何處理？", a: "XML 屬性在 JSON 輸出中以 @_ 為前綴。例如，<div class=\"main\"> 會變成 {\"div\": {\"@_class\": \"main\"}}。這樣可以區分屬性和子元素。" },
+        { q: "支援巢狀 XML 嗎？", a: "支援。所有巢狀元素、重複元素陣列和混合內容都會保留在 JSON 結構中。可處理任意深度的巢狀。" },
+        { q: "能轉換大型 XML 檔案嗎？", a: "支援最大 5MB 的檔案。處理完全在瀏覽器中進行，無需上傳。" },
+      ],
+      related: ["xml-formatter", "json-formatter", "json-to-yaml"],
     },
     "qr-code": {
       longDescription: "從任何文字或網址產生 QR Code。為連結、Wi-Fi 密碼、聯絡資訊或任何文字內容建立可掃描的條碼。下載為高品質 PNG 圖片。",
@@ -621,6 +658,16 @@ const zhTW = {
         { q: "巢狀值如何處理？", a: "巢狀物件和陣列會在表格儲存格中序列化為 JSON 字串。" },
       ],
     },
+    "json-to-yaml": {
+      longDescription: "將 JSON 設定檔、API 回應或資料檔案轉換為簡潔的 YAML 格式。產生具有正確縮排的易讀 YAML。適用於 Kubernetes 設定、Docker Compose 檔案、CI/CD 管線以及任何偏好 YAML 而非 JSON 的場景。",
+      steps: ["上傳或貼上 JSON 檔案", "JSON 被解析並即時轉換為 YAML", "下載或複製 YAML 輸出"],
+      faq: [
+        { q: "為什麼要將 JSON 轉為 YAML？", a: "YAML 比 JSON 更易於閱讀設定檔。它支援註解，視覺雜訊更少（無引號或大括號），是 Kubernetes、Docker Compose、GitHub Actions 和許多 CI/CD 工具的標準格式。" },
+        { q: "資料結構會保留嗎？", a: "是的。所有鍵、值、陣列和巢狀物件都會被精確保留。轉換是無損的——可以轉回 JSON 取得相同資料。" },
+        { q: "能處理大型 JSON 檔案嗎？", a: "可以，最大支援 5MB。轉換在瀏覽器中執行，大檔案無需等待上傳。" },
+      ],
+      related: ["yaml-json", "json-formatter", "json-validator"],
+    },
     "typescript-to-js": {
       longDescription: "去除 TypeScript 型別註解，產生純 JavaScript。移除介面、型別別名、泛型和其他 TypeScript 特有語法，同時保留執行時邏輯。",
       steps: ["上傳 TypeScript 檔案", "型別被去除並產生 JavaScript", "下載純 JavaScript 輸出"],
@@ -668,6 +715,16 @@ const zhTW = {
         { q: "可以看到哪些資訊？", a: "相機品牌/型號、鏡頭、ISO、快門速度、光圈、焦距、GPS 座標、拍攝日期等。" },
         { q: "照片會被上傳嗎？", a: "不會。EXIF 資料完全在你的瀏覽器中讀取，照片不會離開你的裝置。" },
       ],
+    },
+    "ico-converter": {
+      longDescription: "將任意圖片轉換為 ICO 格式，用作網站 favicon 圖示。產生包含 16x16、32x32 和 48x48 像素的多尺寸 ICO 檔案。支援 PNG、JPG 和 WebP 輸入。",
+      steps: ["上傳圖片（PNG、JPG 或 WebP）", "圖片自動縮放為標準 favicon 尺寸", "下載多尺寸 ICO 檔案"],
+      faq: [
+        { q: "ICO 檔案包含哪些尺寸？", a: "ICO 檔案包含三種尺寸：16x16、32x32 和 48x48 像素，涵蓋了各瀏覽器和作業系統最常用的 favicon 場景。" },
+        { q: "任何圖片都能做 favicon 嗎？", a: "可以，但簡單的 logo 和圖示效果最好。複雜的照片在小尺寸下會遺失細節。建議使用正方形圖片。" },
+        { q: "如何將 favicon 新增到網站？", a: "將 .ico 檔案放在網站根目錄命名為 favicon.ico，或在 HTML 頭部新增：<link rel=\"icon\" href=\"/favicon.ico\">。" },
+      ],
+      related: ["favicon-generator", "svg-to-png", "resize-image"],
     },
   } as Record<string, { longDescription: string; steps: string[]; faq: { q: string; a: string }[] }>,
 
