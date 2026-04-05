@@ -3,7 +3,7 @@ title: "How to Merge PDF Files Online Free (No Upload Required)"
 summary: "Learn how to combine multiple PDFs in your browser without uploading files to servers. Compare online tools and protect your privacy."
 category: "tutorial"
 tools: ["merge-pdf"]
-keywords: ["how to merge pdf files online free", "merge pdf online free", "combine pdf files", "pdf merger no upload", "join pdf documents", "browser pdf tools"]
+keywords: ["how to merge pdf files online free", "merge pdf online free", "combine pdf files", "pdf merger no upload", "join pdf documents", "browser pdf tools", "merge multiple pdf files into one", "concatenate pdf", "how to merge multiple pdf files into one online free", "merge pdf without upload"]
 published_at: "2026-03-26"
 ---
 ## Why Merge PDFs in Your Browser
