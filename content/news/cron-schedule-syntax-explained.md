@@ -1,15 +1,15 @@
 ---
-title: "Cron Schedule Syntax, Explained Field by Field"
-summary: "Learn how cron expressions work, what each of the five fields means, and how to write schedules for common automation tasks without guessing."
+title: "Cron Schedule Syntax: Reading and Writing Time Expressions"
+summary: "Learn how to read and write cron expressions for scheduling automated tasks, with examples for common intervals and edge cases."
 category: "tutorial"
 tools: ["cron-explainer"]
-keywords: ["explain cron schedule syntax for automated tasks", "cron schedule syntax", "cron expression", "cron job tutorial", "cron fields explained", "cron syntax guide", "automated task scheduling", "crontab syntax", "cron expression examples"]
-published_at: "2026-04-07"
+keywords: ["explain cron schedule syntax for automated tasks", "cron syntax", "cron expression", "cron schedule", "task scheduling", "cron format", "automated tasks", "cron examples"]
+published_at: "2026-04-08"
 ---
-# Cron Schedule Syntax, Explained Field by Field
+Cron expressions control when automated tasks run on servers, in CI/CD pipelines, and in cloud platforms. A single misplaced asterisk can make a job run every minute instead of once daily, potentially costing hundreds in compute fees or flooding a database with duplicate entries.
 
-Cron is the Unix scheduling system that runs commands at specified times. It's been around since the 1970s, and the expression format hasn't changed much since. If you've ever looked at something like `0 9 * * 1` and wondered what it means, this guide breaks it down completely.
+The syntax looks cryptic at first—`0 3 * * 1` or `*/15 * * * *`—but follows a consistent five-field pattern that becomes readable once you understand the structure.
 
-## What does a cron expression actually look like?
+## What do the five fields in a cron expression mean?
 
-A standard cron expression has five fields, separated by spaces:
+Standard cron syntax uses five fields separated by spaces:
