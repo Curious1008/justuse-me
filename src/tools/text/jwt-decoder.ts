@@ -1,5 +1,5 @@
 import type { ToolPlugin, ToolResult } from "../types";
-import TextPreview from "@/components/tool/previews/TextPreview";
+import JwtPreview from "@/components/tool/previews/JwtPreview";
 
 const jwtDecoder: ToolPlugin = {
   id: "jwt-decoder",
@@ -24,7 +24,7 @@ const jwtDecoder: ToolPlugin = {
 
   runtime: "browser",
 
-  previewUI: TextPreview,
+  previewUI: JwtPreview,
 
   async process(files): Promise<ToolResult> {
     const token = (await files[0].text()).trim();
