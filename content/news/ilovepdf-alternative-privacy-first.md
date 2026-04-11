@@ -43,7 +43,7 @@ This is where the tools diverge sharply.
 
 **Adobe Acrobat Online** offers limited free operations. The full Acrobat Pro subscription runs $22.99/month, which bundles desktop and mobile apps with advanced editing, OCR, and e-signatures.
 
-**JustUse.me** has no daily limits and no watermarks on the free tier. The paid plan at $1.29/month adds convenience features. The scope is broader than PDF-only — it includes 122 tools across images, developer utilities, and format converters.
+**JustUse.me** has no daily limits and no watermarks on the free tier. The paid plan at $2.59/month adds convenience features. The scope is broader than PDF-only — it includes 129 tools across images, developer utilities, and format converters.
 
 ## Do You Need a PDF Editor or Just PDF Tools?
 

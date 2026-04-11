@@ -19,9 +19,9 @@ export interface CompetitorData {
 
 export const justuseme = {
   name: "JustUse.me",
-  price: "$1.29",
-  priceNum: 1.29,
-  toolCount: "122",
+  price: "$2.59",
+  priceNum: 2.59,
+  toolCount: "129",
   toolScope: "PDF, Image, Text, Convert, Generator, Calculator, Developer, Utility",
   watermark: false,
   serverUpload: false,
@@ -33,10 +33,10 @@ export const competitors: Record<string, CompetitorData> = {
   smallpdf: {
     slug: "smallpdf",
     name: "Smallpdf",
-    tagline: "Why pay $12/mo for 30 PDF tools when $1.29 gets you 122?",
+    tagline: "Why pay $12/mo for 30 PDF tools when $2.59 gets you 122?",
     price: "$12/mo",
     priceNum: 12,
-    multiplier: "9x",
+    multiplier: "4.6x",
     toolCount: "30+",
     toolScope: "PDF only",
     watermark: true,
@@ -53,7 +53,7 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "The Price Problem",
         content:
-          "Smallpdf Pro costs $12 per month for access to their 30+ PDF tools. That's $144 per year for a single category of tools. JustUse.me offers 122 tools across eight categories — PDF, image, text, converters, generators, calculators, developer tools, and utilities — for $1.29 per month, or $15.48 per year. That's a 9x price difference. For most users who need to merge a PDF once a week or compress an image for email, the math doesn't add up in Smallpdf's favor.",
+          "Smallpdf Pro costs $12 per month for access to their 30+ PDF tools. That's $144 per year for a single category of tools. JustUse.me offers 129 tools across eight categories — PDF, image, text, converters, generators, calculators, developer tools, and utilities — for $2.59 per month, or $31.08 per year. That's a 4.6x price difference. For most users who need to merge a PDF once a week or compress an image for email, the math doesn't add up in Smallpdf's favor.",
       },
       {
         title: "The Privacy Trade-Off",
@@ -87,7 +87,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "What is the cheapest alternative to Smallpdf?",
-        a: "JustUse.me is the most affordable alternative at $1.29/month for 122 tools — 9x cheaper than Smallpdf's $12/month. The free tier has no watermarks and covers most common tasks.",
+        a: "JustUse.me is the most affordable alternative at $2.59/month for 129 tools — 4.6x cheaper than Smallpdf's $12/month. The free tier has no watermarks and covers most common tasks.",
       },
       {
         q: "Does Smallpdf add watermarks?",
@@ -95,7 +95,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "Smallpdf vs JustUse.me — which is better?",
-        a: "It depends on your needs. Smallpdf is better for advanced PDF editing, OCR, and e-signatures. JustUse.me is better for value ($1.29 vs $12/month), privacy (no file uploads), and breadth (122 tools across 8 categories vs 30+ PDF-only tools).",
+        a: "It depends on your needs. Smallpdf is better for advanced PDF editing, OCR, and e-signatures. JustUse.me is better for value ($2.59 vs $12/month), privacy (no file uploads), and breadth (129 tools across 8 categories vs 30+ PDF-only tools).",
       },
     ],
     relatedTools: [
@@ -131,7 +131,7 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "Price and Value",
         content:
-          "iLovePDF Premium costs approximately $7 per month. That gets you unlimited access to around 25 PDF tools with large file support up to 4GB. JustUse.me costs $1.29 per month for 122 tools across eight categories. If all you need is PDF processing, both services cover the basics. But for $5.71 less per month, JustUse.me gives you five times as many tools spanning image compression, text formatting, code tools, unit converters, and more.",
+          "iLovePDF Premium costs approximately $7 per month. That gets you unlimited access to around 25 PDF tools with large file support up to 4GB. JustUse.me costs $2.59 per month for 129 tools across eight categories. If all you need is PDF processing, both services cover the basics. But for $5.71 less per month, JustUse.me gives you five times as many tools spanning image compression, text formatting, code tools, unit converters, and more.",
       },
       {
         title: "Privacy and Security",
@@ -165,7 +165,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "What is a good free alternative to iLovePDF?",
-        a: "JustUse.me offers free PDF tools with no watermarks and no file uploads. The free tier covers common tasks like merging, splitting, and compressing PDFs. The Pro plan at $1.29/month is 5x cheaper than iLovePDF Premium.",
+        a: "JustUse.me offers free PDF tools with no watermarks and no file uploads. The free tier covers common tasks like merging, splitting, and compressing PDFs. The Pro plan at $2.59/month is 2.7x cheaper than iLovePDF Premium.",
       },
       {
         q: "Does iLovePDF add watermarks?",
@@ -173,7 +173,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "iLovePDF vs JustUse.me — which is better?",
-        a: "iLovePDF is better for high-volume batch processing and very large files (up to 4GB). JustUse.me is better for privacy (no uploads), price ($1.29 vs $7/month), variety (122 tools vs ~25), and watermark-free output on all plans.",
+        a: "iLovePDF is better for high-volume batch processing and very large files (up to 4GB). JustUse.me is better for privacy (no uploads), price ($2.59 vs $7/month), variety (129 tools vs ~25), and watermark-free output on all plans.",
       },
     ],
     relatedTools: [
@@ -192,7 +192,7 @@ export const competitors: Record<string, CompetitorData> = {
     tagline: "The industry standard — but is $19.99/mo worth it for basic PDF tasks?",
     price: "$19.99/mo",
     priceNum: 19.99,
-    multiplier: "15x",
+    multiplier: "7.7x",
     toolCount: "20+",
     toolScope: "PDF only (advanced editing)",
     watermark: true,
@@ -220,7 +220,7 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "What We Offer That Adobe Doesn't",
         content:
-          "JustUse.me covers territory Adobe doesn't touch. Image compression and conversion. JSON and code formatting. QR code generation. Unit calculators. Password generators. Base64 encoding. 122 tools across 8 categories. Adobe Acrobat is a PDF specialist. JustUse.me is an everyday toolbox. And it does the common PDF tasks — merge, split, compress, convert — just as well as Adobe's free online tools.",
+          "JustUse.me covers territory Adobe doesn't touch. Image compression and conversion. JSON and code formatting. QR code generation. Unit calculators. Password generators. Base64 encoding. 129 tools across 8 categories. Adobe Acrobat is a PDF specialist. JustUse.me is an everyday toolbox. And it does the common PDF tasks — merge, split, compress, convert — just as well as Adobe's free online tools.",
       },
       {
         title: "Privacy Comparison",
@@ -230,21 +230,21 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "The Bottom Line",
         content:
-          "Adobe Acrobat is worth $19.99/month if you need advanced PDF editing, forms, redaction, or Creative Cloud integration as part of a daily professional workflow. For everyone else — students, freelancers, small businesses, anyone who processes documents occasionally — JustUse.me at $1.29/month (15x cheaper) covers the essentials and adds 100+ tools Adobe doesn't offer.",
+          "Adobe Acrobat is worth $19.99/month if you need advanced PDF editing, forms, redaction, or Creative Cloud integration as part of a daily professional workflow. For everyone else — students, freelancers, small businesses, anyone who processes documents occasionally — JustUse.me at $2.59/month (7.7x cheaper) covers the essentials and adds 100+ tools Adobe doesn't offer.",
       },
     ],
     faq: [
       {
         q: "Is Adobe Acrobat free?",
-        a: "Adobe offers limited free online PDF tools (convert, compress, sign) with restrictions. The full Acrobat Pro editor costs $19.99/month. JustUse.me offers 122 tools with a free tier and Pro at $1.29/month.",
+        a: "Adobe offers limited free online PDF tools (convert, compress, sign) with restrictions. The full Acrobat Pro editor costs $19.99/month. JustUse.me offers 129 tools with a free tier and Pro at $2.59/month.",
       },
       {
         q: "Is Adobe Acrobat worth the price?",
-        a: "For professional PDF editing, forms, and redaction — yes. For basic tasks like merging, splitting, or compressing PDFs — no. JustUse.me handles common PDF tasks at 15x less cost ($1.29 vs $19.99/month) with no file uploads.",
+        a: "For professional PDF editing, forms, and redaction — yes. For basic tasks like merging, splitting, or compressing PDFs — no. JustUse.me handles common PDF tasks at 7.7x less cost ($2.59 vs $19.99/month) with no file uploads.",
       },
       {
         q: "What is the cheapest alternative to Adobe Acrobat?",
-        a: "For basic PDF operations, JustUse.me at $1.29/month is the most affordable option — 15x cheaper than Acrobat Pro. It covers merge, split, compress, convert, rotate, and watermark without requiring a subscription.",
+        a: "For basic PDF operations, JustUse.me at $2.59/month is the most affordable option — 7.7x cheaper than Acrobat Pro. It covers merge, split, compress, convert, rotate, and watermark without requiring a subscription.",
       },
       {
         q: "Does Adobe Acrobat upload my files?",
@@ -271,7 +271,7 @@ export const competitors: Record<string, CompetitorData> = {
     tagline: "Great at image compression — but $3.25/mo for one tool?",
     price: "$3.25/mo",
     priceNum: 3.25,
-    multiplier: "2.5x",
+    multiplier: "1.3x",
     toolCount: "1",
     toolScope: "Image compression only",
     watermark: false,
@@ -288,7 +288,7 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "One Tool vs Many",
         content:
-          "TinyPNG does one thing: compress images. It does it well — their compression algorithm produces excellent results across JPEG, PNG, WebP, and AVIF formats. But their Web Pro plan costs $3.25 per month (billed annually) for unlimited compression with a 75MB file limit. JustUse.me costs $1.29 per month and includes image compression plus 121 other tools. You get image resizing, cropping, format conversion, HEIC support, background removal, and OCR — along with PDF tools, text tools, code formatters, and more.",
+          "TinyPNG does one thing: compress images. It does it well — their compression algorithm produces excellent results across JPEG, PNG, WebP, and AVIF formats. But their Web Pro plan costs $3.25 per month (billed annually) for unlimited compression with a 75MB file limit. JustUse.me costs $2.59 per month and includes image compression plus 128 other tools. You get image resizing, cropping, format conversion, HEIC support, background removal, and OCR — along with PDF tools, text tools, code formatters, and more.",
       },
       {
         title: "Compression Quality",
@@ -308,7 +308,7 @@ export const competitors: Record<string, CompetitorData> = {
       {
         title: "When TinyPNG Makes Sense",
         content:
-          "TinyPNG is the right choice if you need their developer API for automated image optimization in build pipelines or CI/CD workflows. Their API pricing is separate from the web tool. For manual image compression through a web interface, JustUse.me offers the same capability plus 121 additional tools at a lower price, with the added benefit of local processing.",
+          "TinyPNG is the right choice if you need their developer API for automated image optimization in build pipelines or CI/CD workflows. Their API pricing is separate from the web tool. For manual image compression through a web interface, JustUse.me offers the same capability plus 128 additional tools at a lower price, with the added benefit of local processing.",
       },
     ],
     faq: [
@@ -322,7 +322,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "What is a free alternative to TinyPNG?",
-        a: "JustUse.me offers free image compression in your browser with no uploads and no watermarks. The Pro plan at $1.29/month includes 122 tools — 2.5x cheaper than TinyPNG's Web Pro at $3.25/month.",
+        a: "JustUse.me offers free image compression in your browser with no uploads and no watermarks. The Pro plan at $2.59/month includes 129 tools — 2.2.7x cheaper than TinyPNG's Web Pro at $3.25/month.",
       },
       {
         q: "TinyPNG vs JustUse.me for image compression?",

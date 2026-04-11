@@ -178,7 +178,7 @@ Specialized versions of popular tools for specific use cases:
 
 | Feature | JustUse.me | Smallpdf | iLovePDF | Adobe Acrobat | TinyPNG |
 |---------|-----------|----------|----------|---------------|---------|
-| Monthly price | $1.29 | $12 | ~$7 | $19.99 | $3.25 |
+| Monthly price | $2.59 | $12 | ~$7 | $19.99 | $3.25 |
 | Total tools | 122 (8 categories) | 30+ (PDF only) | ~25 (PDF only) | PDF only | 1 (image compress) |
 | Files uploaded to server | No | Yes | Yes | Yes | Yes |
 | Account required | No | Yes | Yes | Yes | No |

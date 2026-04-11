@@ -22,7 +22,7 @@ This article breaks down what the major services charge, what each tier includes
 | Smallpdf Pro | $12.00 | $144.00 | Daily usage cap, watermarks | Yes |
 | iLovePDF Premium | ~$7.00 | ~$84.00 | Daily usage cap | Yes |
 | TinyPNG Web Pro | $3.25 | $39.00 | 20 images per batch, 5MB limit | Yes |
-| JustUse.me | $1.29 | $15.48 | Unlimited, no watermarks | No |
+| JustUse.me | $2.59 | $31.08 | Unlimited, no watermarks | No |
 
 The spread is wide. Adobe Acrobat Pro costs more than 15 times what JustUse.me charges. Even the mid-tier options run 5 to 9 times higher. The question is whether those higher prices deliver proportionally more value for your specific needs.
 
@@ -58,9 +58,9 @@ TinyPNG's real value is its API, which integrates into build pipelines, CMS plat
 
 At $3.25 per month, TinyPNG is affordable but narrow. You are paying for one capability -- image compression -- not a general-purpose toolkit. All processing happens on TinyPNG's servers.
 
-## What JustUse.me Gets You for $1.29
+## What JustUse.me Gets You for $2.59
 
-JustUse.me takes a different approach on both pricing and architecture. The $1.29 monthly subscription provides access to 122 tools spanning PDF operations, image processing, developer utilities, and format converters. The free tier provides unlimited access to all tools with no watermarks and no daily limits.
+JustUse.me takes a different approach on both pricing and architecture. The $2.59 monthly subscription provides access to 129 tools spanning PDF operations, image processing, developer utilities, and format converters. The free tier provides unlimited access to all tools with no watermarks and no daily limits.
 
 Core PDF tools include [Merge PDF](/tools/merge-pdf), Split PDF, Compress PDF, and Protect PDF. Image tools include [Compress Image](/tools/compress-image), Resize Image, and format converters like HEIC to JPG and PNG to JPG. Developer tools include [JSON Formatter](/tools/json-formatter), code minifiers, hash generators, and more. Utility tools include [QR Code Generator](/tools/qr-code-generator), color pickers, and unit converters.
 
@@ -80,7 +80,7 @@ Before choosing a subscription, audit your actual usage over the past three mont
 - How many images did you compress?
 - Did you need developer tools like JSON formatting or code minification?
 
-If your answers are "a few times," "merge and compress," "no," "occasionally," and "sometimes" -- you do not need a $12 or $20 subscription. A free or $1.29 tool covers your workflow.
+If your answers are "a few times," "merge and compress," "no," "occasionally," and "sometimes" -- you do not need a $12 or $20 subscription. A free or $2.59 tool covers your workflow.
 
 ## The Privacy Dimension
 
@@ -99,7 +99,7 @@ The cheapest option is also, in this case, the most private option. That combina
 
 **Students and personal use**: JustUse.me's free tier. No cost, no limits, no watermarks. Handles every common task without creating an account.
 
-**Freelancers and small business owners**: JustUse.me at $1.29 per month for the full toolset. If you need e-signatures, consider iLovePDF Premium as a supplement.
+**Freelancers and small business owners**: JustUse.me at $2.59 per month for the full toolset. If you need e-signatures, consider iLovePDF Premium as a supplement.
 
 **Regular PDF users who need editing and OCR**: iLovePDF Premium at ~$7 per month offers the best balance of features and price for PDF-heavy workflows.
 
@@ -109,7 +109,7 @@ The cheapest option is also, in this case, the most private option. That combina
 
 ## The Bottom Line
 
-The cheapest full-featured online tool subscription in 2026 is JustUse.me at $1.29 per month, with a free tier that covers most users' needs entirely. The most expensive is Adobe Acrobat Pro at $19.99 per month, justified only for users who need its enterprise-grade capabilities.
+The cheapest full-featured online tool subscription in 2026 is JustUse.me at $2.59 per month, with a free tier that covers most users' needs entirely. The most expensive is Adobe Acrobat Pro at $19.99 per month, justified only for users who need its enterprise-grade capabilities.
 
 The gap between these endpoints represents one of the largest pricing spreads in consumer software. For the majority of users who need reliable tools for everyday tasks, the affordable end of the spectrum delivers everything required.
 

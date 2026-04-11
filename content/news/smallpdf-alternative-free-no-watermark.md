@@ -26,7 +26,7 @@ This is the specific frustration that drives most searches. Here is the honest b
 
 **Sejda** — Free tier allows up to 3 tasks per day with a 50MB file size limit and 200-page document limit. No watermarks within those constraints. Paid plans start at $7.50/month. Sejda stands out for its web-based PDF editor, which allows actual text editing in the free tier — something most competitors restrict to paid plans.
 
-**JustUse.me** — No watermarks, no daily limits on the free tier. Processing happens in the browser (files are not uploaded). The paid tier at $1.29/month adds features, but core PDF operations are unrestricted for free.
+**JustUse.me** — No watermarks, no daily limits on the free tier. Processing happens in the browser (files are not uploaded). The paid tier at $2.59/month adds features, but core PDF operations are unrestricted for free.
 
 ## How Do These Tools Compare on Features?
 
