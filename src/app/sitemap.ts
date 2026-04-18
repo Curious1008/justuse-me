@@ -4,7 +4,13 @@ import { getAllArticles } from "@/lib/articles";
 import { competitorSlugs } from "@/app/[lang]/compare/compare-data";
 
 const baseUrl = "https://www.justuse.me";
-const locales = ["en", "zh-CN", "zh-TW"] as const;
+// All supported locales — used only to build hreflang alternates so Google
+// still discovers zh-CN/zh-TW as alternate versions of each EN URL.
+const alternateLocales = ["en", "zh-CN", "zh-TW"] as const;
+// Locales actually listed as primary entries in the sitemap. Currently EN-only
+// to concentrate Google's crawl budget on English pages; re-add zh variants
+// once the EN set reaches healthy indexation.
+const locales = ["en"] as const;
 
 // Stable site-wide last-modified date for pages that don't track their own date.
 // Bump when there is a meaningful content/structure change; keep in sync with
@@ -17,7 +23,7 @@ function localeUrl(locale: string, path: string): string {
 
 function alternates(path: string) {
   const languages: Record<string, string> = {};
-  for (const l of locales) {
+  for (const l of alternateLocales) {
     languages[l] = localeUrl(l, path);
   }
   languages["x-default"] = localeUrl("en", path);
