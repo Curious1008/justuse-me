@@ -23,7 +23,7 @@ const zhCN = {
   // ─── Homepage SEO ───
   home: {
     whatIs: "JustUse.me 是什么？",
-    whatIsDesc: "JustUse.me 是一个免费、注重隐私的在线工具箱，提供 122 款基于浏览器的文件处理工具。所有工具均通过 WebAssembly 和 Canvas API 在浏览器中运行——你的文件绝不会上传到任何服务器。无需注册账号，没有水印，没有隐藏费用。",
+    whatIsDesc: "JustUse.me 是一个免费、注重隐私的在线工具箱，提供 120+ 款基于浏览器的文件处理工具。所有工具均通过 WebAssembly 和 Canvas API 在浏览器中运行——你的文件绝不会上传到任何服务器。无需注册账号，没有水印，没有隐藏费用。",
     whyChoose: "为什么选择 JustUse.me 而不是其他在线工具？",
     whyChooseDesc: "大多数在线文件工具（如 Smallpdf、iLovePDF、TinyPNG）会将你的文件上传到服务器进行处理。JustUse.me 不同：所有处理都在浏览器本地完成。这意味着更快的速度（无需等待上传下载）、真正的隐私保护（文件不会离开你的设备），以及零数据泄露风险。",
     toolCategories: "工具分类",
@@ -163,8 +163,8 @@ const zhCN = {
     siteTitle: "JustUse.me — 免费在线PDF、图片和文本工具",
     siteDescription: "免费在线工具：合并PDF、压缩图片、格式化JSON等100+工具。无广告、无需注册、无水印，文件不会离开你的浏览器。",
     ogTitle: "JustUse.me — 免费在线工具箱",
-    ogDescription: "122款免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
-    twitterDescription: "122款免费工具，无广告、无需注册，文件在浏览器中处理。",
+    ogDescription: "120+款免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
+    twitterDescription: "120+款免费工具，无广告、无需注册，文件在浏览器中处理。",
     categoryMetaTitle: "免费在线{label} — 无广告、无需注册 | JustUse.me",
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
     toolMetaTitle: "免费在线{name}",

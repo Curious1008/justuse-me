@@ -84,29 +84,15 @@ export default async function ArticlePage({ params }: Props) {
     description: article.summary,
     url: canonical,
     datePublished: article.published_at,
-    dateModified: article.published_at,
+    dateModified: article.updated_at ?? article.published_at,
     image: {
       "@type": "ImageObject",
       url: `https://www.justuse.me${locale === defaultLocale ? "" : `/${locale}`}/news/${slug}/opengraph-image`,
       width: 1200,
       height: 630,
     },
-    author: {
-      "@type": "Organization",
-      name: "JustUse.me",
-      url: "https://www.justuse.me",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "JustUse.me",
-      url: "https://www.justuse.me",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://www.justuse.me/favicon.png",
-        width: 48,
-        height: 48,
-      },
-    },
+    author: { "@id": "https://www.justuse.me/#organization" },
+    publisher: { "@id": "https://www.justuse.me/#organization" },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonical,

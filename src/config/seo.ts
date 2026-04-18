@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import type { ToolPlugin } from "@/tools/types";
 import { getToolSEOContent } from "./tool-seo-content";
 
+const ORG_ID = "https://www.justuse.me/#organization";
+
 function localeUrl(locale: string, path: string): string {
   return locale === "en"
     ? `https://www.justuse.me${path}`
     : `https://www.justuse.me/${locale}${path}`;
 }
+
+type FaqItem = { q: string; a: string };
 
 export function generateToolMetadata(tool: ToolPlugin): Metadata {
   const seo = getToolSEOContent(tool.id);
@@ -37,18 +41,26 @@ export function generateToolMetadata(tool: ToolPlugin): Metadata {
 }
 
 /** JSON-LD for a tool page (WebApplication + FAQPage) */
-export function generateToolJsonLd(tool: ToolPlugin, locale = "en") {
-  const seo = getToolSEOContent(tool.id);
+export function generateToolJsonLd(
+  tool: ToolPlugin,
+  locale = "en",
+  localeFaq?: FaqItem[],
+  localeLongDescription?: string
+) {
+  const baseSeo = getToolSEOContent(tool.id);
+  const faq = localeFaq?.length ? localeFaq : baseSeo?.faq;
+  const description = localeLongDescription ?? baseSeo?.longDescription ?? tool.description;
 
   const webApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: tool.name,
-    dateModified: "2026-04-05",
+    dateModified: "2026-04-18",
     url: localeUrl(locale, `/tools/${tool.id}`),
-    description: seo?.longDescription ?? tool.description,
+    description,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
+    provider: { "@id": ORG_ID },
     offers: {
       "@type": "Offer",
       price: "0",
@@ -66,16 +78,18 @@ export function generateToolJsonLd(tool: ToolPlugin, locale = "en") {
     screenshot: {
       "@type": "ImageObject",
       url: localeUrl(locale, `/tools/${tool.id}/opengraph-image`),
+      width: 1200,
+      height: 630,
     },
   };
 
   const schemas: object[] = [webApp];
 
-  if (seo?.faq?.length) {
+  if (faq?.length) {
     schemas.push({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: seo.faq.map((f) => ({
+      mainEntity: faq.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: {
@@ -162,6 +176,7 @@ export function generateSiteJsonLd() {
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "JustUse.me",
       legalName: "Paymomentum LLC",
       url: "https://www.justuse.me",

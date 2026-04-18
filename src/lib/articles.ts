@@ -11,6 +11,7 @@ export interface Article {
   tools: string[];
   keywords: string[];
   published_at: string;
+  updated_at?: string;
 }
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "news");
@@ -35,6 +36,7 @@ function parseArticle(filename: string): Article | null {
     tools: (meta.tools as string[]) || [],
     keywords: (meta.keywords as string[]) || [],
     published_at: String(meta.published_at),
+    updated_at: meta.updated_at ? String(meta.updated_at) : undefined,
   };
 }
 

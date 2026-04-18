@@ -71,7 +71,7 @@ export default async function ToolPage({ params }: Props) {
   const t = await getDictionary(locale);
   const toolT = t.tools[toolId];
   const seo = t.toolSeo[toolId];
-  const jsonLd = generateToolJsonLd(tool, locale);
+  const jsonLd = generateToolJsonLd(tool, locale, seo?.faq, seo?.longDescription);
   const categoryLabel = t.categoryPage[tool.category as keyof typeof t.categoryPage]?.title || tool.category;
   const breadcrumbJsonLd = generateToolBreadcrumbJsonLd(tool, categoryLabel, locale);
   const allTools = getAllTools(locale);

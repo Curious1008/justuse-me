@@ -23,7 +23,7 @@ const en = {
   // ─── Homepage SEO ───
   home: {
     whatIs: "What is JustUse.me?",
-    whatIsDesc: "JustUse.me is a free, privacy-first online toolbox with 122 browser-based tools for everyday file tasks. Every tool runs entirely in your browser using WebAssembly and Canvas APIs — your files are never uploaded to any server. No account required, no watermarks, no hidden fees.",
+    whatIsDesc: "JustUse.me is a free, privacy-first online toolbox with 120+ browser-based tools for everyday file tasks. Every tool runs entirely in your browser using WebAssembly and Canvas APIs — your files are never uploaded to any server. No account required, no watermarks, no hidden fees.",
     whyChoose: "Why choose JustUse.me over other online tools?",
     whyChooseDesc: "Most online file tools like Smallpdf, iLovePDF, and TinyPNG upload your files to their servers for processing. JustUse.me is different: all processing happens client-side in your browser. This means faster results (no upload/download wait), true privacy (files never leave your device), and zero risk of data leaks.",
     toolCategories: "Tool Categories",
@@ -163,8 +163,8 @@ const en = {
     siteTitle: "JustUse.me — Free Online PDF, Image & Text Tools",
     siteDescription: "Free online tools to merge PDFs, compress images, format JSON, and 100+ more. No ads, no sign-up, no watermarks. Files never leave your browser.",
     ogTitle: "JustUse.me — Free Online Tools",
-    ogDescription: "122 free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
-    twitterDescription: "122 free tools. No ads, no sign-up. Files stay in your browser.",
+    ogDescription: "120+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
+    twitterDescription: "120+ free tools. No ads, no sign-up. Files stay in your browser.",
     categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up | JustUse.me",
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
     toolMetaTitle: "{name} Online Free",
@@ -585,8 +585,8 @@ const en = {
       longDescription: "Generate QR codes from any text or URL. Create scannable codes for links, Wi-Fi passwords, contact info, or any text content. Download as a high-quality PNG image.",
       steps: ["Enter the text or URL you want to encode", "A QR code is generated instantly", "Download the QR code as a PNG image"],
       faq: [
-        { q: "How much data can a QR code hold?", a: "QR codes can hold up to about 3,000 characters of text. For most URLs and short messages, this is more than enough." },
-        { q: "Can I customize the QR code appearance?", a: "The current version generates standard black-and-white QR codes optimized for maximum scan reliability." },
+        { q: "How much data can a QR code hold?", a: "A QR code can technically hold up to around 4,296 alphanumeric characters or 2,953 bytes of binary data at the highest version, but in practice you want to keep the payload much smaller for reliable scanning. The more data you pack in, the denser the pattern gets and the harder it becomes for phone cameras to read, especially under poor lighting or at an angle. For a URL, I try to stay under 300 characters. If you have a long link, run it through a URL shortener first and then encode the short version. For Wi-Fi credentials or contact cards, the built-in format stays under 150 characters so there is plenty of room. A QR code under 100 characters will scan reliably even when printed small on a business card." },
+        { q: "Can I customize the QR code appearance?", a: "This tool generates standard black-and-white QR codes because that combination gives you maximum scan reliability across every scanner, from cheap inventory guns to modern iPhone cameras. I deliberately did not add color customization or logo embedding because those features sound nice but genuinely reduce how well the code scans in real-world conditions. If you need a fancy branded QR code with your logo in the center, a dedicated design tool like QR Code Monkey is a better fit, but understand that every design change reduces the error correction margin. For any QR code that actually needs to work reliably in the wild, like on a restaurant menu, product label, or marketing poster, plain black on white is the right call." },
       ],
     },
     "color-converter": {
@@ -715,8 +715,9 @@ const en = {
       longDescription: "Generate cryptographic hashes from any file. Supports MD5, SHA-1, SHA-256, and SHA-512. Use hashes to verify file integrity, detect duplicates, or create checksums for distribution.",
       steps: ["Upload any file", "All hash values are computed instantly", "Copy the hash you need"],
       faq: [
-        { q: "Which hash algorithms are available?", a: "MD5, SHA-1, SHA-256, and SHA-512. All are computed simultaneously." },
-        { q: "Is hashing done locally?", a: "Yes. All hashing runs in your browser using WebAssembly. Your files are never uploaded." },
+        { q: "Which hash algorithm should I use?", a: "For integrity checking of downloads, SHA-256 is the default answer and what I would recommend for almost every scenario. It is cryptographically secure, widely supported, and still fast enough to hash a multi-gigabyte file in seconds. MD5 and SHA-1 are both included because you still see them in older systems, for example Git uses SHA-1 internally and many legacy checksums use MD5, but neither should be used for security-sensitive work because both have been broken by researchers. Use them only when you need to match an existing hash someone else published. SHA-512 is worth reaching for when you are dealing with extremely large files or high-security contexts like archival signatures, since the longer output makes collisions even more statistically implausible. For most daily tasks, SHA-256 is the right choice." },
+        { q: "Is my file uploaded to a server when I hash it?", a: "No, and this is genuinely one of the best reasons to use this tool over a random online hasher. Your file never leaves your device at any point. The entire hashing process runs in your browser using the Web Crypto API, which is the same cryptographic engine that browsers use for HTTPS connections, so it is both secure and fast. You can verify this yourself by opening the Network tab in your browser DevTools before dropping a file in. You will see exactly zero upload requests during the hash calculation. This matters for files you would not want sitting on a random server, things like source code, private documents, or anything containing personal information. It also means the tool works fully offline once the page has loaded, and there is no file size limit imposed by server bandwidth or upload caps." },
+        { q: "How do I verify a file matches a published checksum?", a: "Drop your downloaded file into the tool and it will instantly compute MD5, SHA-1, SHA-256, and SHA-512 hashes for you. Compare the hash value against the one published by the original source, usually on the download page or in a file called SHA256SUMS or similar. If even a single character differs, the file has been modified or corrupted and you should not trust it. This is the standard way to verify Linux ISOs, software releases, and firmware images have downloaded correctly and have not been tampered with. The match has to be exact, byte for byte, with no capitalization differences ignored. Copy-paste both hashes into a diff tool if your eyes are getting tired after staring at hex strings too long." },
       ],
     },
     "barcode-generator": {

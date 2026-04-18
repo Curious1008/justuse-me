@@ -23,7 +23,7 @@ const zhTW = {
   // ─── Homepage SEO ───
   home: {
     whatIs: "JustUse.me 是什麼？",
-    whatIsDesc: "JustUse.me 是一個免費、注重隱私的線上工具箱，提供 122 款瀏覽器端的檔案處理工具。所有工具皆透過 WebAssembly 與 Canvas API 在瀏覽器中執行——你的檔案絕不會上傳到任何伺服器。無需註冊帳號，沒有浮水印，沒有隱藏費用。",
+    whatIsDesc: "JustUse.me 是一個免費、注重隱私的線上工具箱，提供 120+ 款瀏覽器端的檔案處理工具。所有工具皆透過 WebAssembly 與 Canvas API 在瀏覽器中執行——你的檔案絕不會上傳到任何伺服器。無需註冊帳號，沒有浮水印，沒有隱藏費用。",
     whyChoose: "為什麼選擇 JustUse.me 而非其他線上工具？",
     whyChooseDesc: "多數線上檔案工具（如 Smallpdf、iLovePDF、TinyPNG）會將你的檔案上傳至伺服器處理。JustUse.me 不同：所有處理都在瀏覽器本機完成。這代表更快的速度（不必等待上傳下載）、真正的隱私保障（檔案不會離開你的裝置），以及零資料外洩風險。",
     toolCategories: "工具分類",
@@ -163,8 +163,8 @@ const zhTW = {
     siteTitle: "JustUse.me — 免費線上 PDF、圖片與文字工具",
     siteDescription: "免費線上工具：合併 PDF、壓縮圖片、格式化 JSON 等超過 100 種工具。無廣告、免註冊、無浮水印，檔案絕不離開你的瀏覽器。",
     ogTitle: "JustUse.me — 免費線上工具",
-    ogDescription: "122 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
-    twitterDescription: "122 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
+    ogDescription: "120+ 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
+    twitterDescription: "120+ 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
     categoryMetaTitle: "免費線上{label} — 無廣告、免註冊 | JustUse.me",
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
     toolMetaTitle: "免費線上{name}",
