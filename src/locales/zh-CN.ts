@@ -191,7 +191,7 @@ const zhCN = {
     "jpg-to-png": { name: "JPG转PNG", description: "将JPG图片转换为无损PNG格式。" },
     "heic-to-jpg": { name: "HEIC转JPG", description: "将iPhone HEIC照片转换为JPG格式。" },
     "svg-to-png": { name: "SVG转PNG", description: "将SVG矢量图转换为PNG图片。" },
-    "ocr-image": { name: "图片转文字(OCR)", description: "使用OCR从图片中提取文字。" },
+    "ocr-image": { name: "图片转文字(OCR)", description: "使用OCR从英文图片中提取文字（暂不支持中文）。" },
     "json-formatter": { name: "JSON格式化", description: "格式化和美化JSON数据。" },
     "word-counter": { name: "字数统计", description: "统计字数、字符数和句子数。" },
     "base64-codec": { name: "Base64编解码", description: "编码或解码Base64字符串。" },
@@ -436,11 +436,11 @@ const zhCN = {
       ],
     },
     "ocr-image": {
-      longDescription: "使用光学字符识别（OCR）技术从图片中提取文字。支持中文和英文。适用于截图、文档照片、收据、标牌以及任何包含文字的图片。",
-      steps: ["上传包含文字的图片", "OCR处理图片（可能需要几秒钟）", "预览并下载提取的文字"],
+      longDescription: "使用光学字符识别（OCR）技术从图片中提取文字。目前仅针对英文优化，适用于英文截图、文档照片、收据和标牌。暂不支持中文、日文等非拉丁语系文字。",
+      steps: ["上传包含英文文字的图片", "OCR处理图片（可能需要几秒钟）", "预览并下载提取的文字"],
       faq: [
-        { q: "支持哪些语言？", a: "支持英文和简体中文。OCR引擎能自动识别同一张图片中的两种语言。" },
-        { q: "图片会上传到服务器吗？", a: "不会。OCR完全在浏览器中使用Tesseract.js运行，图片始终留在你的设备上。" },
+        { q: "支持哪些语言？", a: "目前仅支持英文。工具使用 Tesseract.js 的英文训练数据，以保证下载体积小、识别速度快。如需识别中文、日文等非拉丁语系文字，建议使用专门针对该语言的 OCR 工具。" },
+        { q: "图片会上传到服务器吗？", a: "不会。OCR 完全在浏览器中使用 Tesseract.js 运行，图片始终留在你的设备上。" },
       ],
     },
     "background-remover": {

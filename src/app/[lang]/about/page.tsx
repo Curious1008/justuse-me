@@ -38,8 +38,51 @@ export default async function AboutPage({ params }: Props) {
   const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
   const t = await getDictionary(locale);
 
+  const canonical = locale === defaultLocale
+    ? "https://www.justuse.me/about"
+    : `https://www.justuse.me/${locale}/about`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: canonical,
+    name: t.about.title,
+    description: t.about.description,
+    inLanguage: locale,
+    isPartOf: { "@id": "https://www.justuse.me/#organization" },
+    about: { "@id": "https://www.justuse.me/#organization" },
+    mainEntity: { "@id": "https://www.justuse.me/#organization" },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: locale === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: t.about.title,
+        item: canonical,
+      },
+    ],
+  };
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-6">
         {t.about.title}
       </h1>

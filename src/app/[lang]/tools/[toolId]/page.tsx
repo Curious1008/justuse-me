@@ -127,6 +127,16 @@ export default async function ToolPage({ params }: Props) {
         </p>
       </div>
 
+      {/* Per-locale advisory (e.g. language-support limitations) */}
+      {tool.localeWarnings?.[locale] && (
+        <div className="mb-8 flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400">
+          <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zm-.75-12.75h1.5l8.25 14.25a.75.75 0 01-.65 1.125H3.65a.75.75 0 01-.65-1.125L11.25 4.5z" />
+          </svg>
+          <p className="leading-relaxed">{tool.localeWarnings[locale]}</p>
+        </div>
+      )}
+
       {/* Tool UI */}
       <ToolPageClient toolId={toolId} labels={{
         chooseDifferentFile: t.tool.chooseDifferentFile,

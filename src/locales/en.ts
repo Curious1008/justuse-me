@@ -454,10 +454,10 @@ const en = {
       ],
     },
     "ocr-image": {
-      longDescription: "Extract text from images using optical character recognition (OCR). Supports English and Chinese text. Works on screenshots, photos of documents, receipts, signs, and any image containing text.",
+      longDescription: "Extract text from images using optical character recognition (OCR). Optimized for English text in screenshots, photos of documents, receipts, and signs. Chinese and other non-Latin scripts are not currently supported.",
       steps: ["Upload an image containing text", "OCR processes the image (may take a few seconds)", "Preview and download the extracted text"],
       faq: [
-        { q: "What languages are supported?", a: "English and Chinese (Simplified) are supported. The OCR engine automatically detects both languages in the same image." },
+        { q: "What languages are supported?", a: "English only. The tool uses Tesseract.js with the English training data to keep downloads small and recognition fast. For Chinese, Japanese, or other non-Latin scripts, use a dedicated language-specific OCR tool." },
         { q: "Is the image uploaded to a server?", a: "No. OCR runs entirely in your browser using Tesseract.js. Your images stay on your device." },
       ],
     },

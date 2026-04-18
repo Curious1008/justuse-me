@@ -100,7 +100,10 @@ const ocrImage: ToolPlugin = {
 
   runtime: "browser",
   previewUI: TextPreview,
-  hiddenLocales: ["zh-CN", "zh-TW"],
+  localeWarnings: {
+    "zh-CN": "此工具目前仅支持英文识别，中文识别效果较差，建议使用英文图片。",
+    "zh-TW": "此工具目前僅支援英文識別，中文識別效果較差，建議使用英文圖片。",
+  },
 
   async process(files): Promise<ToolResult> {
     const file = files[0];

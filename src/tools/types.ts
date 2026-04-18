@@ -59,6 +59,9 @@ export interface ToolPlugin {
   // Locales where this tool should be hidden (e.g. OCR hidden for Chinese)
   hiddenLocales?: string[];
 
+  // Per-locale advisory shown above the tool UI (e.g. "Chinese recognition is limited")
+  localeWarnings?: Record<string, string>;
+
   // Processing
   process: (files: File[], options?: ToolOptions) => Promise<ToolResult>;
 

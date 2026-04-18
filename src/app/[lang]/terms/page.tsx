@@ -43,7 +43,7 @@ export default function TermsPage() {
           </h2>
           <p>
             Free users may use the Service up to 3 times per day without creating an account.
-            Registered users receive 3 free uses per day. Pro subscribers ($9.90/month) receive
+            Registered users receive 3 free uses per day. Pro subscribers ($2.59/month) receive
             unlimited access. Payments are processed by Stripe. You may cancel your subscription at
             any time; access continues until the end of the billing period.
           </p>
