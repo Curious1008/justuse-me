@@ -165,7 +165,7 @@ const zhCN = {
     ogTitle: "JustUse.me — 免费在线工具箱",
     ogDescription: "120+款免费在线工具，处理PDF、图片和文本。无广告、无需注册，隐私优先 — 文件不会离开你的浏览器。",
     twitterDescription: "120+款免费工具，无广告、无需注册，文件在浏览器中处理。",
-    categoryMetaTitle: "免费在线{label} — 无广告、无需注册 | JustUse.me",
+    categoryMetaTitle: "免费在线{label} — 无广告、无需注册",
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
     toolMetaTitle: "免费在线{name}",
     toolMetaSuffix: "免费、无广告、无需注册。文件始终留在你的设备上。",

@@ -165,7 +165,7 @@ const zhTW = {
     ogTitle: "JustUse.me — 免費線上工具",
     ogDescription: "120+ 種免費線上工具，涵蓋 PDF、圖片和文字處理。無廣告、免註冊、隱私優先 — 檔案絕不離開你的瀏覽器。",
     twitterDescription: "120+ 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
-    categoryMetaTitle: "免費線上{label} — 無廣告、免註冊 | JustUse.me",
+    categoryMetaTitle: "免費線上{label} — 無廣告、免註冊",
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
     toolMetaTitle: "免費線上{name}",
     toolMetaSuffix: "免費、無廣告、免註冊。你的檔案留在你的裝置上。",

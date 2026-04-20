@@ -165,7 +165,7 @@ const en = {
     ogTitle: "JustUse.me — Free Online Tools",
     ogDescription: "120+ free online tools for PDFs, images, and text. No ads, no sign-up, privacy-first — files never leave your browser.",
     twitterDescription: "120+ free tools. No ads, no sign-up. Files stay in your browser.",
-    categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up | JustUse.me",
+    categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up",
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
     toolMetaTitle: "{name} Online Free",
     toolMetaSuffix: "Free, no ads, no sign-up. Your files stay on your device.",
