@@ -167,10 +167,20 @@ const zhTW = {
     twitterDescription: "120+ 種免費工具。無廣告、免註冊，檔案留在你的瀏覽器中。",
     categoryMetaTitle: "免費線上{label} — 無廣告、免註冊",
     categoryMetaDescription: "{desc} 免費、保護隱私，在你的瀏覽器中運行。無浮水印、無檔案上傳。",
-    toolMetaTitle: "免費線上{name}",
+    toolMetaTitle: "{name} — 無需上傳、免註冊",
     toolMetaSuffix: "免費、無廣告、免註冊。你的檔案留在你的裝置上。",
     toolMetaDescSuffix: "在瀏覽器中運行，檔案不會上傳到任何伺服器。免費使用，無需註冊。",
-    toolOgTitle: "{name} — 免費線上工具 | JustUse.me",
+    toolMetaDescTails: {
+      pdf: "PDF 在你的瀏覽器本機處理，絕不上傳至任何伺服器。免費、免註冊。",
+      image: "圖片始終留在你的裝置上。圖像處理完全在瀏覽器內完成，無任何上傳。免費、免註冊。",
+      text: "純用戶端文字處理，所有內容不離開你的瀏覽器。免費、免註冊、無追蹤。",
+      convert: "轉換全程在你的瀏覽器中完成，檔案不會離開你的裝置。免費、免註冊。",
+      generator: "在你的瀏覽器本機生成，無任何資料上傳。免費、免註冊。",
+      calculator: "計算完全在你的瀏覽器中進行，無追蹤、無帳號、無上傳。",
+      developer: "所有處理均在你的瀏覽器中完成 — 適合處理敏感程式碼、權杖或密鑰，資料不離開頁面。",
+      utility: "完全在你的瀏覽器中運行，無需上傳。免費、免註冊。",
+    },
+    toolOgTitle: "{name} — 瀏覽器本機運行、無需上傳 | JustUse.me",
   },
 
   // ─── Tool names & descriptions (keyed by tool ID) ───

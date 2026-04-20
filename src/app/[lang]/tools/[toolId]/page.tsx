@@ -35,7 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const maxSize = tool.maxFileSize ? (tool.maxFileSize >= 1024 * 1024 ? `${Math.round(tool.maxFileSize / 1024 / 1024)}MB` : `${Math.round(tool.maxFileSize / 1024)}KB`) : null;
   const filesNote = tool.maxFiles > 1 ? `up to ${tool.maxFiles} files` : null;
   const specs = [filesNote, maxSize ? `${maxSize} max` : null].filter(Boolean).join(", ");
-  const description = `${toolDesc}${specs ? ` (${specs})` : ""}. ${t.meta.toolMetaDescSuffix}`;
+  const tail =
+    t.meta.toolMetaDescTails?.[tool.category as keyof typeof t.meta.toolMetaDescTails] ??
+    t.meta.toolMetaDescSuffix;
+  const description = `${toolDesc}${specs ? ` (${specs})` : ""}. ${tail}`;
 
   const canonical = locale === defaultLocale
     ? `https://www.justuse.me/tools/${toolId}`
@@ -55,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary",
-      title: `${name} — JustUse.me`,
+      title: t.meta.toolMetaTitle.replace("{name}", name),
       description: toolT?.description || tool.description,
     },
   };

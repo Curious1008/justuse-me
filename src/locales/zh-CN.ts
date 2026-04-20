@@ -167,10 +167,20 @@ const zhCN = {
     twitterDescription: "120+款免费工具，无广告、无需注册，文件在浏览器中处理。",
     categoryMetaTitle: "免费在线{label} — 无广告、无需注册",
     categoryMetaDescription: "{desc} 免费、保护隐私、在浏览器中运行。无水印、无需上传文件。",
-    toolMetaTitle: "免费在线{name}",
+    toolMetaTitle: "{name} — 无需上传，免注册",
     toolMetaSuffix: "免费、无广告、无需注册。文件始终留在你的设备上。",
     toolMetaDescSuffix: "在浏览器中运行，文件不会上传到任何服务器。免费使用，无需注册。",
-    toolOgTitle: "{name} — 免费在线工具 | JustUse.me",
+    toolMetaDescTails: {
+      pdf: "PDF 在你的浏览器本地处理，绝不上传到任何服务器。免费、无需注册。",
+      image: "图片始终留在你的设备上。图像处理完全在浏览器内完成，无任何上传。免费、无需注册。",
+      text: "纯客户端文本处理，所有内容不离开你的浏览器。免费、无需注册、无追踪。",
+      convert: "转换全程在你的浏览器中完成，文件不会离开你的设备。免费、无需注册。",
+      generator: "在你的浏览器本地生成，无任何数据上传。免费、无需注册。",
+      calculator: "计算完全在你的浏览器中进行，无追踪、无账号、无上传。",
+      developer: "所有处理均在你的浏览器中完成 — 适合处理敏感代码、令牌或密钥，数据不离开页面。",
+      utility: "完全在你的浏览器中运行，无需上传。免费、无需注册。",
+    },
+    toolOgTitle: "{name} — 浏览器本地运行，无需上传 | JustUse.me",
   },
 
   // ─── Tool names & descriptions (keyed by tool ID) ───

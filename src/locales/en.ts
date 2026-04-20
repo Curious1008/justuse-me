@@ -167,10 +167,20 @@ const en = {
     twitterDescription: "120+ free tools. No ads, no sign-up. Files stay in your browser.",
     categoryMetaTitle: "Free {label} Online — No Ads, No Sign-up",
     categoryMetaDescription: "{desc} Free, private, and works in your browser. No watermarks, no file uploads.",
-    toolMetaTitle: "{name} Online Free",
+    toolMetaTitle: "{name} — No Upload, No Sign-up",
     toolMetaSuffix: "Free, no ads, no sign-up. Your files stay on your device.",
     toolMetaDescSuffix: "Runs in your browser — files are never uploaded. Free, no sign-up required.",
-    toolOgTitle: "{name} — Free Online Tool | JustUse.me",
+    toolMetaDescTails: {
+      pdf: "Your PDF is processed locally in your browser — never uploaded to any server. Free, no sign-up.",
+      image: "Photos stay on your device. Image processing runs entirely client-side, with no uploads. Free, no sign-up.",
+      text: "Pure client-side text processing — nothing leaves your browser. Free, no sign-up, no tracking.",
+      convert: "Conversion happens in your browser, so your files never leave your device. Free, no sign-up.",
+      generator: "Generated locally in your browser. No data sent anywhere. Free, no sign-up.",
+      calculator: "Calculation runs entirely in your browser. No tracking, no account, no upload.",
+      developer: "All processing happens in your browser — perfect for sensitive code, tokens, or secrets. No data leaves the page.",
+      utility: "Runs entirely in your browser, no upload required. Free, no sign-up.",
+    },
+    toolOgTitle: "{name} — Browser-Based, No Upload | JustUse.me",
   },
 
   // ─── Tool names & descriptions (keyed by tool ID) ───
