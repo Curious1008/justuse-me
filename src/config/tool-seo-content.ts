@@ -303,17 +303,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "word-counter": {
     longDescription:
-      "Count words, characters, sentences, and paragraphs in any text. Essential for writers, students, and content creators who need to hit word count targets for essays, articles, or social media posts.",
+      "Paste text, see live word, character, sentence, and paragraph counts. Most obvious use: hitting an essay's 500-word minimum, or staying under a tweet's 280-character limit without counting on your fingers. Less obvious: checking meta description length before shipping a page, or figuring out if a chunk of copy will fit in a layout.\n\nCharacter counts come with and without spaces because that's the thing that always varies by context — a tweet counts spaces, a LinkedIn headline often doesn't, some SMS systems count surrogate pairs weirdly. The reading-time estimate uses a ~200 WPM baseline, which is close enough for 'about a four-minute read' kinds of estimates.",
     steps: [
       "Paste or type your text",
-      "Word, character, and sentence counts update in real time",
-      "Copy the counts or keep editing",
+      "Counts update as you go",
+      "Copy the numbers or keep editing",
     ],
     faq: [
-      { q: "Does it count characters with and without spaces?", a: "Yes. Both character counts (with and without spaces) are displayed." },
-      { q: "What counts as a word?", a: "Any sequence of non-whitespace characters separated by spaces or line breaks counts as one word." },
+      { q: "What counts as a word, exactly?", a: "Any run of non-whitespace characters between spaces, tabs, or line breaks. Hyphenated terms like 'state-of-the-art' count as one word. Numbers count. A single quote between letters (don't) doesn't split the word. Standards vary across tools, but this matches what word processors like Google Docs and Word do." },
+      { q: "Does it give character count with and without spaces?", a: "Yes, both. Social media platforms usually count spaces; many publishing style guides don't. Having both visible at once saves you from getting the wrong number and pasting over-limit copy into a tweet or a product description." },
+      { q: "How accurate is the reading-time estimate?", a: "It's based on about 200 words per minute, which is the average for native adult readers of English on screen. It'll be off for dense technical text (slower) or light copy (faster), but it's fine as a rough signal — 'this is a two-minute read' vs 'this is a fifteen-minute read'." },
+      { q: "Does it handle Chinese, Japanese, or other languages without spaces?", a: "For character counts, yes — a Chinese or Japanese character counts as one character. Word counts are trickier because those languages don't use spaces to separate words; the tool falls back to counting character runs, which gives a reasonable proxy but isn't a real tokenizer." },
+      { q: "Is my text uploaded?", a: "No. All counting happens in your browser — essays, drafts, confidential copy, whatever you paste stays on your device." },
     ],
     related: ["markdown-to-html", "diff-checker", "json-formatter", "base64-codec"],
+    whyUs: "Free word counters are a dime a dozen, but most are ad-clogged or push you to download an 'essay writer'. This one loads instantly, counts live as you type, and doesn't bother you. If you're a student, writer, or SEO person who just needs the number, that's enough.",
   },
   "base64-codec": {
     longDescription:
@@ -915,80 +919,95 @@ const content: Record<string, ToolSEOContent> = {
   },
   "url-checker": {
     longDescription:
-      "Check whether a URL is safe, working, and reachable. Useful for verifying links before clicking, checking if a website is down, or validating URLs in bulk before publishing.",
+      "Paste a URL, find out if it's actually alive, and see exactly what response it returns. Handy before you share a link publicly, for auditing a list of URLs in a doc, or for figuring out why that one endpoint keeps failing — without opening dev tools.\n\nYou get the HTTP status code, response time, and the final URL after any redirects. Useful when 'the site is down' actually means 'there's a 301 chain going to an HTTPS version', or when a 404 is hiding behind a generic-looking error page.",
     steps: [
       "Paste the URL you want to check",
-      "Click Check and the tool tests the link",
-      "See the status code, response time, and whether the site is reachable",
+      "Click Check",
+      "See the status code, response time, and final URL",
     ],
     faq: [
-      { q: "How do I know if a website is down?", a: "Enter the site's URL and the checker will try to reach it. A successful response means the site is up; an error or timeout means it's down or unreachable." },
-      { q: "What do HTTP status codes mean?", a: "200 = OK (working), 301/302 = redirect, 404 = page not found, 500 = server error. The checker shows the status code so you know exactly what's happening." },
-      { q: "Can I use this to check if a link is safe?", a: "The tool checks if the URL is reachable. For phishing or malware detection, also use a dedicated service like Google Safe Browsing or VirusTotal." },
+      { q: "How can I tell if a website is down?", a: "Paste the URL and the checker tries to reach it. A 2xx response means it's up. A timeout or connection error means it's unreachable from the checking server — which is usually 'down', but occasionally it just means the site is blocking that region or the check traffic." },
+      { q: "What do the HTTP status codes actually mean?", a: "200 is the normal 'worked'. 301 and 308 are permanent redirects, 302 and 307 are temporary. 404 means the page isn't there. 403 means it's there but you're not allowed. 500/502/503 are server problems. Seeing the number beats guessing from a generic browser error page." },
+      { q: "Can I use this to check if a link is safe?", a: "Not really. The checker only tells you whether the URL is reachable and what it returns. For phishing and malware detection, cross-check with Google Safe Browsing or VirusTotal — a 200 response doesn't mean the page is honest." },
+      { q: "Does it follow redirects?", a: "Yes. You'll see both the original status and the final URL after the redirect chain resolves. That's how you catch things like 'the old link silently forwards to a sketchy domain' without actually clicking through." },
+      { q: "Why does a URL that works in my browser fail here?", a: "Usually one of three things: the site blocks non-browser user agents, it requires specific cookies or geo, or it's only reachable over a VPN. A failed check isn't proof the URL is broken — just that it doesn't respond to a plain request." },
     ],
     related: ["text-encrypt-decrypt", "qr-code", "base64-codec", "json-formatter"],
+    whyUs: "Most link checkers make you sign up, or bury the answer under an 'SEO audit' upsell. This one just returns the status code and final URL — no dashboard, no email, no pretending a 301 is a scary SEO problem you need to pay to fix.",
   },
 
   // ─── TEXT TOOLS ───
   "case-converter": {
     longDescription:
-      "Convert text between uppercase, lowercase, title case, sentence case, camelCase, snake_case, and more. Instantly reformat text for coding, copywriting, or fixing accidental caps lock.",
+      "Reformat text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, and kebab-case. For copywriters, it's for fixing the email you wrote with caps lock on. For developers, it's for converting between naming conventions when you're moving data between APIs that picked different sides of the camel-vs-snake war.\n\nPunctuation, numbers, and spacing are left alone — only the letter casing changes. Which means you can paste a whole paragraph with quotes, em-dashes, and numbers in it, and get back the same content with just the capitalization rewritten.",
     steps: [
-      "Paste your text into the input box",
-      "Click the case format you want to apply",
-      "Copy the converted result",
+      "Paste your text",
+      "Click the case you want",
+      "Copy the result",
     ],
     faq: [
-      { q: "What case formats are supported?", a: "UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, and more." },
-      { q: "Can I convert multiple paragraphs at once?", a: "Yes. Paste any amount of text and the conversion applies to the entire input." },
-      { q: "Does it preserve punctuation?", a: "Yes. Only the letter casing changes — punctuation, numbers, and spacing are untouched." },
+      { q: "What case formats are supported?", a: "UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, and CONSTANT_CASE. The developer-flavored ones (camel, snake, kebab, constant) strip spaces and punctuation so 'User Account ID' becomes userAccountId, user_account_id, user-account-id, or USER_ACCOUNT_ID depending on what you pick." },
+      { q: "Can I paste in multiple paragraphs?", a: "Yes. There's no practical size limit — paste an essay, a chapter, or a code dump and the whole thing converts in one go. Line breaks and paragraph spacing are preserved." },
+      { q: "Does it preserve punctuation and numbers?", a: "For prose-style modes (upper, lower, title, sentence), yes — only letters change. For identifier modes (camel, snake, etc.), spaces and punctuation are stripped because that's the whole point of those formats. Numbers stay put in both." },
+      { q: "How is Title Case different from Sentence case?", a: "Title Case capitalizes the first letter of most words, the way a book title looks: 'The Hitchhiker's Guide to the Galaxy'. Sentence case only capitalizes the first letter of each sentence and proper nouns — like normal writing. Pick Title for headings; pick Sentence for body copy." },
+      { q: "Is my text sent anywhere?", a: "No. The whole conversion runs in your browser. If you're rewriting internal copy, customer emails, or anything you'd prefer not to upload, it's fine to paste here — nothing leaves the page." },
     ],
     related: ["remove-whitespace", "find-and-replace", "string-reverse", "word-counter"],
+    whyUs: "Case conversion is one of those things every dev eventually writes as a throwaway function — but when you just need to flip a chunk of text once, opening a new editor is overkill. This tool does it in the browser, covers all the common formats, and doesn't make you watch an ad to use it.",
   },
   "remove-duplicate-lines": {
     longDescription:
-      "Remove repeated lines from any text instantly. Useful for cleaning up lists, log files, keyword lists, or any text with unwanted duplicates. Choose to keep the first or last occurrence.",
+      "Drop repeated lines from a block of text. Classic use cases: cleaning up an email list before a send, deduping a keyword research dump, trimming CSV rows where the same record appears five times, or pruning noisy log output down to unique events.\n\nYou can choose to keep the first or last occurrence — which matters more than it sounds, because if the same email address shows up with an older signup date on top and the newer one below, you probably want 'keep last'. Case-sensitivity and whitespace handling are both toggleable, so 'apple', 'Apple', and ' apple ' can be treated as duplicates or as three distinct lines.",
     steps: [
-      "Paste your text with duplicate lines",
-      "Choose whether to keep the first or last occurrence",
-      "Copy the deduplicated result",
+      "Paste your list",
+      "Choose: keep first or last, case sensitive or not",
+      "Copy the deduped output",
     ],
     faq: [
-      { q: "Is the comparison case-sensitive?", a: "By default yes — 'Apple' and 'apple' are treated as different lines. A case-insensitive option is also available." },
-      { q: "Does it remove blank lines too?", a: "Blank lines are treated as duplicates if they appear more than once and can be removed along with other duplicates." },
-      { q: "Is there a line limit?", a: "The tool handles thousands of lines without slowdown — suitable for large log files and keyword lists." },
+      { q: "Is the comparison case-sensitive by default?", a: "Yes — 'Apple' and 'apple' stay as two separate lines unless you flip the case-insensitive toggle. That's the safer default, since for things like email addresses it's usually what you want, and you can always loosen it when you don't." },
+      { q: "Does it trim whitespace before comparing?", a: "Optionally. With the trim option on, ' apple' (with a leading space) matches 'apple'. Without it, they're different lines. Turn it on when you're deduping a messy paste; leave it off if spacing matters to you." },
+      { q: "Does it preserve the original order?", a: "Yes. Keeping first occurrence preserves the order you see in your input; keeping last preserves the order of last-seen items. Neither mode sorts — if you want sorting, run the sort tool after." },
+      { q: "What about blank lines?", a: "Blank lines are treated the same as any other — multiple blanks get collapsed down to one. If you'd rather strip all blank lines entirely, the whitespace tool does that." },
+      { q: "Is there a size limit?", a: "Thousands of lines are fine. Since it runs in your browser, truly huge files (hundreds of thousands of lines) can start to feel slow, depending on your device. For log files in that range, a command-line `sort -u` is faster." },
     ],
     related: ["sort-lines", "find-and-replace", "remove-whitespace", "word-counter"],
+    whyUs: "Dedupe a list in your terminal and you're three commands deep. Dedupe it in Excel and you're fighting the UI. This tool just takes a paste, removes duplicates, and hands back the result — client-side, so your email list, keyword research, or log excerpts don't end up on someone else's server.",
   },
   "sort-lines": {
     longDescription:
-      "Sort lines of text alphabetically, numerically, or in reverse order. Great for organizing lists, keywords, CSV rows, or any line-based content that needs ordering.",
+      "Sort a block of text line by line — alphabetically, numerically, reverse, or shuffled. Good for cleaning up keyword lists, CSV columns, email exports, or any time you'd rather not open a spreadsheet just to reorder 50 lines.\n\nThe gotcha most web sorters get wrong: if your lines start with numbers, a plain alphabetical sort puts '10' before '2'. This one has a numeric mode that actually reads them as numbers. It also preserves blank lines or strips them, your call.",
     steps: [
-      "Paste the text you want to sort",
-      "Choose sort order: A–Z, Z–A, numeric, or random",
-      "Copy the sorted output",
+      "Paste your lines into the input",
+      "Pick the sort order — A–Z, Z–A, numeric, or random",
+      "Copy the result",
     ],
     faq: [
-      { q: "Can I sort numerically?", a: "Yes. Numeric sort orders lines by their numeric value rather than alphabetically, so 10 comes after 9 instead of after 1." },
-      { q: "Does it handle case-insensitive sorting?", a: "Yes. Toggle case-insensitive mode to sort 'apple' and 'Apple' as equivalent." },
-      { q: "Can I shuffle lines randomly?", a: "Yes. There is a random shuffle option to randomize the order of lines." },
+      { q: "Can I sort numerically instead of alphabetically?", a: "Yes, and you probably want to for anything with numbers. Alphabetical sort treats '10' as less than '2' because it compares character by character. Numeric mode reads each line as a number and orders them properly — 1, 2, 10, 11 instead of 1, 10, 11, 2." },
+      { q: "Does it handle case-insensitive sorting?", a: "Yes. Flip the case-insensitive toggle and 'apple' and 'Apple' are treated as the same string for ordering purposes. Useful when you don't want capital letters clustering at the top of the list." },
+      { q: "Can I shuffle lines randomly?", a: "Yes. The random option uses a proper shuffle (not 'sort by random key', which is biased), so each line is equally likely to end up anywhere. Handy for picking a random sample from a list, or randomizing quiz questions." },
+      { q: "What happens to blank lines and duplicates?", a: "Blank lines either bubble to the top (if you leave them) or get stripped — there's a toggle. Duplicates stay by default; use the dedupe tool first, or the sort tool alongside it, if you want them gone." },
+      { q: "Is my text sent anywhere?", a: "No. Sorting runs in your browser, so pasted data — whether it's a list of customer emails, a CSV column, or anything sensitive — never leaves your device. No server is involved." },
     ],
     related: ["remove-duplicate-lines", "find-and-replace", "remove-whitespace", "word-counter"],
+    whyUs: "Sorting lines shouldn't require opening Excel, firing up a terminal, or signing up for anything. Paste, click, copy — done. And unlike the ad-heavy 'text tools' sites, your list isn't a data point for someone else's analytics pipeline.",
   },
   "string-reverse": {
     longDescription:
-      "Reverse text character by character or word by word. Useful for puzzles, encoding tricks, testing palindromes, or simply flipping text for creative projects.",
+      "Flip text character by character, or reverse the word order. Useful for palindrome checks, puzzle inputs, a quick creative twist for a post, or just sanity-checking how your code handles weird strings.\n\nOne thing most quick reversers get wrong: emoji and Chinese characters. They call JavaScript's string reverse on raw bytes, and your 👨‍👩‍👧 turns into garbage. This one splits on graphemes instead, so multi-byte characters come out clean. And since everything runs in your browser, nothing gets uploaded — paste in private notes without worrying.",
     steps: [
       "Paste or type the text you want to reverse",
-      "Choose character reverse or word reverse",
-      "Copy the reversed result",
+      "Pick character reverse or word reverse",
+      "Copy the result",
     ],
     faq: [
-      { q: "What is the difference between character and word reverse?", a: "Character reverse flips every letter (hello becomes olleh). Word reverse flips the order of words (hello world becomes world hello)." },
-      { q: "Does it work with Unicode or emoji?", a: "Yes. The reversal handles Unicode characters and emoji correctly without breaking multi-byte characters." },
-      { q: "Can I reverse multiple lines at once?", a: "Yes. Each line is reversed independently when you paste multi-line text." },
+      { q: "What's the difference between character and word reverse?", a: "Character reverse flips every letter, so 'hello' becomes 'olleh'. Word reverse keeps each word intact but flips the order, so 'hello world' becomes 'world hello'. Doing a palindrome check? Use character. Rearranging a sentence? Use word." },
+      { q: "Does it handle emoji and Chinese properly?", a: "Yes. A lot of online reversers just call JavaScript's built-in reverse on a string, which splits multi-byte characters in half — your 👨‍👩‍👧 turns into broken glyphs and Chinese characters can come out wrong. This one does grapheme-level splitting, so everything survives the round trip." },
+      { q: "Can I reverse multiple lines at once?", a: "Yes. Each line reverses on its own, and the line breaks stay where you put them. Handy for flipping a list, CSV rows, or log lines without merging everything into one blob." },
+      { q: "Does my text get uploaded anywhere?", a: "No. It all happens in your browser — your text never leaves the page. Safe to use with private messages, work notes, or anything you'd rather not send to a random website." },
+      { q: "Is there a size limit?", a: "No hard cap. Since the work runs locally, it's really bounded by your device. A few thousand characters is instant; even a long essay finishes without you noticing." },
     ],
     related: ["case-converter", "find-and-replace", "base64-codec", "word-counter"],
+    whyUs: "Most 'reverse text' sites are a five-line script wrapped in ads and trackers. This one runs entirely in your browser, handles emoji and Chinese without mangling them, and doesn't ship your text off to anyone. No sign-up, no ads, no 'upgrade for longer strings'.",
   },
   "readability-checker": {
     longDescription:
@@ -1022,18 +1041,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "find-and-replace": {
     longDescription:
-      "Find and replace text with support for plain text and regular expressions. Batch-edit documents, rename patterns in code, or do quick substitutions without opening a text editor.",
+      "Search for text and swap it out for something else. The thing every editor has built in, but handy when you don't have an editor open — you want to fix a typo that appears 40 times in a pasted email, mass-rename a variable before copying code into a doc, or run a regex substitution without firing up sed.\n\nPlain text is the default. Flip on regex mode and you can use patterns like `\\d+` or `(\\w+)@example\\.com`, with capture groups available in the replacement via `$1`, `$2`, and so on. Case sensitivity is a toggle, and you can preview matches before committing to a replace-all.",
     steps: [
-      "Paste your text into the input",
-      "Enter the search term and the replacement text",
-      "Click Replace to apply all substitutions at once",
+      "Paste your text",
+      "Enter what to find and what to replace it with",
+      "Click Replace — or toggle regex mode first for patterns",
     ],
     faq: [
-      { q: "Does it support regular expressions?", a: "Yes. Toggle regex mode to use patterns like \\d+, .*, or [A-Z]+ for advanced find-and-replace operations." },
-      { q: "Is it case-sensitive?", a: "By default yes. Toggle the case-insensitive option to match regardless of capitalization." },
-      { q: "Can I replace all occurrences at once?", a: "Yes. All matches in the text are replaced in one click. There is also a replace-one-at-a-time mode." },
+      { q: "Does it support regular expressions?", a: "Yes. Flip the regex toggle and the find field becomes a pattern. Standard JavaScript regex — backreferences with `$1`/`$2`, character classes, lookahead and lookbehind, all there. Flags are inferred from your toggles (case-sensitive, global) so you don't need to write them out." },
+      { q: "Is it case-sensitive by default?", a: "Yes. 'Email' and 'email' are different. Toggle the case-insensitive option when you want them treated as the same, which is usually what you want for natural-language text but almost never what you want for code." },
+      { q: "Can I replace matches one at a time instead of all at once?", a: "Yes. The default is replace-all, but a step-through mode lets you walk through matches individually and decide yes/no for each. Useful when you're doing a risky substitution and want to eyeball the context." },
+      { q: "What if I want to replace across multiple lines?", a: "Plain-text replace works across lines automatically. For regex, the `s` flag (which lets `.` match newlines) is available as a toggle — since by default `.` stops at a newline in most regex implementations." },
+      { q: "Is my text uploaded?", a: "No. Find-and-replace runs in your browser. Emails, code snippets, configs with secrets, whatever you paste stays local." },
     ],
     related: ["remove-whitespace", "remove-duplicate-lines", "regex-tester", "word-counter"],
+    whyUs: "For a one-off replace, opening your IDE or running sed is overkill — and notepad doesn't do regex. This tool fills the gap: plain-text and regex substitution in the browser, no setup, with capture groups that actually work.",
   },
   "url-encoder-decoder": {
     longDescription:
@@ -1084,18 +1106,21 @@ const content: Record<string, ToolSEOContent> = {
   // ─── DEVELOPER TOOLS ───
   "regex-tester": {
     longDescription:
-      "Test and debug regular expressions in real time. See which parts of your text match, capture group values, and match details as you type. Supports JavaScript regex syntax with flags.",
+      "Write a regex, paste a test string, and watch the matches light up as you type. The kind of tool you reach for when you're debugging a pattern and don't want to keep running `node -e` in a terminal — or when you just need to double-check that your email validation actually matches a plus-sign alias.\n\nCapture groups and named groups are broken out per match, so you can see exactly what each parenthesized chunk picked up. Flags work the way you'd expect (g, i, m, s, u), and the pattern is JavaScript flavor — which is what you probably want if you're testing something that'll end up in a browser, Node, or most scripting contexts.",
     steps: [
-      "Enter your regex pattern and optional flags",
-      "Paste the test string below",
-      "Matches are highlighted instantly as you type",
+      "Type your regex pattern and flags",
+      "Paste the text you want to match against",
+      "See highlighted matches and capture group values update live",
     ],
     faq: [
-      { q: "Which regex flavor is supported?", a: "JavaScript (ECMAScript) regular expressions, including support for flags like g, i, m, s, and u." },
-      { q: "Can I see capture group values?", a: "Yes. All capture groups and named groups are listed with their matched values for each match." },
-      { q: "Does it explain what my regex does?", a: "The tool highlights matches visually. Use it iteratively to refine your pattern against your test string." },
+      { q: "Which regex flavor is this?", a: "JavaScript (ECMAScript) regex. That means lookbehind works, backreferences look like \\1, and flags are g/i/m/s/u/y. If you're writing regex for Python, Perl, or PCRE, the syntax is close but not identical — named groups and some escape sequences differ." },
+      { q: "Can I see what each capture group matched?", a: "Yes. Every match lists its numbered groups and any named groups with their exact values. Especially useful when you're building something like a URL parser and want to confirm that 'path' captured what you think it did." },
+      { q: "Does it explain the regex in plain English?", a: "Not automatically — it shows you what matches, which in practice is what you need to debug a pattern. For a written breakdown of a complex regex, sites like regex101 offer verbose explanations. This tool is deliberately lighter and faster." },
+      { q: "Why does my pattern work here but fail in my code?", a: "Usually one of three things: your code is using a different regex flavor (Python re, Java Pattern), you're forgetting to escape backslashes when the regex lives inside a string literal, or a flag is missing. Copy the pattern exactly and make sure the flags line up." },
+      { q: "Is my text sent anywhere?", a: "No. The regex runs in your browser against your text — nothing leaves the page. Useful when you're testing patterns against production log excerpts or customer data you shouldn't be uploading." },
     ],
     related: ["find-and-replace", "json-formatter", "js-minifier", "diff-checker"],
+    whyUs: "Most regex playgrounds are great but heavy — cheat sheets, explanations, ads, save-and-share accounts. This one shows matches live, tells you what the groups captured, and doesn't ask you to log in. Quick debug, done.",
   },
   "timestamp-converter": {
     longDescription:
@@ -1249,18 +1274,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "json-validator": {
     longDescription:
-      "Validate JSON syntax and check for errors. Paste any JSON string and instantly find out if it is valid, with clear error messages pointing to the exact line and character where the issue is.",
+      "Paste JSON, find out if it's valid, and get the exact line and column where it breaks. Most useful when an API is returning something your client can't parse and the error message is the unhelpful classic: 'Unexpected token at position 1247'.\n\nIt catches the stuff that trips people up daily — trailing commas, single quotes where there should be doubles, unquoted keys, stray control characters pasted in from Word. If the JSON is valid, you get a green check and a parsed summary. If not, you get a pointer to the character that killed it.",
     steps: [
-      "Paste your JSON data",
-      "The validator checks syntax immediately",
-      "Fix any errors shown and re-validate",
+      "Paste your JSON",
+      "See immediately whether it's valid, or where the error is",
+      "Fix the flagged character and re-run",
     ],
     faq: [
-      { q: "What is the most common JSON syntax error?", a: "Trailing commas after the last item in an array or object. Standard JSON does not allow trailing commas, though some parsers are lenient." },
-      { q: "Can it validate JSON Schema?", a: "This tool validates JSON syntax only. For JSON Schema validation, you will need a dedicated schema validator." },
-      { q: "Is there a size limit?", a: "JSON up to 1 MB can be validated. For larger files, consider validating sections separately." },
+      { q: "What's the most common JSON error?", a: "Trailing commas after the last item in an array or object. JavaScript lets you get away with it; strict JSON does not. A close second is single quotes — JSON requires double quotes around keys and string values, no exceptions. If your file was hand-edited, one of these two is almost always the culprit." },
+      { q: "Can it validate a JSON Schema?", a: "No — this tool only checks syntax. That's the 'is this even parseable' step. If you need to validate that your JSON matches a specific shape (required fields, correct types, nested structure), you need a JSON Schema validator, which is a separate tool." },
+      { q: "Is there a size limit?", a: "Files up to around 1 MB are fine. Bigger than that and your browser starts feeling it — since validation is done locally, performance depends on your machine. For massive files, validate representative chunks instead of the whole blob." },
+      { q: "Why does my JSON parse in one tool but not another?", a: "Some tools are lenient and silently accept things like trailing commas, comments, or unquoted keys (sometimes called JSON5). Standard JSON is stricter. If the source is a config file or a copy-pasted snippet, it may have gone through a lenient parser first — clean it up before trusting it elsewhere." },
+      { q: "Is my data uploaded?", a: "No. Validation runs in your browser. Whether your JSON is an API response with user data or a secret config file, nothing gets sent to our servers — safe to paste sensitive payloads." },
     ],
     related: ["json-formatter", "json-to-typescript", "yaml-json", "json-to-csv"],
+    whyUs: "Most JSON validators either block until they finish loading three analytics scripts, or try to upsell you on 'JSON Pro'. This one just parses locally and tells you what's wrong — useful when you're debugging a webhook payload at 2am and don't want to sign up for anything.",
   },
   "css-unit-converter": {
     longDescription:
@@ -1311,18 +1339,21 @@ const content: Record<string, ToolSEOContent> = {
   // ─── GENERATOR TOOLS ───
   "password-generator": {
     longDescription:
-      "Generate strong, random passwords with custom length and character sets. Choose uppercase, lowercase, numbers, and symbols. Copy a secure password instantly — no account needed.",
+      "Make a random password with the length and character mix you need. Pick uppercase, lowercase, numbers, symbols, or any combination — skip the characters that certain sites still don't accept, set a minimum length that matches the policy, and copy the result.\n\nUnder the hood, randomness comes from the browser's cryptographic RNG (the same primitive used for TLS keys), not Math.random. That matters: a 'random' password generated from a weak source is a guessable password. Nothing gets sent to any server, and no passwords are logged, stored, or reused — each click produces a fresh one that only you see.",
     steps: [
-      "Set the password length and select character types",
-      "Click Generate to create a new random password",
-      "Copy the password to use it",
+      "Pick the length (16+ is a good default)",
+      "Toggle uppercase, lowercase, numbers, and symbols",
+      "Click Generate, then copy",
     ],
     faq: [
-      { q: "How long should a password be?", a: "At least 12 characters for most accounts, 16+ for important accounts like email and banking. Longer is always better." },
-      { q: "Is the password generated on my device?", a: "Yes. Passwords are generated entirely in your browser using JavaScript's cryptographically secure random number generator. Nothing is sent to any server." },
-      { q: "Should I include symbols in my password?", a: "Yes, if the site allows it. Symbols dramatically increase the number of possible combinations, making brute-force attacks much harder." },
+      { q: "How long should my password actually be?", a: "For most accounts, 16 characters is a fine baseline. For anything important — your email, password manager master password, banking — go 20+. Length matters more than symbol mix: a 20-character password with just letters and numbers is harder to crack than a 10-character one with every symbol on the keyboard." },
+      { q: "Is the password generated locally on my device?", a: "Yes. It's produced in your browser using crypto.getRandomValues, which is the same cryptographic RNG browsers use for secure connections. Nothing gets sent to a server, nothing gets logged, and no two generations produce the same output — what appears on your screen exists only there." },
+      { q: "Should I include symbols?", a: "If the site accepts them, yes — they widen the character set and make brute-forcing slower. But if you're forced to choose between 'shorter with symbols' and 'longer without', pick longer every time. A password manager handles the copy-paste either way." },
+      { q: "Is it safer than the password suggestions my browser makes?", a: "Roughly equivalent. Safari, Chrome, and 1Password all use the same kind of cryptographic RNG. The main reason to use a standalone generator is when you need to follow a specific policy (exact length, no ambiguous characters, certain symbols excluded) that the built-in suggester can't match." },
+      { q: "Can I trust that the password isn't saved somewhere?", a: "Yes — there's no backend to save it to. The generator is a static page that runs JavaScript in your browser. You can even open the network tab in dev tools and confirm nothing leaves the page after the initial load." },
     ],
     related: ["strong-password-checker", "random-number-generator", "fake-data-generator", "base64-codec"],
+    whyUs: "A lot of password generators look sketchy — and for a security tool, that's the one thing you really don't want. This one is plain HTML and JS, runs entirely client-side, and the source is inspectable. No telemetry, no 'security report' upsell, no ads. Just a generator that hands you a fresh string and gets out of the way.",
   },
   "random-number-generator": {
     longDescription:
