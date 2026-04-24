@@ -104,59 +104,75 @@ const content: Record<string, ToolSEOContent> = {
   },
   "rotate-pdf": {
     longDescription:
-      "Rotate all pages of a PDF by 90, 180, or 270 degrees. Fix sideways scans, upside-down documents, or landscape pages that need to be portrait. Quick one-click rotation.",
+      "Spin a sideways or upside-down PDF back to the right way up. Common case: you scanned a document on a multi-function printer that decided 'landscape' was what you wanted, and now every page is rotated 90° and unreadable in your PDF viewer. Rotate by 90, 180, or 270 degrees and the file is back to normal.\n\nThe rotation is lossless — it updates the page rotation metadata rather than re-rendering content, so text stays selectable, fonts stay embedded, and file size doesn't change. All pages rotate together; if you need per-page rotation, split the PDF first, rotate the ones you need, then merge back.",
     steps: [
-      "Upload the PDF you need to rotate",
-      "Choose the rotation angle (90, 180, or 270 degrees)",
-      "Click Rotate and download the corrected PDF",
+      "Upload the PDF",
+      "Pick 90°, 180°, or 270°",
+      "Download the rotated file",
     ],
     faq: [
-      { q: "Can I rotate individual pages?", a: "Currently all pages are rotated by the same angle. For selective rotation, split the PDF first, rotate the pages you need, then merge back." },
-      { q: "Does rotation affect the PDF quality?", a: "No. The rotation is lossless — it changes the page orientation without re-encoding any content." },
+      { q: "Is the rotation actually saved in the file?", a: "Yes. Some tools just apply a display-only rotation, which means the file looks correct in one viewer but shows up sideways in another. This tool modifies the page's /Rotate entry directly, so every compliant PDF viewer will show it the right way up." },
+      { q: "Can I rotate a single page instead of all pages?", a: "Not in this tool — all pages rotate by the same amount. The workflow for selective rotation: use the Split PDF tool to separate the problem pages, rotate them, then merge them back in order." },
+      { q: "Why does my PDF still look rotated in Preview/Acrobat after I rotate?", a: "Occasionally a viewer caches the old thumbnail. Close the file fully and reopen it. If it still looks wrong, the original PDF has rotation baked into the page content stream (not just metadata) — that's a different fix that requires re-rendering." },
+      { q: "Does rotation reduce file size or quality?", a: "No. Nothing is re-encoded. The file you download is essentially the same PDF with one metadata field changed per page." },
+      { q: "Is the PDF uploaded anywhere?", a: "No. Rotation happens in your browser using pdf-lib. Files never leave your device — useful when the sideways PDF is a confidential contract or bank statement." },
     ],
     related: ["merge-pdf", "split-pdf", "compress-pdf", "watermark-pdf"],
+    whyUs: "Most online PDF rotators make you sign up or wait in a queue, and some of them secretly rotate only the preview — not the saved file. This one rotates the real file, locally, in seconds, with no account.",
   },
   "pdf-to-text": {
     longDescription:
-      "Extract all text content from a PDF file. Works with text-based PDFs (not scanned images). Great for copying content, searching through documents, or converting to a plain text format.",
+      "Pull the raw text out of a PDF. Good for copying a long quote without fighting the selection tool, feeding a document into an LLM, searching across a batch of PDFs with `grep`, or converting a report into something you can actually diff.\n\nWorks on text-based PDFs — anything where you can select text in a viewer. For scanned documents or photos of paper, use the OCR tool instead (different pipeline, runs Tesseract). Line breaks and basic paragraph structure are preserved; complex layouts like multi-column papers or tables with merged cells come out roughly readable but not pixel-perfect.",
     steps: [
-      "Upload your PDF file",
-      "Text is extracted from all pages automatically",
-      "Preview and download the text file",
+      "Upload the PDF",
+      "The text is extracted from every page",
+      "Preview it, then download as .txt",
     ],
     faq: [
-      { q: "Does this work with scanned PDFs?", a: "This tool extracts embedded text only. For scanned documents or images, use our Image to Text (OCR) tool instead." },
-      { q: "Is the formatting preserved?", a: "Basic text content and line breaks are preserved, but complex formatting (tables, columns) may not translate perfectly to plain text." },
+      { q: "Why is my PDF extracting as gibberish or empty?", a: "Two likely causes. One: the PDF is a scanned image, not text — no selectable text means nothing to extract (use the OCR tool). Two: the PDF uses a custom-encoded font where the internal character codes don't match actual letters. That's rarer but it does happen with some legal and academic publishers." },
+      { q: "Does it preserve tables and columns?", a: "Reading order is approximated based on position on the page, which handles single-column layouts well. Multi-column papers and complex tables are hit-or-miss — the text is all there, but the flow may not match how you'd read it visually. For structured table extraction, use a dedicated PDF table tool." },
+      { q: "Is the text uploaded anywhere?", a: "No. Extraction runs in your browser using pdf.js. The PDF and the extracted text never leave your device." },
+      { q: "Can I batch-extract text from many PDFs?", a: "Not in this tool — one PDF at a time in the browser. For a large batch, a CLI tool like `pdftotext` (from poppler-utils) is faster and scriptable." },
+      { q: "Will line breaks match the original?", a: "Close. The extractor inserts newlines between detected lines, which usually matches the visual layout. Hyphenated words split across lines come out with the hyphen intact — manually dehyphenate if you're feeding the text to an LLM." },
     ],
-    related: ["ocr-image", "split-pdf", "pdf-to-jpg", "word-counter"],
+    related: ["ocr-image", "split-pdf", "word-counter", "pdf-to-jpg"],
+    whyUs: "iLovePDF and SmallPDF work fine but upload your document. pdftotext works great but requires a terminal. This is the middle ground — runs in a browser tab, file stays local, output is plain .txt ready for the next step.",
   },
   "watermark-pdf": {
     longDescription:
-      "Add a text watermark across every page of your PDF. Protect confidential documents, mark drafts, or brand your files with custom text. The watermark is placed diagonally across each page.",
+      "Stamp a visible text watermark (CONFIDENTIAL, DRAFT, INTERNAL USE ONLY, client name) diagonally across every page of a PDF. Not DRM — someone determined can still remove it — but enough of a deterrent that the document doesn't get screenshot-shared casually, and enough of a label that nobody confuses a draft with the final signed copy.\n\nThe watermark is semi-transparent, angled at 45°, and sized to cover most of the page without obscuring text completely. It's embedded into every page's content stream, so it shows up in every viewer and every print.",
     steps: [
-      "Upload your PDF",
-      "Type your watermark text (e.g. CONFIDENTIAL, DRAFT)",
-      "Click Add Watermark and download the result",
+      "Upload the PDF",
+      "Type the watermark text",
+      "Download the watermarked file",
     ],
     faq: [
-      { q: "Can I customize the watermark appearance?", a: "You can set any text you want. The watermark is displayed as a semi-transparent diagonal overlay on each page." },
-      { q: "Can the watermark be removed?", a: "The watermark is embedded into the PDF. It cannot be easily removed, making it suitable for document protection." },
+      { q: "Can the watermark be removed?", a: "By a non-technical person with consumer PDF tools: no. By someone determined with pdf-lib or Acrobat Pro: yes — they can parse out the text object and delete it. Watermarks are a social/legal signal, not cryptographic protection. If you need something tamper-proof, use a signed, sealed PDF with certificate-based signatures." },
+      { q: "Will the watermark appear on prints?", a: "Yes. The watermark is part of each page's content, not an overlay added at render time. It prints, it exports, it shows up in any viewer." },
+      { q: "Can I customize color, size, or angle?", a: "Currently the tool uses a sensible default: gray, large, 45°. If you need brand-specific styling — exact Pantone color, logo-as-watermark, specific positioning — use Acrobat Pro or a PDF library script. The simple defaults here cover the common 'mark as DRAFT' case." },
+      { q: "Can I watermark a specific page only?", a: "Not in this tool — the watermark applies to every page. Workaround: split, watermark the subset, merge back." },
+      { q: "Is the PDF uploaded anywhere?", a: "No. Watermarking runs in your browser with pdf-lib. Files stay local — matters when the document is a contract or client deliverable." },
     ],
     related: ["rotate-pdf", "merge-pdf", "compress-pdf", "page-numbers-pdf"],
+    whyUs: "Most 'watermark PDF' tools gatekeep behind a login or a watermark-removal upsell. This one just stamps the text, returns the file, and gets out of your way. No account, no trial, no 'premium' nagging.",
   },
   "page-numbers-pdf": {
     longDescription:
-      "Add page numbers to every page of your PDF document. Choose from 6 positions (top/bottom, left/center/right) and set a custom starting number. Perfect for reports, manuscripts, and multi-page documents.",
+      "Add page numbers to every page of a PDF. Choose one of six positions (top/bottom × left/center/right), and set the starting number so Page 1 of your document isn't necessarily labelled '1' if it's part of a larger work.\n\nNumbers are drawn in Helvetica at a readable size and placed with a safe margin, so they don't crash into headers, footers, or page content. The modification is additive — your original content is untouched, the numbers are added as a new text layer on each page.",
     steps: [
-      "Upload your PDF",
-      "Pick where the page numbers should appear",
-      "Set the starting number, then click Add Numbers",
+      "Upload the PDF",
+      "Pick a position and a starting number",
+      "Download with page numbers added",
     ],
     faq: [
-      { q: "Can I start numbering from a page other than 1?", a: "Yes. Set any starting number — useful if your document is part of a larger work." },
-      { q: "What font and size are the page numbers?", a: "Page numbers use Helvetica at 10pt in a subtle gray color that doesn't distract from the content." },
+      { q: "Can I start numbering from something other than 1?", a: "Yes. Set any integer as the starting number — useful when the document is chapter 3 of a larger work and page 1 of this PDF is actually page 87 overall." },
+      { q: "Can I skip a cover page?", a: "Not directly in this tool — every page gets a number. Workaround: split off the cover, number the body, merge back. Or number first and accept a '1' on the cover." },
+      { q: "Will the numbers overlap existing content?", a: "Usually not — the default margin keeps numbers clear of most page layouts. If your PDF has content running to the very edge of the page (rare for text documents), a small overlap is possible. Check the first page after download." },
+      { q: "What format are the page numbers?", a: "Plain Arabic numerals (1, 2, 3, ...). Roman numerals, 'Page X of Y' format, and per-section numbering aren't exposed — those require more control than a single-click tool can give." },
+      { q: "Is the PDF uploaded?", a: "No. Everything runs in your browser with pdf-lib. File stays on your device." },
     ],
     related: ["watermark-pdf", "merge-pdf", "compress-pdf", "rotate-pdf"],
+    whyUs: "Other page-numbering tools either make you pick 47 style options before anything happens, or they bury the feature inside a 'premium' PDF editor. This one asks for the position and the starting number, nothing else.",
   },
 
   // ─── IMAGE ───
@@ -213,31 +229,39 @@ const content: Record<string, ToolSEOContent> = {
   },
   "png-to-jpg": {
     longDescription:
-      "Convert PNG images to JPG format for smaller file sizes. PNG files with transparency get a white background. Ideal for web uploads, email attachments, or when JPG is required.",
+      "Convert PNG images to JPG. Usually worth doing when the PNG is a photo — JPG's lossy compression targets photographic data far more efficiently, and you'll often get the same visual result at a quarter of the file size. Upload sites, email limits, and app stores with image-size rules are the usual reasons to bother.\n\nOne thing to watch: PNG supports transparency, JPG doesn't. If your PNG has a transparent background (say, a logo cutout), JPG will fill the transparency with white by default. For logos and UI assets, that's usually wrong — keep them as PNG or switch to WebP. For photos with no transparency, JPG is almost always the right move.",
     steps: [
-      "Upload your PNG image",
-      "The image is converted instantly in your browser",
-      "Download the JPG result",
+      "Upload one or more PNG files",
+      "The converter flattens transparency and re-encodes as JPG",
+      "Download individually or as a ZIP",
     ],
     faq: [
-      { q: "What happens to transparency?", a: "Transparent areas are filled with a white background, since JPG doesn't support transparency." },
-      { q: "How much smaller will the JPG be?", a: "Typically 50-80% smaller than the original PNG, especially for photos." },
+      { q: "What happens to transparent areas?", a: "They're filled with white. JPG has no alpha channel — there's no other option within the JPG format. If preserving transparency matters, convert to WebP instead (smaller than PNG, supports transparency)." },
+      { q: "How much smaller will the JPG be?", a: "For photographs, typically 50-85% smaller. For graphics with flat colors (logos, diagrams, screenshots of text), the JPG may actually be *larger* than the PNG and will have visible compression artifacts on sharp edges. Rule of thumb: JPG for photos, PNG (or WebP) for everything else." },
+      { q: "What quality level does it use?", a: "A high default (around 90%) that balances file size and visual quality. That's enough that you won't see compression on normal viewing; if you need finer control (target file size, specific quality percentage), most advanced tools expose a slider. For the 'convert my phone photo to send by email' case, default is fine." },
+      { q: "Is my photo uploaded to a server?", a: "No. Conversion runs entirely in your browser. This matters more than people realize — many free converters do upload, store your image for 'caching', and sell usage data downstream. Local conversion means the image never leaves your device." },
+      { q: "Can I batch-convert a folder of PNGs?", a: "Yes — drop multiple files in and get a ZIP back. Works for tens of images comfortably; thousands are better done with a CLI like ImageMagick or `sharp`." },
     ],
     related: ["jpg-to-png", "compress-image", "heic-to-jpg", "svg-to-png"],
+    whyUs: "TinyPNG is great for compression but doesn't convert. Most convert-and-compress sites upload your files to a server you've never heard of. This one does the whole thing locally, supports batches, and doesn't ask for an email.",
   },
   "jpg-to-png": {
     longDescription:
-      "Convert JPG images to PNG format for lossless quality or when you need transparency support. PNG is the preferred format for logos, icons, screenshots, and graphics with sharp edges.",
+      "Convert JPG to PNG. The reasons you'd want to do this are narrower than people assume — PNG files are almost always bigger than JPG for photographs, so 'converting to PNG for higher quality' doesn't actually recover anything lost during JPG compression. Valid reasons: you need transparency support (to add one later, or as a format requirement for an upload), the system you're pasting into only accepts PNG, or you want to stop further generational quality loss from re-saving as JPG.\n\nIf any of those fit, convert away. If you just want a smaller or sharper photo, converting to PNG won't help — the JPG compression already happened and threw away data that PNG can't un-lose.",
     steps: [
-      "Upload your JPG image",
-      "Conversion happens instantly in your browser",
-      "Download the PNG file",
+      "Upload your JPG",
+      "Conversion runs in the browser",
+      "Download the PNG",
     ],
     faq: [
-      { q: "Will the image quality improve?", a: "Converting to PNG won't recover quality lost during JPG compression, but it prevents any further quality degradation from re-saving." },
-      { q: "Will the file be larger?", a: "Usually yes. PNG uses lossless compression, which produces larger files than JPG for photos." },
+      { q: "Will PNG be higher quality than my JPG?", a: "No — not for the content itself. JPG's lossy compression already discarded some data, and converting to PNG just wraps what's left in a lossless container. The PNG won't *look* worse than the JPG, but it won't look better either. What PNG prevents is *further* loss if you were planning to re-save and re-export." },
+      { q: "Why is the PNG file way bigger than the JPG?", a: "That's expected. PNG is lossless; JPG is lossy and very efficient for photographs. A 500 KB JPG commonly becomes a 3-5 MB PNG. If file size matters, stay on JPG or try WebP." },
+      { q: "When is JPG → PNG actually the right move?", a: "When you need to composite the image with transparency, when you're pasting into a tool or pipeline that only accepts PNG, or when an AI/image-editor workflow is going to re-save many times and you want to avoid repeated lossy compression." },
+      { q: "Does converting add transparency?", a: "No — the output is opaque. PNG *supports* transparency, but the source JPG has no alpha channel, so there's nothing to be transparent. You'd need to add transparency manually with a background remover or image editor." },
+      { q: "Is my file uploaded?", a: "No. Conversion runs in your browser. The image never touches a server." },
     ],
-    related: ["png-to-jpg", "svg-to-png", "compress-image", "resize-image"],
+    related: ["png-to-jpg", "svg-to-png", "compress-image", "background-remover"],
+    whyUs: "Most JPG-to-PNG converters are identical under the hood — the difference is whether they upload your photo and show you ads. This one does neither. Local conversion, no account, no watermark.",
   },
   "heic-to-jpg": {
     longDescription:
@@ -258,17 +282,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "svg-to-png": {
     longDescription:
-      "Convert SVG vector graphics to PNG raster images. Needed when a website, app, or document doesn't support SVG, or when you need a fixed-resolution image from a vector source.",
+      "Rasterize an SVG to a PNG at a specific size. Needed when the target doesn't support SVG — many CMS uploaders, a lot of older Slack/Discord embeds, almost every email client, and some app store asset requirements. Also useful when you want a fixed-pixel version of a logo to drop into a slide deck or a social media post.\n\nThe SVG is rendered in the browser using the native rasterizer, so fonts, filters, and gradients render the same way they'd show up in a browser tab — which is usually what you want, since most SVGs are designed to be viewed in browsers. Pick an output width, the tool scales the SVG proportionally.",
     steps: [
-      "Upload your SVG file",
-      "The vector is rendered to a PNG image",
-      "Download the PNG result",
+      "Upload your SVG",
+      "Pick an output width (or use the SVG's native size)",
+      "Download the PNG",
     ],
     faq: [
-      { q: "What resolution is the output?", a: "The SVG is rendered at its defined size. The output matches the viewBox dimensions of the SVG." },
-      { q: "Is transparency preserved?", a: "Yes. Transparent areas in the SVG remain transparent in the output PNG." },
+      { q: "What size does the PNG come out at?", a: "By default, whatever the SVG's viewBox or width/height attributes specify. Most icons are 24×24 or 64×64 in their viewBox; render them at a custom width (say, 512px) to get a higher-resolution raster suitable for retina displays." },
+      { q: "Is transparency preserved?", a: "Yes. Anything transparent in the SVG stays transparent in the PNG. If you want a solid background, add a `background:white` wrapper in the SVG before converting or flatten in an image editor afterward." },
+      { q: "What if my SVG uses a custom font?", a: "If the font is embedded in the SVG (via CSS `@font-face` with a data URL), it renders correctly. If the SVG just references a font by name ('Inter'), the rasterizer falls back to whatever your browser has available. Convert fonts to paths before export for reliable rendering." },
+      { q: "Why does my rendered PNG look slightly different from the SVG in a design tool?", a: "Figma, Illustrator, and browser renderers don't always agree on subpixel rendering, gradient interpolation, or filter effects. Usually the difference is invisible; occasionally a feathered shadow or gradient looks subtly different. Test at the target size to confirm." },
+      { q: "Is my SVG uploaded?", a: "No. Rendering runs in your browser. SVGs sometimes contain sensitive content (product mockups, client logos, unreleased designs) — keeping them local matters." },
     ],
-    related: ["png-to-jpg", "compress-image", "resize-image", "jpg-to-png"],
+    related: ["png-to-jpg", "ico-converter", "favicon-generator", "jpg-to-png"],
+    whyUs: "Online SVG-to-PNG converters often re-host your file briefly for 'processing', and most of them force a max output size unless you pay. This one renders locally, at whatever size you pick, with no upload and no cap.",
   },
   "ocr-image": {
     longDescription:
@@ -289,17 +317,21 @@ const content: Record<string, ToolSEOContent> = {
   // ─── TEXT & CODE ───
   "json-formatter": {
     longDescription:
-      "Format and beautify messy JSON data with proper indentation. Paste minified or ugly JSON and get clean, readable output. Validates your JSON and highlights errors if the syntax is invalid.",
+      "Paste a minified JSON blob, get it properly indented and color-coded. The situation you use this for: an API returned a single 5,000-character line with no whitespace, and you need to read it. Or a log file contains JSON that was serialized compact, and diffing it is impossible until you format it.\n\nAlso validates as it formats — if your JSON is broken, the error shows up with a line and column pointer so you can find the stray comma or missing quote. Configurable indent (2 or 4 spaces, tab), sort keys alphabetically if you want canonical output, and a collapse/expand tree view for deeply nested structures.",
     steps: [
-      "Paste or type your JSON data",
-      "The JSON is formatted and validated instantly",
-      "Copy or download the formatted result",
+      "Paste your JSON",
+      "See it formatted, with any syntax errors flagged",
+      "Copy the clean output",
     ],
     faq: [
-      { q: "Does it validate JSON syntax?", a: "Yes. If your JSON has syntax errors, the tool will show you what's wrong so you can fix it." },
-      { q: "Can I format large JSON files?", a: "Yes. Text input up to 500 KB is supported." },
+      { q: "Does it validate as well as format?", a: "Yes. Formatting a broken JSON string doesn't really make sense, so the parser runs first. If there's an error, you get the exact line and character where it fails — way more useful than 'Unexpected token' with no context." },
+      { q: "Can I format huge files?", a: "Input up to around 1 MB formats without noticeable lag. Bigger than that and the browser starts to feel it since rendering syntax-highlighted output is the expensive step. For massive JSON, format a section at a time." },
+      { q: "Can I sort keys alphabetically?", a: "Yes, there's a sort-keys toggle. Useful when you're diffing two JSON documents that should be equivalent but have keys in different orders — canonical output makes the diff clean." },
+      { q: "What indent should I use?", a: "Two spaces is what most codebases use and the GitHub-preferred convention. Four spaces is fine too. Tabs are available if your project uses tabs — no judgment." },
+      { q: "Is my JSON sent anywhere?", a: "No. Formatting runs in your browser. API responses with user data, webhook payloads with secrets, internal configs — none of it leaves your device." },
     ],
-    related: ["csv-to-json", "yaml-json", "js-minifier", "xml-formatter"],
+    related: ["json-validator", "json-to-yaml", "json-to-csv", "json-to-typescript"],
+    whyUs: "JSONLint and the other classics work fine, but most are cluttered with ads or push you toward 'pro' tiers for longer input. This one is fast, local, and doesn't interrupt your workflow.",
   },
   "word-counter": {
     longDescription:
@@ -321,45 +353,57 @@ const content: Record<string, ToolSEOContent> = {
   },
   "base64-codec": {
     longDescription:
-      "Encode text to Base64 or decode Base64 strings back to plain text. Commonly used for data URIs, API authentication tokens, email encoding, and embedding data in URLs or JSON.",
+      "Encode text to Base64, or decode a Base64 string back to what it started as. Comes up constantly — Basic Auth headers, data URIs for embedded images, JWT payloads, API keys passed through systems that only speak ASCII. Any time a binary payload needs to survive a text-only channel.\n\nAlso handles URL-safe Base64 (the variant that swaps +/= for -_ so it can safely appear in URLs without percent-encoding), which is what you want for JWT headers and a few modern APIs. If you're unsure which variant to pick: standard Base64 for email and most general use; URL-safe when the result goes into a URL or JWT.",
     steps: [
-      "Choose Encode or Decode mode",
+      "Pick encode or decode",
       "Paste your text or Base64 string",
-      "Get the result instantly",
+      "Copy the result",
     ],
     faq: [
-      { q: "What is Base64 encoding?", a: "Base64 converts binary data or text into ASCII characters. It's used to safely transmit data through systems that only support text, like email or URLs." },
-      { q: "Is Base64 encryption?", a: "No. Base64 is encoding, not encryption. Anyone can decode a Base64 string. It's for data formatting, not security." },
+      { q: "What is Base64 for, exactly?", a: "Getting binary-ish data through channels that only accept printable ASCII — email bodies (MIME attachments), URLs (with the URL-safe variant), JSON fields that need to carry bytes. It grows the data by about 33%, which is the trade for being text-safe." },
+      { q: "Is Base64 encryption?", a: "No — and this is the single most common misconception. Base64 is encoding: it's a trivially reversible transformation, not a secret. Anyone can decode a Base64 string back to the original bytes. If you need something private, use actual encryption (our text-encrypt-decrypt tool uses AES-GCM)." },
+      { q: "When should I use URL-safe Base64 instead of standard?", a: "Any time the result will appear in a URL path or query string, or inside a JWT. Standard Base64 uses + and / characters, which have special meaning in URLs. URL-safe Base64 uses - and _ instead, avoiding the need for percent-encoding." },
+      { q: "What's the deal with padding (=)?", a: "Base64 pads output to multiples of 4 characters using =. Some systems strip the padding (JWTs do this); others require it (MIME). If a decoder complains about bad input, the missing padding is often the cause — the tool adds it automatically where needed." },
+      { q: "Is my text sent anywhere?", a: "No. Encoding and decoding run in your browser. Safe for tokens, API keys, or any string that shouldn't get logged by a third party." },
     ],
-    related: ["json-formatter", "js-minifier", "markdown-to-html", "word-counter"],
+    related: ["text-encrypt-decrypt", "url-encoder-decoder", "hash-generator", "jwt-decoder"],
+    whyUs: "Base64 encoders are everywhere, but most bundle analytics scripts that capture exactly the string you paste — which, for tokens and API keys, is the wrong default. This one doesn't even have analytics, let alone logging.",
   },
   "markdown-to-html": {
     longDescription:
-      "Convert Markdown text to clean HTML. Preview the rendered output and download the HTML file. Perfect for blog posts, documentation, README files, and any Markdown-to-web workflow.",
+      "Paste Markdown, get clean HTML out, with a live preview showing what it'll actually render as. For bloggers prepping a post, developers writing README content, anyone writing docs in Markdown and needing to paste the result somewhere that expects HTML — or just a way to see 'does this Markdown syntax actually work'.\n\nSupports GitHub Flavored Markdown out of the box (tables, fenced code blocks, task lists, strikethrough) alongside CommonMark. The HTML output is semantic — proper <h1>/<h2>, <ul>/<li>, <code>, <blockquote> — not the div-soup some converters produce.",
     steps: [
-      "Paste your Markdown text",
-      "See the rendered HTML preview in real time",
-      "Download the HTML file",
+      "Paste your Markdown",
+      "See the rendered preview update live",
+      "Copy the HTML or download as a file",
     ],
     faq: [
-      { q: "Which Markdown features are supported?", a: "Standard Markdown including headings, bold, italic, links, images, code blocks, lists, blockquotes, and tables." },
-      { q: "Is the HTML output clean?", a: "Yes. The output is semantic HTML without unnecessary wrappers or inline styles." },
+      { q: "Which Markdown flavor does it use?", a: "GitHub Flavored Markdown (GFM) on top of CommonMark, which is what most modern tools expect. That means tables, fenced code blocks with syntax highlighting, task lists, autolinks, and strikethrough all work as you'd expect if you write on GitHub, Obsidian, or a static site generator like Hugo or Astro." },
+      { q: "How is code handled?", a: "Fenced code blocks (triple-backtick) become <pre><code> with a language class, which any syntax highlighter (Prism, Highlight.js) can pick up. Inline code (single-backtick) becomes <code>. You don't get highlighting in the output by default — that's a render-time concern." },
+      { q: "Are inline HTML tags allowed?", a: "Yes. Markdown lets you drop HTML into the source for things it doesn't have syntax for (custom <div>, <iframe>, special spans). Those pass through unchanged. This is a feature, not a bug — but it means you shouldn't trust Markdown from untrusted sources without sanitizing the HTML output." },
+      { q: "What about images?", a: "![alt](src) becomes <img src='src' alt='alt'>. External URLs stay external; the tool doesn't re-host anything. If your Markdown uses data URIs, those pass through too — though the resulting HTML can get huge." },
+      { q: "Is my Markdown sent anywhere?", a: "No. Rendering happens entirely in your browser. Useful because Markdown drafts often contain sensitive copy, work-in-progress ideas, or internal documentation you don't want leaving your device." },
     ],
-    related: ["json-formatter", "word-counter", "diff-checker", "css-minifier"],
+    related: ["html-to-markdown", "html-beautifier", "word-counter", "json-formatter"],
+    whyUs: "Most online Markdown converters wrap the conversion in an 'account' funnel or throw ads between you and the output. This one previews live, converts instantly, and doesn't ask who you are.",
   },
   "diff-checker": {
     longDescription:
-      "Compare two pieces of text side by side and see the differences highlighted. Find changes between code versions, document edits, or configuration files. Additions, deletions, and modifications are color-coded.",
+      "Paste two versions of the same thing side by side, see what's different, color-coded. For comparing config files before and after a change, checking which lines got edited in a contract draft, spotting what a teammate changed in a snippet they pasted into Slack, or verifying that two 'identical' files actually are.\n\nSupports both line-level diffs (what GitHub shows in a pull request) and character-level diffs (more granular — useful when a small change inside a line matters, like a single config value). Handles whitespace the way you'd expect: ignore-whitespace mode treats '  foo' and 'foo' as equal, which is often what you want when diffing code that's been auto-formatted differently.",
     steps: [
-      "Paste the original text on the left",
-      "Paste the modified text on the right",
-      "Differences are highlighted automatically",
+      "Paste the original on the left",
+      "Paste the modified version on the right",
+      "Read the highlighted differences",
     ],
     faq: [
-      { q: "Can I compare code files?", a: "Yes. The diff checker works with any text content including source code, configs, and documentation." },
-      { q: "How are changes highlighted?", a: "Added lines are shown in green, removed lines in red, and unchanged lines in the default color." },
+      { q: "Line diff or character diff — what's the difference?", a: "Line diff is what Git and GitHub show — whole lines are marked added/removed. Character diff goes deeper, highlighting the specific characters that changed within a line. For config files and most code, line diff is clearer. For prose (where one sentence changes one word), character diff is more precise." },
+      { q: "Can I ignore whitespace differences?", a: "Yes. Useful when comparing two files that were formatted differently — one with tabs, one with spaces, or one pretty-printed and one minified. Ignore-whitespace treats those as equal and only highlights real content changes." },
+      { q: "Can I compare code?", a: "Yes — any text, any language. The diff doesn't know syntax; it just compares strings line by line. If you need syntax-aware diffing (knowing that a refactor is equivalent to the original), you need a more specialized tool like AST diff." },
+      { q: "What if the two versions are totally different?", a: "You'll get a diff where most lines are added or removed, which is the correct output. Diff isn't great at finding 'matching chunks' in texts that diverge too much — if the two inputs have almost nothing in common, you'll just see two lists." },
+      { q: "Is my text uploaded?", a: "No. Comparison runs in your browser. Safe to diff sensitive configs, contracts, or internal code — nothing leaves your device." },
     ],
-    related: ["json-formatter", "word-counter", "js-minifier", "css-minifier"],
+    related: ["find-and-replace", "word-counter", "json-formatter", "regex-tester"],
+    whyUs: "Diffchecker and the other big tools work, but push you hard toward signup for 'save history' features and put ads between the two panes. This one is a single page that compares and shows the result, no account prompt, no ads.",
   },
   "js-minifier": {
     longDescription:
@@ -451,18 +495,21 @@ const content: Record<string, ToolSEOContent> = {
   // ─── GENERATOR ───
   "qr-code": {
     longDescription:
-      "Generate QR codes from any text or URL. Create scannable codes for links, Wi-Fi passwords, contact info, or any text content. Download as a high-quality PNG image ready to print or share.",
+      "Turn a URL, text, Wi-Fi password, or vCard contact into a scannable QR code. The everyday uses: linking to a website from a poster, sharing Wi-Fi credentials without typing, putting a menu or form link on a physical item, generating event tickets or coupon codes.\n\nDownload as high-resolution PNG for screen use, or SVG for clean printing at any size. QR codes have built-in error correction, so you can choose how much scanning margin you want — higher correction tolerates more damage (important if the code will be printed small or on a curved surface), lower correction produces a denser pattern.",
     steps: [
-      "Enter the text or URL you want to encode",
-      "A QR code is generated instantly",
-      "Download the QR code as a PNG image",
+      "Type or paste what you want to encode",
+      "Pick output format and error-correction level",
+      "Download the QR code",
     ],
     faq: [
-      { q: "How much data can a QR code hold?", a: "QR codes can hold up to about 3,000 characters of text. For most URLs and short messages, this is more than enough." },
-      { q: "Can I customize the QR code appearance?", a: "The current version generates standard black-and-white QR codes optimized for maximum scan reliability." },
-      { q: "What resolution is the output?", a: "QR codes are generated at high resolution suitable for both screen display and print use." },
+      { q: "What can I put in a QR code?", a: "Any text — URLs are the most common, but also Wi-Fi credentials (in the WIFI: format that iPhone and Android both recognize), phone numbers (tel:), email addresses (mailto:), calendar events, and vCard contacts. The scanner handles them differently depending on what it sees." },
+      { q: "What size should the QR code be?", a: "For printed use, at least 2cm × 2cm — smaller than that and phone cameras struggle. On business cards, aim for 2.5cm+. For posters and anything scanned at a distance, scale up accordingly. SVG output lets you go bigger without pixelation." },
+      { q: "What's error correction and which level should I pick?", a: "QR codes include redundant data so they still scan when partially damaged or obscured. Levels are L (7%), M (15%), Q (25%), H (30%). Higher correction = denser pattern but more damage tolerance. L is fine for clean digital display; H is safer for printed codes that might get smudged or have a logo overlaid." },
+      { q: "Can I put a logo in the middle?", a: "Yes, but you need a high error-correction level (Q or H) so the code still scans with part of it covered. The tool doesn't overlay logos for you, but the output is clean enough to drop into any image editor and composite a logo on top." },
+      { q: "Is my text uploaded?", a: "No. QR generation runs in your browser. Useful when the content is sensitive — a one-time Wi-Fi password, a short-lived access link, an internal URL you don't want logged somewhere." },
     ],
-    related: ["color-converter", "base64-codec", "json-formatter", "word-counter"],
+    related: ["barcode-generator", "color-converter", "base64-codec", "favicon-generator"],
+    whyUs: "The big QR generator sites are dominated by 'dynamic QR' upsells that route your link through their tracker. Those have real uses, but for a simple static QR, you don't need any of that — and your URL doesn't need a middleman.",
   },
   "color-converter": {
     longDescription:
@@ -904,18 +951,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "text-encrypt-decrypt": {
     longDescription:
-      "Encrypt a message with a password so only someone with the password can read it. Uses AES-256 encryption, the same standard used by banks and governments. Decrypt instantly by entering the same password.",
+      "Scramble a piece of text with a password so only someone who knows the password can unscramble it. Good for sending a Wi-Fi password over Slack, stashing a recovery phrase in a note-taking app, or passing a secret across a channel you don't fully trust.\n\nThe encryption is AES-256-GCM with a password-derived key (PBKDF2, 250k iterations) — the same construction password managers use. Everything runs in your browser via the Web Crypto API, so neither the plaintext nor the password leave your device. Paste the ciphertext anywhere; without the password it's just noise.",
     steps: [
-      "Type or paste the text you want to encrypt",
-      "Enter a strong password",
-      "Copy the encrypted ciphertext — share it safely anywhere",
+      "Paste or type the text you want to encrypt",
+      "Enter a password you'll actually remember",
+      "Copy the ciphertext — decrypt later with the same password",
     ],
     faq: [
-      { q: "How secure is the encryption?", a: "The tool uses AES-256-GCM, a standard approved by NIST and used in banking, military, and government applications. Without the password, the encrypted text is computationally infeasible to crack." },
-      { q: "What happens if I forget the password?", a: "There is no recovery option. If you lose the password, the encrypted message cannot be decrypted — that's what makes the encryption secure." },
-      { q: "Is my text sent to a server?", a: "No. Encryption and decryption happen entirely in your browser using the Web Crypto API. Your text and password never leave your device." },
+      { q: "How strong is AES-256 in practice?", a: "Strong enough that brute-forcing the key isn't the realistic attack — guessing your password is. A 6-character dictionary password will be cracked fast; a 4-word passphrase like 'correct horse battery staple' won't, even with a determined attacker and a GPU farm. The algorithm isn't your weak link, the password is." },
+      { q: "What if I forget the password?", a: "Then the text is gone. There's no backdoor, no reset link, no 'recover via email'. That's the whole point — if the tool could recover it, so could anyone else. Write the password down somewhere physical before you close the tab." },
+      { q: "Is my text or password sent anywhere?", a: "No. Encryption runs in your browser with the Web Crypto API. Open DevTools → Network while you encrypt, and you'll see zero requests. The ciphertext that comes out is the only thing that ever leaves, and only when you copy and paste it." },
+      { q: "Can I decrypt this on another device?", a: "Yes. The ciphertext is self-contained — paste it into this tool on any device, enter the same password, and it decrypts. No account, no sync, no device binding." },
+      { q: "Is this good enough for real secrets?", a: "For 'don't want casual readers to see this' — yes, easily. For 'nation-state adversary is actively targeting me' — use Signal, age, or GPG with a hardware key. This tool is a sensible default for everyday shared secrets, not a witness-protection program." },
     ],
-    related: ["base64-codec", "qr-code", "json-formatter", "url-checker"],
+    related: ["base64-codec", "strong-password-checker", "qr-code", "hash-generator"],
+    whyUs: "Other 'encrypt text' tools often use custom ciphers or ship the password to a server for 'processing'. This one uses the browser's native crypto, does everything locally, and shows you the exact algorithm being used. No mystery, no marketing claims about 'military-grade' — just the standard thing, done correctly.",
   },
   "url-checker": {
     longDescription:
@@ -1059,18 +1109,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "url-encoder-decoder": {
     longDescription:
-      "Encode special characters in URLs or decode percent-encoded strings back to readable text. Essential for working with query parameters, API requests, and web scraping.",
+      "Takes a string with spaces, emoji, or symbols and turns it into the `%20`-style percent-encoded form that URLs need — or does the reverse when you've got a URL with a bunch of `%2F` and `%3A` in it and want to read what it actually says. Flips both ways, no mode switching required.\n\nThe common case: you're building an API request, your query parameter has an ampersand in it, and the server is parsing it as a second parameter. Encode the value and the problem goes away. Or you're reading a referer URL in a log line and it's encoded twice — paste it in, decode, decode again, and you can finally see what page sent the traffic.",
     steps: [
-      "Choose Encode or Decode mode",
-      "Paste your URL or text",
-      "Copy the encoded or decoded result",
+      "Paste the URL or text you want to encode or decode",
+      "Pick Encode or Decode",
+      "Copy the result",
     ],
     faq: [
-      { q: "What is URL encoding?", a: "URL encoding replaces special characters with a percent sign followed by two hex digits (e.g. space becomes %20). It ensures URLs are transmitted correctly." },
-      { q: "When do I need to encode a URL?", a: "Whenever you include special characters like spaces, &, =, or # in query parameters, you need to encode them so they don't break the URL structure." },
-      { q: "Does it encode the entire URL or just parts?", a: "You can encode individual query parameter values or full URL strings. Encoding a full URL preserves the slashes and protocol." },
+      { q: "When do I need to URL-encode something?", a: "Any time a string with spaces, `&`, `=`, `?`, `#`, `/`, or non-ASCII characters goes into a URL — usually a query parameter. Without encoding, the server thinks `&` starts a new parameter, or `#` starts a fragment. Encoding rewrites those as `%` escapes that survive the trip intact." },
+      { q: "What's the difference between `encodeURI` and `encodeURIComponent`?", a: "`encodeURI` preserves URL structure (it doesn't encode `/`, `?`, `#`), so it's for full URLs. `encodeURIComponent` encodes aggressively, so it's for individual parameter values. 99% of the time you want `encodeURIComponent`. This tool defaults to that behavior." },
+      { q: "Why is `+` sometimes a space and sometimes a literal plus?", a: "In the query string of an `application/x-www-form-urlencoded` body, `+` means space. In the path portion of a URL, `+` is a literal plus. Which is why `%20` is the safe way to encode a space — it means space everywhere, with no ambiguity." },
+      { q: "What about emoji and non-ASCII characters?", a: "They get encoded as multi-byte UTF-8 sequences — 🎉 becomes `%F0%9F%8E%89`. Browsers, servers, and languages that respect the URL spec will decode them correctly. If your target treats URLs as Latin-1, that's a them problem, not an encoding problem." },
+      { q: "Is double-encoding a real problem?", a: "Constantly. Someone encodes, passes the URL through a middle layer that encodes again, and now `%20` is `%2520`. If decoding once gives you something that still has `%` in it, decode again. This tool just decodes once per click — run it twice if you need to." },
     ],
-    related: ["html-entity-encoder", "base64-codec", "find-and-replace", "json-formatter"],
+    related: ["html-entity-encoder", "base64-codec", "json-formatter", "jwt-decoder"],
+    whyUs: "Some URL encoders silently use the wrong function (`encodeURI` when you wanted `encodeURIComponent`), or try to be clever and skip characters they shouldn't. This one uses the aggressive encoding that's correct for parameter values by default, and shows you the raw output — no guessing.",
   },
   "html-entity-encoder": {
     longDescription:
@@ -1124,18 +1177,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "timestamp-converter": {
     longDescription:
-      "Convert Unix timestamps to human-readable dates and times, or convert dates back to Unix timestamps. Essential for debugging APIs, log files, and database records that store epoch time.",
+      "Paste a Unix timestamp — `1714089600`, `1714089600000`, doesn't matter which — and get back a readable date in UTC and your local time. Or type a date and get the epoch value for it. Handy when you're staring at a log line that says `ts: 1713945238` and want to know whether that was yesterday or last Tuesday.\n\nIt auto-detects seconds vs milliseconds (most Unix tools use seconds; JavaScript's `Date.now()` and most databases use milliseconds), and shows both ISO 8601 and RFC 2822 formats alongside the epoch value, so you can copy whichever one your next tool wants.",
     steps: [
-      "Enter a Unix timestamp or a date/time string",
-      "Choose your target timezone",
-      "See all format conversions instantly",
+      "Paste a timestamp, or type a date",
+      "Pick a target timezone if you need one other than local",
+      "Copy the format you need — ISO, epoch seconds, epoch ms",
     ],
     faq: [
-      { q: "What is a Unix timestamp?", a: "A Unix timestamp is the number of seconds (or milliseconds) since January 1, 1970 UTC. It is the most common way to store time in databases and APIs." },
-      { q: "Does it support millisecond timestamps?", a: "Yes. Both second-precision and millisecond-precision Unix timestamps are automatically detected and converted." },
-      { q: "Can I convert to different timezones?", a: "Yes. Select any timezone and see the local date and time corresponding to the timestamp." },
+      { q: "Seconds or milliseconds — which is 'correct'?", a: "Both are correct, for different ecosystems. POSIX and most Unix tooling (including `date +%s`, Go, Python's `time.time()` truncated) use seconds. JavaScript, Java, and most databases that store `TIMESTAMP` as an integer use milliseconds. The tool auto-detects by magnitude — anything past ~year 2286 in seconds is assumed to be milliseconds." },
+      { q: "What's the Y2038 problem?", a: "32-bit signed integer timestamps overflow on Jan 19, 2038 at 03:14:07 UTC. If you're storing timestamps in `int32`, you have until 2038 to migrate to `int64`. This tool uses 64-bit math throughout and won't break until the heat death of the universe." },
+      { q: "Does it handle timezones correctly?", a: "Unix timestamps are timezone-agnostic — they're seconds since 1970-01-01 UTC, period. When you see a date displayed, that's a rendering choice. This tool shows both UTC and your local time, and you can pick any IANA timezone (America/New_York, Asia/Tokyo, etc.) to render in." },
+      { q: "What about daylight saving time?", a: "Rendering respects DST for whichever timezone you pick. So 1699398000 will render as 1:00 AM EST if it falls during the fall-back transition in New York, even though the timestamp itself is just a number. This is usually what causes 'off by one hour' bugs in applications." },
+      { q: "Can I batch-convert a list of timestamps?", a: "Not currently — one at a time in this tool. For batch conversion of a CSV column or log file, a one-liner like `awk '{print strftime(\"%c\", $1)}'` tends to be faster than a UI anyway." },
     ],
-    related: ["json-formatter", "regex-tester", "base64-codec", "url-encoder-decoder"],
+    related: ["json-formatter", "regex-tester", "cron-explainer", "jwt-decoder"],
+    whyUs: "Most timestamp converters force you to pick seconds-vs-milliseconds up front and show the result in one format. This one auto-detects, shows UTC + local + ISO + RFC side by side, and doesn't try to upsell you on a 'time utilities subscription'.",
   },
   "json-to-typescript": {
     longDescription:
@@ -1169,33 +1225,39 @@ const content: Record<string, ToolSEOContent> = {
   },
   "chmod-calculator": {
     longDescription:
-      "Calculate Unix file permission values visually. Toggle read, write, and execute checkboxes for owner, group, and others, and get the numeric chmod value and symbolic notation instantly.",
+      "Tick the read/write/execute boxes for owner, group, and others, and get the `chmod` octal number ready to paste into a terminal. Or go the other way: type `755` and see exactly which permissions that grants, so you're not just copying `chmod 777` off Stack Overflow without understanding what it does (hint: 777 is almost always wrong).\n\nShows both the numeric value (`755`) and the symbolic form (`rwxr-xr-x`) that `ls -l` prints, so you can cross-check against a directory listing without doing octal math in your head.",
     steps: [
-      "Check the permissions you want for owner, group, and others",
-      "See the numeric value (e.g. 755) and symbolic notation (rwxr-xr-x)",
-      "Copy the chmod command ready to run in your terminal",
+      "Toggle the r/w/x boxes for owner, group, others — or type an octal value",
+      "See the corresponding `chmod` command",
+      "Copy the command into your terminal",
     ],
     faq: [
-      { q: "What does chmod 755 mean?", a: "7 (rwx) for owner, 5 (r-x) for group, 5 (r-x) for others. The owner can read, write, and execute; everyone else can only read and execute." },
-      { q: "What is the difference between 644 and 755?", a: "644 is typical for files (owner can write, others read-only). 755 is typical for directories and executables (owner can write, others can execute/traverse)." },
-      { q: "Can I enter a numeric value and see the checkboxes?", a: "Yes. Enter any octal permission number and the checkboxes update to show the corresponding permissions." },
+      { q: "What does `chmod 755` actually do?", a: "Owner gets rwx (read + write + execute = 4+2+1 = 7), group and others get r-x (read + execute = 4+1 = 5). Standard for executables and directories — the owner can modify, everyone else can read and traverse. It's the default you want for a script you just `chmod +x`-ed." },
+      { q: "What's wrong with `chmod 777`?", a: "777 means 'anyone on the system can read, write, and execute this file'. On a shared system or a server, that's an open invitation — any compromised process can modify your file. Almost every time `chmod 777` 'fixes' something, the real fix is a narrower permission (usually 644 or 755) and maybe a `chown`." },
+      { q: "When do I use 644 vs 755?", a: "644 for regular files (owner can edit, others read-only). 755 for directories (you need execute/x on a directory to `cd` into it and list contents) and for scripts you want to run. A common mistake: `chmod 644` on a directory and then wondering why `ls` says 'permission denied'." },
+      { q: "What are setuid, setgid, and sticky bit?", a: "Those are the fourth-digit permissions you sometimes see as `4755` or `1777`. Setuid (`4xxx`) makes a binary run with the owner's privileges — used by `sudo`. Sticky bit (`1xxx`) on a directory means only the owner can delete their own files — used by `/tmp`. Rarely needed in day-to-day use; use them cautiously when you do." },
+      { q: "Does this work for Windows permissions too?", a: "No. Windows uses ACLs, not Unix-style rwx bits. For Windows, you're looking at `icacls` or PowerShell's `Get-Acl`/`Set-Acl`. This tool is Unix/Linux/macOS only." },
     ],
-    related: ["json-formatter", "regex-tester", "base64-codec", "timestamp-converter"],
+    related: ["http-status-codes", "cron-explainer", "regex-tester", "json-formatter"],
+    whyUs: "Other chmod calculators bury the actual output behind a wall of ads, or insist you pick between 'beginner' and 'advanced' modes. This one is one screen: boxes in, command out. No explanations you didn't ask for.",
   },
   "meta-tag-generator": {
     longDescription:
-      "Generate HTML meta tags for SEO, Open Graph, and Twitter Cards. Fill in your page title, description, and URL and get the complete set of tags to paste into your <head>.",
+      "Fill in a title, a description, a URL, and an image, get back the full `<head>` block with SEO, Open Graph, and Twitter Card tags. The set most pages actually need: title, description, canonical, og:title/description/image/url, twitter:card/title/description/image, and a reasonable robots directive.\n\nSaves you from copying a half-complete meta snippet off an old blog post and forgetting which of the 27 optional tags are the ones that matter. (Spoiler: most of them don't. The ones here do.)",
     steps: [
-      "Enter your page title, description, and URL",
-      "Add optional Open Graph image and Twitter card settings",
-      "Copy the generated meta tags into your HTML head",
+      "Type your page title, description, URL, and OG image URL",
+      "Tweak the Twitter card type if you want (summary or large_image)",
+      "Copy the `<head>` block into your site",
     ],
     faq: [
-      { q: "Which meta tags are generated?", a: "Standard SEO tags (title, description, robots), Open Graph tags (og:title, og:description, og:image, og:url), and Twitter Card tags." },
-      { q: "How long should my meta description be?", a: "Keep it between 150–160 characters. Longer descriptions get cut off in search results." },
-      { q: "Do meta tags directly affect Google rankings?", a: "The meta description does not directly affect rankings but influences click-through rate. The title tag does have SEO impact." },
+      { q: "How long should my title and description be?", a: "Title: 50-60 characters to avoid being truncated in Google. Description: 150-160 characters for the same reason. Going over doesn't hurt SEO, it just means the end gets cut with an ellipsis in search results. Write the important part first." },
+      { q: "Do meta tags actually affect my rankings?", a: "The title tag does — it's a ranking signal. The meta description doesn't directly, but it dramatically affects click-through rate, which indirectly affects how Google views the page. Treat the description like ad copy: it's what convinces someone to click." },
+      { q: "What does Open Graph do?", a: "Controls how your page looks when shared on Facebook, LinkedIn, Discord, iMessage, Slack, and basically everywhere except Twitter. If you've ever pasted a link and gotten a sad gray placeholder instead of a nice preview card, missing or broken OG tags is almost always why." },
+      { q: "Do I need separate Twitter Card tags if I have Open Graph?", a: "Twitter falls back to OG tags if Twitter-specific ones are missing, so technically no. But if you want a different image or description on Twitter specifically (shorter tagline, say), use the twitter:* tags. Otherwise OG alone is fine." },
+      { q: "What image size should I use for og:image?", a: "1200×630 is the safe default — works on Facebook, LinkedIn, Slack, Discord, iMessage. Twitter's `summary_large_image` wants at least 300×157 but up to 4096×4096; 1200×630 covers it. Keep the important content away from the edges since some platforms crop." },
     ],
-    related: ["json-formatter", "html-entity-encoder", "url-encoder-decoder", "markdown-to-html"],
+    related: ["favicon-generator", "html-entity-encoder", "url-encoder-decoder", "slug-generator"],
+    whyUs: "Most meta-tag generators either output 50 tags (most of which nobody reads) or output 5 and skip Twitter. This one picks the set that actually matters — SEO + Open Graph + Twitter — and formats them cleanly. Paste and go.",
   },
   "css-gradient-generator": {
     longDescription:
@@ -1214,18 +1276,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "http-status-codes": {
     longDescription:
-      "Look up HTTP status codes and their meanings. Find out what 404, 500, 301, or any other HTTP response code means, with descriptions and common causes for each.",
+      "Search any HTTP status code and get what it means, when it's appropriate, and the common gotchas. Use it when your API returns a code you're not sure about (418? 451? 511?), when you're designing an endpoint and need to pick the right code, or when you need to explain to someone why 200-with-an-error-in-the-body is an anti-pattern.\n\nCovers the full RFC 9110 list — standard codes (200, 301, 404, 500), extension codes (418 I'm a teapot, 451 Unavailable For Legal Reasons), and the WebDAV codes you'll encounter once every five years and then forget again.",
     steps: [
-      "Search for a status code number or keyword",
-      "See the code name, category, and full description",
-      "Learn common causes and when to use each code",
+      "Type a code number or keyword (like `redirect` or `rate limit`)",
+      "Read the name, category, and description",
+      "Copy the explanation for documentation or code review",
     ],
     faq: [
-      { q: "What do the HTTP status code ranges mean?", a: "1xx: informational, 2xx: success, 3xx: redirects, 4xx: client errors, 5xx: server errors." },
-      { q: "What is the difference between 301 and 302?", a: "301 is a permanent redirect — browsers and search engines update their cache. 302 is temporary — they keep the original URL in cache." },
-      { q: "What does a 429 status code mean?", a: "Too Many Requests. The client has sent too many requests in a given time and has been rate-limited." },
+      { q: "301 vs 302 vs 307 vs 308 — which redirect do I want?", a: "301 = permanent, can change method (rare). 302 = temporary, can change method (legacy). 307 = temporary, must preserve method. 308 = permanent, must preserve method. Modern answer: use 308 for permanent, 307 for temporary — they behave consistently across HTTP verbs. Use 301 only when you specifically want the legacy method-changing behavior (usually you don't)." },
+      { q: "What's the right code when validation fails on a POST?", a: "400 if the request was malformed (missing fields, wrong types, invalid JSON). 422 Unprocessable Entity if the request parsed correctly but the data doesn't make sense (email is valid JSON but already in use, date is valid but in the past). A lot of APIs conflate these and send 400 for everything — not ideal, but survivable." },
+      { q: "401 vs 403 — what's the difference?", a: "401 means 'you haven't authenticated, and you need to' (missing or invalid token). 403 means 'you've authenticated, but this specific resource is off-limits'. If a user is logged in but hits a page they don't have access to, that's 403. If they're not logged in at all, that's 401." },
+      { q: "Should I return 200 with an error in the body?", a: "Almost never. HTTP status codes exist precisely to communicate outcome at the transport level — that's what caches, monitoring tools, retry logic, and SDKs all key off. Returning 200 with `{error: ...}` means every consumer needs bespoke error detection, and your 5xx alerts go quiet during outages. Use the right code, put details in the body." },
+      { q: "When is 429 the right response?", a: "When you're rate-limiting a client. Usually paired with a `Retry-After` header telling them how long to back off. Common mistake: returning 503 when you really mean 'you hit a rate limit' — 503 is for 'the whole service is overloaded'; 429 is for 'you specifically are going too fast'." },
     ],
-    related: ["json-formatter", "regex-tester", "url-encoder-decoder", "base64-codec"],
+    related: ["json-formatter", "regex-tester", "jwt-decoder", "url-encoder-decoder"],
+    whyUs: "MDN is great but lists codes one-per-page — bad for skimming. This tool puts them all in one searchable view, with practical 'when would I actually use this' notes instead of just the formal RFC language.",
   },
   "css-box-shadow-generator": {
     longDescription:
@@ -1307,18 +1372,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "color-contrast-checker": {
     longDescription:
-      "Check if your text and background color combination meets WCAG accessibility contrast requirements. Get AA and AAA pass/fail results for normal and large text, and find accessible alternatives.",
+      "Paste a foreground and background color, get the contrast ratio and WCAG pass/fail for AA and AAA at normal and large text sizes. Use when you're checking whether your brand's on-trend light-gray-on-white body text is actually readable (spoiler: if it's `#999` on `#fff`, it's not).\n\nThe tool uses the WCAG 2.1 relative luminance formula, which is what automated accessibility audits (Lighthouse, axe) use. Pass the AA threshold (4.5:1 for body text, 3:1 for large/bold) and you'll pass those audits; fail it and any accessibility-conscious user will struggle to read your site.",
     steps: [
-      "Enter your foreground (text) and background colors",
-      "See the contrast ratio and WCAG AA/AAA results",
-      "Adjust colors until you pass the required level",
+      "Type or pick your text and background colors",
+      "Read the ratio and AA/AAA pass/fail grid",
+      "Adjust one of the colors until you pass at least AA",
     ],
     faq: [
-      { q: "What contrast ratio is required for WCAG AA?", a: "4.5:1 for normal text and 3:1 for large text (18pt or 14pt bold). WCAG AAA requires 7:1 for normal text and 4.5:1 for large text." },
-      { q: "What is WCAG?", a: "Web Content Accessibility Guidelines — the international standard for making web content accessible to people with visual impairments, including color blindness." },
-      { q: "Can I enter colors as HEX, RGB, or HSL?", a: "Yes. All common color formats are accepted for both foreground and background colors." },
+      { q: "What's the actual threshold I need to hit?", a: "WCAG AA requires 4.5:1 for normal text and 3:1 for large text (18pt+, or 14pt+ bold). AAA — the stricter tier — requires 7:1 and 4.5:1 respectively. AA is the legal/contractual minimum for most accessibility compliance; AAA is a nice-to-have that designers often treat as aspirational." },
+      { q: "Light gray text on white looks elegant — why does it fail?", a: "Because 'elegant' and 'readable' diverge in low contrast. Common offenders: `#999` on `#fff` (2.85:1, fails AA), `#ccc` on `#fff` (1.6:1, fails badly). Designers often get away with this because they're young, have perfect eyesight, and test on MacBook Pros with max brightness. A 50-year-old using a mid-tier Android phone in sunlight will not have the same experience." },
+      { q: "Does this work for non-text elements like buttons and icons?", a: "WCAG also specifies contrast for UI components — 3:1 for interactive elements' boundaries and for 'meaningful' graphical objects. Use the same ratio output here; apply the 3:1 threshold instead of 4.5:1. A focus ring at 2:1 against its surroundings is a common accessibility fail." },
+      { q: "What about color blindness?", a: "Contrast ratio alone doesn't cover color blindness — two colors can have great contrast but be indistinguishable to someone with deuteranopia. For that, don't rely on color alone to convey meaning: pair red/green status with icons or labels, use patterns alongside colors in charts." },
+      { q: "Can I enter HEX, RGB, or HSL?", a: "Yes — any standard CSS color format. The tool converts to linear RGB for the luminance calculation. Named colors (`tomato`, `slategray`) work too." },
     ],
-    related: ["color-converter", "css-gradient-generator", "css-box-shadow-generator", "color-palette-generator"],
+    related: ["color-converter", "css-gradient-generator", "color-palette-generator", "meta-tag-generator"],
+    whyUs: "WebAIM's checker is the gold standard but minimal. This one uses the same formula and adds side-by-side previews for normal + large text, plus clear failure reasons, without bundling you into a 'premium accessibility suite'.",
   },
   "svg-optimizer": {
     longDescription:
@@ -1417,18 +1485,21 @@ const content: Record<string, ToolSEOContent> = {
   },
   "strong-password-checker": {
     longDescription:
-      "Check how strong your password is. Get an instant score, entropy estimate, and specific feedback on what makes your password weak and how to improve it.",
+      "Type a password and see how long it would take to crack — along with entropy in bits, a zxcvbn-style score, and specific notes on what's hurting the strength (dictionary word, predictable pattern, keyboard walk, too short). No 'great password!' green checkmark for `Password1!` — the scoring actually reflects how modern cracking rigs work.\n\nEverything runs locally. The password is never sent over the network, never logged, never compared to any online database. If you want to check against known-breached passwords, use a tool that does HaveIBeenPwned's k-anonymity API — that's a different thing from measuring a password's mathematical strength, which is what this tool does.",
     steps: [
-      "Type or paste your password",
-      "See the strength score and entropy in real time",
-      "Follow the suggestions to make it stronger",
+      "Type your password",
+      "See the strength score, entropy, and crack-time estimate",
+      "Read the specific warnings — then pick a better password",
     ],
     faq: [
-      { q: "Is my password sent to any server?", a: "No. The strength check runs entirely in your browser. Your password is never transmitted anywhere." },
-      { q: "What makes a password strong?", a: "Length is the most important factor, followed by using a mix of uppercase, lowercase, numbers, and symbols. Avoiding dictionary words also matters." },
-      { q: "What is password entropy?", a: "Entropy measures how unpredictable a password is, expressed in bits. A higher entropy means the password is harder to guess or crack by brute force." },
+      { q: "Is my password sent anywhere?", a: "No. The check runs in your browser with zxcvbn-inspired logic. Open DevTools → Network while typing — zero requests. Even so, as a habit: never type your *actual* production password into a random web tool. Test a pattern like it instead." },
+      { q: "Why does `Tr0ub4dor&3` score badly?", a: "Because cracking rigs don't do dumb brute-force anymore — they use dictionaries, common substitution rules (o→0, a→@), and leaked password corpuses. 'Dictionary word + predictable number + symbol' is one of the first patterns tried. Four random words like `correct horse battery staple` is stronger and easier to remember. XKCD was right." },
+      { q: "What's a good entropy target?", a: "60 bits for anything casual, 80+ bits for anything important, 100+ bits if it's protecting money or a secrets vault. Length buys entropy faster than complexity — a 20-character all-lowercase password beats a 10-character password with 'every rule followed' almost every time." },
+      { q: "Should I just use a password manager instead?", a: "Yes. The strongest password is one you don't have to remember because a password manager generated it and fills it for you. Use this tool to check the master password for your manager (the one you *do* have to remember) — that's the one that actually needs to be strong and memorizable." },
+      { q: "What about passphrases vs passwords?", a: "Four or more random words is a great pattern for anything you have to type yourself. Avoid quotes, lyrics, and famous phrases — cracking dictionaries are full of them. Diceware-style (rolling for random words from a list) is the gold standard if you want to do it properly." },
     ],
-    related: ["password-generator", "random-number-generator", "base64-codec", "fake-data-generator"],
+    related: ["password-generator", "text-encrypt-decrypt", "hash-generator", "uuid-generator"],
+    whyUs: "Most 'password strength meters' are theater — they reward length up to a point, then call `Summer2024!` strong. This one uses scoring logic similar to Dropbox's zxcvbn, which catches the real patterns crackers use. Honest feedback beats a feel-good green bar.",
   },
   "fake-data-generator": {
     longDescription:
