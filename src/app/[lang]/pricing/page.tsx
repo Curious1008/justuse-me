@@ -92,10 +92,24 @@ function PricingContent() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-24">
       <div className="text-center mb-16">
-        <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", stiffness: 300, damping: 24 }} className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0 }} className="text-[11px] font-mono uppercase tracking-[0.6px] text-[var(--color-accent)] mb-3">
+          Pricing
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 24 }}
+          className="font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] leading-[1]"
+          style={{ fontSize: "clamp(36px, 5.5vw, 48px)", letterSpacing: "-1.5px" }}
+        >
           {t.title}
         </motion.h1>
-        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", stiffness: 300, damping: 24, delay: 0.05 }} className="text-[var(--color-text-secondary)]">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 24, delay: 0.05 }}
+          className="text-[17px] text-[var(--color-text-secondary)] max-w-lg mx-auto mt-4 leading-[1.5]"
+        >
           {t.subtitle}
         </motion.p>
       </div>

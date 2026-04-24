@@ -3,8 +3,20 @@ import type { Metadata } from "next";
 import { getToolsByCategory, getCategories } from "@/tools/registry";
 import type { Category } from "@/tools/types";
 import ToolCard from "@/components/category/ToolCard";
-import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import PageTitle from "@/components/page/PageTitle";
+import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
 import { generateCategoryBreadcrumbJsonLd } from "@/config/seo";
+
+const CATEGORY_HUES: Record<Category, number> = {
+  pdf: 15,
+  image: 280,
+  text: 230,
+  convert: 170,
+  generator: 45,
+  calculator: 200,
+  developer: 310,
+  utility: 140,
+};
 
 interface Props {
   params: Promise<{ lang: string; category: string }>;
@@ -84,13 +96,22 @@ export default async function CategoryPage({ params }: Props) {
           },
         }) }}
       />
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">
-          {cat.title}
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">
-          {cat.description}
-        </p>
+      <div className="flex items-start gap-4 mb-10">
+        <div
+          className="w-14 h-14 rounded-2xl inline-flex items-center justify-center shrink-0 font-[family-name:var(--font-sora)] text-[22px] font-bold"
+          style={{
+            background: `oklch(95% 0.04 ${CATEGORY_HUES[category as Category] ?? 0})`,
+            color: `oklch(45% 0.12 ${CATEGORY_HUES[category as Category] ?? 0})`,
+          }}
+        >
+          {cat.title.charAt(0)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[11px] font-mono uppercase tracking-[0.6px] text-[var(--color-text-muted)] mb-1">
+            Category · {tools.length} {tools.length === 1 ? "tool" : "tools"}
+          </div>
+          <PageTitle title={cat.title} lede={cat.description} />
+        </div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

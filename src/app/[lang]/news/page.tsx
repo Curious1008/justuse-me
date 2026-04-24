@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageTitle from "@/components/page/PageTitle";
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 import { getArticles } from "@/lib/articles";
 import ArticleCard from "@/components/news/ArticleCard";
@@ -83,13 +84,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
           },
         }) }}
       />
-      {/* Header */}
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3">
-          {t.news.title}
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">{t.news.description}</p>
-      </div>
+      <PageTitle eyebrow="Journal" title={t.news.title} lede={t.news.description} />
 
       {/* Category filter pills */}
       <div className="flex flex-wrap gap-2 mb-8">

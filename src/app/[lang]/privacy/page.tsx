@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageTitle from "@/components/page/PageTitle";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — JustUse.me",
@@ -7,11 +8,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
-      <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-8">
-        Privacy Policy
-      </h1>
-      <p className="text-xs text-[var(--color-text-muted)] mb-8">
-        Last updated: March 13, 2026
+      <PageTitle
+        eyebrow="Privacy policy"
+        title="Privacy"
+        lede="Last updated March 13, 2026. Plain English summary below — full details in each section."
+      />
+      <p className="text-[13px] font-mono text-[var(--color-text-muted)] mb-8 px-4 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-subtle)]">
+        The short version: your files stay in your browser. We don&apos;t run a processing server for client-side tools, we don&apos;t sell your data, and we only collect what&apos;s needed to run your account.
       </p>
 
       <div className="space-y-8 text-sm text-[var(--color-text-secondary)] leading-relaxed">

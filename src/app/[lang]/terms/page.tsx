@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageTitle from "@/components/page/PageTitle";
 
 export const metadata: Metadata = {
   title: "Terms of Service — JustUse.me",
@@ -7,11 +8,13 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
-      <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-8">
-        Terms of Service
-      </h1>
-      <p className="text-xs text-[var(--color-text-muted)] mb-8">
-        Last updated: March 13, 2026
+      <PageTitle
+        eyebrow="Terms of service"
+        title="Terms"
+        lede="Last updated March 13, 2026. Use the tools for whatever you like, within the law."
+      />
+      <p className="text-[13px] font-mono text-[var(--color-text-muted)] mb-8 px-4 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-subtle)]">
+        The short version: you own everything you process. The service is provided as-is with no warranty. Don&apos;t use it for illegal stuff, don&apos;t attack the service, and keep your own backups.
       </p>
 
       <div className="space-y-8 text-sm text-[var(--color-text-secondary)] leading-relaxed">

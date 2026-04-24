@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageTitle from "@/components/page/PageTitle";
+import { getAllTools } from "@/tools/registry";
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 
 interface Props {
@@ -73,6 +75,13 @@ export default async function AboutPage({ params }: Props) {
     ],
   };
 
+  const toolCount = getAllTools(locale).length;
+  const stats = [
+    { n: String(toolCount), l: "tools" },
+    { n: "0", l: "files uploaded" },
+    { n: String(locales.length), l: "languages" },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
       <script
@@ -83,12 +92,23 @@ export default async function AboutPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <h1 className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-6">
-        {t.about.title}
-      </h1>
-      <p className="text-[var(--color-text-secondary)] mb-10 leading-relaxed">
-        {t.about.description}
-      </p>
+      <PageTitle eyebrow="About" title={t.about.title} lede={t.about.description} />
+
+      <div className="grid grid-cols-3 gap-2.5 mb-10">
+        {stats.map((s) => (
+          <div
+            key={s.l}
+            className="text-center px-4 py-5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]"
+          >
+            <div className="font-[family-name:var(--font-sora)] text-[32px] font-bold leading-none tracking-tight text-[var(--color-text)]">
+              {s.n}
+            </div>
+            <div className="text-[11px] font-mono uppercase tracking-wider text-[var(--color-text-muted)] mt-1.5">
+              {s.l}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="space-y-10">
         <section>

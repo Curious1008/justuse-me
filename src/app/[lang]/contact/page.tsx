@@ -44,8 +44,18 @@ export default function ContactPage() {
 
   return (
     <div className="max-w-lg mx-auto px-6 py-24">
-      <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-3xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3 text-center">{t.title}</motion.h1>
-      <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="text-[var(--color-text-secondary)] text-center mb-12">{t.subtitle}</motion.p>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] font-mono uppercase tracking-[0.6px] text-[var(--color-accent)] mb-2">
+        Contact
+      </motion.div>
+      <motion.h1
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-3 leading-[1.02]"
+        style={{ fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-1.2px" }}
+      >
+        {t.title}
+      </motion.h1>
+      <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="text-[16px] text-[var(--color-text-secondary)] mb-12 leading-[1.5]">{t.subtitle}</motion.p>
 
       <AnimatePresence mode="wait">
         {sent ? (
