@@ -5,7 +5,14 @@ import { getToolById, getAllTools } from "@/tools/registry";
 import { generateToolJsonLd, generateToolBreadcrumbJsonLd } from "@/config/seo";
 import { getToolSEOContent } from "@/config/tool-seo-content";
 import ToolIcon from "@/components/tool/ToolIcon";
+import TrustChips from "@/components/tool/TrustChips";
 import ToolPageClient from "./client";
+import type { Category } from "@/tools/types";
+
+const CATEGORY_HUES: Record<Category, number> = {
+  pdf: 15, image: 280, text: 230, convert: 170,
+  generator: 45, calculator: 200, developer: 310, utility: 140,
+};
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 
 interface Props {
@@ -87,9 +94,16 @@ export default async function ToolPage({ params }: Props) {
 
   const toolName = toolT?.name || tool.name;
   const toolDesc = toolT?.description || tool.description;
+  const hue = CATEGORY_HUES[tool.category];
+  const categoryTools = allTools.filter((tt) => tt.category === tool.category && tt.id !== tool.id).slice(0, 4);
+  const specsLine = tool.inputMode === "text" ? t.tool.textInput : [
+    tool.acceptedTypes.map(tp => tp.split('/')[1]?.toUpperCase()).filter(Boolean).join(', '),
+    tool.maxFileSize && t.tool.max.replace("{size}", tool.maxFileSize >= 1024*1024 ? `${Math.round(tool.maxFileSize/1024/1024)}MB` : `${Math.round(tool.maxFileSize/1024)}KB`),
+    tool.maxFiles > 1 && t.tool.upTo.replace("{n}", String(tool.maxFiles)),
+  ].filter(Boolean).join(' · ');
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-20">
+    <div className="max-w-5xl mx-auto px-6 py-16">
       {/* JSON-LD structured data */}
       {jsonLd.map((schema, i) => (
         <script
@@ -103,31 +117,54 @@ export default async function ToolPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      {/* Hero */}
-      <div className="text-center mb-12">
-        <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] mb-2">
-          {toolName}
-        </h1>
-        <p className="text-[var(--color-text-secondary)] text-sm">
-          {toolDesc}
-        </p>
-        {tool.runtime === "browser" && !tool.inputMode && (
-          <div className="flex items-center justify-center gap-1.5 mt-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
-            <p className="text-xs text-[var(--color-accent)]">
-              {t.tool.processedLocally}
-            </p>
+      {/* Hero: left-aligned icon + eyebrow + title + trust chips; sidebar on desktop */}
+      <div className="grid gap-6 md:grid-cols-[1fr_240px] items-start mb-8">
+        <div>
+          <div className="flex items-center gap-2.5 mb-3">
+            <div
+              className="w-10 h-10 rounded-[10px] inline-flex items-center justify-center"
+              style={{ background: `oklch(95% 0.04 ${hue})`, color: `oklch(45% 0.12 ${hue})` }}
+            >
+              <ToolIcon toolId={tool.id} fallbackEmoji={tool.icon} size="sm" />
+            </div>
+            <div className="text-[11px] font-mono uppercase tracking-[0.5px] text-[var(--color-text-muted)]">
+              <Link href={localePath(locale, `/${tool.category}`)} className="hover:text-[var(--color-text-secondary)]">
+                {categoryLabel}
+              </Link>
+            </div>
           </div>
-        )}
-        <p className="text-xs text-[var(--color-text-muted)] mt-2">
-          {tool.inputMode === "text" ? t.tool.textInput : (
-            <>
-              {tool.acceptedTypes.map(tp => tp.split('/')[1]?.toUpperCase()).filter(Boolean).join(', ')}
-              {tool.maxFileSize && ` · ${t.tool.max.replace("{size}", tool.maxFileSize >= 1024*1024 ? `${Math.round(tool.maxFileSize/1024/1024)}MB` : `${Math.round(tool.maxFileSize/1024)}KB`)}`}
-              {tool.maxFiles > 1 && ` · ${t.tool.upTo.replace("{n}", String(tool.maxFiles))}`}
-            </>
+          <h1
+            className="font-[family-name:var(--font-sora)] font-bold tracking-tight leading-[1.05] text-[var(--color-text)] mb-2"
+            style={{ fontSize: "clamp(28px, 4vw, 36px)", letterSpacing: "-1px" }}
+          >
+            {toolName}
+          </h1>
+          <p className="text-[15px] leading-[1.5] text-[var(--color-text-secondary)] max-w-xl mb-4">
+            {toolDesc}
+          </p>
+          <TrustChips lang={locale} serverRuntime={tool.runtime === "server"} />
+          {specsLine && (
+            <p className="text-[11px] font-mono text-[var(--color-text-muted)] mt-3">{specsLine}</p>
           )}
-        </p>
+        </div>
+
+        {categoryTools.length > 0 && (
+          <aside className="hidden md:block rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-3.5">
+            <div className="text-[11px] font-mono uppercase tracking-[0.4px] text-[var(--color-text-muted)] mb-2">
+              {t.tool.relatedTools}
+            </div>
+            {categoryTools.map((tt) => (
+              <Link
+                key={tt.id}
+                href={localePath(locale, `/tools/${tt.id}`)}
+                className="flex items-center justify-between px-2 py-1.5 rounded-md text-[12.5px] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text)] transition-colors"
+              >
+                <span className="truncate">{t.tools[tt.id]?.name || tt.name}</span>
+                <span className="text-[var(--color-text-muted)] shrink-0 ml-2">›</span>
+              </Link>
+            ))}
+          </aside>
+        )}
       </div>
 
       {/* Per-locale advisory (e.g. language-support limitations) */}

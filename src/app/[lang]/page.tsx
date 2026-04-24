@@ -1,6 +1,6 @@
 import Link from "next/link";
-import CategoryBubbles from "@/components/home/CategoryBubbles";
 import LiveTools from "@/components/home/LiveTools";
+import HeroCtas from "@/components/home/HeroCtas";
 import { generateSiteJsonLd } from "@/config/seo";
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 import { getAllTools, getToolsByCategory } from "@/tools/registry";
@@ -104,12 +104,9 @@ export default async function HomePage({ params }: Props) {
           <p className="text-[15px] sm:text-[17px] leading-[1.55] text-[var(--color-text-secondary)] max-w-2xl">
             {t.hero.subtitle}
           </p>
-        </div>
-      </section>
 
-      {/* ───────── Search + categories (existing interactive) ───────── */}
-      <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-        <CategoryBubbles lang={locale} />
+          <HeroCtas lang={locale} />
+        </div>
       </section>
 
       {/* ───────── Live tools strip ───────── */}

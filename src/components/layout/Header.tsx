@@ -7,6 +7,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/context/ThemeContext";
 import { type Locale, localeNames, locales, localePath } from "@/lib/i18n";
 import { usePathname } from "next/navigation";
+import { openCommandK } from "@/components/search/CommandK";
+
+const searchLabels: Record<Locale, string> = {
+  en: "Search 122 tools",
+  "zh-CN": "搜索 122 个工具",
+  "zh-TW": "搜尋 122 個工具",
+};
 
 const dictionaries: Record<Locale, typeof import("@/locales/en").default.nav> = {
   en: { news: "News", pricing: "Pricing", compare: "Compare", contact: "Contact", signIn: "Sign In", signOut: "Sign Out", freePlan: "Free Plan", proPlan: "Pro Plan", upgradeToPro: "Upgrade to Pro", manageSubscription: "Manage Subscription" },
@@ -95,8 +102,35 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
             <span className="text-lg font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)]">
               justuse<span className="text-[var(--color-accent)]">.me</span>
             </span>
+            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full border border-[var(--color-border-subtle)] text-[10px] font-mono text-[var(--color-text-muted)]">
+              122 tools
+            </span>
           </motion.div>
         </Link>
+
+        {/* Inline search trigger (desktop) */}
+        <button
+          onClick={openCommandK}
+          className="hidden sm:flex items-center gap-2 flex-1 max-w-sm mx-6 px-3.5 py-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] text-sm text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] transition-colors cursor-pointer"
+          aria-label="Open search"
+        >
+          <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <span className="flex-1 text-left truncate">{searchLabels[lang]}</span>
+          <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[var(--color-border-subtle)] shrink-0">⌘K</kbd>
+        </button>
+
+        {/* Mobile search trigger */}
+        <button
+          onClick={openCommandK}
+          className="sm:hidden p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
+          aria-label="Search"
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+        </button>
 
         {/* Desktop nav */}
         <div className="hidden sm:flex items-center gap-6">

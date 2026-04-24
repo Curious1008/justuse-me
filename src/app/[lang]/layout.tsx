@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CommandK from "@/components/search/CommandK";
 import { locales, defaultLocale, getDictionary, type Locale } from "@/lib/i18n";
 
 export async function generateStaticParams() {
@@ -64,6 +65,7 @@ export default async function LangLayout({
       <Header lang={locale} />
       <main className="flex-1">{children}</main>
       <Footer lang={locale} />
+      <CommandK lang={locale} />
     </AuthProvider>
   );
 }
