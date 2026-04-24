@@ -99,6 +99,11 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
             className="flex items-center gap-2.5"
           >
+            <svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true" className="shrink-0">
+              <rect width="48" height="48" rx="10" fill="#1A1A1A" />
+              <path d="M16 16 L30 24 L16 32 Z" fill="#E11D48" />
+              <rect x="30" y="16" width="4" height="16" rx="1.5" fill="#FAFAF8" />
+            </svg>
             <span className="text-lg font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)]">
               justuse<span className="text-[var(--color-accent)]">.me</span>
             </span>

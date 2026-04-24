@@ -184,7 +184,7 @@ export function generateSiteJsonLd() {
         "Clean, ad-free online tools. Your files never leave your device.",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.justuse.me/favicon.png",
+        url: "https://www.justuse.me/icon.svg",
         width: 48,
         height: 48,
       },

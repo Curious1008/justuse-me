@@ -11,39 +11,16 @@ export default function AppleIcon() {
           width: 180,
           height: 180,
           borderRadius: 40,
-          background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
+          background: "#1A1A1A",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          position: "relative",
         }}
       >
-        {/* Teal accent dot */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 36,
-            right: 40,
-            width: 28,
-            height: 28,
-            borderRadius: 14,
-            background: "linear-gradient(135deg, #2DD4BF 0%, #0D9488 100%)",
-          }}
-        />
-        {/* J letterform */}
-        <span
-          style={{
-            fontSize: 108,
-            fontWeight: 700,
-            color: "#F1F5F9",
-            lineHeight: 1,
-            letterSpacing: -4,
-            marginTop: -8,
-            marginRight: 4,
-          }}
-        >
-          J
-        </span>
+        <svg width="180" height="180" viewBox="0 0 48 48">
+          <path d="M16 16 L30 24 L16 32 Z" fill="#E11D48" />
+          <rect x="30" y="16" width="4" height="16" rx="1.5" fill="#FAFAF8" />
+        </svg>
       </div>
     ),
     { ...size }

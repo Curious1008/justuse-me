@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#FAFAF8"/>
-  <text x="16" y="23" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="20" fill="#0D9488" text-anchor="middle">J</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="12" fill="#1A1A1A"/>
+  <path d="M16 16 L30 24 L16 32 Z" fill="#E11D48"/>
+  <rect x="30" y="16" width="4" height="16" rx="1.5" fill="#FAFAF8"/>
 </svg>
