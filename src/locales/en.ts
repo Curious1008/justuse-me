@@ -189,7 +189,7 @@ const en = {
 
   // ─── Login ───
   login: {
-    title: "Welcome back",
+    title: "Sign in to justuse.me",
     subtitle: "Sign in to track your usage and unlock Pro features.",
     google: "Continue with Google",
     error: "Sign in failed. Please try again.",

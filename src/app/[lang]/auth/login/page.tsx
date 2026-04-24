@@ -7,9 +7,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { type Locale, localePath } from "@/lib/i18n";
 
 const dict: Record<Locale, { title: string; subtitle: string; google: string; error: string; termsPrefix: string; and: string }> = {
-  en: { title: "Welcome back", subtitle: "Sign in to track your usage and unlock Pro features.", google: "Continue with Google", error: "Sign in failed. Please try again.", termsPrefix: "By signing in, you agree to our", and: "and" },
-  "zh-CN": { title: "欢迎回来", subtitle: "登录以跟踪使用情况并解锁专业版功能。", google: "使用Google账号登录", error: "登录失败，请重试。", termsPrefix: "登录即表示您同意我们的", and: "和" },
-  "zh-TW": { title: "歡迎回來", subtitle: "登入以追蹤使用情況並解鎖專業版功能。", google: "使用Google帳號登入", error: "登入失敗，請重試。", termsPrefix: "登入即表示您同意我們的", and: "和" },
+  en: { title: "Sign in to justuse.me", subtitle: "Sign in to track your usage and unlock Pro features.", google: "Continue with Google", error: "Sign in failed. Please try again.", termsPrefix: "By signing in, you agree to our", and: "and" },
+  "zh-CN": { title: "登录 justuse.me", subtitle: "登录以跟踪使用情况并解锁专业版功能。", google: "使用Google账号登录", error: "登录失败，请重试。", termsPrefix: "登录即表示您同意我们的", and: "和" },
+  "zh-TW": { title: "登入 justuse.me", subtitle: "登入以追蹤使用情況並解鎖專業版功能。", google: "使用Google帳號登入", error: "登入失敗，請重試。", termsPrefix: "登入即表示您同意我們的", and: "和" },
 };
 
 const termsLabels: Record<Locale, { terms: string; privacy: string }> = {

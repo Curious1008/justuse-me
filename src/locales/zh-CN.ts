@@ -189,7 +189,7 @@ const zhCN = {
 
   // ─── Login ───
   login: {
-    title: "欢迎回来",
+    title: "登录 justuse.me",
     subtitle: "登录以跟踪使用量并解锁专业版功能。",
     google: "使用 Google 登录",
     error: "登录失败，请重试。",

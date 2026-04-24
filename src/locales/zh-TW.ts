@@ -189,7 +189,7 @@ const zhTW = {
 
   // ─── Login ───
   login: {
-    title: "歡迎回來",
+    title: "登入 justuse.me",
     subtitle: "登入以追蹤使用量並解鎖 Pro 功能。",
     google: "使用 Google 繼續",
     error: "登入失敗，請重試。",
