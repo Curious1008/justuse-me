@@ -103,7 +103,7 @@ export default async function ToolPage({ params }: Props) {
   ].filter(Boolean).join(' · ');
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-16">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
       {/* JSON-LD structured data */}
       {jsonLd.map((schema, i) => (
         <script

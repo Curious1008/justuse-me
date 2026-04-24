@@ -307,7 +307,7 @@ function LiveWordCounter() {
         rows={4}
         className="w-full resize-none px-3 py-2.5 text-[13px] rounded-[10px] bg-[var(--color-surface-elevated)] border border-[var(--color-border-subtle)] text-[var(--color-text)] focus:outline-none focus:border-[var(--color-accent)] leading-[1.5]"
       />
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {items.map(([k, v]) => (
           <div
             key={k}

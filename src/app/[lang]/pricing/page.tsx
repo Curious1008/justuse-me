@@ -101,7 +101,7 @@ function PricingContent() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-20">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
       <div className="text-center mb-14">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] font-mono uppercase tracking-[0.6px] text-[var(--color-accent)] mb-3">
           {t.eyebrow}
@@ -111,7 +111,7 @@ function PricingContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
           className="font-bold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)] leading-[1.02]"
-          style={{ fontSize: "clamp(40px, 6vw, 60px)", letterSpacing: "-1.8px" }}
+          style={{ fontSize: "clamp(32px, 7vw, 60px)", letterSpacing: "-1.8px" }}
         >
           {t.title}
         </motion.h1>
