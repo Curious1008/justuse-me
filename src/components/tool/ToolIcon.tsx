@@ -1,5 +1,14 @@
 "use client";
 
+import { getToolById } from "@/tools/registry";
+import CatIcon from "@/components/icons/CatIcon";
+import type { Category } from "@/tools/types";
+
+const CATEGORY_HUES: Record<Category, number> = {
+  pdf: 15, image: 280, text: 230, convert: 170,
+  generator: 45, calculator: 200, developer: 310, utility: 140,
+};
+
 const S = (d: string) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
     <path strokeLinecap="round" strokeLinejoin="round" d={d} />
@@ -147,18 +156,32 @@ const iconMap: Record<string, { bg: string; color: string; svg: React.ReactNode 
 
 interface ToolIconProps {
   toolId: string;
+  /** @deprecated emojis are no longer rendered; kept for backward compat */
   fallbackEmoji?: string;
   size?: "sm" | "md";
 }
 
-export default function ToolIcon({ toolId, fallbackEmoji, size = "md" }: ToolIconProps) {
+export default function ToolIcon({ toolId, size = "md" }: ToolIconProps) {
   const icon = iconMap[toolId];
+  const sizeClass = size === "md" ? "w-11 h-11" : "w-8 h-8";
+  const iconSize = size === "md" ? 22 : 16;
 
   if (!icon) {
-    return <span className={size === "md" ? "text-2xl" : "text-lg"}>{fallbackEmoji || "🔧"}</span>;
+    const tool = getToolById(toolId);
+    const cat = tool?.category;
+    const hue = cat ? CATEGORY_HUES[cat] : 0;
+    return (
+      <div
+        className={`${sizeClass} rounded-xl flex items-center justify-center tool-icon-bg`}
+        style={{
+          background: `oklch(95% 0.04 ${hue})`,
+          color: `oklch(45% 0.12 ${hue})`,
+        }}
+      >
+        {cat ? <CatIcon category={cat} size={iconSize} /> : null}
+      </div>
+    );
   }
-
-  const sizeClass = size === "md" ? "w-11 h-11" : "w-8 h-8";
 
   return (
     <div className={`${sizeClass} rounded-xl ${icon.bg} ${icon.color} flex items-center justify-center tool-icon-bg`}>

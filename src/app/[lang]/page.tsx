@@ -1,10 +1,29 @@
 import Link from "next/link";
 import LiveTools from "@/components/home/LiveTools";
 import HeroCtas from "@/components/home/HeroCtas";
+import SmartPicks from "@/components/home/SmartPicks";
+import CategoryCards from "@/components/home/CategoryCards";
+import CatIcon from "@/components/icons/CatIcon";
 import { generateSiteJsonLd } from "@/config/seo";
 import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
 import { getAllTools, getToolsByCategory } from "@/tools/registry";
 import type { Category } from "@/tools/types";
+
+function pickReason(lang: Locale): string {
+  const d = new Date();
+  const day = d.getDay();
+  const h = d.getHours();
+  const part = h < 5 ? "late night" : h < 12 ? "morning" : h < 17 ? "afternoon" : h < 21 ? "evening" : "night";
+  if (lang === "en") {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return `${days[day]} ${part} — tuned to what people usually reach for now`;
+  }
+  const daysCN = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const daysTW = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+  const partMap: Record<string, string> = { "late night": "深夜", morning: "上午", afternoon: "下午", evening: "晚上", night: "夜晚" };
+  const names = lang === "zh-TW" ? daysTW : daysCN;
+  return `${names[day]}${partMap[part]} — 根据此刻常用工具调整`;
+}
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -135,6 +154,18 @@ export default async function HomePage({ params }: Props) {
         }}
       />
 
+      {/* ───────── Picked for you, right now ───────── */}
+      <SmartPicks lang={locale} reason={pickReason(locale)} />
+
+      {/* ───────── Browse by category (cards) ───────── */}
+      <CategoryCards
+        lang={locale}
+        categoryLabels={t.categories as Record<Category, string>}
+        categoryBlurbs={Object.fromEntries(
+          CATEGORY_ORDER.map((c) => [c, t.categoryPage[c]?.description ?? ""])
+        ) as Record<Category, string>}
+      />
+
       {/* ───────── Full crawlable tool list (SEO) ───────── */}
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="mb-6">
@@ -160,13 +191,13 @@ export default async function HomePage({ params }: Props) {
             >
               <div className="flex items-center gap-2.5 flex-wrap mb-3">
                 <div
-                  className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-[13px] font-semibold"
+                  className="w-8 h-8 rounded-lg inline-flex items-center justify-center"
                   style={{
                     background: `oklch(95% 0.04 ${hue})`,
                     color: `oklch(45% 0.12 ${hue})`,
                   }}
                 >
-                  {catLabel.charAt(0)}
+                  <CatIcon category={cat} size={16} />
                 </div>
                 <h3 className="text-[17px] font-semibold font-[family-name:var(--font-sora)] tracking-tight text-[var(--color-text)]">
                   {catLabel}

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { getToolById } from "@/tools/registry";
 import { localePath, type Locale } from "@/lib/i18n";
+import ToolIcon from "@/components/tool/ToolIcon";
 
 interface ToolLinkCardProps {
   toolId: string;
@@ -21,7 +22,7 @@ export default function ToolLinkCard({ toolId, locale }: ToolLinkCardProps) {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="inline-flex items-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 hover:shadow-md transition-shadow"
       >
-        <span className="text-2xl">{tool.icon}</span>
+        <ToolIcon toolId={toolId} size="sm" />
         <div>
           <div className="font-medium text-sm">{tool.name}</div>
           <div className="text-xs text-[var(--color-text-secondary)]">{tool.description}</div>

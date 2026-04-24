@@ -4,8 +4,14 @@ import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { getAllTools } from "@/tools/registry";
-import type { ToolPlugin } from "@/tools/types";
+import type { ToolPlugin, Category } from "@/tools/types";
 import { type Locale, localePath } from "@/lib/i18n";
+import CatIcon from "@/components/icons/CatIcon";
+
+const CATEGORY_HUES: Record<Category, number> = {
+  pdf: 15, image: 280, text: 230, convert: 170,
+  generator: 45, calculator: 200, developer: 310, utility: 140,
+};
 
 const labels: Record<Locale, { placeholder: string; empty: string; hint: string; open: string }> = {
   en: { placeholder: "Search 122 tools…", empty: "No tools found for", hint: "↑↓ to navigate · ↵ to open · esc to close", open: "open" },
@@ -131,7 +137,15 @@ export default function CommandK({ lang = "en" }: { lang?: Locale }) {
                       i === index ? "bg-[var(--color-surface-elevated)]" : ""
                     }`}
                   >
-                    <span className="text-xl shrink-0">{tool.icon}</span>
+                    <div
+                      className="w-7 h-7 shrink-0 rounded-lg inline-flex items-center justify-center"
+                      style={{
+                        background: `oklch(96% 0.02 ${CATEGORY_HUES[tool.category]})`,
+                        color: `oklch(48% 0.10 ${CATEGORY_HUES[tool.category]})`,
+                      }}
+                    >
+                      <CatIcon category={tool.category} size={15} />
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-[14px] font-medium text-[var(--color-text)] truncate">{tool.name}</div>
                       <div className="text-[12px] text-[var(--color-text-muted)] truncate">{tool.description}</div>

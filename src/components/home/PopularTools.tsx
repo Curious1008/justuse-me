@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { getToolsByCategory, getCategories } from "@/tools/registry";
+import ToolIcon from "@/components/tool/ToolIcon";
 
 const categoryMeta: Record<string, { label: string; color: string }> = {
   pdf: { label: "PDF", color: "#DC2626" },
@@ -55,7 +56,7 @@ function ToolRow({ category }: { category: string }) {
                 transition={{ type: "spring", stiffness: 400, damping: 22 }}
                 className="group relative flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)] cursor-pointer transition-all duration-200 hover:shadow-md hover:shadow-black/[0.03]"
               >
-                <span className="text-lg">{tool.icon}</span>
+                <ToolIcon toolId={tool.id} size="sm" />
                 <div>
                   <span className="text-sm font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors block whitespace-nowrap">
                     {tool.name}

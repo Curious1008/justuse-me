@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getToolsByCategory, getCategories } from "@/tools/registry";
 import type { Category } from "@/tools/types";
 import ToolCard from "@/components/category/ToolCard";
+import CatIcon from "@/components/icons/CatIcon";
 import PageTitle from "@/components/page/PageTitle";
 import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
 import { generateCategoryBreadcrumbJsonLd } from "@/config/seo";
@@ -98,13 +99,13 @@ export default async function CategoryPage({ params }: Props) {
       />
       <div className="flex items-start gap-4 mb-10">
         <div
-          className="w-14 h-14 rounded-2xl inline-flex items-center justify-center shrink-0 font-[family-name:var(--font-sora)] text-[22px] font-bold"
+          className="w-14 h-14 rounded-2xl inline-flex items-center justify-center shrink-0"
           style={{
             background: `oklch(95% 0.04 ${CATEGORY_HUES[category as Category] ?? 0})`,
             color: `oklch(45% 0.12 ${CATEGORY_HUES[category as Category] ?? 0})`,
           }}
         >
-          {cat.title.charAt(0)}
+          <CatIcon category={category as Category} size={26} />
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-[11px] font-mono uppercase tracking-[0.6px] text-[var(--color-text-muted)] mb-1">

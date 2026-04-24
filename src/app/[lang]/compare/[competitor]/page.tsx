@@ -8,6 +8,7 @@ import CompareFAQ from "../components/CompareFAQ";
 import CompareCTA from "../components/CompareCTA";
 import { getToolById } from "@/tools/registry";
 import { locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import ToolIcon from "@/components/tool/ToolIcon";
 
 export const dynamicParams = false;
 
@@ -161,7 +162,7 @@ export default async function CompareCompetitorPage({ params }: Props) {
                     href={localePath(locale, `/tools/${tool.id}`)}
                     className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors text-center"
                   >
-                    <span className="text-2xl">{tool.icon}</span>
+                    <ToolIcon toolId={tool.id} size="sm" />
                     <span className="text-xs font-medium text-[var(--color-text)]">
                       {tool.name}
                     </span>
