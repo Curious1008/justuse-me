@@ -1567,6 +1567,366 @@ const content: Record<string, ToolSEOContent> = {
     ],
     related: ["webp-to-png", "png-to-jpg", "compress-image", "svg-to-png"],
   },
+  "jwt-decoder": {
+    longDescription:
+      "Paste a JWT and see the decoded header, payload, and signature side by side. Useful when you're debugging an auth flow and need to know if the token actually carries what you think — user ID, expiry, scopes, issuer — without firing up Node or copying into a one-off script.\n\nOne thing worth stating upfront: decoding is not verification. A JWT decoder just base64-decodes the three parts. To confirm the token is authentic you need the signing key and a real JWT library. This tool is for reading tokens, not trusting them.",
+    steps: [
+      "Paste your JWT token",
+      "See the header and payload parsed as JSON",
+      "Check expiry, claims, and algorithm",
+    ],
+    faq: [
+      { q: "What's actually in a JWT?", a: "Three base64-encoded parts joined by dots: header (which says what algorithm was used), payload (the claims — sub, exp, iat, and whatever custom fields the issuer added), and signature (proof the first two parts weren't tampered with, if you have the key to verify)." },
+      { q: "Is decoding the same as verifying the token?", a: "No — and this trips people up. Decoding is free; anyone can do it. Verifying needs the signing secret or public key. A decoded payload tells you what the token claims; it does not tell you the token is legitimate. Never put sensitive data in a JWT payload expecting it to be private." },
+      { q: "Why is my token being rejected?", a: "Usually one of: expired (check 'exp' against now), wrong issuer/audience, or signed with an algorithm your server doesn't accept. The decoder shows exp as a human-readable date, which catches the 'oh, it expired 3 hours ago' case instantly." },
+      { q: "Are JWTs encrypted?", a: "No. A standard JWT is signed, not encrypted. The payload is base64-encoded, which is trivially reversible. If you need encryption, look at JWE — which is a different spec." },
+      { q: "Does my token get uploaded?", a: "No. The decoder runs in your browser; the token never leaves the page. Safe to paste production tokens you're debugging — though as a general rule, rotate any token you paste into any online tool." },
+    ],
+    related: ["base64-codec", "json-formatter", "hash-generator", "uuid-generator"],
+    whyUs: "jwt.io is the standard debugger, but between the enterprise product pitch and the sidebar ads it's gotten heavy. This one just decodes the token, shows the three parts, and gets out of your way — no sign-up, no 'try our auth platform' modal.",
+  },
+  "sql-formatter": {
+    longDescription:
+      "Paste an ugly SQL query, get it formatted properly. The classic use case: someone sent you a 200-character SELECT with no line breaks, subqueries crammed together, and inconsistent casing — and you need to read it before touching the database. This formats it into something humans can follow.\n\nSupports all the common SQL shapes: CTEs, window functions, joins, INSERT/UPDATE/MERGE, CREATE TABLE. You can pick the dialect (Postgres, MySQL, SQLite, SQL Server, BigQuery, Snowflake) so keyword recognition and casing match what your database actually uses.",
+    steps: [
+      "Paste your SQL",
+      "Pick the dialect and keyword casing",
+      "Copy the formatted query back",
+    ],
+    faq: [
+      { q: "Which SQL dialects are supported?", a: "Postgres, MySQL, SQLite, SQL Server, BigQuery, Snowflake, and a generic Standard SQL mode. Dialects differ on reserved words, quoting, and function names — picking the right one means the formatter recognizes your keywords instead of treating them as identifiers." },
+      { q: "Can I choose keyword casing?", a: "Yes — uppercase, lowercase, or preserve what you typed. Uppercase is the classic convention (SELECT, FROM, WHERE) and makes the shape of the query pop, but many modern teams prefer lowercase throughout. Both are fine." },
+      { q: "Does it preserve comments?", a: "Yes. Both line comments (--) and block comments (/* */) stay where you put them. Useful for queries where the comments explain why some join or filter exists." },
+      { q: "Will it fix a broken query?", a: "No — it's a formatter, not a linter or parser that rewrites your logic. If your SQL has a syntax error, formatted output will still have that error. Paste into your database client for the actual error message." },
+      { q: "Is my SQL sent anywhere?", a: "No. Formatting happens in your browser, so pasting a production query with real table and column names doesn't leak anything. That matters because SQL often contains schema details you'd rather not share with random tools." },
+    ],
+    related: ["json-formatter", "regex-tester", "find-and-replace", "json-validator"],
+    whyUs: "The big online SQL formatters cap free queries at a few kilobytes or wrap the tool in an 'SQL IDE' upsell. This one runs entirely client-side, has no length limit, and doesn't care who you are.",
+  },
+  "uuid-generator": {
+    longDescription:
+      "Generate UUIDs (v4 by default) in bulk. For seeding test data, creating unique keys for database records, naming files that won't collide, tracing requests through a distributed system — the situations where you need a random identifier that's overwhelmingly unlikely to repeat.\n\nDefaults to UUID v4 (random), but v1 (time-based) and v7 (time-sortable — useful for database primary keys because they don't fragment indexes the way v4 does) are available. Generate one at a time or batch thousands — all the randomness comes from the browser's crypto RNG.",
+    steps: [
+      "Choose version (v4 is standard)",
+      "Set how many you want",
+      "Click Generate and copy the list",
+    ],
+    faq: [
+      { q: "Which version should I use?", a: "v4 for most things — pure random, no ordering information, compatible with everything. v7 if you're using the UUID as a database primary key and care about index locality (v7 is time-sortable, so inserts don't scatter across the B-tree). v1 is legacy; prefer v7." },
+      { q: "Are they really unique?", a: "v4 has 122 random bits. The odds of a collision are astronomically low — generating a billion UUIDs per second for a hundred years still gives you a collision probability near zero. In practice, treat them as unique." },
+      { q: "How many can I generate at once?", a: "Up to 10,000 in a single batch without noticeable slowdown. For larger volumes, run the tool in multiple passes — there's no rate limit since it's all local." },
+      { q: "Are the UUIDs cryptographically random?", a: "Yes. They come from crypto.getRandomValues, the browser's secure RNG. Safe to use as session IDs or security-sensitive identifiers — which some libraries don't guarantee because they fall back to Math.random." },
+      { q: "Is anything logged?", a: "No. Generation is client-side, and no UUIDs are stored or transmitted. If two people generate a UUID through this tool, no one — including us — knows what either of them got." },
+    ],
+    related: ["password-generator", "random-number-generator", "hash-generator", "fake-data-generator"],
+    whyUs: "Need a UUID? The browser console can do it in one line. But when you need 500 of them, or you want v7 without writing the spec by hand, a generator saves the time. This one does both and doesn't bundle tracking.",
+  },
+  "hash-generator": {
+    longDescription:
+      "Compute a hash of text or a file — MD5, SHA-1, SHA-256, SHA-384, SHA-512. Used for verifying file integrity (did the download arrive intact?), quick content fingerprints, generating ETags, or comparing whether two blobs are byte-for-byte identical without diffing them.\n\nThe tool computes hashes in the browser using Web Crypto, which means you can hash a large file locally without uploading it anywhere. Useful when you want to verify a download against a published SHA-256 without installing a separate utility or pasting the file into a sketchy online service.",
+    steps: [
+      "Choose the hash algorithm",
+      "Paste text or drop a file",
+      "Copy the hex digest",
+    ],
+    faq: [
+      { q: "Which algorithm should I use?", a: "For integrity checks and fingerprints: SHA-256 is the default choice. MD5 and SHA-1 are broken for security purposes but still fine for non-adversarial uses like ETags or deduplication. Never use MD5 or SHA-1 for password hashing or signatures — and in fact, don't use any plain hash for passwords; use bcrypt/argon2." },
+      { q: "Can I hash a file?", a: "Yes. Drop a file in and the tool reads it in chunks and hashes it locally. Works for files well into the hundreds of MB — bounded by your browser's memory, not any upload limit." },
+      { q: "Why do two tools give different SHA-256 values for the same text?", a: "Usually a trailing newline or different line endings (\\n vs \\r\\n). Hashes change completely with a single different byte. If you're comparing against a published hash, make sure the input is byte-identical — including invisible whitespace." },
+      { q: "Is this suitable for hashing passwords?", a: "No. Plain hashes like SHA-256 are way too fast for passwords — an attacker with a GPU can try billions per second. For passwords, use bcrypt, scrypt, or argon2. This tool is for file integrity and content fingerprinting, not authentication." },
+      { q: "Does my data get uploaded?", a: "No. Hashing runs entirely in your browser, including for files. Nothing leaves your device — important if you're hashing anything confidential." },
+    ],
+    related: ["password-generator", "uuid-generator", "base64-codec", "text-encrypt-decrypt"],
+    whyUs: "Most online hash tools upload the file to their server to compute the hash — which defeats most of the security reasons you'd want a hash in the first place. This one computes locally with Web Crypto, so your file stays on your machine.",
+  },
+  "lorem-ipsum": {
+    longDescription:
+      "Generate placeholder text — the classic Lorem ipsum, plus some modern variants (Bacon ipsum, corporate ipsum, hipster ipsum) for when you want placeholder copy that doesn't scream 'unfinished design'. Specify paragraphs, sentences, or words, and copy the result into your mockup or layout.\n\nThe point of placeholder text is that it looks like real content without meaning anything — so your eye focuses on typography, spacing, and layout instead of reading the words. Lorem ipsum has been the default for 500 years precisely because it breaks reading comprehension cleanly.",
+    steps: [
+      "Pick flavor (Lorem, bacon, corporate, etc.)",
+      "Set paragraphs, sentences, or word count",
+      "Copy the generated text",
+    ],
+    faq: [
+      { q: "Why not just use real text?", a: "Because real text distracts. A designer showing a mockup to a client with actual finished copy will get feedback on the copy ('maybe change \"amazing\" to \"great\"') instead of the design. Lorem ipsum breaks that — nobody reads it, so nobody critiques it." },
+      { q: "Is Lorem ipsum actually Latin?", a: "Sort of. It's scrambled from a 1st-century Cicero text (De finibus bonorum et malorum), with words jumbled and truncated. Recognizable as Latin-looking to anyone who knows how Latin feels, but not actually readable." },
+      { q: "What about bacon ipsum, hipster ipsum, etc.?", a: "Themed variants that use English words relevant to a niche — meat terms, hipster slang, corporate buzzwords. Nice for draft mockups where the client will chuckle, or where pure Latin looks too clinical for the brand's tone." },
+      { q: "Is there a length limit?", a: "Not really. You can generate a hundred paragraphs if you need to fill a long-form article mockup — no cap, no throttling." },
+      { q: "Can I generate HTML with tags?", a: "Yes — there's an option to wrap paragraphs in <p>, add <h2> headings, and include <a> and <em> inline. Useful for seeding a real CMS with believable placeholder content." },
+    ],
+    related: ["word-counter", "fake-data-generator", "random-name-picker", "markdown-to-html"],
+    whyUs: "Lipsum.com loads, the nav doesn't, and suddenly you're fighting the site just to get five paragraphs. This one loads instantly, generates in place, and lets you grab exactly the length you need without fumbling through a menu.",
+  },
+  "html-beautifier": {
+    longDescription:
+      "Paste minified or messy HTML, get it properly indented and readable. Useful when you're inspecting a production page's source, when a build tool ate your line breaks, or when you copied a snippet from somewhere that clearly gave up on whitespace.\n\nHandles nested structure correctly — inline elements stay on the same line as their parents, block elements break onto their own lines, and things like <pre> and <textarea> have their internal whitespace preserved (because mangling the contents of a <pre> defeats the point). Configurable indent size, so 2/4/tab all work.",
+    steps: [
+      "Paste your HTML",
+      "Pick indent size",
+      "Copy the formatted output",
+    ],
+    faq: [
+      { q: "Does it break my <pre> or <textarea> contents?", a: "No — those are preserved as-is, because the whitespace inside them is meaningful. Reformatting them would change what shows up on the page. Same for inline <script> and <style>." },
+      { q: "What indent should I use?", a: "Two spaces is the most common HTML convention and what most style guides suggest. Four spaces or tabs are fine too — match whatever the rest of your codebase uses so diffs stay clean." },
+      { q: "Can it handle broken HTML?", a: "Mostly, yes. Unclosed tags, wrong nesting — the beautifier tries to format based on what's there. If the HTML is deeply broken, the output may look weird. Run it through an HTML validator if that's the actual problem." },
+      { q: "Does it touch my attributes?", a: "It aligns attributes but doesn't reorder or rewrite them. Your class, id, data-* attributes come out in the same order you put them in, just indented consistently." },
+      { q: "Is my HTML sent anywhere?", a: "No. Formatting is local. Paste production source, internal page HTML, whatever — nothing leaves your browser." },
+    ],
+    related: ["html-to-markdown", "html-entity-encoder", "js-minifier", "json-formatter"],
+    whyUs: "Most online formatters push you through a paywall for files over 50KB or splash ads on every paste. This one runs locally — no limit, no wait, no 'Pro' tier.",
+  },
+  "html-to-markdown": {
+    longDescription:
+      "Paste HTML, get Markdown back. Useful for pulling content out of a CMS or web page into a format you can edit in a plain text editor, publish to a static site, or paste into a doc that speaks Markdown (GitHub, Notion, Obsidian, Slack).\n\nHandles the common mappings the way you'd expect: <h1>–<h6> to #, <strong>/<em> to **/_, <a> to [text](url), <ul>/<ol> to bullet and numbered lists, <pre><code> to fenced code blocks. Tables convert too, though complex cells with inline HTML may get flattened.",
+    steps: [
+      "Paste the HTML",
+      "Pick output flavor (CommonMark, GFM)",
+      "Copy the Markdown",
+    ],
+    faq: [
+      { q: "Which Markdown flavor?", a: "CommonMark by default — the cleanest standardized spec. GitHub Flavored Markdown (GFM) is available for extras like tables, strikethrough, and task lists. Pick GFM if your destination is GitHub, Obsidian, or most modern static-site generators." },
+      { q: "What happens to things Markdown can't represent?", a: "Raw HTML is allowed in most Markdown flavors, so complex inline elements (custom iframes, styled spans) pass through as HTML. Purely presentational stuff (inline styles, class attributes) gets dropped since Markdown doesn't model those." },
+      { q: "How do tables convert?", a: "Simple tables (rows, header, basic cells) convert to GFM table syntax. Nested tables or cells with HTML block content get flattened — Markdown tables are a shadow of HTML tables, and there's no clean mapping for complex cases." },
+      { q: "Will my images come through?", a: "Yes. <img> becomes ![alt](src). External image URLs stay external; the tool doesn't download and re-host anything. If your images were base64 data URLs, those pass through unchanged (which can make the Markdown huge — consider extracting them separately)." },
+      { q: "Is my HTML uploaded anywhere?", a: "No. Conversion runs in your browser. Paste in content from an internal wiki or CMS without worrying about who sees the draft." },
+    ],
+    related: ["markdown-to-html", "html-beautifier", "html-entity-encoder", "json-to-markdown-table"],
+    whyUs: "The common converters bundle ads, require sign-up for 'longer documents', or drop <pre> contents. This one handles long HTML, preserves code blocks, and runs entirely client-side.",
+  },
+  "json-to-yaml": {
+    longDescription:
+      "Convert JSON to YAML, or YAML to JSON. The two formats cover roughly the same ground — JSON for APIs and machine exchange, YAML for human-edited config files (Kubernetes manifests, GitHub Actions, Docker Compose, Rails configs) — so you end up switching between them constantly.\n\nThe converter preserves types correctly: numbers stay numbers, booleans stay booleans, null is null. YAML's stricter-looking output (no quotes on simple strings, no commas) is often more readable for nested configs, which is why it won as the config-file lingua franca despite being harder to parse.",
+    steps: [
+      "Paste JSON or YAML",
+      "Pick the direction",
+      "Copy the converted output",
+    ],
+    faq: [
+      { q: "Why would I convert between them?", a: "JSON is what APIs return; YAML is what config files are written in. If you have a Kubernetes manifest in JSON and want to hand-edit it, YAML is nicer. If your Python script produces YAML but your API expects JSON, you convert. They're the same data, different clothes." },
+      { q: "What about YAML's weird type quirks?", a: "YAML has some gotchas — 'yes' and 'no' parse as booleans in YAML 1.1, 'NO' (the country code) becomes false, unquoted numbers with leading zeros get parsed as octal. The converter uses YAML 1.2 by default, which fixes most of these. If you hit a weird case, quote the value." },
+      { q: "Does it preserve comments?", a: "Only when going YAML → YAML (round-trip). JSON has no comment syntax, so YAML comments are lost when converting to JSON. This is an unavoidable limitation of JSON, not the tool." },
+      { q: "What happens to big/deeply-nested input?", a: "Conversion is essentially free — megabyte-sized YAML and JSON files convert instantly. Deeply nested structures (10+ levels) work fine too, since it's just a tree walk." },
+      { q: "Is my data uploaded?", a: "No. Everything happens in the browser. Safe to paste Kubernetes secrets, config files with passwords, whatever — nothing leaves your device." },
+    ],
+    related: ["json-formatter", "json-validator", "json-to-csv", "toml-to-json"],
+    whyUs: "There's no reason a JSON↔YAML converter needs a backend, an account, or a 'premium' tier — but most of them have all three. This one is a single page that converts in your browser.",
+  },
+  "json-to-markdown-table": {
+    longDescription:
+      "Convert a JSON array of objects into a GFM Markdown table. For turning API response data into a readable chunk you can paste into a README, a docs page, or a GitHub comment — without screenshotting a spreadsheet or writing the table by hand.\n\nThe converter looks at the first object in the array for column names, or you can specify the column order yourself. Nested objects get serialized inline; arrays get joined with commas. For deeply structured data, flattening is a lossy operation — but for flat record lists (users, products, logs), the output is clean and copy-pasteable.",
+    steps: [
+      "Paste a JSON array of objects",
+      "Optionally set column order",
+      "Copy the Markdown table",
+    ],
+    faq: [
+      { q: "What if my objects have different fields?", a: "The tool uses the union of all keys across all objects as the column set, and fills empty cells for objects that don't have a given key. That way you don't lose data, but you may get a sparse-looking table if the records are very inconsistent." },
+      { q: "How are nested values handled?", a: "Nested objects are JSON-stringified into the cell. Arrays become comma-separated values. It's lossy for complex nesting — but Markdown tables can't represent nested structure anyway, so something had to give." },
+      { q: "Can I control column order?", a: "Yes. There's an option to specify the columns and their order. By default columns appear in the order they first show up in the data, which is usually close to what you want." },
+      { q: "What about booleans, nulls, numbers?", a: "Booleans show as true/false, null as an empty string (to keep the table readable), numbers as-is. Strings with pipe characters get escaped with backslash so the table layout doesn't break." },
+      { q: "Is there a row limit?", a: "No hard cap. A few thousand rows generates instantly. For truly massive arrays, Markdown tables stop being the right format anyway — consider CSV or a real viewer." },
+    ],
+    related: ["json-to-csv", "json-formatter", "markdown-to-html", "html-to-markdown"],
+    whyUs: "This is niche enough that most people build it once as a script and never think about it again. Having it as a page — paste JSON, get a table — is faster than writing that script, and the output pastes cleanly into GitHub.",
+  },
+  "typescript-to-js": {
+    longDescription:
+      "Strip TypeScript types from a .ts file and get plain JavaScript out. Useful for quick experimentation (paste into a Node REPL, JSFiddle, the browser console), for sharing a snippet with someone who doesn't have a TS toolchain, or for when you inherited TypeScript code and just need to see what the runtime JavaScript actually looks like.\n\nThis is type-stripping, not full transpilation — the tool removes type annotations, interface declarations, and type imports, but doesn't compile newer ES syntax down to older targets. It's the fastest way to turn .ts into runnable .js when you don't need the compiler's downleveling.",
+    steps: [
+      "Paste TypeScript code",
+      "Pick target (ES2022, ES2015, etc.)",
+      "Copy the JavaScript output",
+    ],
+    faq: [
+      { q: "Is this the same as tsc?", a: "It's a subset — it strips types and transpiles syntax, like tsc would, but without the full checker. So you get JavaScript output quickly, but type errors aren't caught; they're just erased. For real projects, stick with tsc." },
+      { q: "What happens to enums, namespaces, and decorators?", a: "Enums compile to plain objects or const-ified lookups, namespaces to IIFEs (the old-school TypeScript pattern), decorators either strip or compile depending on the experimental flag. The tool handles each like a standard TS compiler would at the chosen target." },
+      { q: "Can I convert .tsx (with JSX)?", a: "Yes. JSX support is on by default. The output still contains JSX by default — pair with a React transform if you want plain React.createElement calls." },
+      { q: "What's the 'target' option for?", a: "It controls what ES version to compile down to. ES2022 keeps modern syntax (private fields, async/await, etc.). ES2015 downlevels most things, which is useful for older browsers but makes the output harder to read." },
+      { q: "Is my code uploaded?", a: "No. Transpilation runs in your browser with a local TS compiler. Paste proprietary code without worrying — nothing leaves the page." },
+    ],
+    related: ["js-minifier", "json-to-typescript", "html-to-jsx", "json-formatter"],
+    whyUs: "The TS Playground is great but heavy — slow to load, wants you to accept cookies, pushes features. For a quick 'give me the .js version' round trip, this is faster.",
+  },
+  "toml-to-json": {
+    longDescription:
+      "Convert TOML to JSON, or JSON to TOML. TOML is the config language that Rust's Cargo, Python's Poetry, and some other tools settled on — it's more explicit than YAML (no boolean-looking strings that secretly parse as true) and more readable than JSON (comments, no trailing-comma drama). Converting between them is a common need when you're integrating tools from different ecosystems.\n\nTypes survive the round trip: dates stay dates, integers stay integers, inline tables stay inline tables. The converter handles TOML's quirks (dotted keys, array-of-tables, ISO dates) correctly, which is more than you can say for a lot of the half-baked converters out there.",
+    steps: [
+      "Paste TOML or JSON",
+      "Pick direction",
+      "Copy the converted output",
+    ],
+    faq: [
+      { q: "Why does TOML exist when we have YAML and JSON?", a: "TOML was designed to be obvious — no YAML-style type-inference surprises, no JSON-style noise. It became the format for Cargo.toml, pyproject.toml, and other config files precisely because those files are edited by humans and can't afford subtle parsing weirdness." },
+      { q: "What about dates and times?", a: "TOML has native date/time support (ISO 8601). Going TOML → JSON, dates become strings (since JSON has no date type). Going the other way, strings that look like ISO dates can optionally be recognized as TOML dates." },
+      { q: "How do dotted keys convert?", a: "TOML's dotted keys (owner.name = 'Tom') expand to nested JSON objects. Array-of-tables ([[products]]) become JSON arrays of objects. The structural mapping is straightforward once you know it." },
+      { q: "Are comments preserved?", a: "Comments are preserved in TOML → TOML passes, but dropped in conversions to JSON (which has no comment syntax). Same constraint as YAML → JSON." },
+      { q: "Is there a size limit?", a: "No practical limit. Conversion runs in the browser and is fast on config-file-sized inputs (kilobytes to a few megabytes)." },
+    ],
+    related: ["json-to-yaml", "json-formatter", "xml-to-json", "json-validator"],
+    whyUs: "TOML support in online converters is hit or miss — some don't handle dates, some break on array-of-tables. This one uses a real TOML parser under the hood, so your Cargo.toml or pyproject.toml round-trips cleanly.",
+  },
+  "xml-to-json": {
+    longDescription:
+      "Convert XML to JSON, or JSON to XML. Shows up most often when you're integrating a modern REST API with a legacy SOAP service, or when you need to read a configuration file someone wrote in XML a decade ago and transform it into something your JavaScript can parse naturally.\n\nXML and JSON don't map perfectly — XML has attributes, mixed content, namespaces, and element ordering; JSON has none of those. The converter follows the common convention: attributes become @-prefixed keys, text content becomes a #text key when it coexists with children, and repeated elements become arrays.",
+    steps: [
+      "Paste XML or JSON",
+      "Pick conversion direction",
+      "Copy the result",
+    ],
+    faq: [
+      { q: "How are XML attributes represented in JSON?", a: "By default, attributes are prefixed with @ in the resulting JSON (so <user id=\"42\">Bob</user> becomes {\"user\":{\"@id\":\"42\",\"#text\":\"Bob\"}}). The exact convention is toggleable — some prefer a dedicated 'attributes' sub-object, which works better for complex XML." },
+      { q: "What about namespaces?", a: "Namespaces are preserved as part of the tag name (prefix:tag). They round-trip cleanly in both directions. XSLT-style namespace handling isn't the point of this tool — it's for quick data interchange, not XML wizardry." },
+      { q: "How are repeated elements handled?", a: "Multiple <item> siblings become a JSON array. A single <item> becomes a single object — which is a common gotcha: downstream code shouldn't assume 'one element means one object; two or more means array'. If you always want an array, use the force-array option." },
+      { q: "Will whitespace in the XML be preserved?", a: "Significant whitespace (inside mixed content) yes; between tags for pretty-printing, no. JSON has no equivalent of xml:space, so pure formatting whitespace gets dropped in the conversion." },
+      { q: "Is my data sent anywhere?", a: "No. Parsing and conversion run in your browser. Safe for enterprise config files, internal SOAP payloads, or anything else you shouldn't leak." },
+    ],
+    related: ["json-formatter", "json-to-yaml", "html-to-markdown", "toml-to-json"],
+    whyUs: "Most online XML↔JSON converters are geared toward tiny examples and choke on real enterprise XML. This one parses properly, handles namespaces and attributes, and doesn't truncate at 10KB.",
+  },
+  "barcode-generator": {
+    longDescription:
+      "Generate standard barcodes — Code 128, Code 39, EAN-13, UPC, ITF-14, and others — as clean vector images you can download and print. For inventory labels, package shipping, asset tags, event tickets, or anywhere you need a machine-readable identifier in physical form.\n\nDifferent barcode types suit different uses: Code 128 for most modern inventory (compact, alphanumeric), EAN-13 for retail products, Code 39 for ID badges and asset tags (older but widely supported). The generator lets you pick the type that matches your scanner and regulatory context, then outputs an SVG you can scale without blur or a PNG at your chosen resolution.",
+    steps: [
+      "Type the value you want to encode",
+      "Pick the barcode type (Code 128 for most cases)",
+      "Download as SVG or PNG",
+    ],
+    faq: [
+      { q: "Which barcode type should I use?", a: "Code 128 for most internal inventory use — it's compact and supports letters and numbers. EAN-13 is what you want for retail products with an assigned GTIN. Code 39 is older but still common on ID badges. ITF-14 is for shipping cases. If you're not sure, Code 128 is the safest default." },
+      { q: "SVG or PNG?", a: "SVG for print — it scales to any size without blurring, which matters because a fuzzy barcode won't scan. PNG for embedding in web pages or emails where SVG isn't supported. Both encode the same data; it's just a rendering choice." },
+      { q: "Will my scanner read it?", a: "Yes, as long as you picked the right type and the printed size is big enough. The practical minimum is about 12mm tall with a moderate resolution; smaller works for some scanners but not all. Test with the actual scanner you'll be using before printing thousands." },
+      { q: "What about QR codes?", a: "Those are a separate format (2D, much higher density) — we have a dedicated QR code generator for those. Traditional 1D barcodes are still better when you need compatibility with legacy point-of-sale scanners." },
+      { q: "Is the value I type stored?", a: "No. Generation runs in your browser; nothing is logged. Safe for encoding serial numbers, tracking IDs, or anything else you'd rather not ship to a random server." },
+    ],
+    related: ["qr-code", "favicon-generator", "placeholder-image-generator", "image-color-picker"],
+    whyUs: "Most barcode generators are either ancient-looking sites with ads or API services that charge per barcode. This one just generates locally, exports clean vectors, and doesn't try to upsell a 'barcode management platform'.",
+  },
+  "ico-converter": {
+    longDescription:
+      "Convert PNG (or other image formats) to ICO — the format Windows needs for favicon.ico and Windows application icons. ICO is different from a normal image because it can contain multiple sizes in one file (16×16, 32×32, 48×48, 256×256), which is what browsers and Windows Explorer use to pick the right rendering for each context.\n\nThe converter takes a source image (ideally a square PNG at 256×256 or bigger) and emits a multi-resolution .ico with all the standard sizes. For favicons, this is the right move — modern browsers can handle PNG favicons, but some older setups (and some corners of Windows) still expect ICO, and including it costs nothing.",
+    steps: [
+      "Upload a square image (PNG or JPG)",
+      "Pick which sizes to include",
+      "Download the .ico file",
+    ],
+    faq: [
+      { q: "Which sizes should I include?", a: "For favicons: 16×16, 32×32, and 48×48 at minimum. Including 64×64 and 256×256 helps Windows show a sharp icon in high-DPI contexts and in the taskbar. Including more sizes just makes the file slightly bigger, not slower to load." },
+      { q: "Do I still need a favicon.ico in 2026?", a: "Mostly for legacy reasons — modern browsers prefer PNG favicons declared in <link rel='icon'>. But if your site is hit by older RSS readers, email clients, or Windows-specific integrations, having /favicon.ico as a fallback is still good hygiene." },
+      { q: "What source image should I use?", a: "A square PNG at 256×256 or larger, with the design already readable at small sizes (so, simple shapes, high contrast). Drawing a detailed logo at 16×16 looks muddy — preview your icon at that size before committing." },
+      { q: "Does it preserve transparency?", a: "Yes. Transparent pixels in the source stay transparent in the ICO. For favicons shown on dark browser UIs, this matters — an opaque white background looks wrong on Safari's dark mode." },
+      { q: "Is my image uploaded?", a: "No. Conversion runs in your browser. Your brand assets stay on your device." },
+    ],
+    related: ["favicon-generator", "png-to-jpg", "compress-image", "svg-to-png"],
+    whyUs: "The dedicated ICO converters online are often full of 'sign up for the design suite' nags. This one just converts, emits a multi-res file, and doesn't ask for an email.",
+  },
+  "image-to-pdf": {
+    longDescription:
+      "Combine one or more images (JPG, PNG, WebP) into a single PDF. Classic uses: scanned receipts or documents you've photographed with your phone and need to submit as one PDF, a set of screenshots you want to share as a packet, or photos arranged for printing.\n\nYou can reorder pages by dragging, pick page size and orientation, and choose whether to scale images to fit the page or keep them at their original aspect ratio. The PDF is generated entirely in your browser — handy for sensitive documents (contracts, IDs, medical records) where uploading to a random 'image to PDF' site is a privacy risk.",
+    steps: [
+      "Drop your images",
+      "Drag to reorder if needed",
+      "Click Convert and download the PDF",
+    ],
+    faq: [
+      { q: "How many images can I combine?", a: "Up to around 50 in a single PDF without slowdown. For really long scanned documents (receipts, multi-page forms), batch in groups of 20–30 — the limit is your browser's memory, since the conversion is local." },
+      { q: "What page size should I pick?", a: "A4 is the world default; Letter (8.5×11) is standard in the US. For printing, match what your printer feeds. For screen-only use, 'fit page to image' avoids the whitespace that fixed page sizes create when your images have odd aspect ratios." },
+      { q: "Will the image quality be reduced?", a: "No — images are embedded at their original resolution by default. There's an optional compression slider if you need to shrink the final PDF for email (where total size matters more than fidelity)." },
+      { q: "Is my data sent anywhere?", a: "No. The whole conversion happens in your browser. That's the point for this kind of tool — images you'd be nervous about uploading (scanned IDs, medical documents) never leave your device." },
+      { q: "Can I add text or page numbers?", a: "This tool focuses on combining images into pages. For adding page numbers or text annotations, use our Add Page Numbers and Watermark PDF tools after creating the PDF." },
+    ],
+    related: ["merge-pdf", "jpg-to-pdf", "compress-pdf", "pdf-to-jpg"],
+    whyUs: "When you're turning ID scans or medical paperwork into a PDF, uploading to a random site is the wrong move. This one runs in your browser — files never transit a server — and doesn't add watermarks or require an account.",
+  },
+  "background-remover": {
+    longDescription:
+      "Remove the background from a photo automatically — for product shots, profile pictures, cutouts for slide decks, or any image where you want the subject isolated on transparency. The background-removal model runs in your browser using ONNX/WebGPU, so your image never gets uploaded.\n\nBrowser-based removal is slower than the cloud APIs (5–20 seconds per image vs near-instant) and the quality is usually a notch below the best commercial services — but it's free, private, and doesn't require sending your photos to a third party. For most cases (product photos, portraits with clear edges), the result is good enough to ship.",
+    steps: [
+      "Drop an image",
+      "Wait for the model to process it locally",
+      "Download the transparent PNG",
+    ],
+    faq: [
+      { q: "How does it compare to remove.bg?", a: "remove.bg has the edge on tricky cases — wispy hair, complex edges, unusual lighting — because their model is bigger and runs on beefy servers. For straightforward subjects (a product on a plain background, a portrait with clear separation), the local model holds up well. The trade-off is privacy: remove.bg sees your images; this tool doesn't." },
+      { q: "Why is it slow?", a: "Because the neural network runs on your device instead of a server cluster. First load is slowest because the model file (~40MB) has to download and initialize. Subsequent images are faster. On a modern laptop with WebGPU, expect 5–10 seconds per image." },
+      { q: "What formats work?", a: "JPG, PNG, and WebP as input. Output is always PNG with a transparent background — that's the whole point. If you need the subject on a different background color, drop the PNG into an image editor afterwards." },
+      { q: "What resolution is the output?", a: "Output matches the input resolution. Very large images (5000+ px) may run out of memory in the browser — downscale first if that happens." },
+      { q: "Is my image actually not uploaded?", a: "Confirmed — everything runs locally, and you can verify by opening the network tab in dev tools. The model loads once, then all inference is client-side. Product shots, private photos, sensitive content all stay on your device." },
+    ],
+    related: ["compress-image", "image-flip-rotate", "image-metadata-remover", "svg-optimizer"],
+    whyUs: "Cloud background removers are great but they see your image. This one trades a bit of quality and speed for the fact that your photo never leaves your browser — the right trade for personal photos, private product assets, or anything you don't want catalogued.",
+  },
+  "exif-viewer": {
+    longDescription:
+      "Inspect the EXIF metadata embedded in a photo — camera model, capture time, GPS coordinates, lens, ISO, shutter speed, and everything else your camera or phone packed into the file when you took the shot. Useful for verifying when and where a photo was actually taken, or for catching privacy leaks before you post a photo online.\n\nThe big privacy angle: most photos from smartphones contain precise GPS coordinates. If you share that photo online without stripping the metadata, anyone with a basic EXIF tool can see the location — including the location of your home, your kids' school, and so on. This viewer shows you what's there; our metadata remover strips it.",
+    steps: [
+      "Drop a photo (JPG, PNG, HEIC, TIFF)",
+      "See all metadata tags and values",
+      "Check the GPS location on a map if present",
+    ],
+    faq: [
+      { q: "Why does my photo have a GPS location?", a: "If location services are on for your camera app (the default on iPhone and most Androids), every photo gets tagged with precise latitude and longitude at the moment of capture. This data is useful for personal photo libraries but a privacy risk if you share the file directly." },
+      { q: "What EXIF tags are useful?", a: "DateTimeOriginal (when the photo was actually taken — different from the file's modification time), Make/Model (what device), ExposureTime/FNumber/ISO (the camera settings — useful for learning photography), GPSLatitude/Longitude (location), LensModel. There are hundreds of possible tags; the tool shows them all." },
+      { q: "Can EXIF be edited or faked?", a: "Yes, trivially — anyone with a tool like exiftool can change the date, GPS, camera model. So EXIF is a hint about provenance, not proof. Don't treat it as forensic evidence on its own." },
+      { q: "Does it work with HEIC (iPhone) photos?", a: "Yes. HEIC files carry the same EXIF data as JPG. The viewer decodes and displays it in the same way." },
+      { q: "Is my photo uploaded?", a: "No. Parsing runs entirely in your browser. Safe to drop in personal photos you're worried about — the tool only reads metadata locally." },
+    ],
+    related: ["image-metadata-remover", "compress-image", "image-flip-rotate", "background-remover"],
+    whyUs: "Most EXIF viewers either upload the photo to a server (which defeats the privacy use case) or only show a tiny subset of tags. This one decodes locally and shows the full metadata, GPS map included.",
+  },
+  "cron-explainer": {
+    longDescription:
+      "Paste a cron expression, see what it means in plain English and the next few times it would fire. For debugging scheduled jobs, understanding that cron someone else wrote, or sanity-checking your own before you ship it to production and find out at 3am that '0 0 * * MON' doesn't mean what you thought.\n\nCron syntax is one of those things that's obvious once you know it and cryptic when you don't — plus, there are small dialect differences (Quartz adds seconds; some systems use 0–6 for weekdays while others use 1–7; Unix treats both '0' and '7' as Sunday). The explainer tells you exactly when your cron fires in human terms and shows the next 5–10 run times.",
+    steps: [
+      "Paste your cron expression",
+      "Pick dialect (Unix, Quartz, AWS, etc.)",
+      "Read the plain-English description",
+    ],
+    faq: [
+      { q: "What do the five fields mean?", a: "Minute (0–59), hour (0–23), day of month (1–31), month (1–12), day of week (0–6, Sunday is 0 or 7). So '30 14 * * 1-5' means 'at 14:30 every weekday'. Asterisks match anything; slashes create intervals; commas list multiple values." },
+      { q: "Why doesn't '0 0 * * MON' fire at midnight Monday?", a: "It does — in most dialects. But if you wrote '0 0 * * 1' expecting Tuesday, that's the bug: day-of-week is 0-indexed from Sunday, so 1 = Monday. Double-check the dialect your scheduler uses." },
+      { q: "What about @daily, @hourly, etc.?", a: "These are shortcuts: @daily = '0 0 * * *', @hourly = '0 * * * *', @weekly = '0 0 * * 0', @monthly = '0 0 1 * *'. Supported by most Unix cron implementations but not all schedulers — the explainer handles them when the selected dialect supports them." },
+      { q: "Does it handle seconds?", a: "Yes, for dialects that include them (Quartz, AWS EventBridge). The explainer autoswitches based on how many fields your expression has, or you can lock the dialect explicitly." },
+      { q: "Is my cron expression sent anywhere?", a: "No — parsing is local. Not that a cron expression is sensitive, but as a principle, this tool doesn't phone home." },
+    ],
+    related: ["regex-tester", "timestamp-converter", "json-formatter", "calculator"],
+    whyUs: "crontab.guru is the standard and it's good. This tool exists for when you want multiple dialects (Quartz with seconds, AWS EventBridge) and the next fire times shown without bouncing around. No ads, same quality explanation.",
+  },
+  "handlebars-preview": {
+    longDescription:
+      "Paste a Handlebars template and a JSON context, see the rendered output instantly. For debugging email templates, previewing CMS snippets, checking that your {{#each}} loop actually does what you think before you deploy it into the mail pipeline.\n\nHandlebars is used in a lot of places — email platforms (Mailchimp, SendGrid), CMSes, server-side rendering — and the debugging story is often 'send the email, check, fix, send again'. A local preview cuts that loop down to typing and seeing.",
+    steps: [
+      "Paste your template in the left pane",
+      "Paste JSON context in the right pane",
+      "See the rendered output update live",
+    ],
+    faq: [
+      { q: "Which Handlebars features are supported?", a: "The standard set: {{variable}}, {{#if}}, {{#each}}, {{#with}}, block helpers, partials, subexpressions. The preview uses the stock Handlebars runtime, so anything that works there works here. Helpers you've registered in your app won't work — only the built-ins are available in this sandbox." },
+      { q: "Can I test with nested data?", a: "Yes — the JSON context can be as deep as you want. Dot notation in the template ({{user.name}}) and {{#with}} blocks both work. Useful for previewing templates that take real API payloads as input." },
+      { q: "What about HTML-escaping?", a: "Handlebars escapes HTML by default ({{name}} escapes, {{{name}}} doesn't). The preview renders the output as text — copy it into a proper HTML preview tool if you want to see how the escaped output actually renders in a browser." },
+      { q: "Can I test Mustache templates here too?", a: "Mostly, yes. Handlebars is a superset of Mustache for most basic use — {{variable}}, {{#section}}, {{^inverted}} all work. If your template uses pure Mustache you won't hit incompatibilities." },
+      { q: "Is my template uploaded?", a: "No. Everything runs in your browser. Useful because email templates often contain sensitive marketing copy, user data placeholders, or internal campaign details." },
+    ],
+    related: ["markdown-to-html", "html-beautifier", "json-formatter", "regex-tester"],
+    whyUs: "Setting up a local Node project just to debug a template snippet is annoying. This runs the template in the browser, shows errors inline, and doesn't require installing anything.",
+  },
+  "slug-generator": {
+    longDescription:
+      "Turn a title or phrase into a URL-safe slug — lowercase, hyphenated, no punctuation, no accents. For blog post URLs, product page slugs, Kubernetes resource names, or anywhere you need a clean string to stick in a URL path.\n\nThe non-obvious parts are the edge cases: how do you handle emoji, CJK characters, accented letters (é → e or leave it?), numbers, multiple hyphens in a row? The generator handles each of these with sensible defaults and toggles for when you need something different. For example, German umlauts convert to 'ue', 'oe', 'ae' by default — which is the convention German sites use, not just stripping the umlaut.",
+    steps: [
+      "Paste your title or phrase",
+      "Optionally tweak separator, case, or max length",
+      "Copy the slug",
+    ],
+    faq: [
+      { q: "What about non-Latin scripts (Chinese, Arabic, etc.)?", a: "You have two options: transliterate to Latin (so 你好 becomes 'nihao' and العربية becomes 'alarabia') or strip them entirely. Transliteration makes slugs readable to Latin-script users but is inherently lossy. For sites serving non-Latin audiences, some platforms now accept native characters directly — check your CMS." },
+      { q: "Does it handle accented characters?", a: "Yes. By default, accents are stripped cleanly (café → cafe, naïve → naive). For German, umlauts expand (ü → ue) which preserves more information. The toggle covers both conventions." },
+      { q: "What's the max length?", a: "By default, unlimited — but you can set a max. For URL readability, 60–80 characters is a common cap, and many SEO guides suggest keeping slugs short. The truncation breaks on word boundaries so you don't end up with a half-word." },
+      { q: "Hyphens or underscores?", a: "Hyphens are the URL standard — Google treats them as word separators, underscores as part of a single word. Use hyphens for anything public-facing. Underscores are fine for internal identifiers." },
+      { q: "Is there anything that shouldn't be in a slug?", a: "Obvious: spaces, most punctuation. Less obvious: uppercase letters (URLs are case-sensitive in theory but mixed-case looks ugly and causes subtle routing bugs), leading/trailing hyphens, consecutive hyphens. The tool normalizes all of these by default." },
+    ],
+    related: ["case-converter", "url-encoder-decoder", "string-reverse", "find-and-replace"],
+    whyUs: "Every CMS generates slugs, but every CMS does it slightly differently and some do it badly (stripping accents without transliterating looks ugly). This tool gives you control over the rules and a preview before you commit the URL.",
+  },
 };
 
 export function getToolSEOContent(toolId: string): ToolSEOContent | null {
