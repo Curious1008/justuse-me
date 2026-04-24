@@ -27,6 +27,17 @@ export async function POST() {
 
     let customerId = row?.stripeCustomerId;
 
+    if (customerId) {
+      try {
+        const existing = await stripe.customers.retrieve(customerId);
+        if ((existing as Stripe.DeletedCustomer).deleted) {
+          customerId = null;
+        }
+      } catch {
+        customerId = null;
+      }
+    }
+
     if (!customerId) {
       const customer = await stripe.customers.create({
         email: user.email!,

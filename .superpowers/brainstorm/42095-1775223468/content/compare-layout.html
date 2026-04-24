@@ -1,0 +1,141 @@
+<h2>Compare Page Layout — Pick a direction</h2>
+<p class="subtitle">Which layout style fits JustUse.me's brand best?</p>
+
+<div class="cards">
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#FAFAF8;padding:24px;border-radius:8px;font-family:system-ui">
+        <!-- Hero -->
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="font-size:11px;color:#0D9488;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">COMPARISON</div>
+          <div style="font-size:18px;font-weight:700;color:#1A1A1A">Smallpdf vs JustUse.me</div>
+          <div style="font-size:11px;color:#9A9A9A;margin-top:4px">Why pay $12/mo when $1.29 gets you 6x more tools?</div>
+        </div>
+        <!-- Side by side cards -->
+        <div style="display:flex;gap:10px;margin-bottom:14px">
+          <div style="flex:1;background:#fff;border:1px solid #E5E3DF;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:12px;font-weight:600;color:#1A1A1A">Smallpdf</div>
+            <div style="font-size:18px;font-weight:700;color:#DC2626;margin:6px 0">$12/mo</div>
+            <div style="font-size:10px;color:#9A9A9A">~20 PDF tools</div>
+            <div style="font-size:10px;color:#9A9A9A">Server processing</div>
+          </div>
+          <div style="flex:1;background:#fff;border:2px solid #0D9488;border-radius:10px;padding:12px;text-align:center;position:relative">
+            <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#0D9488;color:white;font-size:8px;padding:2px 8px;border-radius:10px;font-weight:600">RECOMMENDED</div>
+            <div style="font-size:12px;font-weight:600;color:#1A1A1A">JustUse.me</div>
+            <div style="font-size:18px;font-weight:700;color:#0D9488;margin:6px 0">$1.29/mo</div>
+            <div style="font-size:10px;color:#9A9A9A">122 tools (all categories)</div>
+            <div style="font-size:10px;color:#9A9A9A">100% browser-based</div>
+          </div>
+        </div>
+        <!-- Feature table preview -->
+        <div style="background:#fff;border:1px solid #E5E3DF;border-radius:8px;padding:8px;font-size:9px">
+          <div style="display:flex;padding:4px 0;border-bottom:1px solid #f0f0f0">
+            <div style="flex:2;color:#9A9A9A">Feature</div>
+            <div style="flex:1;text-align:center;color:#9A9A9A">Smallpdf</div>
+            <div style="flex:1;text-align:center;color:#0D9488;font-weight:600">JustUse.me</div>
+          </div>
+          <div style="display:flex;padding:4px 0;border-bottom:1px solid #f0f0f0">
+            <div style="flex:2;color:#5C5C5C">Price</div>
+            <div style="flex:1;text-align:center">$12/mo</div>
+            <div style="flex:1;text-align:center;color:#0D9488;font-weight:600">$1.29/mo</div>
+          </div>
+          <div style="display:flex;padding:4px 0;border-bottom:1px solid #f0f0f0">
+            <div style="flex:2;color:#5C5C5C">File upload</div>
+            <div style="flex:1;text-align:center">Server</div>
+            <div style="flex:1;text-align:center;color:#0D9488">None</div>
+          </div>
+          <div style="display:flex;padding:4px 0">
+            <div style="flex:2;color:#5C5C5C">Tools</div>
+            <div style="flex:1;text-align:center">~20</div>
+            <div style="flex:1;text-align:center;color:#0D9488;font-weight:600">122</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A: Side-by-Side Cards</h3>
+      <p>Hero headline + two pricing cards + feature table below. Clean, direct comparison. Emphasis on price shock.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#FAFAF8;padding:24px;border-radius:8px;font-family:system-ui">
+        <!-- Hero with big number -->
+        <div style="text-align:center;margin-bottom:16px">
+          <div style="font-size:36px;font-weight:800;color:#0D9488;line-height:1">9x</div>
+          <div style="font-size:12px;color:#5C5C5C;margin-top:2px">cheaper than Smallpdf</div>
+          <div style="font-size:16px;font-weight:700;color:#1A1A1A;margin-top:8px">Smallpdf vs JustUse.me</div>
+        </div>
+        <!-- Comparison rows -->
+        <div style="background:#fff;border-radius:10px;border:1px solid #E5E3DF;overflow:hidden">
+          <div style="display:flex;padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:10px">
+            <div style="flex:2;font-weight:600;color:#1A1A1A">Monthly Price</div>
+            <div style="flex:1;text-align:right;color:#DC2626;text-decoration:line-through">$12.00</div>
+            <div style="flex:1;text-align:right;color:#0D9488;font-weight:700">$1.29</div>
+          </div>
+          <div style="display:flex;padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:10px">
+            <div style="flex:2;font-weight:600;color:#1A1A1A">Total Tools</div>
+            <div style="flex:1;text-align:right;color:#5C5C5C">~20</div>
+            <div style="flex:1;text-align:right;color:#0D9488;font-weight:700">122</div>
+          </div>
+          <div style="display:flex;padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:10px">
+            <div style="flex:2;font-weight:600;color:#1A1A1A">Privacy</div>
+            <div style="flex:1;text-align:right;color:#DC2626">Upload</div>
+            <div style="flex:1;text-align:right;color:#0D9488;font-weight:700">Local</div>
+          </div>
+          <div style="display:flex;padding:10px 12px;font-size:10px">
+            <div style="flex:2;font-weight:600;color:#1A1A1A">Sign-up</div>
+            <div style="flex:1;text-align:right;color:#DC2626">Required</div>
+            <div style="flex:1;text-align:right;color:#0D9488;font-weight:700">None</div>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div style="text-align:center;margin-top:14px">
+          <div style="display:inline-block;background:#0D9488;color:white;padding:8px 20px;border-radius:10px;font-size:11px;font-weight:600">Try JustUse.me Free</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B: Impact Number Hero</h3>
+      <p>Lead with a shocking multiplier (9x cheaper), strikethrough pricing, row-by-row comparison. More aggressive, conversion-focused.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#FAFAF8;padding:24px;border-radius:8px;font-family:system-ui">
+        <!-- Narrative hero -->
+        <div style="margin-bottom:16px">
+          <div style="font-size:16px;font-weight:700;color:#1A1A1A;line-height:1.3">Do you really need Smallpdf?</div>
+          <div style="font-size:10px;color:#5C5C5C;margin-top:6px;line-height:1.5">Most people use 3-4 PDF tools. They don't need a $12/mo subscription with server uploads. Here's what JustUse.me offers instead.</div>
+        </div>
+        <!-- Sections preview -->
+        <div style="background:#fff;border:1px solid #E5E3DF;border-radius:8px;padding:10px;margin-bottom:8px">
+          <div style="font-size:10px;font-weight:600;color:#0D9488;margin-bottom:4px">The Price Problem</div>
+          <div style="font-size:9px;color:#5C5C5C;line-height:1.4">Smallpdf charges $12/mo for ~20 PDF-only tools. JustUse.me gives you 122 tools across 8 categories for $1.29/mo — or free with limits.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E5E3DF;border-radius:8px;padding:10px;margin-bottom:8px">
+          <div style="font-size:10px;font-weight:600;color:#0D9488;margin-bottom:4px">The Privacy Problem</div>
+          <div style="font-size:9px;color:#5C5C5C;line-height:1.4">Every file you process on Smallpdf gets uploaded to their servers. JustUse.me processes everything in your browser.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E5E3DF;border-radius:8px;padding:10px">
+          <div style="font-size:10px;font-weight:600;color:#0D9488;margin-bottom:4px">Feature Comparison</div>
+          <div style="font-size:9px;color:#5C5C5C">[detailed table here]</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C: Editorial / Story-driven</h3>
+      <p>Narrative approach — pose a question, walk through pain points with sections, embed comparison table. Feels like an article, better for SEO depth. Longer content = more keywords.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px">
+  <h3>Recommendation</h3>
+  <p>I'd combine <strong>B's impact hero</strong> (the 9x number + price shock) with <strong>C's editorial depth</strong> below it. The hero grabs attention and converts scanners, the editorial content below earns SEO ranking with 1000+ words of real comparison.</p>
+</div>
