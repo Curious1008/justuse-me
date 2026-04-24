@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
 
 const locales = ["en", "zh-CN", "zh-TW"];
 const defaultLocale = "en";
@@ -56,32 +55,31 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   return response;
 }
 
-export async function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip static files, API routes, and Next.js internals
   if (
     pathname.startsWith("/api/") ||
-    pathname.startsWith("/auth/callback") ||
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/icon") ||
     pathname.startsWith("/apple-icon") ||
     pathname.startsWith("/favicon") ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|html|xml|txt|json|ico)$/.test(pathname)
   ) {
-    return addSecurityHeaders(await updateSession(request));
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // Already has a locale prefix → pass through
   const pathnameLocale = getPathnameLocale(pathname);
   if (pathnameLocale) {
-    return addSecurityHeaders(await updateSession(request));
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // Detect best locale from cookie or Accept-Language
   const locale = detectLocale(request);
 
-  // Non-default locale → redirect to prefixed URL (e.g. /zh-CN/tools/merge-pdf)
+  // Non-default locale → redirect to prefixed URL
   if (locale !== defaultLocale) {
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}${pathname}`;
@@ -91,17 +89,7 @@ export async function middleware(request: NextRequest) {
   // English → rewrite to /en/... internally (URL stays clean at root)
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;
-  const response = NextResponse.rewrite(url);
-
-  // Still run Supabase session update
-  const sessionResponse = await updateSession(request);
-  sessionResponse.cookies.getAll().forEach((cookie) => {
-    response.cookies.set(cookie.name, cookie.value, {
-      ...cookie,
-    });
-  });
-
-  return addSecurityHeaders(response);
+  return addSecurityHeaders(NextResponse.rewrite(url));
 }
 
 export const config = {

@@ -1,4 +1,3 @@
-import { createClient } from "@/lib/supabase/client";
 import { getAnonId } from "@/lib/anon-id";
 
 const DAILY_LIMIT = 3;
@@ -18,19 +17,14 @@ export async function checkUsage(
     return { allowed: true, used: 0, limit: Infinity };
   }
 
-  const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
-
   if (userId) {
-    const supabase = createClient();
-    const { count } = await supabase
-      .from("usage_log")
-      .select("*", { count: "exact", head: true })
-      .eq("user_id", userId)
-      .gte("used_at", today.toISOString());
-
-    const used = count ?? 0;
-    return { allowed: used < DAILY_LIMIT, used, limit: DAILY_LIMIT };
+    const res = await fetch("/api/usage/check-user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool_id: toolId }),
+    });
+    if (res.ok) return res.json();
+    return { allowed: true, used: 0, limit: DAILY_LIMIT };
   }
 
   const anonId = getAnonId();
@@ -47,10 +41,10 @@ export async function logUsage(
   userId: string | null
 ): Promise<void> {
   if (userId) {
-    const supabase = createClient();
-    await supabase.from("usage_log").insert({
-      user_id: userId,
-      tool_id: toolId,
+    await fetch("/api/usage/log-user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool_id: toolId }),
     });
     return;
   }

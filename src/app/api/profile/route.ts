@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 const ALLOWED_FIELDS = new Set(["display_name", "avatar_url"]);
 
 export async function PATCH(request: Request) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const session = await auth();
+  const user = session?.user;
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -17,16 +18,13 @@ export async function PATCH(request: Request) {
 
   const safeUpdate: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(body)) {
-    if (ALLOWED_FIELDS.has(key)) {
-      safeUpdate[key] = value;
-    }
+    if (ALLOWED_FIELDS.has(key)) safeUpdate[key] = value;
   }
 
   if (Object.keys(safeUpdate).length === 0) {
     return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
   }
 
-  // Input length validation
   if (typeof safeUpdate.display_name === "string" && safeUpdate.display_name.length > 100) {
     return NextResponse.json({ error: "Display name must be 100 characters or less" }, { status: 400 });
   }
@@ -45,19 +43,25 @@ export async function PATCH(request: Request) {
     }
   }
 
-  safeUpdate.updated_at = new Date().toISOString();
+  const updateRow: Partial<typeof users.$inferInsert> = { updatedAt: new Date() };
+  if (typeof safeUpdate.display_name === "string") updateRow.displayName = safeUpdate.display_name;
+  if (typeof safeUpdate.avatar_url === "string") updateRow.avatarUrl = safeUpdate.avatar_url;
 
-  const serviceClient = await createServiceClient();
-  const { data, error } = await serviceClient
-    .from("profiles")
-    .update(safeUpdate)
-    .eq("id", user.id)
-    .select()
-    .single();
+  const [row] = await db
+    .update(users)
+    .set(updateRow)
+    .where(eq(users.id, user.id))
+    .returning();
 
-  if (error) {
+  if (!row) {
     return NextResponse.json({ error: "Update failed" }, { status: 500 });
   }
 
-  return NextResponse.json(data);
+  return NextResponse.json({
+    id: row.id,
+    email: row.email,
+    display_name: row.displayName,
+    avatar_url: row.avatarUrl,
+    plan: row.plan,
+  });
 }

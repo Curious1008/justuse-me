@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { users, usageLog } from "@/lib/db/schema";
+import { and, eq, gte, isNull, sql } from "drizzle-orm";
 import { getToolById } from "@/tools/registry";
 import { processServerTool } from "@/lib/tools/server-process";
 
@@ -7,6 +10,28 @@ const DAILY_LIMIT = 3;
 
 function getClientIp(request: Request): string {
   return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+}
+
+async function countByUser(userId: string, since: Date): Promise<number> {
+  const [row] = await db
+    .select({ c: sql<number>`count(*)::int` })
+    .from(usageLog)
+    .where(and(eq(usageLog.userId, userId), gte(usageLog.usedAt, since)));
+  return row?.c ?? 0;
+}
+
+async function countByAnon(anonId: string, since: Date): Promise<number> {
+  const [row] = await db
+    .select({ c: sql<number>`count(*)::int` })
+    .from(usageLog)
+    .where(
+      and(
+        eq(usageLog.anonId, anonId),
+        isNull(usageLog.userId),
+        gte(usageLog.usedAt, since)
+      )
+    );
+  return row?.c ?? 0;
 }
 
 export async function POST(
@@ -20,72 +45,43 @@ export async function POST(
     return NextResponse.json({ error: "Tool not found" }, { status: 404 });
   }
 
-  // Auth check
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const session = await auth();
+  const user = session?.user;
 
-  // Usage check
-  const serviceClient = await createServiceClient();
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  let plan: string | null = null;
+  let plan: "free" | "pro" | null = null;
 
   if (user) {
-    const { data: profile } = await serviceClient
-      .from("profiles")
-      .select("plan")
-      .eq("id", user.id)
-      .single();
-    plan = profile?.plan ?? null;
+    const [row] = await db
+      .select({ plan: users.plan })
+      .from(users)
+      .where(eq(users.id, user.id))
+      .limit(1);
+    plan = row?.plan ?? null;
   }
 
   if (plan !== "pro") {
     const anonId = request.headers.get("x-anon-id");
 
     if (user) {
-      // Logged-in non-pro user: check by user_id
-      const { count } = await serviceClient
-        .from("usage_log")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .gte("used_at", today.toISOString());
-
-      if ((count ?? 0) >= DAILY_LIMIT) {
+      const count = await countByUser(user.id, today);
+      if (count >= DAILY_LIMIT) {
         return NextResponse.json(
           { error: "Daily usage limit reached", used: count, limit: DAILY_LIMIT },
           { status: 429 }
         );
       }
     } else {
-      // Anonymous user: check both anon_id AND IP to prevent incognito bypass
       const ip = getClientIp(request);
       const ipAnonId = `ip_${ip}`;
 
-      const checks = [
-        serviceClient
-          .from("usage_log")
-          .select("*", { count: "exact", head: true })
-          .eq("anon_id", ipAnonId)
-          .is("user_id", null)
-          .gte("used_at", today.toISOString()),
-      ];
-
-      if (anonId) {
-        checks.push(
-          serviceClient
-            .from("usage_log")
-            .select("*", { count: "exact", head: true })
-            .eq("anon_id", anonId)
-            .is("user_id", null)
-            .gte("used_at", today.toISOString())
-        );
-      }
+      const checks: Promise<number>[] = [countByAnon(ipAnonId, today)];
+      if (anonId) checks.push(countByAnon(anonId, today));
 
       const results = await Promise.all(checks);
-      const used = Math.max(...results.map((r) => r.count ?? 0));
+      const used = Math.max(...results);
 
       if (used >= DAILY_LIMIT) {
         return NextResponse.json(
@@ -96,12 +92,10 @@ export async function POST(
     }
   }
 
-  // Process
   try {
     const formData = await request.formData();
     const fileEntries = formData.getAll("files") as File[];
 
-    // Server-side file validation
     if (fileEntries.length > tool.maxFiles) {
       return NextResponse.json({ error: `Too many files (max ${tool.maxFiles})` }, { status: 400 });
     }
@@ -120,21 +114,19 @@ export async function POST(
 
     const result = await processServerTool(toolId, fileEntries, options);
 
-    // Log usage
     const anonId = request.headers.get("x-anon-id");
     if (user) {
-      await serviceClient.from("usage_log").insert({
-        user_id: user.id,
-        anon_id: null,
-        tool_id: toolId,
+      await db.insert(usageLog).values({
+        userId: user.id,
+        anonId: null,
+        toolId,
       });
     } else {
       const ip = getClientIp(request);
       const ipAnonId = `ip_${ip}`;
-      // Log both anon_id and IP-based id to prevent incognito bypass
-      const rows = [{ anon_id: ipAnonId, tool_id: toolId, user_id: null }];
-      if (anonId) rows.push({ anon_id: anonId, tool_id: toolId, user_id: null });
-      await serviceClient.from("usage_log").insert(rows);
+      const rows = [{ anonId: ipAnonId, toolId, userId: null }];
+      if (anonId) rows.push({ anonId, toolId, userId: null });
+      await db.insert(usageLog).values(rows);
     }
 
     return new NextResponse(result.blob, {
