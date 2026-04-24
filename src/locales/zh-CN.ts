@@ -15,9 +15,48 @@ const zhCN = {
 
   // ─── Homepage ───
   hero: {
-    title: "轻松搞定，",
-    titleAccent: "高效办公。",
-    subtitle: "日常文件工具，随时为你准备。",
+    title: "你需要的工具，",
+    titleAccent: "已经打开了。",
+    subtitle: "122 款注重隐私的在线工具——PDF、图片、文本、代码等。全部在你的设备上运行。下方选择分类或直接搜索。",
+    badge: "无上传 · 无注册 · 无水印",
+    badgeExtra: "· 100% 在浏览器中运行",
+  },
+
+  // ─── Live tools strip ───
+  live: {
+    heading: "不用离开本页，直接试用",
+    sub: "四款最常用的工具，在这里就能用。其他 118 款只需一键即达。",
+    runsLocal: "完全在你的设备上运行",
+    qrTitle: "二维码",
+    qrPlaceholder: "输入 URL 或文字",
+    qrHint: "用手机相机扫描",
+    pwTitle: "密码生成",
+    pwLength: "长度",
+    pwCopy: "复制",
+    pwCopied: "已复制",
+    pwRegen: "↻",
+    wcTitle: "字数统计",
+    wcPlaceholder: "粘贴或输入文字...",
+    wcWords: "字数",
+    wcChars: "字符",
+    wcSentences: "句子",
+    colorTitle: "颜色",
+    colorHex: "HEX",
+    colorRgb: "RGB",
+    colorHsl: "HSL",
+  },
+
+  // ─── Home FAQ ───
+  faq: {
+    heading: "常见问题",
+    q1: "JustUse.me 真的是免费的吗？",
+    a1: "是的。120+ 工具，不限次数、无水印、无需注册。赞助完全自愿。",
+    q2: "我的文件会被上传吗？",
+    a2: "不会。所有处理都在你的浏览器中进行，文件从不离开你的设备。",
+    q3: "能离线使用吗？",
+    a3: "首次加载后，大多数工具都可离线使用——它们只是浏览器里的 JavaScript。",
+    q4: "支持哪些语言？",
+    a4: "英文、简体中文、繁体中文，更多语言筹备中。",
   },
 
   // ─── Homepage SEO ───

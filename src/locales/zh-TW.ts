@@ -15,9 +15,48 @@ const zhTW = {
 
   // ─── Homepage ───
   hero: {
-    title: "輕鬆搞定，",
-    titleAccent: "一切事務。",
-    subtitle: "日常檔案工具，隨時為你待命。",
+    title: "你需要的工具，",
+    titleAccent: "已經打開了。",
+    subtitle: "122 款注重隱私的線上工具——PDF、圖片、文字、程式碼等。全部在你的裝置上執行。下方選擇分類或直接搜尋。",
+    badge: "不上傳 · 不註冊 · 無浮水印",
+    badgeExtra: "· 100% 在瀏覽器中執行",
+  },
+
+  // ─── Live tools strip ───
+  live: {
+    heading: "不用離開本頁，直接試用",
+    sub: "四款最常用的工具，在這裡就能用。其他 118 款只需一鍵即達。",
+    runsLocal: "完全在你的裝置上執行",
+    qrTitle: "QR 碼",
+    qrPlaceholder: "輸入 URL 或文字",
+    qrHint: "用手機相機掃描",
+    pwTitle: "密碼產生",
+    pwLength: "長度",
+    pwCopy: "複製",
+    pwCopied: "已複製",
+    pwRegen: "↻",
+    wcTitle: "字數統計",
+    wcPlaceholder: "貼上或輸入文字...",
+    wcWords: "字數",
+    wcChars: "字元",
+    wcSentences: "句子",
+    colorTitle: "顏色",
+    colorHex: "HEX",
+    colorRgb: "RGB",
+    colorHsl: "HSL",
+  },
+
+  // ─── Home FAQ ───
+  faq: {
+    heading: "常見問題",
+    q1: "JustUse.me 真的是免費的嗎？",
+    a1: "是的。120+ 工具，不限次數、無浮水印、無需註冊。贊助完全自願。",
+    q2: "我的檔案會被上傳嗎？",
+    a2: "不會。所有處理都在你的瀏覽器中進行，檔案從不離開你的裝置。",
+    q3: "能離線使用嗎？",
+    a3: "首次載入後，大多數工具都可離線使用——它們只是瀏覽器裡的 JavaScript。",
+    q4: "支援哪些語言？",
+    a4: "英文、簡體中文、繁體中文，更多語言籌備中。",
   },
 
   // ─── Homepage SEO ───

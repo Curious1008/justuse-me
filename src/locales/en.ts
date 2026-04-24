@@ -15,9 +15,48 @@ const en = {
 
   // ─── Homepage ───
   hero: {
-    title: "Get things done,",
-    titleAccent: "effortlessly.",
-    subtitle: "Everyday file tools, ready when you are.",
+    title: "The tool you need,",
+    titleAccent: "already open.",
+    subtitle: "122 privacy-first utilities — PDF, image, text, code, and more. Everything runs on your device. Pick a category below or search.",
+    badge: "No upload · no sign-up · no watermark",
+    badgeExtra: "· 100% in your browser",
+  },
+
+  // ─── Live tools strip ───
+  live: {
+    heading: "Try one without leaving this page",
+    sub: "Four of the most-used tools, fully working right here. The other 118 are one click away.",
+    runsLocal: "runs entirely on your device",
+    qrTitle: "QR code",
+    qrPlaceholder: "Enter URL or text",
+    qrHint: "Scan with any phone camera",
+    pwTitle: "Password",
+    pwLength: "length",
+    pwCopy: "Copy",
+    pwCopied: "Copied",
+    pwRegen: "↻",
+    wcTitle: "Word counter",
+    wcPlaceholder: "Paste or type text...",
+    wcWords: "words",
+    wcChars: "chars",
+    wcSentences: "sentences",
+    colorTitle: "Color",
+    colorHex: "HEX",
+    colorRgb: "RGB",
+    colorHsl: "HSL",
+  },
+
+  // ─── Home FAQ ───
+  faq: {
+    heading: "Common questions",
+    q1: "Is JustUse.me really free?",
+    a1: "Yes. 120+ tools, no caps, no watermarks, no sign-up. Support is optional.",
+    q2: "Are my files uploaded?",
+    a2: "Never. Everything runs client-side in your browser. Your files don't leave your device.",
+    q3: "Does it work offline?",
+    a3: "After the first load, most tools work offline — they're pure JavaScript in your tab.",
+    q4: "What languages are supported?",
+    a4: "English, Simplified Chinese, and Traditional Chinese. More on the way.",
   },
 
   // ─── Homepage SEO ───
