@@ -46,6 +46,7 @@ export async function POST(request: Request) {
       const session = event.data.object as Stripe.Checkout.Session;
       const userId = session.metadata?.user_id;
       if (!userId) break;
+      if (session.payment_status !== "paid") break;
 
       await db
         .update(users)
