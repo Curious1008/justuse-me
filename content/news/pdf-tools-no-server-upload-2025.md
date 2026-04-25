@@ -34,7 +34,7 @@ I spent a week testing tools that claim to work locally. Most lie. They still up
 
 Here are the ones that actually work client-side:
 
-**JustUse.me** has 129 browser tools including [Merge PDF](/tools/merge-pdf), [Split PDF](/tools/split-pdf), and [Compress PDF](/tools/compress-pdf). Everything runs in your browser. I built it specifically because I was frustrated with the upload requirement everywhere else. The compression typically reduces file size by 40-60% depending on image content.
+**JustUse.me** has 122 browser tools including [Merge PDF](/tools/merge-pdf), [Split PDF](/tools/split-pdf), and [Compress PDF](/tools/compress-pdf). Everything runs in your browser. I built it specifically because I was frustrated with the upload requirement everywhere else. The compression typically reduces file size by 40-60% depending on image content.
 
 **PDF24 Tools** offers a "Desktop Mode" that processes locally. You have to specifically enable it, which most people miss. Their default mode uploads files.
 

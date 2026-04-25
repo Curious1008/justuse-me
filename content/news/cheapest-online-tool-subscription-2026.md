@@ -60,7 +60,7 @@ At $3.25 per month, TinyPNG is affordable but narrow. You are paying for one cap
 
 ## What JustUse.me Gets You for $2.59
 
-JustUse.me takes a different approach on both pricing and architecture. The $2.59 monthly subscription provides access to 129 tools spanning PDF operations, image processing, developer utilities, and format converters. The free tier provides unlimited access to all tools with no watermarks and no daily limits.
+JustUse.me takes a different approach on both pricing and architecture. The $2.59 monthly subscription provides access to 122 tools spanning PDF operations, image processing, developer utilities, and format converters. The free tier provides unlimited access to all tools with no watermarks and no daily limits.
 
 Core PDF tools include [Merge PDF](/tools/merge-pdf), Split PDF, Compress PDF, and Protect PDF. Image tools include [Compress Image](/tools/compress-image), Resize Image, and format converters like HEIC to JPG and PNG to JPG. Developer tools include [JSON Formatter](/tools/json-formatter), code minifiers, hash generators, and more. Utility tools include [QR Code Generator](/tools/qr-code-generator), color pickers, and unit converters.
 
