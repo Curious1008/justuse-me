@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { getAllTools } from "@/tools/registry";
+import { getAllTools, TOOL_COUNT } from "@/tools/registry";
 import type { ToolPlugin, Category } from "@/tools/types";
 import { type Locale, localePath } from "@/lib/i18n";
 import CatIcon from "@/components/icons/CatIcon";
@@ -14,9 +14,9 @@ const CATEGORY_HUES: Record<Category, number> = {
 };
 
 const labels: Record<Locale, { placeholder: string; empty: string; hint: string; open: string }> = {
-  en: { placeholder: "Search 122 tools…", empty: "No tools found for", hint: "↑↓ to navigate · ↵ to open · esc to close", open: "open" },
-  "zh-CN": { placeholder: "搜索 122 个工具…", empty: "未找到工具", hint: "↑↓ 导航 · ↵ 打开 · esc 关闭", open: "打开" },
-  "zh-TW": { placeholder: "搜尋 122 個工具…", empty: "找不到工具", hint: "↑↓ 導航 · ↵ 開啟 · esc 關閉", open: "開啟" },
+  en: { placeholder: `Search ${TOOL_COUNT} tools…`, empty: "No tools found for", hint: "↑↓ to navigate · ↵ to open · esc to close", open: "open" },
+  "zh-CN": { placeholder: `搜索 ${TOOL_COUNT} 个工具…`, empty: "未找到工具", hint: "↑↓ 导航 · ↵ 打开 · esc 关闭", open: "打开" },
+  "zh-TW": { placeholder: `搜尋 ${TOOL_COUNT} 個工具…`, empty: "找不到工具", hint: "↑↓ 導航 · ↵ 開啟 · esc 關閉", open: "開啟" },
 };
 
 export function openCommandK() {

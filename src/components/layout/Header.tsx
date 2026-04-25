@@ -8,11 +8,12 @@ import { useTheme } from "@/context/ThemeContext";
 import { type Locale, localeNames, locales, localePath } from "@/lib/i18n";
 import { usePathname } from "next/navigation";
 import { openCommandK } from "@/components/search/CommandK";
+import { TOOL_COUNT } from "@/tools/registry";
 
 const searchLabels: Record<Locale, string> = {
-  en: "Search 122 tools",
-  "zh-CN": "搜索 122 个工具",
-  "zh-TW": "搜尋 122 個工具",
+  en: `Search ${TOOL_COUNT} tools`,
+  "zh-CN": `搜索 ${TOOL_COUNT} 个工具`,
+  "zh-TW": `搜尋 ${TOOL_COUNT} 個工具`,
 };
 
 const dictionaries: Record<Locale, typeof import("@/locales/en").default.nav> = {
@@ -108,7 +109,7 @@ export default function Header({ lang = "en" }: { lang?: Locale }) {
               justuse<span className="text-[var(--color-accent)]">.me</span>
             </span>
             <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full border border-[var(--color-border-subtle)] text-[10px] font-mono text-[var(--color-text-muted)]">
-              122 tools
+              {TOOL_COUNT} tools
             </span>
           </motion.div>
         </Link>

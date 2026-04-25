@@ -114,7 +114,7 @@ export const competitors: Record<string, CompetitorData> = {
     tagline: "All your PDF tools in one place — but do you need to pay $7/mo for them?",
     price: "$7/mo",
     priceNum: 7,
-    multiplier: "5x",
+    multiplier: "2.7x",
     toolCount: "~25",
     toolScope: "PDF only",
     watermark: true,
@@ -322,7 +322,7 @@ export const competitors: Record<string, CompetitorData> = {
       },
       {
         q: "What is a free alternative to TinyPNG?",
-        a: "JustUse.me offers free image compression in your browser with no uploads and no watermarks. The Pro plan at $2.59/month includes 120+ tools — 2.2.7x cheaper than TinyPNG's Web Pro at $3.25/month.",
+        a: "JustUse.me offers free image compression in your browser with no uploads and no watermarks. The Pro plan at $2.59/month includes 120+ tools — 1.3x cheaper than TinyPNG's Web Pro at $3.25/month.",
       },
       {
         q: "TinyPNG vs JustUse.me for image compression?",

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { competitors, competitorSlugs, justuseme } from "./compare-data";
 import CompareCTA from "./components/CompareCTA";
 import { locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { TOOL_COUNT } from "@/tools/registry";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -234,10 +235,10 @@ export default async function CompareOverviewPage({ params }: Props) {
           <div className="rounded-xl border-2 border-[var(--color-accent)] bg-[var(--color-surface)] p-5">
             <p className="text-sm font-semibold text-[var(--color-accent)]">JustUse.me</p>
             <p className="mt-2 text-2xl font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)]">
-              ~$0.01
+              ~${(justuseme.priceNum / TOOL_COUNT).toFixed(2)}
             </p>
             <p className="text-xs text-[var(--color-text-muted)] mt-1">
-              per tool / month ({justuseme.price} / {justuseme.toolCount} tools)
+              per tool / month ({justuseme.price} / {TOOL_COUNT} tools)
             </p>
           </div>
 

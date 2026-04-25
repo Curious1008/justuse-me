@@ -269,6 +269,8 @@ const tools: ToolPlugin[] = [
   svgOptimizer,
 ];
 
+export const TOOL_COUNT = tools.length;
+
 export function getAllTools(locale?: string): ToolPlugin[] {
   if (!locale) return tools;
   return tools.filter((t) => !t.hiddenLocales?.includes(locale));

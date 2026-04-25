@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { TOOL_COUNT } from "@/tools/registry";
 
 export default function CompareCTA() {
   return (
@@ -17,7 +18,7 @@ export default function CompareCTA() {
 
         <div className="relative">
           <h2 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-sora)] text-[var(--color-text)] tracking-tight">
-            Try 122 tools for free
+            Try {TOOL_COUNT} tools for free
           </h2>
           <p className="mt-3 text-[var(--color-text-secondary)]">
             No sign-up, no watermarks, no file uploads.
