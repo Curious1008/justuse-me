@@ -31,7 +31,6 @@ export async function generateMetadata({
     },
     description: t.meta.siteDescription,
     alternates: {
-      canonical: locale === defaultLocale ? "https://www.justuse.me" : `https://www.justuse.me/${locale}`,
       languages: langAlternates,
     },
     openGraph: {

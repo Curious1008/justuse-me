@@ -5,7 +5,7 @@ import {
   getAllArticleSlugs,
   getRelatedArticles,
 } from "@/lib/articles";
-import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, pageAlternates, type Locale } from "@/lib/i18n";
 import ArticleContent from "@/components/news/ArticleContent";
 import ArticleCard from "@/components/news/ArticleCard";
 import ToolLinkCard from "@/components/news/ToolLinkCard";
@@ -27,20 +27,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticleBySlug(slug);
   if (!article) return {};
 
-  const canonical =
-    locale === defaultLocale
-      ? `https://www.justuse.me/news/${slug}`
-      : `https://www.justuse.me/${locale}/news/${slug}`;
+  const alternates = pageAlternates(locale, `/news/${slug}`);
 
   return {
     title: `${article.title} — JustUse.me`,
     description: article.summary,
     keywords: article.keywords,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title: article.title,
       description: article.summary,
-      url: canonical,
+      url: alternates.canonical,
       type: "article",
       publishedTime: article.published_at,
       siteName: "JustUse.me",

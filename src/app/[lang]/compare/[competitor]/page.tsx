@@ -7,7 +7,7 @@ import CompareTable from "../components/CompareTable";
 import CompareFAQ from "../components/CompareFAQ";
 import CompareCTA from "../components/CompareCTA";
 import { getToolById } from "@/tools/registry";
-import { locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { locales, defaultLocale, localePath, pageAlternates, type Locale } from "@/lib/i18n";
 import ToolIcon from "@/components/tool/ToolIcon";
 
 export const dynamicParams = false;
@@ -31,19 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${competitor.name} vs JustUse.me — Price, Features & Privacy Compared (2026)`;
   const description = `Side-by-side comparison of ${competitor.name} and JustUse.me. Compare pricing (${competitor.price} vs ${justuseme.price}/mo), tool count, file privacy, watermarks, and free-tier limits.`;
 
-  const canonical =
-    locale === defaultLocale
-      ? `https://www.justuse.me/compare/${slug}`
-      : `https://www.justuse.me/${locale}/compare/${slug}`;
+  const alternates = pageAlternates(locale, `/compare/${slug}`);
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

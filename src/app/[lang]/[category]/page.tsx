@@ -5,7 +5,7 @@ import type { Category } from "@/tools/types";
 import ToolCard from "@/components/category/ToolCard";
 import CatIcon from "@/components/icons/CatIcon";
 import PageTitle from "@/components/page/PageTitle";
-import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, pageAlternates, type Locale } from "@/lib/i18n";
 import { generateCategoryBreadcrumbJsonLd } from "@/config/seo";
 
 const CATEGORY_HUES: Record<Category, number> = {
@@ -38,18 +38,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = t.categoryPage[category as keyof typeof t.categoryPage];
   if (!cat) return {};
 
-  const canonical = locale === defaultLocale
-    ? `https://www.justuse.me/${category}`
-    : `https://www.justuse.me/${locale}/${category}`;
+  const alternates = pageAlternates(locale, `/${category}`);
 
   return {
     title: t.meta.categoryMetaTitle.replace("{label}", cat.title),
     description: t.meta.categoryMetaDescription.replace("{desc}", cat.description),
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title: `${cat.title} — JustUse.me`,
       description: cat.description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

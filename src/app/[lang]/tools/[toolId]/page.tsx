@@ -13,7 +13,7 @@ const CATEGORY_HUES: Record<Category, number> = {
   pdf: 15, image: 280, text: 230, convert: 170,
   generator: 45, calculator: 200, developer: 310, utility: 140,
 };
-import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, localePath, pageAlternates, type Locale } from "@/lib/i18n";
 
 interface Props {
   params: Promise<{ lang: string; toolId: string }>;
@@ -47,19 +47,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     t.meta.toolMetaDescSuffix;
   const description = `${toolDesc}${specs ? ` (${specs})` : ""}. ${tail}`;
 
-  const canonical = locale === defaultLocale
-    ? `https://www.justuse.me/tools/${toolId}`
-    : `https://www.justuse.me/${locale}/tools/${toolId}`;
+  const alternates = pageAlternates(locale, `/tools/${toolId}`);
 
   return {
     title: t.meta.toolMetaTitle.replace("{name}", name),
     description,
     keywords: tool.keywords,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title: t.meta.toolOgTitle.replace("{name}", name),
       description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { competitors, competitorSlugs, justuseme } from "./compare-data";
 import CompareCTA from "./components/CompareCTA";
-import { locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { locales, defaultLocale, localePath, pageAlternates, type Locale } from "@/lib/i18n";
 import { TOOL_COUNT } from "@/tools/registry";
 
 interface Props {
@@ -21,19 +21,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     "Side-by-side comparison of Smallpdf, iLovePDF, Adobe Acrobat, TinyPNG, and JustUse.me. Compare pricing, tool count, privacy, watermarks, and free-tier limits to find the best value.";
 
-  const canonical =
-    locale === defaultLocale
-      ? "https://www.justuse.me/compare"
-      : `https://www.justuse.me/${locale}/compare`;
+  const alternates = pageAlternates(locale, "/compare");
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

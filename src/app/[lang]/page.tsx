@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import LiveTools from "@/components/home/LiveTools";
 import HeroCtas from "@/components/home/HeroCtas";
@@ -5,9 +6,15 @@ import SmartPicks from "@/components/home/SmartPicks";
 import CategoryCards from "@/components/home/CategoryCards";
 import CatIcon from "@/components/icons/CatIcon";
 import { generateSiteJsonLd } from "@/config/seo";
-import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, localePath, pageAlternates, type Locale } from "@/lib/i18n";
 import { getAllTools, getToolsByCategory } from "@/tools/registry";
 import type { Category } from "@/tools/types";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
+  return { alternates: pageAlternates(locale, "/") };
+}
 
 function pickReason(lang: Locale): string {
   const d = new Date();

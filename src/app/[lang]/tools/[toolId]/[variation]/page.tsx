@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getToolById } from "@/tools/registry";
-import { getDictionary, locales, defaultLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, pageAlternates, type Locale } from "@/lib/i18n";
 import ToolPageClient from "../client";
 import variations from "@/tools/variations.json";
 import variationContent from "@/tools/variation-content.json";
@@ -35,20 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!tool || !varMeta || !content) return {};
 
-  const canonical =
-    locale === defaultLocale
-      ? `https://www.justuse.me/tools/${toolId}/${variation}`
-      : `https://www.justuse.me/${locale}/tools/${toolId}/${variation}`;
+  const alternates = pageAlternates(locale, `/tools/${toolId}/${variation}`);
 
   return {
     title: content.title,
     description: content.description,
     keywords: [varMeta.keyword, ...(tool.keywords ?? [])],
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title: content.title,
       description: content.description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

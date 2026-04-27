@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageTitle from "@/components/page/PageTitle";
 import { getAllTools } from "@/tools/registry";
-import { getDictionary, locales, defaultLocale, localePath, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, defaultLocale, localePath, pageAlternates, type Locale } from "@/lib/i18n";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -17,18 +17,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = (locales.includes(lang as Locale) ? lang : defaultLocale) as Locale;
   const t = await getDictionary(locale);
 
-  const canonical = locale === defaultLocale
-    ? "https://www.justuse.me/about"
-    : `https://www.justuse.me/${locale}/about`;
+  const alternates = pageAlternates(locale, "/about");
 
   return {
     title: t.about.title,
     description: t.about.description,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title: `${t.about.title} — JustUse.me`,
       description: t.about.description,
-      url: canonical,
+      url: alternates.canonical,
       type: "website",
       siteName: "JustUse.me",
     },

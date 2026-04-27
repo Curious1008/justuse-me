@@ -31,3 +31,17 @@ export function localePath(locale: Locale, path: string): string {
   if (locale === defaultLocale) return path;
   return `/${locale}${path}`;
 }
+
+const SITE_ORIGIN = "https://www.justuse.me";
+
+/** Canonical + hreflang alternates for a page path (path starts with "/" or is ""). */
+export function pageAlternates(locale: Locale, path: string): { canonical: string; languages: Record<string, string> } {
+  const norm = path === "/" ? "" : path;
+  const canonical = locale === defaultLocale ? `${SITE_ORIGIN}${norm}` : `${SITE_ORIGIN}/${locale}${norm}`;
+  const languages: Record<string, string> = {};
+  for (const l of locales) {
+    languages[l] = l === defaultLocale ? `${SITE_ORIGIN}${norm}` : `${SITE_ORIGIN}/${l}${norm}`;
+  }
+  languages["x-default"] = `${SITE_ORIGIN}${norm}`;
+  return { canonical, languages };
+}
