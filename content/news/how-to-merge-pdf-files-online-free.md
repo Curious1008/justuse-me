@@ -5,6 +5,7 @@ category: "tutorial"
 tools: ["merge-pdf"]
 keywords: ["how to merge pdf files online free", "merge pdf online free", "combine pdf files", "pdf merger no upload", "join pdf documents", "browser pdf tools", "merge multiple pdf files into one", "concatenate pdf", "how to merge multiple pdf files into one online free", "merge pdf without upload"]
 published_at: "2026-03-26"
+updated_at: "2026-04-27"
 ---
 ## Why Merge PDFs in Your Browser
 
@@ -128,3 +129,17 @@ Before merging sensitive PDFs online:
 - Clear browser cache after processing confidential documents
 
 Browser-based tools are secure, but basic security hygiene still applies.
+
+## Frequently Asked Questions
+
+**How do I merge PDFs without uploading them anywhere?**
+Use a browser-based tool that runs JavaScript locally — open [Merge PDF](/tools/merge-pdf), drag your files into the window, and the merge happens in your browser's memory. Open DevTools → Network tab before clicking merge and you'll see zero outbound requests. The merged file is generated locally and offered as a download. No file ever reaches a server.
+
+**What's the maximum size of PDFs I can merge in the browser?**
+Browser memory is the limit, not a service-imposed quota. On a 2020-era laptop with 8GB RAM, expect comfortable merging of 200-300MB total. On a phone with 4GB RAM, stay under 100MB to avoid tab crashes. If you hit a memory wall, compress the PDFs first ([Compress PDF](/tools/compress-pdf)) — that often drops total size by 40-60% and lets the merge complete.
+
+**Will the merged PDF preserve bookmarks, links, and form fields?**
+Yes, when the merger uses a real PDF library. JustUse.me uses pdf-lib, which copies bookmarks (called "Outlines" in the PDF spec), preserves internal links and cross-references, and keeps form fields intact. Cheaper concatenation tools that just splice the byte streams will produce a file that opens but loses bookmarks and breaks internal links — verify by opening the merged file in a real PDF reader and checking the bookmark sidebar.
+
+**Why do some merged PDFs end up larger than the sum of inputs?**
+Because each source PDF carries its own copy of fonts, images, and metadata, and naive merging keeps duplicate copies of all of them. Properly written tools deduplicate shared resources (fonts especially) and rebuild a single resource table. If your output is significantly larger than expected, run it through a PDF compressor afterward — modern compressors reclaim 20-40% by deduplicating embedded fonts and re-encoding images.
