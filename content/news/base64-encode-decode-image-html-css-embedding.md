@@ -1,5 +1,5 @@
 ---
-title: "Base64 Image Encoding: When to Embed Images Directly in HTML and CSS"
+title: "Base64 Encode Image for HTML & CSS Embedding (Online, Free)"
 summary: "Learn how Base64 encoding works for embedding images in HTML and CSS, including performance trade-offs and practical use cases."
 category: "use-case"
 tools: ["base64-codec"]

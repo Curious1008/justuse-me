@@ -1,5 +1,5 @@
 ---
-title: "Combine Multiple JPG Images Into One PDF Document"
+title: "Combine Multiple JPG Images Into One PDF (Free, No Upload)"
 summary: "Learn three methods to merge JPG photos into a single PDF file, including browser-based tools that process files locally without uploading."
 category: "tutorial"
 tools: ["jpg-to-pdf", "merge-pdf"]

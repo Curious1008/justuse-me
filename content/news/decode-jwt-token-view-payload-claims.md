@@ -1,5 +1,5 @@
 ---
-title: "Decoding JWT Tokens to Read Payload Claims (No Install Required)"
+title: "Decode JWT Token Online: View Payload, Claims & Header (Free)"
 summary: "Learn how to decode JWT tokens and inspect their payload claims in seconds, with practical tips on what each part means and how to debug auth issues."
 category: "tutorial"
 tools: ["jwt-decoder", "base64-codec"]

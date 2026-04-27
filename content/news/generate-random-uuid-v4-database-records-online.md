@@ -1,5 +1,5 @@
 ---
-title: "Generate Random UUID v4 for Database Records Online"
+title: "UUID v4 Generator: Random Unique IDs for Databases & APIs (Online, Free)"
 summary: "Learn how UUID v4 identifiers work, when to use them for database primary keys, and how to generate them securely in your browser."
 category: "use-case"
 tools: ["uuid-generator"]
